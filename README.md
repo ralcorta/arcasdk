@@ -4,7 +4,7 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/valiulab-core/Afip-SDK">
+  <a href="https://github.com/valiulab/Afip-SDK">
     <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="Afip.js" width="230">
   </a>
 
@@ -19,7 +19,7 @@
     <small> 
         Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
       <br />
-      <a href="https://github.com/valiulab-core/Afip-SDK/issues">Reportar un bug</a>
+      <a href="https://github.com/valiulab/Afip-SDK/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
@@ -98,13 +98,13 @@ Facturacion electrónica: https://www.afip.gob.ar/fe/ayuda//documentos/Manual-de
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab-core/Afip-SDK/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab-core/Afip-SDK/issues/new).
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/Afip-SDK/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/Afip-SDK/issues/new).
 
 ### Desarrollo
 
 Seria genial si puedes ayudarnos mejorando `Afip-SDK`. ¿Como hacer?
 
-1. [Clonar](https://github.com/valiulab-core/Afip-SDK).
+1. [Clonar](https://github.com/valiulab/Afip-SDK).
 
 2. `npm install`.
 
@@ -112,7 +112,7 @@ Seria genial si puedes ayudarnos mejorando `Afip-SDK`. ¿Como hacer?
 
 4. Correr los test: `npm test`.
 
-5. Cear un [Pull Request](https://github.com/valiulab-core/Afip-SDK/compare).
+5. Cear un [Pull Request](https://github.com/valiulab/Afip-SDK/compare).
 
 ## License
 
