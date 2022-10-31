@@ -32,6 +32,9 @@
     "soap": "^0.45.0",
     "xml2js": "^0.4.23"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/valiulab-core/afip.js.git"
