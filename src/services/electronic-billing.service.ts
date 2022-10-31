@@ -29,7 +29,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
    * Asks to web service for servers status
    **/
   async getServerStatus(): Promise<IFEDummyOutput> {
-    const client = await this.soapClient();
+    const client = await this.getClient();
     const [output] = await client.FEDummyAsync({});
     return output;
   }
@@ -41,10 +41,8 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
    * @return array All sales points availables
    **/
   public async getSalesPoints(): Promise<IGetSalesPointsResult> {
-    const client = await this.soapClient();
-    const [output] = await client.FEParamGetPtosVentaAsync(
-      await this.getAuthTokens()
-    );
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetPtosVentaAsync({});
     return output;
   }
 
@@ -60,10 +58,8 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
     salesPoint: number,
     type: number
   ): Promise<IFECompUltimoAutorizadoOutput> {
-    const auth = await this.getAuthTokens();
-    const client = await this.soapClient();
+    const client = await this.getClient();
     const [output] = await client.FECompUltimoAutorizadoAsync({
-      ...auth,
       PtoVta: salesPoint,
       CbteTipo: type,
     });
@@ -79,10 +75,8 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
    * @param req data Voucher parameter
    **/
   public async createVoucher(req: IVoucher): Promise<ICreateVoucherResult> {
-    const auth = await this.getAuthTokens();
-    const client = await this.soapClient();
+    const client = await this.getClient();
     const [output] = await client.FECAESolicitarAsync({
-      ...auth,
       FeCAEReq: {
         FeCabReq: {
           CantReg: req.CbteHasta - req.CbteDesde + 1,

@@ -2,7 +2,7 @@ import { Client } from "soap";
 
 /* tslint:disable:max-line-length no-empty-interface */
 export interface IFECAESolicitarInput {
-  Auth: ServiceSoapTypes.IAuth;
+  // Auth: ServiceSoapTypes.IAuth;
   FeCAEReq: ServiceSoapTypes.IFeCAEReq;
 }
 
@@ -153,7 +153,7 @@ export interface IFEParamGetTiposConceptoOutput {
 }
 
 export interface IFEParamGetPtosVentaInput {
-  Auth: ServiceSoapTypes.IAuth;
+  // Auth: ServiceSoapTypes.IAuth;
 }
 
 export interface IFEParamGetPtosVentaOutput {

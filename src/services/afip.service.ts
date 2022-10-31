@@ -1,3 +1,5 @@
+import { resolve } from "path";
+import fs from "fs";
 import { Client } from "soap";
 import { AfipContext } from "../afip-context";
 import { AccessTicket } from "../auth/access-ticket";
@@ -13,6 +15,14 @@ type AfipServiceSoapParam = SoapClientParams & {
   url_test?: EndpointsEnum;
   wsdl_test?: WsdlPathEnum;
 } & { serviceName: ServiceNamesEnum };
+
+type SoapServices<T> = Record<
+  "Service",
+  Record<
+    "ServiceSoap" | "ServiceSoap12",
+    Record<keyof T, Record<"input" | "output", Record<string, any>>>
+  >
+>;
 
 export class AfipService<T extends Client> {
   private _soapCliente?: T;
@@ -35,23 +45,48 @@ export class AfipService<T extends Client> {
     }
   }
 
-  public setTokens(tokens: WSAuthTokens): void {
-    this._tokens = tokens;
+  private async proxySoapClient(): Promise<T> {
+    const client = await this.instanceSoapClient();
+    return new Proxy(client, {
+      get: (target: T, prop: string) => {
+        const func = prop.endsWith("Async") ? prop.slice(0, -5) : prop;
+        if (target[func] instanceof Function) {
+          const soapServices: SoapServices<T> = client.describe();
+
+          // Get tokens only if the method exist and require Auth.
+          if (soapServices?.Service?.ServiceSoap?.[func]?.input?.["Auth"]) {
+            return async (req: Record<string, any>) => {
+              return target[prop]({
+                ...(await this.getAuthTokens()),
+                ...req,
+              });
+            };
+          }
+        }
+        return target[prop];
+      },
+    });
   }
 
-  protected async soapClient(): Promise<T> {
-    if (!this._soapCliente) {
-      this._soapCliente = await SoapClientFacade.create<T>({
-        wsdl: this._soapParams.wsdl,
-        options: {
-          disableCache: true,
-          ...this._soapParams.options,
-        },
-      });
-      this._soapCliente.setEndpoint(this._soapParams.url);
-    }
+  private async instanceSoapClient(): Promise<T> {
+    const client = await SoapClientFacade.create<T>({
+      wsdl: this._soapParams.wsdl,
+      options: {
+        disableCache: true,
+        ...this._soapParams.options,
+      },
+    });
+    client.setEndpoint(this._soapParams.url);
+    return client;
+  }
 
+  protected async getClient(): Promise<T> {
+    if (!this._soapCliente) this._soapCliente = await this.proxySoapClient();
     return this._soapCliente;
+  }
+
+  public setTokens(tokens: WSAuthTokens): void {
+    this._tokens = tokens;
   }
 
   /**
@@ -82,7 +117,7 @@ export class AfipService<T extends Client> {
    *
    * @param params Parameters to send
    **/
-  protected async getAuthTokens(): Promise<WSAuthParam> {
+  private async getAuthTokens(): Promise<WSAuthParam> {
     if (this._tokens) {
       if (AccessTicket.hasExpired(this._tokens.expirationDate)) {
         if (this.context.handleTicket) {
