@@ -1,18 +1,17 @@
 {
-  "name": "afip.js",
+  "name": "afip.ts",
   "version": "0.8.4",
-  "description": "afip.js",
+  "description": "Afip typescript SDK",
   "source": "src/index.ts",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "npx tsc",
     "test": "jest",
-    "test-local": "ts-node tests/test-afip",
-    "doc": "typedoc --theme oxide --name 'afip.js' --out docs src/index.ts",
+    "doc": "typedoc --theme oxide --name 'afip.ts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --"
   },
-  "author": "ValiuLab",
+  "author": "valiuLab",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.5.2",
@@ -37,16 +36,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valiulab/afip.js.git"
+    "url": "git+https://github.com/valiulab/afip.ts.git"
   },
   "bugs": {
-    "url": "https://github.com/valiulab/afip.js/issues"
+    "url": "https://github.com/valiulab/afip.ts/issues"
   },
-  "homepage": "https://github.com/valiulab/afip.js#readme",
+  "homepage": "https://github.com/valiulab/afip.ts#readme",
   "files": [
     "lib/**/*"
   ],
   "keywords": [
+    "web-service",
+    "factura-electronica",
+    "padron",
     "afip",
     "sdk",
     "package",

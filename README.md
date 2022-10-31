@@ -1,11 +1,11 @@
 # 🚀 Afip SDK
 
-[![npm](https://img.shields.io/npm/v/afip.js.svg?style=flat-square)](https://npmjs.org/package/afip.js)
+[![npm](https://img.shields.io/npm/v/afip.ts.svg?style=flat-square)](https://npmjs.org/package/afip.ts)
 
 <br />
 <p align="center">
-  <a href="https://github.com/valiulab/afip.js">
-    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="Afip.js" width="230">
+  <a href="https://github.com/valiulab/afip.ts">
+    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="afip.ts" width="230">
   </a>
 
   <h3 align="center">Afip SDK</h3>
@@ -13,18 +13,18 @@
   <p align="center">
     Package que provee una interfaz para consumir y usar los Web Services de AFIP
     <br />
-    <a href="https://valiulab-core.github.io/afip.js">Documentacion</a>
+    <a href="https://valiulab-core.github.io/afip.ts">Documentacion</a>
     <br />
     <br />
     <small> 
-        Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
+        Inspirado en <a href="https://github.com/AfipSDK/afip.ts">afip.ts</a> 
       <br />
-      <a href="https://github.com/valiulab/afip.js/issues">Reportar un bug</a>
+      <a href="https://github.com/valiulab/afip.ts/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
 
-<!-- [afip.js](https://github.com/AfipSDK/afip.js) -->
+<!-- [afip.ts](https://github.com/AfipSDK/afip.ts) -->
 
 #### Servicios disponibles
 
@@ -40,13 +40,13 @@
 ##### NPM
 
 ```sh
-npm i afip.js --save
+npm i afip.ts --save
 ```
 
 ##### Yarn
 
 ```sh
-yarn add afip.js
+yarn add afip.ts
 ```
 
 ### Uso de la SDK
@@ -106,13 +106,13 @@ Usamos ["semantic release library"](https://www.npmjs.com/package/semantic-relea
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/afip.js/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/afip.js/issues/new).
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/afip.ts/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/afip.ts/issues/new).
 
 ### Desarrollo
 
-Seria genial si puedes ayudarnos mejorando `afip.js`. ¿Como hacer?
+Seria genial si puedes ayudarnos mejorando `afip.ts`. ¿Como hacer?
 
-1. [Clonar](https://github.com/valiulab/afip.js).
+1. [Clonar](https://github.com/valiulab/afip.ts).
 
 2. `npm install`.
 
@@ -120,7 +120,7 @@ Seria genial si puedes ayudarnos mejorando `afip.js`. ¿Como hacer?
 
 4. Correr los test: `npm test`.
 
-5. Cear un [Pull Request](https://github.com/valiulab/afip.js/compare).
+5. Cear un [Pull Request](https://github.com/valiulab/afip.ts/compare).
 
 ## License
 
