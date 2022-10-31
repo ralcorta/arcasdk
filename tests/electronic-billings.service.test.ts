@@ -52,7 +52,7 @@ describe("Electronic Billings Service Test", () => {
         console.dir(voucher, { depth: 50 });
         expect(voucher).not.toBeNull();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         throw error;
       }
     });

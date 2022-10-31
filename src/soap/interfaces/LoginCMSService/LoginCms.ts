@@ -27,9 +27,9 @@ export interface ILoginCmsReturnHeaderVersion {
 export interface ILoginCmsReturnHeaderData {
   source: string;
   destination: string;
-  uniqueId: string;
-  generationTime: string;
-  expirationTime: string;
+  uniqueid: string;
+  generationtime: string;
+  expirationtime: string;
 }
 
 export interface ILoginCmsReturnHeaders {

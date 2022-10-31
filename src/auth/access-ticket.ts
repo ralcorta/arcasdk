@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment, { MomentInput } from "moment";
 import {
   ILoginCmsReturn,
   ILoginCmsReturnCredentials,
@@ -33,7 +33,7 @@ export class AccessTicket implements IAccessTicket {
   }
 
   getExpiration(): Date {
-    return moment(this.header[1].expirationTime).toDate();
+    return moment(this.header[1].expirationtime).toDate();
   }
 
   getHeaders(): ILoginCmsReturnHeaders {
@@ -53,10 +53,10 @@ export class AccessTicket implements IAccessTicket {
   }
 
   public isAccessTicketValid(): boolean {
-    return AccessTicket.hasExpired(this.getExpiration().toISOString());
+    return AccessTicket.hasExpired(this.getExpiration());
   }
 
-  public static hasExpired(expirationDateIsoFormat: string): boolean {
+  public static hasExpired(expirationDateIsoFormat: MomentInput): boolean {
     return moment(expirationDateIsoFormat).isAfter(new Date());
   }
 }
