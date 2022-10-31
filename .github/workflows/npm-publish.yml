@@ -1,32 +1,37 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-name: Afip.js Package
+# when someone changes the version in package.json to 1.2.3 and pushes a commit with the message Release 1.2.3, the npm-publish action will create a new tag v1.2.3 and publish the package to the npm registry.
+#
+# Inputs
+# These inputs are optional: that means that if you don't enter them, default values will be used and it'll work just fine.
+#
+# tag_name: the name pattern of the new tag (the placeholder '%s' must be there)
+# tag_message: the message pattern of the new tag (the placeholder '%s' must be there)
+# commit_pattern: pattern that the commit message needs to follow
 
+name: npm-publish
 on:
-  release:
-    types: [created]
-
+  push:
+    branches:
+      - main
 jobs:
-  # build:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - uses: actions/checkout@v3
-  #    - uses: actions/setup-node@v3
-  #      with:
-  #        node-version: 16
-  #    - run: npm ci
-  #    - run: npm test
-
-  publish-npm:
-    # needs: build
+  npm-publish:
+    name: npm-publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    - name: Checkout repository
+      uses: actions/checkout@master
+    - name: Set up Node.js
+      uses: actions/setup-node@master
+      with:
+        node-version: 18.0.0
+    - name: Publish if version has been updated
+      uses: houtianze/npm-publish-action@master
+      with: # All of theses inputs are optional
+        tag_name: "v%s"
+        tag_message: "v%s"
+        commit_pattern: "^(?:Release|Version) (\\S+)"
+      env: # More info about the environment variables in the README
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
