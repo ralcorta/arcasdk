@@ -1,3 +1,5 @@
+import { Client } from "soap";
+import { SoapAsyncFunc } from "../soap-async-func";
 /* tslint:disable:max-line-length no-empty-interface */
 export interface IgetPersonaInput {
   /** http://a5.soap.ws.server.puc.sr/#xs:string(undefined) */
@@ -65,7 +67,7 @@ export interface IgetPersonaList_v2Output {
   personaListReturn: PersonaServiceA5PortTypes.IpersonaListReturn;
 }
 
-export interface IPersonaServiceA5PortSoap {
+export interface IPersonaServiceA5PortSoap extends Client {
   getPersona: (
     input: IgetPersonaInput,
     cb: (
@@ -77,6 +79,7 @@ export interface IPersonaServiceA5PortSoap {
     options?: any,
     extraHeaders?: any
   ) => void;
+  getPersonaAsync: SoapAsyncFunc<IgetPersonaInput, IgetPersonaOutput>;
   getPersonaList: (
     input: IgetPersonaListInput,
     cb: (
@@ -88,6 +91,10 @@ export interface IPersonaServiceA5PortSoap {
     options?: any,
     extraHeaders?: any
   ) => void;
+  getPersonaListAsync: SoapAsyncFunc<
+    IgetPersonaListInput,
+    IgetPersonaListOutput
+  >;
   getPersona_v2: (
     input: IgetPersona_v2Input,
     cb: (
@@ -99,6 +106,7 @@ export interface IPersonaServiceA5PortSoap {
     options?: any,
     extraHeaders?: any
   ) => void;
+  getPersona_v2Async: SoapAsyncFunc<IgetPersona_v2Input, IgetPersona_v2Output>;
   dummy: (
     input: IdummyInput,
     cb: (
@@ -110,6 +118,7 @@ export interface IPersonaServiceA5PortSoap {
     options?: any,
     extraHeaders?: any
   ) => void;
+  dummyAsync: SoapAsyncFunc<IdummyInput, IdummyOutput>;
   getPersonaList_v2: (
     input: IgetPersonaList_v2Input,
     cb: (
@@ -121,6 +130,10 @@ export interface IPersonaServiceA5PortSoap {
     options?: any,
     extraHeaders?: any
   ) => void;
+  getPersonaList_v2Async: SoapAsyncFunc<
+    IgetPersonaList_v2Input,
+    IgetPersonaList_v2Output
+  >;
 }
 
 export namespace PersonaServiceA5PortTypes {

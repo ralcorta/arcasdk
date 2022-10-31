@@ -28,6 +28,10 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
 
   /**
    * Asks to web service for servers status
+   *
+   * @return object { AppServer : Web Service status,
+   * DbServer : Database status, AuthServer : Autentication
+   * server status}
    **/
   async getServerStatus(): Promise<IFEDummyOutput> {
     const client = await this.getClient();

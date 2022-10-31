@@ -1,12 +1,7 @@
 import { Client } from "soap";
+import { SoapAsyncFunc } from "../soap-async-func";
 
 /* tslint:disable:max-line-length no-empty-interface */
-
-type SoapAsyncFunc<I, O> = (
-  input: I,
-  options?: any,
-  extraHeaders?: any
-) => Promise<[O, string, { [k: string]: any }, string]>;
 
 export interface IFECAESolicitarInput {
   // Auth: ServiceSoap12Types.IAuth;
