@@ -66,16 +66,14 @@ const afip: Afip = new Afip({
   cuit: 20111111112,
 });
 
-const voucherData = {
-  // invoice data
-};
-
-const voucher = await afip.electronicBillingService.createInvoice(voucherData);
+const voucher = await afip.electronicBillingService.createInvoice({
+  // voucher data
+});
 ```
 
 <br>
 
-La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ahi esta explicado todas las acciones que puede tomar afip.
+La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ahi esta explicado todos los comportamientos que puede tomar afip.
 
 #### Comportamientos
 
