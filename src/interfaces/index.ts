@@ -1,9 +1,7 @@
 import {
-  IFECAESolicitarOutput,
   IFEParamGetPtosVentaOutput,
-  ServiceSoapTypes,
-} from "./../soap/interfaces/Service/ServiceSoap";
-
+  ServiceSoap12Types,
+} from "../soap/interfaces/Service/ServiceSoap12";
 export interface IVoucher {
   CantReg: number;
   PtoVta: number;
@@ -66,7 +64,7 @@ export interface ITributo {
 }
 
 export interface ICreateVoucherResult {
-  response: IFECAESolicitarOutput;
+  response: ServiceSoap12Types.IFECAESolicitarResult;
   cae: string;
   caeFchVto: string;
 }

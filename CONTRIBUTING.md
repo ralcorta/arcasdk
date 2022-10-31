@@ -1,19 +1,19 @@
-## Contributing & Development
+## Desarrollo y contribuciones
 
-### Contributing
+### Contribuciones
 
-Found a bug or want to suggest something? Take a look first on the current and closed [issues](https://github.com/valiulab-core/Afip-SDK/issues). If it is something new, please [submit an issue](https://github.com/valiulab-core/Afip-SDK/issues/new).
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/Afip-SDK/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/Afip-SDK/issues/new).
 
-### Develop
+### Desarrollo
 
-It will be awesome if you can help us evolve `Afip-SDK`. Want to help?
+Seria genial si puedes ayudarnos mejorando `Afip-SDK`. ¿Como hacer?
 
-1. [Fork it](https://github.com/valiulab-core/Afip-SDK).
+1. [Clonar](https://github.com/valiulab/Afip-SDK).
 
 2. `npm install`.
 
-3. Hack away.
+3. Rompela escribiendo tu codigo.
 
-4. Run the tests: `npm test`.
+4. Correr los test: `npm test`.
 
-5. Create a [Pull Request](https://github.com/valiulab-core/Afip-SDK/compare).
+5. Cear un [Pull Request](https://github.com/valiulab/Afip-SDK/compare).

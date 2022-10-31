@@ -10,7 +10,15 @@ import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { SoapClientFacade, SoapClientParams } from "../soap/soap-client-facade";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 
+enum SoapServiceVersion {
+  /** Version 1.2 */
+  ServiceSoap12 = "ServiceSoap12",
+  /** Common version */
+  ServiceSoap = "ServiceSoap",
+}
+
 type AfipServiceSoapParam = SoapClientParams & {
+  v12?: boolean;
   url: EndpointsEnum;
   url_test?: EndpointsEnum;
   wsdl_test?: WsdlPathEnum;
@@ -19,7 +27,7 @@ type AfipServiceSoapParam = SoapClientParams & {
 type SoapServices<T> = Record<
   "Service",
   Record<
-    "ServiceSoap" | "ServiceSoap12",
+    SoapServiceVersion,
     Record<keyof T, Record<"input" | "output", Record<string, any>>>
   >
 >;
@@ -37,6 +45,7 @@ export class AfipService<T extends Client> {
     this._afipAuth = new AfipAuth(context);
     this._serviceName = this._soapParams.serviceName;
     this._tokens = this.context.authTokens;
+    this._soapParams.v12 = this._soapParams.v12 || false;
 
     if (!this.context.production) {
       this._soapParams.url = this._soapParams.url_test ?? this._soapParams.url;
@@ -52,9 +61,12 @@ export class AfipService<T extends Client> {
         const func = prop.endsWith("Async") ? prop.slice(0, -5) : prop;
         if (target[func] instanceof Function) {
           const soapServices: SoapServices<T> = client.describe();
+          const soapVersion = this._soapParams.v12
+            ? SoapServiceVersion.ServiceSoap12
+            : SoapServiceVersion.ServiceSoap;
 
           // Get tokens only if the method exist and require Auth.
-          if (soapServices?.Service?.ServiceSoap?.[func]?.input?.["Auth"]) {
+          if (soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"]) {
             return async (req: Record<string, any>) => {
               return target[prop]({
                 ...(await this.getAuthTokens()),
@@ -73,6 +85,7 @@ export class AfipService<T extends Client> {
       wsdl: this._soapParams.wsdl,
       options: {
         disableCache: true,
+        forceSoap12Headers: this._soapParams.v12,
         ...this._soapParams.options,
       },
     });

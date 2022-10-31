@@ -37,7 +37,7 @@ export interface IFECompUltimoAutorizadoOutput {
 }
 
 export interface IFECompConsultarInput {
-  Auth: ServiceSoapTypes.IAuth;
+  // Auth: ServiceSoapTypes.IAuth;
   FeCompConsReq: ServiceSoapTypes.IFeCompConsReq;
 }
 
@@ -258,6 +258,11 @@ export interface IServiceSoapSoap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
+  FECompConsultarAsync: (
+    input: IFECompConsultarInput,
+    options?: any,
+    extraHeaders?: any
+  ) => Promise<[IFECompConsultarOutput, string, { [k: string]: any }, string]>;
   FECAEARegInformativo: (
     input: IFECAEARegInformativoInput,
     cb: (

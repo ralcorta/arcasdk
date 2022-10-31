@@ -1,10 +1,10 @@
 import { AfipService } from "./afip.service";
 import { AfipContext } from "../afip-context";
 import {
-  IFECompUltimoAutorizadoOutput,
   IFEDummyOutput,
-  IServiceSoapSoap,
-} from "../soap/interfaces/Service/ServiceSoap";
+  IServiceSoap12Soap,
+  ServiceSoap12Types,
+} from "../soap/interfaces/Service/ServiceSoap12";
 import { EndpointsEnum } from "../endpoints.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import {
@@ -14,7 +14,7 @@ import {
 } from "../interfaces";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 
-export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
+export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   constructor(context: AfipContext) {
     super(context, {
       url: EndpointsEnum.WSFEV1,
@@ -22,6 +22,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
       wsdl: WsdlPathEnum.WSFE,
       wsdl_test: WsdlPathEnum.WSFE_TEST,
       serviceName: ServiceNamesEnum.WSFE,
+      v12: true,
     });
   }
 
@@ -57,13 +58,13 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
   async getLastVoucher(
     salesPoint: number,
     type: number
-  ): Promise<IFECompUltimoAutorizadoOutput> {
+  ): Promise<ServiceSoap12Types.IFECompUltimoAutorizadoResult> {
     const client = await this.getClient();
     const [output] = await client.FECompUltimoAutorizadoAsync({
       PtoVta: salesPoint,
       CbteTipo: type,
     });
-    return output;
+    return output.FECompUltimoAutorizadoResult;
   }
 
   /**
@@ -104,11 +105,12 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
       },
     });
 
+    const { FECAESolicitarResult } = output;
+
     return {
-      response: output,
-      cae: output.FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAE,
-      caeFchVto:
-        output.FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAEFchVto,
+      response: FECAESolicitarResult,
+      cae: FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAE,
+      caeFchVto: FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAEFchVto,
     };
   }
 
@@ -123,13 +125,122 @@ export class ElectronicBillingService extends AfipService<IServiceSoapSoap> {
    **/
   async createNextVoucher(req: IVoucher) {
     const lastVoucher = await this.getLastVoucher(req.PtoVta, req.CbteTipo);
-
-    const voucherNumber = lastVoucher.FECompUltimoAutorizadoResult.CbteNro + 1;
+    const voucherNumber = lastVoucher.CbteNro + 1;
 
     req.CbteDesde = voucherNumber;
     req.CbteHasta = voucherNumber;
 
     return await this.createVoucher(req);
+  }
+
+  /**
+   * Get voucher information
+   *
+   * Asks to AFIP servers for complete information of voucher
+   *
+   * @param number 		Number of voucher to get information
+   * @param salesPoint 	Sales point of voucher to get information
+   * @param type 			Type of voucher to get information
+   *
+   * @return data with array | null returns array with complete voucher information
+   **/
+  async getVoucherInfo(
+    number: number,
+    salesPoint: number,
+    type: number
+  ): Promise<ServiceSoap12Types.IFECompConsultarResult | null> {
+    const client = await this.getClient();
+    const req = {
+      FeCompConsReq: {
+        CbteNro: number,
+        PtoVta: salesPoint,
+        CbteTipo: type,
+      },
+    };
+
+    try {
+      const [output] = await client.FECompConsultarAsync(req);
+      return output.FECompConsultarResult;
+    } catch (error) {
+      const err = error as any; // They send a custom error and we need to parse it
+      if (err?.code === 602) return null;
+      throw error;
+    }
+  }
+
+  /**
+   * Asks to AFIP Servers for voucher types availables
+   **/
+  async getVoucherTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposCbteResult> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposCbteAsync({});
+    return output.FEParamGetTiposCbteResult;
+  }
+
+  /**
+   * Asks to AFIP Servers for voucher concepts availables
+   *
+   * @return data with array of all voucher concepts availables
+   **/
+  async getConceptTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposConceptoResult> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposConceptoAsync({});
+    return output.FEParamGetTiposConceptoResult;
+  }
+
+  /**
+   * Asks to AFIP Servers for document types availables
+   *
+   * @return data with array of all document types availables
+   **/
+  async getDocumentTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposDocResult> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposDocAsync({});
+    return output.FEParamGetTiposDocResult;
+  }
+
+  /**
+   * Asks to AFIP Servers for aliquot availables
+   *
+   * @return data with array of all aliquot availables
+   **/
+  async getAliquotTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposIvaResult> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposIvaAsync({});
+    return output.FEParamGetTiposIvaResult;
+  }
+
+  /**
+   * Asks to AFIP Servers for currencies availables
+   *
+   * @return data with array of all currencies availables
+   **/
+  async getCurrenciesTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposMonedasResult> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposMonedasAsync({});
+    return output.FEParamGetTiposMonedasResult;
+  }
+
+  /**
+   * Asks to AFIP Servers for voucher optional data available
+   *
+   * @return data with array of all voucher optional data available
+   **/
+  async getOptionsTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposOpcionalResult> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposOpcionalAsync({});
+    return output.FEParamGetTiposOpcionalResult;
+  }
+
+  /**
+   * Asks to AFIP Servers for tax availables
+   *
+   * @return data with array of all tax availables
+   **/
+  async getTaxTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposTributosResult> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposTributosAsync({});
+    return output.FEParamGetTiposTributosResult;
   }
 
   /**
