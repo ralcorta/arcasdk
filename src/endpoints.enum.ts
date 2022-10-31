@@ -28,4 +28,10 @@ export enum EndpointsEnum {
    **/
   WSSR_PADRON_TEN = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA10",
   WSSR_PADRON_TEN_TEST = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA10",
+
+  /**
+   * WS Padron 13
+   **/
+  WSSR_PADRON_THIRTEEN = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA13",
+  WSSR_PADRON_THIRTEEN_TEST = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA13",
 }

@@ -12,4 +12,7 @@ export enum WsdlPathEnum {
 
   WSSR_PADRON_TEN = "ws_sr_padron_a10-production.wsdl",
   WSSR_PADRON_TEN_TEST = "ws_sr_padron_a10.wsdl",
+
+  WSSR_PADRON_THIRTEEN = "ws_sr_padron_a13-production.wsdl",
+  WSSR_PADRON_THIRTEEN_TEST = "ws_sr_padron_a13.wsdl",
 }
