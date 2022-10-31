@@ -1,4 +1,3 @@
-import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { ServiceSoapTypes } from "../soap/interfaces/Service/ServiceSoap";
 
 export type WSAuthParam = { Auth: ServiceSoapTypes.IAuth };

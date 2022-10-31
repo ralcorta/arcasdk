@@ -1,10 +1,10 @@
 # 🚀 Afip SDK
 
-[![npm](https://img.shields.io/npm/v/Afip-SDK.svg?style=flat-square)](https://npmjs.org/package/Afip-SDK)
+[![npm](https://img.shields.io/npm/v/afip.js.svg?style=flat-square)](https://npmjs.org/package/afip.js)
 
 <br />
 <p align="center">
-  <a href="https://github.com/valiulab/Afip-SDK">
+  <a href="https://github.com/valiulab/afip.js">
     <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="Afip.js" width="230">
   </a>
 
@@ -13,13 +13,13 @@
   <p align="center">
     Package que provee una interfaz para consumir y usar los Web Services de AFIP
     <br />
-    <a href="https://valiulab-core.github.io/Afip-SDK">Documentacion</a>
+    <a href="https://valiulab-core.github.io/afip.js">Documentacion</a>
     <br />
     <br />
     <small> 
         Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
       <br />
-      <a href="https://github.com/valiulab/Afip-SDK/issues">Reportar un bug</a>
+      <a href="https://github.com/valiulab/afip.js/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
@@ -40,13 +40,13 @@
 ##### NPM
 
 ```sh
-npm i Afip-SDK --save
+npm i afip.js --save
 ```
 
 ##### Yarn
 
 ```sh
-yarn add Afip-SDK
+yarn add afip.js
 ```
 
 ### Uso de la SDK
@@ -94,25 +94,15 @@ Facturacion electrónica: https://www.afip.gob.ar/fe/ayuda//documentos/Manual-de
 
 ## Desarrollo y contribuciones
 
-### Commit
-
-Usamos ["semantic release library"](https://www.npmjs.com/package/semantic-release) (https://www.npmjs.com/package/semantic-release) para generar nuestras nuevas versiones, tags y changelogs. Para esto necesitamos specificar un mensaje en los commits con un formato que permita determinar que version es aumentada, y tambien ayudar a mejorar el CHANGELOG.md
-
-| Commit message                                                                                                                                                                                   | Release type               |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |
-| `fix(pencil): stop graphite breaking when too much pressure applied`                                                                                                                             | Patch Release              |
-| `feat(pencil): add 'graphiteWidth' option`                                                                                                                                                       | ~~Minor~~ Feature Release  |
-| `perf(pencil): remove graphiteWidth option`<br><br>`BREAKING CHANGE: The graphiteWidth option has been removed.`<br>`The default graphite width of 10mm is always used for performance reasons.` | ~~Major~~ Breaking Release |
-
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/Afip-SDK/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/Afip-SDK/issues/new).
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/afip.js/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/afip.js/issues/new).
 
 ### Desarrollo
 
-Seria genial si puedes ayudarnos mejorando `Afip-SDK`. ¿Como hacer?
+Seria genial si puedes ayudarnos mejorando `afip.js`. ¿Como hacer?
 
-1. [Clonar](https://github.com/valiulab/Afip-SDK).
+1. [Clonar](https://github.com/valiulab/afip.js).
 
 2. `npm install`.
 
@@ -120,7 +110,7 @@ Seria genial si puedes ayudarnos mejorando `Afip-SDK`. ¿Como hacer?
 
 4. Correr los test: `npm test`.
 
-5. Cear un [Pull Request](https://github.com/valiulab/Afip-SDK/compare).
+5. Cear un [Pull Request](https://github.com/valiulab/afip.js/compare).
 
 ## License
 
