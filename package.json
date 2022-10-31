@@ -1,5 +1,5 @@
 {
-  "name": "afip.js",
+  "name": "afipjs-sdk",
   "version": "0.8.4",
   "description": "afip.js",
   "source": "src/index.ts",
