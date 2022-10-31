@@ -1,3 +1,5 @@
+import { Client } from "soap";
+import { SoapAsyncFunc } from "../soap-async-func";
 /* tslint:disable:max-line-length no-empty-interface */
 export interface IdummyInput {}
 
@@ -20,7 +22,7 @@ export interface IgetPersonaOutput {
   personaReturn: PersonaServiceA4PortTypes.IpersonaReturn;
 }
 
-export interface IPersonaServiceA4PortSoap {
+export interface IPersonaServiceA4PortSoap extends Client {
   dummy: (
     input: IdummyInput,
     cb: (
@@ -32,6 +34,7 @@ export interface IPersonaServiceA4PortSoap {
     options?: any,
     extraHeaders?: any
   ) => void;
+  dummyAsync: SoapAsyncFunc<IdummyInput, IdummyOutput>;
   getPersona: (
     input: IgetPersonaInput,
     cb: (
@@ -43,6 +46,7 @@ export interface IPersonaServiceA4PortSoap {
     options?: any,
     extraHeaders?: any
   ) => void;
+  getPersonaAsync: SoapAsyncFunc<IgetPersonaInput, IgetPersonaOutput>;
 }
 
 export namespace PersonaServiceA4PortTypes {

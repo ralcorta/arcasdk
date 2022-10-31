@@ -12,7 +12,13 @@ export enum EndpointsEnum {
   WSFEV1_TEST = "https://wswhomo.afip.gov.ar/wsfev1/service.asmx",
 
   /**
-   * WS Padron
+   * WS Padron 4
+   **/
+  WSSR_PADRON_FOUR = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA4",
+  WSSR_PADRON_FOUR_TEST = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4",
+
+  /**
+   * WS Padron 5
    **/
   WSSR_PADRON_FIVE = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5",
   WSSR_PADRON_FIVE_TEST = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5",

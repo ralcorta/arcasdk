@@ -17,7 +17,7 @@ enum SoapServiceVersion {
   ServiceSoap = "ServiceSoap",
 }
 
-type AfipServiceSoapParam = SoapClientParams & {
+export type AfipServiceSoapParam = SoapClientParams & {
   v12?: boolean;
   url: EndpointsEnum;
   url_test?: EndpointsEnum;

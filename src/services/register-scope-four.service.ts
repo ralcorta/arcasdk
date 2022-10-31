@@ -4,18 +4,18 @@ import { EndpointsEnum } from "../endpoints.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import {
-  IPersonaServiceA5PortSoap,
-  PersonaServiceA5PortTypes,
-} from "../soap/interfaces/PersonaServiceA5/PersonaServiceA5Port";
+  IPersonaServiceA4PortSoap,
+  PersonaServiceA4PortTypes,
+} from "../soap/interfaces/PersonaServiceA4/PersonaServiceA4Port";
 
-export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortSoap> {
+export class RegisterScopeFourService extends AfipService<IPersonaServiceA4PortSoap> {
   constructor(context: AfipContext) {
     super(context, {
-      url: EndpointsEnum.WSSR_PADRON_FIVE,
-      url_test: EndpointsEnum.WSSR_PADRON_FIVE_TEST,
-      wsdl: WsdlPathEnum.WSSR_PADRON_FIVE,
-      wsdl_test: WsdlPathEnum.WSSR_PADRON_FIVE_TEST,
-      serviceName: ServiceNamesEnum.WSSR_PADRON_FIVE,
+      url: EndpointsEnum.WSSR_PADRON_FOUR,
+      url_test: EndpointsEnum.WSSR_PADRON_FOUR_TEST,
+      wsdl: WsdlPathEnum.WSSR_PADRON_FOUR,
+      wsdl_test: WsdlPathEnum.WSSR_PADRON_FOUR_TEST,
+      serviceName: ServiceNamesEnum.WSSR_PADRON_FOUR,
       v12: false,
     });
   }
@@ -41,34 +41,15 @@ export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortS
    **/
   async getTaxpayerDetails(
     identifier: number
-  ): Promise<PersonaServiceA5PortTypes.IpersonaReturn> {
+  ): Promise<PersonaServiceA4PortTypes.IpersonaReturn> {
     const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
-    const [output] = await client.getPersona_v2Async({
+    const [output] = await client.getPersonaAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,
       token: Auth.Token,
       idPersona: identifier,
     });
     return output.personaReturn;
-  }
-
-  /**
-   * Asks to web service for taxpayers details
-   *
-   * @return [object] returns web service full response
-   **/
-  async getTaxpayersDetails(
-    identifier: number
-  ): Promise<PersonaServiceA5PortTypes.IpersonaListReturn> {
-    const { Auth } = await this.getAuthTokens();
-    const client = await this.getClient();
-    const [output] = await client.getPersonaList_v2Async({
-      cuitRepresentada: Auth.Cuit,
-      sign: Auth.Sign,
-      token: Auth.Token,
-      idPersona: identifier,
-    });
-    return output.personaListReturn;
   }
 }
