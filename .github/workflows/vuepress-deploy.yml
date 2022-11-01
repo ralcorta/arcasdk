@@ -24,3 +24,4 @@ jobs:
         BUILD_SCRIPT: npm i && npm run docs:build
         BUILD_DIR: docs/.vuepress/dist
         CNAME: https://afip.js
+        TARGET_LINK: https://valiulab.github.io/afip.ts/
