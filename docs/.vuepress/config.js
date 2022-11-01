@@ -30,6 +30,7 @@ module.exports = {
     repo: 'https://github.com/valiulab/afip.ts',
     editLinks: true,
     docsDir: 'docs',
+    docsBranch: 'main',
     editLinkText: 'Editar',
     lastUpdated: true,
     nav: [
@@ -62,5 +63,5 @@ module.exports = {
   plugins: [
     '@vuepress/plugin-back-to-top',
     '@vuepress/plugin-medium-zoom',
-  ]
+  ],
 }
