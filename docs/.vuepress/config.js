@@ -1,7 +1,7 @@
 const { description } = require('../../package')
 
 module.exports = {
-  base: 'https://valiulab.github.io/afip.ts'
+  base: 'https://valiulab.github.io/afip.ts',
 
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
