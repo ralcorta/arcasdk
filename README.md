@@ -8,30 +8,21 @@
     <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="afip.ts" width="230">
   </a>
 
-  <h3 align="center">Afip SDK</h3>
+  <h3 align="center">Afip Ts</h3>
 
   <p align="center">
-    Package que provee una interfaz para consumir y usar los Web Services de AFIP
+    SDK para consumir y usar los Web Services de AFIP
     <br />
-    <a href="https://valiulab.github.io/afip.ts">Documentacion</a>
+    <a href="https://valiulab.github.io/afip.ts">Ver documentacion completa</a>
     <br />
     <br />
     <small> 
-        Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.ts</a> 
+        Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
       <br />
       <a href="https://github.com/valiulab/afip.ts/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
-
-<!-- [afip.ts](https://github.com/AfipSDK/afip.js) -->
-
-#### Servicios disponibles
-
-- [Web Services](https://www.afip.gob.ar/ws/documentacion/arquitectura-general.asp)
-  - [Autenticación](https://www.afip.gob.ar/ws/WSAA/WSAAmanualDev.pdf)
-  - [Factura electronica](https://www.afip.gob.ar/fe/ayuda//documentos/Manual-desarrollador-V.2.21.pdf)
-  - Comming soon...
 
 ## Guia
 
@@ -55,6 +46,8 @@ yarn add afip.ts
 
 Se debe tener los certificados emitidos por AFIP, ya sean para los servidores de homologacion o produccion, para poder pasarselos como parametro al paquete y que este haga uso de ellos para comunicarse con los web services.
 
+[Documentacion oficial de certificados](https://www.afip.gob.ar/ws/documentacion/certificados.asp)
+
 ##### Ejemplo basico
 
 Ejemplo de como generar factura electronica:
@@ -69,22 +62,17 @@ const afip: Afip = new Afip({
 const voucher = await afip.electronicBillingService.createInvoice({
   // voucher data
 });
+
+const points = await afip.electronicBillingService.getSalesPoints();
 ```
 
 <br>
 
 La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ahi esta explicado todos los comportamientos que puede tomar afip.
 
-#### Comportamientos
+- Soporte para `Serverless Functions`
 
-Para poder comunicarse con los Web Services de AFIP se debe autenticar con su servicio de [WSAA](https://www.afip.gob.ar/ws/WSAA/WSAAmanualDev.pdf) el cual retorna los tokens necesarios con una validez de hasta 12 horas.
-Este servicio de autenticacion solo puede ser llamado cada 2 minutos en los servidores de produccion y hasta 10 minutos en los servidores de homologiacion.
-
-Para esto otros paquetes internamente generan archivos donde guardan estos tokens de manera local en el servidor usando el file sistem de Node (require('fs')). Esto es un problema cuando se ejecuta sobre funciones serverless como las Lambdas de AWS.
-
-Este paquete permite manejar los tickets de acceso (TA que devuelve con los tokens AFIP) de manera personals si se desea, permitiendo tomar datos y guardarlos donde les sea mas conveniente, como en una BD, un S3, o algun storage provider.
-
-Aun asi, si no se quiere manejar personalmente y que se guarden en el servidor, pueden no especificar nada en el contexto de la clase Afip al momento de instanciarlo y este guardara JSONs con los tokens dentro de la carpeta del paquete (Por default root/src/auth/tickets, aunque se puede cambiar desde el constructor).
+Para mas <strong>documentacion</strong> del package, ir al [sitio oficial](https://valiulab.github.io/afip.ts).
 
 ## Desarrollo y contribuciones
 

@@ -11,6 +11,8 @@ Para usar la SDK debemos instanciar la clase `Afip` con los siguientes minimos d
 Esto data como resultado un objecto con los respectivos servicios disponibles para usar, como por ejemplo `electronicBillingService`:
 
 ```ts
+import { Afip } from "afip.ts";
+
 const afip: Afip = new Afip({
   key: "private_key_content",
   cert: "crt_content",

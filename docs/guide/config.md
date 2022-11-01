@@ -1,8 +1,12 @@
-# Configuración
+# Contexto
 
-### Context:
+### Afip Context:
 
 La clase `Afip` recibe como parametro un objecto de tipo `Context` el cual provee de los datos basicos necesarios para el uso de los Web Services de Afip, como tambien de como debe comportarse:
+
+```ts
+const instance = new Afip(Context);
+```
 
 - `Context`:
   - `production` <small>(boolean)</small>: Flag que permite indicar si se usara los servicios de produccion o de homologacion (Testing).
