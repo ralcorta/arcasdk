@@ -23,5 +23,5 @@ jobs:
         TARGET_BRANCH: gh-pages
         BUILD_SCRIPT: npm i && npm run docs:build
         BUILD_DIR: docs/.vuepress/dist
-        CNAME: https://www.afip.js
+        CNAME: https://www.afipjs.com
         
