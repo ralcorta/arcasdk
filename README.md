@@ -13,18 +13,18 @@
   <p align="center">
     Package que provee una interfaz para consumir y usar los Web Services de AFIP
     <br />
-    <a href="https://valiulab-core.github.io/afip.ts">Documentacion</a>
+    <a href="https://valiulab.github.io/afip.ts">Documentacion</a>
     <br />
     <br />
     <small> 
-        Inspirado en <a href="https://github.com/AfipSDK/afip.ts">afip.ts</a> 
+        Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.ts</a> 
       <br />
       <a href="https://github.com/valiulab/afip.ts/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
 
-<!-- [afip.ts](https://github.com/AfipSDK/afip.ts) -->
+<!-- [afip.ts](https://github.com/AfipSDK/afip.js) -->
 
 #### Servicios disponibles
 
