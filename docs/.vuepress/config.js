@@ -37,7 +37,7 @@ module.exports = {
     lastUpdated: true,
     nav: [
       {
-        text: 'Guide',
+        text: 'Guia',
         link: '/guide/',
       },
       // {
@@ -48,15 +48,17 @@ module.exports = {
     sidebar: {
       '/guide/': [
         {
-          title: 'Índice',
+          title: 'Guia',
           collapsable: false,
           children: [
             '',
             'basic-use',
             'config',
+            'behaviour',
+            'services'
           ]
-        }
-      ],
+        },
+      ]
     }
   },
 
