@@ -40,10 +40,10 @@ module.exports = {
         text: 'Guide',
         link: '/guide/',
       },
-      {
-        text: 'Config',
-        link: '/config/'
-      }
+      // {
+      //   text: 'Config',
+      //   link: '/config/'
+      // }
     ],
     sidebar: {
       '/guide/': [
@@ -53,6 +53,7 @@ module.exports = {
           children: [
             '',
             'basic-use',
+            'config',
           ]
         }
       ],
@@ -66,4 +67,20 @@ module.exports = {
     '@vuepress/plugin-back-to-top',
     '@vuepress/plugin-medium-zoom',
   ],
+
+  locales: {
+    // The key is the path for the locale to be nested under.
+    // As a special case, the default locale can use '/' as its path.
+    '/': {
+      lang: 'es', // this will be set as the lang attribute on <html>
+      title: 'Afip.ts',
+      description: 'SDK para Web Services de Afip'
+    },
+    '/en/': {
+      lang: 'en-US',
+      title: 'Afip.ts',
+      description: 'Nodejs Package to use Afip Web Services'
+    }
+  }
+
 }

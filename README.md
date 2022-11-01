@@ -86,12 +86,6 @@ Este paquete permite manejar los tickets de acceso (TA que devuelve con los toke
 
 Aun asi, si no se quiere manejar personalmente y que se guarden en el servidor, pueden no especificar nada en el contexto de la clase Afip al momento de instanciarlo y este guardara JSONs con los tokens dentro de la carpeta del paquete (Por default root/src/auth/tickets, aunque se puede cambiar desde el constructor).
 
-## Documentacion Afip
-
-Autenticacion: https://www.afip.gob.ar/ws/WSAA/WSAAmanualDev.pdf
-
-Facturacion electrónica: https://www.afip.gob.ar/fe/ayuda//documentos/Manual-desarrollador-V.2.21.pdf
-
 ## Desarrollo y contribuciones
 
 ### Commit

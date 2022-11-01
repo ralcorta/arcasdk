@@ -11,14 +11,14 @@ export type AfipContext = {
   production?: boolean;
 
   /**
-   * File name for the X.509 certificate in PEM format
+   * Content file for the X.509 certificate in PEM format
    *
    * @var string
    **/
   cert: string;
 
   /**
-   * File name for the private key correspoding to CERT (PEM)
+   * Content file for the private key correspoding to CERT (PEM)
    *
    * @var string
    **/
@@ -32,7 +32,7 @@ export type AfipContext = {
   cuit: number;
 
   /**
-   * Tokens object object if you have one created before
+   * Tokens object if you have one created before
    *
    * @var authTokens
    **/
