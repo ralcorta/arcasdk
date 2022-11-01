@@ -1,7 +1,7 @@
 const { description } = require('../../package')
 
 module.exports = {
-  base: '/afip.ts/',
+  // base: '/afip.ts/',
 
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
