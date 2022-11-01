@@ -14,13 +14,13 @@ jobs:
       uses: actions/setup-node@v2
       with:
         registry-url: https://registry.npmjs.org/
-        node-version: '16'
+        node-version: '16.10.0'
     - name: vuepress-deploy
       uses: jenkey2011/vuepress-deploy@master
       env:
         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TARGET_REPO: valiulab/afip.ts
         TARGET_BRANCH: main
-        BUILD_SCRIPT: yarn && yarn docs:build
+        BUILD_SCRIPT: npm i && npm run docs:build
         BUILD_DIR: docs/.vuepress/dist
         CNAME: https://afip.js
