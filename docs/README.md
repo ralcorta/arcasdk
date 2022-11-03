@@ -7,7 +7,7 @@ actionLink: /guide/
 features:
   - title: Typescript First
     details: Escrito desde el comienzo en typescript.
-  - title: Serverless Handler
+  - title: Serverless Support
     details: Manejo personalizado de tokens de acceso para ser utilizado en aplicaciones serverless.
   - title: Facil y simple
     details: Simple de usar y configurar.

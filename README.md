@@ -53,6 +53,8 @@ Se debe tener los certificados emitidos por AFIP, ya sean para los servidores de
 Ejemplo de como generar factura electronica:
 
 ```ts
+import { Afip } from "afip.ts";
+
 const afip: Afip = new Afip({
   key: "private_key_content",
   cert: "crt_content",
@@ -60,9 +62,12 @@ const afip: Afip = new Afip({
 });
 
 const voucher = await afip.electronicBillingService.createInvoice({
-  // voucher data
+  /**
+   * Invoice / Voucher Data
+   */
 });
 
+// Otros servicios
 const points = await afip.electronicBillingService.getSalesPoints();
 ```
 
@@ -70,21 +75,11 @@ const points = await afip.electronicBillingService.getSalesPoints();
 
 La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ahi esta explicado todos los comportamientos que puede tomar afip.
 
-- Soporte para `Serverless Functions`
+- Soporte para `Serverless`
 
 Para mas <strong>documentacion</strong> del package, ir al [sitio oficial](https://valiulab.github.io/afip.ts).
 
 ## Desarrollo y contribuciones
-
-### Commit
-
-Usamos ["semantic release library"](https://www.npmjs.com/package/semantic-release) (https://www.npmjs.com/package/semantic-release) para generar nuestras nuevas versiones, tags y changelogs. Para esto necesitamos specificar un mensaje en los commits con un formato que permita determinar que version es aumentada, y tambien ayudar a mejorar el CHANGELOG.md
-
-| Commit message                                                                                                                                                                                   | Release type               |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |
-| `fix(pencil): stop graphite breaking when too much pressure applied`                                                                                                                             | Patch Release              |
-| `feat(pencil): add 'graphiteWidth' option`                                                                                                                                                       | ~~Minor~~ Feature Release  |
-| `perf(pencil): remove graphiteWidth option`<br><br>`BREAKING CHANGE: The graphiteWidth option has been removed.`<br>`The default graphite width of 10mm is always used for performance reasons.` | ~~Major~~ Breaking Release |
 
 ### Contribuciones
 
@@ -104,7 +99,7 @@ Seria genial si puedes ayudarnos mejorando `afip.ts`. ¿Como hacer?
 
 5. Cear un [Pull Request](https://github.com/valiulab/afip.ts/compare).
 
-## License
+## Licencia
 
 Este proyecto esta bajo la licencia `MIT` - Ver [LICENSE](LICENSE) para mas detalles.
 

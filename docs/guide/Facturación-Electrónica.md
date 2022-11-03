@@ -1,6 +1,4 @@
-# Servicios
-
-## Facturación Electrónica
+# Facturación Electrónica
 
 Los métodos de este Web Service se encuentran disponibles en `afip.ElectronicBillingService`
 
