@@ -40,6 +40,10 @@ module.exports = {
         text: 'Guia',
         link: '/guide/',
       },
+      {
+        text: 'Contribuir',
+        link: '/contributions/',
+      },
       // {
       //   text: 'Config',
       //   link: '/config/'
@@ -55,10 +59,23 @@ module.exports = {
             'basic-use',
             'config',
             'behaviour',
-            'services'
+            'Facturación-Electrónica',
+            'Consulta-al-padron-de-AFIP-alcance-4',
+            'Consulta-al-padron-de-AFIP-alcance-5',
+            'Consulta-al-padron-de-AFIP-alcance-10',
+            'Consulta-al-padron-de-AFIP-alcance-13',
           ]
         },
-      ]
+      ],
+      // '/contributions/': [
+      //   {
+      //     title: 'Support',
+      //     collapsable: false,
+      //     children: [
+      //       '',
+      //     ]
+      //   },
+      // ],
     }
   },
 
