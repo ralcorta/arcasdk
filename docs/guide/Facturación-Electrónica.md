@@ -1,6 +1,6 @@
 # Facturación Electrónica
 
-Los métodos de este Web Service se encuentran disponibles en `afip.ElectronicBillingService`
+Los métodos de este Web Service se encuentran disponibles en `afip.electronicBillingService`
 
 La especificación de este Web Service se encuentra disponible [aquí](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
@@ -33,7 +33,7 @@ Hablaremos de `comprobante` indistintamente si es una `factura`, nota de crédit
 Debemos utilizar el método `getLastVoucher` con los parámetros punto de venta y tipo de comprobante que queremos consultar.
 
 ```js
-const lastVoucher = await afip.ElectronicBillingService.getLastVoucher(1, 6); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+const lastVoucher = await afip.electronicBillingService.getLastVoucher(1, 6); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
 ```
 
 Para mas información acerca de este método ver el item 4.15 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -75,7 +75,7 @@ let data = {
   ],
 };
 
-const res = await afip.ElectronicBillingService.createVoucher(data);
+const res = await afip.electronicBillingService.createVoucher(data);
 ```
 
 Este método acepta mas parámetros, pueden ver todos los parámetros disponibles [Aqui](https://github.com/valiulab/afip.ts/blob/main/src/interfaces/index.ts#L5)
@@ -87,7 +87,7 @@ Para mas información acerca de este método ver el item 4.1 de la [especificaci
 Debemos utilizar el método `createNextVoucher` pasándole como parámetro un Objeto con los detalles del comprobante al igual que el método `createVoucher`, nos devolverá como respuesta `{ CAE : CAE asignado al comprobante, CAEFchVto : Fecha de vencimiento del CAE (yyyy-mm-dd), voucher_number : Número asignado al comprobante }`.
 
 ```js
-const res = await afip.ElectronicBillingService.createNextVoucher(data);
+const res = await afip.electronicBillingService.createNextVoucher(data);
 ```
 
 ## Obtener información de un comprobante
@@ -95,7 +95,7 @@ const res = await afip.ElectronicBillingService.createNextVoucher(data);
 Con este método podemos obtener toda la información relacionada a un comprobante o simplemente saber si el comprobante existe, debemos ejecutar el método `getVoucherInfo` pasándole como parámetros el número de comprobante, el punto de venta y el tipo de comprobante, nos devolverá un Objeto con toda la información del comprobante o `null` si el comprobante no existe.
 
 ```js
-const voucherInfo = await afip.ElectronicBillingService.getVoucherInfo(1, 1, 6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+const voucherInfo = await afip.electronicBillingService.getVoucherInfo(1, 1, 6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
 
 if (voucherInfo === null) {
   console.log("El comprobante no existe");
@@ -110,13 +110,13 @@ Para mas información acerca de este método ver el item 4.19 de la [especificac
 ## Obtener puntos de venta disponibles
 
 ```js
-const salesPoints = await afip.ElectronicBillingService.getSalesPoints();
+const salesPoints = await afip.electronicBillingService.getSalesPoints();
 ```
 
 ## Obtener tipos de comprobantes disponibles
 
 ```js
-const voucherTypes = await afip.ElectronicBillingService.getVoucherTypes();
+const voucherTypes = await afip.electronicBillingService.getVoucherTypes();
 ```
 
 Para mas información acerca de este método ver el item 4.4 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -124,7 +124,7 @@ Para mas información acerca de este método ver el item 4.4 de la [especificaci
 ## Obtener tipos de conceptos disponibles
 
 ```js
-const conceptTypes = await afip.ElectronicBillingService.getConceptTypes();
+const conceptTypes = await afip.electronicBillingService.getConceptTypes();
 ```
 
 Para mas información acerca de este método ver el item 4.5 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -132,7 +132,7 @@ Para mas información acerca de este método ver el item 4.5 de la [especificaci
 ## Obtener tipos de documentos disponibles
 
 ```js
-const documentTypes = await afip.ElectronicBillingService.getDocumentTypes();
+const documentTypes = await afip.electronicBillingService.getDocumentTypes();
 ```
 
 Para mas información acerca de este método ver el item 4.6 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -140,7 +140,7 @@ Para mas información acerca de este método ver el item 4.6 de la [especificaci
 ## Obtener tipos de alícuotas disponibles
 
 ```js
-const aloquotTypes = await afip.ElectronicBillingService.getAliquotTypes();
+const aloquotTypes = await afip.electronicBillingService.getAliquotTypes();
 ```
 
 Para mas información acerca de este método ver el item 4.7 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -149,7 +149,7 @@ Para mas información acerca de este método ver el item 4.7 de la [especificaci
 
 ```js
 const currenciesTypes =
-  await afip.ElectronicBillingService.getCurrenciesTypes();
+  await afip.electronicBillingService.getCurrenciesTypes();
 ```
 
 Para mas información acerca de este método ver el item 4.8 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -157,7 +157,7 @@ Para mas información acerca de este método ver el item 4.8 de la [especificaci
 ## Obtener tipos de opciones disponibles para el comprobante
 
 ```js
-const optionTypes = await afip.ElectronicBillingService.getOptionsTypes();
+const optionTypes = await afip.electronicBillingService.getOptionsTypes();
 ```
 
 Para mas información acerca de este método ver el item 4.9 de la [especificacion del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -165,7 +165,7 @@ Para mas información acerca de este método ver el item 4.9 de la [especificaci
 ## Obtener tipos de tributos disponibles
 
 ```js
-const taxTypes = await afip.ElectronicBillingService.getTaxTypes();
+const taxTypes = await afip.electronicBillingService.getTaxTypes();
 ```
 
 Para mas información acerca de este método ver el item 4.10 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
@@ -175,7 +175,7 @@ Para mas información acerca de este método ver el item 4.10 de la [especificac
 Para esto utilizaremos el método `getServerStatus`
 
 ```js
-const serverStatus = await afip.ElectronicBillingService.getServerStatus();
+const serverStatus = await afip.electronicBillingService.getServerStatus();
 
 console.log("Este es el estado del servidor:");
 console.log(serverStatus);
