@@ -1,6 +1,6 @@
 # Padrón de AFIP alcance 4
 
-Los métodos de este Web Service se encuentran disponibles en `afip.RegisterScopeFourService`
+Los métodos de este Web Service se encuentran disponibles en `afip.registerScopeFourService`
 
 La especificación de este Web Service se encuentra disponible en http://www.afip.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf
 
@@ -14,7 +14,7 @@ La especificación de este Web Service se encuentra disponible en http://www.afi
 Debemos utilizar el metodo `getTaxpayerDetails` pasando como parámetro el documento identificador del contribuyente, por ej. el CUIT. Nos devolvera un objeto con los detalles o `null` en caso de no existir en el padrón
 
 ```js
-const taxpayerDetails = await afip.RegisterScopeFour.getTaxpayerDetails(
+const taxpayerDetails = await afip.registerScopeFourService.getTaxpayerDetails(
   20111111111
 ); //Devuelve los datos del contribuyente correspondiente al identificador 20111111111
 ```
@@ -26,7 +26,7 @@ Para mas información acerca de este método ver el item 3.2 de la [especificaci
 Para esto utilizaremos el método `getServerStatus`
 
 ```js
-const serverStatus = await afip.RegisterScopeFour.getServerStatus();
+const serverStatus = await afip.registerScopeFourService.getServerStatus();
 
 console.log("Este es el estado del servidor:");
 console.log(serverStatus);
