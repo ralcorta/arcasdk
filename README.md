@@ -4,7 +4,7 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/valiulab/afip.ts">
+  <a href="https://github.com/ralcorta/afip.ts">
     <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="afip.ts" width="230">
   </a>
 
@@ -13,13 +13,13 @@
   <p align="center">
     SDK para consumir y usar los Web Services de AFIP
     <br />
-    <a href="https://valiulab.github.io/afip.ts">Ver documentacion completa</a>
+    <a href="https://ralcorta.github.io/afip.ts">Ver documentacion completa</a>
     <br />
     <br />
     <small> 
         Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
       <br />
-      <a href="https://github.com/valiulab/afip.ts/issues">Reportar un bug</a>
+      <a href="https://github.com/ralcorta/afip.ts/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
@@ -77,19 +77,19 @@ La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ah
 
 - Soporte para `Serverless`
 
-Para mas <strong>documentacion</strong> del package, ir al [sitio oficial](https://valiulab.github.io/afip.ts).
+Para mas <strong>documentacion</strong> del package, ir al [sitio oficial](https://ralcorta.github.io/afip.ts).
 
 ## Desarrollo y contribuciones
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/afip.ts/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/afip.ts/issues/new).
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/afip.ts/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/afip.ts/issues/new).
 
 ### Desarrollo
 
 Seria genial si puedes ayudarnos mejorando `afip.ts`. ¿Como hacer?
 
-1. [Clonar](https://github.com/valiulab/afip.ts).
+1. [Clonar](https://github.com/ralcorta/afip.ts).
 
 2. `npm install`.
 
@@ -97,7 +97,7 @@ Seria genial si puedes ayudarnos mejorando `afip.ts`. ¿Como hacer?
 
 4. Correr los test: `npm test`.
 
-5. Cear un [Pull Request](https://github.com/valiulab/afip.ts/compare).
+5. Cear un [Pull Request](https://github.com/ralcorta/afip.ts/compare).
 
 ## Licencia
 

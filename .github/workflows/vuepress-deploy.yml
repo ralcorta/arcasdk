@@ -19,7 +19,7 @@ jobs:
       uses: jenkey2011/vuepress-deploy@master
       env:
         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TARGET_REPO: valiulab/afip.ts
+        TARGET_REPO: ralcorta/afip.ts
         TARGET_BRANCH: gh-pages
         BUILD_SCRIPT: npm i && npm run docs:build
         BUILD_DIR: docs/.vuepress/dist

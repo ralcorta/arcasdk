@@ -78,7 +78,7 @@ let data = {
 const res = await afip.ElectronicBillingService.createVoucher(data);
 ```
 
-Este método acepta mas parámetros, pueden ver todos los parámetros disponibles [Aqui](https://github.com/valiulab/afip.ts/blob/main/src/interfaces/index.ts#L5)
+Este método acepta mas parámetros, pueden ver todos los parámetros disponibles [Aqui](https://github.com/ralcorta/afip.ts/blob/main/src/interfaces/index.ts#L5)
 
 Para mas información acerca de este método ver el item 4.1 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
