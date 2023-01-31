@@ -1,6 +1,6 @@
 {
   "name": "afip.ts",
-  "version": "2.0.2",
+  "version": "2.0.4",
   "description": "Afip typescript SDK",
   "source": "src/index.ts",
   "main": "lib/index.js",
@@ -39,12 +39,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valiulab/afip.ts.git"
+    "url": "git+https://github.com/ralcorta/afip.ts.git"
   },
   "bugs": {
-    "url": "https://github.com/valiulab/afip.ts/issues"
+    "url": "https://github.com/ralcorta/afip.ts/issues"
   },
-  "homepage": "https://github.com/valiulab/afip.ts#readme",
+  "homepage": "https://github.com/ralcorta/afip.ts#readme",
   "files": [
     "lib/**/*"
   ],

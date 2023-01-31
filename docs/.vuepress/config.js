@@ -29,7 +29,7 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: 'https://github.com/valiulab/afip.ts',
+    repo: 'https://github.com/ralcorta/afip.ts',
     editLinks: true,
     docsDir: 'docs',
     docsBranch: 'main',
