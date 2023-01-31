@@ -1,5 +1,5 @@
 {
-  "name": "afipts",
+  "name": "afip.ts",
   "version": "2.0.5",
   "description": "Afip typescript SDK",
   "source": "src/index.ts",
@@ -9,7 +9,7 @@
     "build": "npx tsc",
     "postbuild": "rm -rf lib/soap/wsdl && cp -R src/soap/wsdl lib/soap/wsdl",
     "test": "jest",
-    "doc": "typedoc --theme oxide --name 'afipts' --out docs src/index.ts",
+    "doc": "typedoc --theme oxide --name 'afip.ts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
@@ -40,12 +40,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ralcorta/afipts.git"
+    "url": "git+https://github.com/ralcorta/afip.ts.git"
   },
   "bugs": {
-    "url": "https://github.com/ralcorta/afipts/issues"
+    "url": "https://github.com/ralcorta/afip.ts/issues"
   },
-  "homepage": "https://github.com/ralcorta/afipts#readme",
+  "homepage": "https://github.com/ralcorta/afip.ts#readme",
   "files": [
     "lib/**/*"
   ],

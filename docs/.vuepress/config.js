@@ -1,7 +1,7 @@
 const { description } = require("../../package");
 
 module.exports = {
-  // base: '/afipts/',
+  // base: '/afip.ts/',
 
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
@@ -32,7 +32,7 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: "https://github.com/ralcorta/afipts",
+    repo: "https://github.com/ralcorta/afip.ts",
     editLinks: true,
     docsDir: "docs",
     docsBranch: "main",
