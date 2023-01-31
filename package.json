@@ -1,6 +1,6 @@
 {
   "name": "afipts",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Afip typescript SDK",
   "source": "src/index.ts",
   "main": "lib/index.js",
