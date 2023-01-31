@@ -1,5 +1,7 @@
 import { resolve } from "path";
+import { Client } from "soap";
 import { AfipContext, Context } from "./afip-context";
+import { AfipService, AfipServiceSoapParam } from "./services/afip.service";
 import { ElectronicBillingService } from "./services/electronic-billing.service";
 import { RegisterScopeFiveService } from "./services/register-scope-five.service";
 import { RegisterScopeFourService } from "./services/register-scope-four.service";
@@ -47,5 +49,11 @@ export class Afip {
 
   get registerScopeTThirteenService(): RegisterScopeThirteenService {
     return this._registerScopeTThirteenService;
+  }
+
+  public genericService<T extends Client = any>(
+    soapConfig: AfipServiceSoapParam
+  ): AfipService<T> {
+    return new AfipService(this.context, soapConfig);
   }
 }
