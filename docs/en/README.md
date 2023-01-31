@@ -1,6 +1,6 @@
 ---
 home: true
-footer: Made by Valiulab with ❤️
+footer: Made by Rodrigo Alcorta with ❤️
 ---
 
 ## Translation

@@ -11,5 +11,5 @@ features:
     details: Manejo personalizado de tokens de acceso para ser utilizado en aplicaciones serverless.
   - title: Facil y simple
     details: Simple de usar y configurar.
-footer: Made by Valiulab with ❤️
+footer: Made by Rodrigo Alcorta with ❤️
 ---

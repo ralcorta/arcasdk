@@ -35,8 +35,8 @@ jobs:
       # Configure Git
       - name: Git configuration
         run: |
-          git config --global user.email "rodrigo@valiulab.com"
-          git config --global user.name "Valiulab - GitHub Actions"
+          git config --global user.email "rodrigo@ralcorta.com"
+          git config --global user.name "Rodrigo Alcorta - GitHub Actions"
 
       # Bump package version
       # Use tag latest

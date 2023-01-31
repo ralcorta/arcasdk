@@ -26,7 +26,7 @@
 
 ## Guia
 
-### Intalación
+### Instalación
 
 ##### NPM
 
