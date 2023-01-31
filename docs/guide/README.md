@@ -19,13 +19,13 @@ Si deseas aportar y queres integrar un nuevo servicio, puedes hacer fork del rep
 ##### NPM
 
 ```sh
-npm i afip.ts --save
+npm i afipts --save
 ```
 
 ##### Yarn
 
 ```sh
-yarn add afip.ts
+yarn add afipts
 ```
 
 ### Requisitos previos
