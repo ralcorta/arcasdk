@@ -7,6 +7,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "npx tsc",
+    "postbuild": "rm -rf lib/soap/wsdl && cp -R src/soap/wsdl lib/soap/wsdl",
     "test": "jest",
     "doc": "typedoc --theme oxide --name 'afipts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --",

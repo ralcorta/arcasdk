@@ -1,5 +1,10 @@
-node_modules
 lib
+
+node_modules
 package-lock.json
-test-files
+pnpm-lock.yaml
+
 src/auth/tickets
+test-files
+
+.DS_Store
