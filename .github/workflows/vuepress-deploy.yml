@@ -11,11 +11,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        registry-url: https://registry.npmjs.org/
-        node-version: '16.10.0'
+    # - name: Setup Node.js
+    #   uses: actions/setup-node@v2
+    #   with:
+    #     registry-url: https://registry.npmjs.org/
+    #     node-version: '16.10.0'
 
     - name: Vuepress Deploy
       uses: jenkey2011/vuepress-deploy@master
