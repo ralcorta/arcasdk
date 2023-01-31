@@ -1,11 +1,11 @@
 # 🚀 Afip SDK
 
-[![npm](https://img.shields.io/npm/v/afip.ts.svg?style=flat-square)](https://npmjs.org/package/afip.ts)
+[![npm](https://img.shields.io/npm/v/afipts.svg?style=flat-square)](https://npmjs.org/package/afipts)
 
 <br />
 <p align="center">
-  <a href="https://github.com/valiulab/afip.ts">
-    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="afip.ts" width="230">
+  <a href="https://github.com/ralcorta/afipts">
+    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="afipts" width="230">
   </a>
 
   <h3 align="center">Afip Ts</h3>
@@ -13,13 +13,13 @@
   <p align="center">
     SDK para consumir y usar los Web Services de AFIP
     <br />
-    <a href="https://valiulab.github.io/afip.ts">Ver documentacion completa</a>
+    <a href="https://ralcorta.github.io/afipts">Ver documentacion completa</a>
     <br />
     <br />
     <small> 
         Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
       <br />
-      <a href="https://github.com/valiulab/afip.ts/issues">Reportar un bug</a>
+      <a href="https://github.com/ralcorta/afipts/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
@@ -31,13 +31,13 @@
 ##### NPM
 
 ```sh
-npm i afip.ts --save
+npm i afipts --save
 ```
 
 ##### Yarn
 
 ```sh
-yarn add afip.ts
+yarn add afipts
 ```
 
 ### Uso de la SDK
@@ -53,7 +53,7 @@ Se debe tener los certificados emitidos por AFIP, ya sean para los servidores de
 Ejemplo de como generar factura electronica:
 
 ```ts
-import { Afip } from "afip.ts";
+import { Afip } from "afipts";
 
 const afip: Afip = new Afip({
   key: "private_key_content",
@@ -77,19 +77,19 @@ La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ah
 
 - Soporte para `Serverless`
 
-Para mas <strong>documentacion</strong> del package, ir al [sitio oficial](https://valiulab.github.io/afip.ts).
+Para mas <strong>documentacion</strong> del package, ir al [sitio oficial](https://ralcorta.github.io/afipts).
 
 ## Desarrollo y contribuciones
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/valiulab/afip.ts/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/valiulab/afip.ts/issues/new).
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/afipts/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/afipts/issues/new).
 
 ### Desarrollo
 
-Seria genial si puedes ayudarnos mejorando `afip.ts`. ¿Como hacer?
+Seria genial si puedes ayudarnos mejorando `afipts`. ¿Como hacer?
 
-1. [Clonar](https://github.com/valiulab/afip.ts).
+1. [Clonar](https://github.com/ralcorta/afipts).
 
 2. `npm install`.
 
@@ -97,7 +97,7 @@ Seria genial si puedes ayudarnos mejorando `afip.ts`. ¿Como hacer?
 
 4. Correr los test: `npm test`.
 
-5. Cear un [Pull Request](https://github.com/valiulab/afip.ts/compare).
+5. Cear un [Pull Request](https://github.com/ralcorta/afipts/compare).
 
 ## Licencia
 

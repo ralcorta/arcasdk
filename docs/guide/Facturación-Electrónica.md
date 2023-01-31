@@ -12,19 +12,21 @@ Hablaremos de `comprobante` indistintamente si es una `factura`, nota de crédit
 
 ## Indice
 
-1. [Obtener número del último comprobante creado](#obtener-número-del-último-comprobante-creado)
-2. [Crear y asignar CAE a un comprobante](#crear-y-asignar-cae-a-un-comprobante)
-3. [Crear y asignar CAE a siguiente comprobante](#crear-y-asignar-cae-a-siguiente-comprobante)
-4. [Obtener información de un comprobante](#obtener-información-de-un-comprobante)
-5. [Obtener puntos de venta disponibles](#obtener-puntos-de-venta-disponibles)
-6. [Obtener tipos de comprobantes disponibles](#obtener-tipos-de-comprobantes-disponibles)
-7. [Obtener tipos de conceptos disponibles](#obtener-tipos-de-conceptos-disponibles)
-8. [Obtener tipos de documentos disponibles](#obtener-tipos-de-documentos-disponibles)
-9. [Obtener tipos de alícuotas disponibles](#obtener-tipos-de-al%C3%ADcuotas-disponibles)
-10. [Obtener tipos de monedas disponibles](#obtener-tipos-de-monedas-disponibles)
-11. [Obtener tipos de opciones disponibles para el comprobante](#obtener-tipos-de-opciones-disponibles-para-el-comprobante)
-12. [Obtener tipos de tributos disponibles](#obtener-tipos-de-tributos-disponibles)
-13. [Obtener estado del servidor](#obtener-estado-del-servidor)
+- [Facturación Electrónica](#facturación-electrónica)
+  - [Indice](#indice)
+  - [Obtener número del último comprobante creado](#obtener-número-del-último-comprobante-creado)
+  - [Crear y asignar CAE a un comprobante](#crear-y-asignar-cae-a-un-comprobante)
+  - [Crear y asignar CAE a siguiente comprobante](#crear-y-asignar-cae-a-siguiente-comprobante)
+  - [Obtener información de un comprobante](#obtener-información-de-un-comprobante)
+  - [Obtener puntos de venta disponibles](#obtener-puntos-de-venta-disponibles)
+  - [Obtener tipos de comprobantes disponibles](#obtener-tipos-de-comprobantes-disponibles)
+  - [Obtener tipos de conceptos disponibles](#obtener-tipos-de-conceptos-disponibles)
+  - [Obtener tipos de documentos disponibles](#obtener-tipos-de-documentos-disponibles)
+  - [Obtener tipos de alícuotas disponibles](#obtener-tipos-de-alícuotas-disponibles)
+  - [Obtener tipos de monedas disponibles](#obtener-tipos-de-monedas-disponibles)
+  - [Obtener tipos de opciones disponibles para el comprobante](#obtener-tipos-de-opciones-disponibles-para-el-comprobante)
+  - [Obtener tipos de tributos disponibles](#obtener-tipos-de-tributos-disponibles)
+  - [Obtener estado del servidor](#obtener-estado-del-servidor)
 
 ---
 
@@ -78,7 +80,7 @@ let data = {
 const res = await afip.electronicBillingService.createVoucher(data);
 ```
 
-Este método acepta mas parámetros, pueden ver todos los parámetros disponibles [Aqui](https://github.com/valiulab/afip.ts/blob/main/src/interfaces/index.ts#L5)
+Este método acepta mas parámetros, pueden ver todos los parámetros disponibles [Aqui](https://github.com/valiulab/afipts/blob/main/src/interfaces/index.ts#L5)
 
 Para mas información acerca de este método ver el item 4.1 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
