@@ -10,13 +10,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-
-    # - name: Setup Node.js
-    #   uses: actions/setup-node@v2
-    #   with:
-    #     registry-url: https://registry.npmjs.org/
-    #     node-version: '16.10.0'
-
+    - shell: bash
+      run: pwd
     - name: Vuepress Deploy
       uses: jenkey2011/vuepress-deploy@master
       env:
@@ -24,6 +19,6 @@ jobs:
         TARGET_REPO: ralcorta/afip.ts
         TARGET_BRANCH: gh-pages
         BUILD_SCRIPT: npm i && npm run docs:build
-        BUILD_DIR: docs/.vuepress/dist
+        BUILD_DIR: ./docs/.vuepress/dist
         CNAME: https://www.afipts.com
         
