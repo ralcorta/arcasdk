@@ -20,10 +20,14 @@ jobs:
           registry-url: https://registry.npmjs.org/
           node-version: '14'
 
-      # Install dependencies (required by Run tests step)
-      #- name: Install dependencies
-      #  run: yarn install
+      # Install dependencies (required by Run tests step or Run Build)
+      - name: Install dependencies
+        run: yarn install
 
+      # Build typescript project
+      - name: Build
+        run: npm run build
+      
       # Tests
       #- name: Run tests
       #  run: yarn test
