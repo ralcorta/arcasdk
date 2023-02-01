@@ -1,18 +1,18 @@
 import { AfipService } from "./afip.service";
-import { AfipContext } from "../afip-context";
 import {
   IFEDummyOutput,
   IServiceSoap12Soap,
   ServiceSoap12Types,
 } from "../soap/interfaces/Service/ServiceSoap12";
-import { EndpointsEnum } from "../endpoints.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
+import { ServiceNamesEnum } from "../soap/service-names.enum";
 import {
-  ICreateVoucherResult,
+  AfipContext,
   IGetSalesPointsResult,
   IVoucher,
-} from "../interfaces";
-import { ServiceNamesEnum } from "../soap/service-names.enum";
+  ICreateVoucherResult,
+} from "../types";
+import { EndpointsEnum } from "../enums";
 
 export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   constructor(context: AfipContext) {

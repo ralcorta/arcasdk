@@ -10,13 +10,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-
-    # - name: Setup Node.js
-    #   uses: actions/setup-node@v2
-    #   with:
-    #     registry-url: https://registry.npmjs.org/
-    #     node-version: '16.10.0'
-
+    - name: "Give permissions"
+      run: |
+          sudo chown -R root:root $GITHUB_WORKSPACE
     - name: Vuepress Deploy
       uses: jenkey2011/vuepress-deploy@master
       env:

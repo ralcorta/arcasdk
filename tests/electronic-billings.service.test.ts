@@ -61,6 +61,4 @@ describe("Services Test", () => {
       });
     });
   });
-
-  describe("Register Scope Five - getTaxpayerDetails", () => {});
 });
