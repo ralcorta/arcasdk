@@ -1,5 +1,5 @@
 import { Client } from "soap";
-import { SoapAsyncFunc } from "../soap-async-func";
+import { SoapAsyncFunc } from "../../../types";
 
 /* tslint:disable:max-line-length no-empty-interface */
 

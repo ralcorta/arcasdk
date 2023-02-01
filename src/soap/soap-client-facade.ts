@@ -1,12 +1,6 @@
 import { resolve } from "path";
-import { Client, createClientAsync, IOptions } from "soap";
-import { WsdlPathEnum } from "./wsdl-path.enum";
-
-export type SoapClientParams = {
-  wsdl: WsdlPathEnum;
-  options?: IOptions;
-  // url?: EndpointsEnum;
-};
+import { Client, createClientAsync } from "soap";
+import { SoapClientParams } from "../types";
 
 export class SoapClientFacade {
   private construct() {}

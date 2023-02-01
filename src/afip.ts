@@ -1,12 +1,12 @@
 import { resolve } from "path";
 import { Client } from "soap";
-import { AfipContext, Context } from "./afip-context";
-import { AfipService, AfipServiceSoapParam } from "./services/afip.service";
+import { AfipService } from "./services/afip.service";
 import { ElectronicBillingService } from "./services/electronic-billing.service";
 import { RegisterScopeFiveService } from "./services/register-scope-five.service";
 import { RegisterScopeFourService } from "./services/register-scope-four.service";
 import { RegisterScopeTenService } from "./services/register-scope-ten.service";
 import { RegisterScopeThirteenService } from "./services/register-scope-thirteen.service";
+import { AfipContext, Context, AfipServiceSoapParam } from "./types";
 
 export class Afip {
   private readonly _electronicBillingService: ElectronicBillingService;

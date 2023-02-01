@@ -1,12 +1,12 @@
 import { AfipService } from "./afip.service";
-import { AfipContext } from "../afip-context";
-import { EndpointsEnum } from "../endpoints.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import {
   IPersonaServiceA4PortSoap,
   PersonaServiceA4PortTypes,
 } from "../soap/interfaces/PersonaServiceA4/PersonaServiceA4Port";
+import { AfipContext } from "../types";
+import { EndpointsEnum } from "../enums";
 
 export class RegisterScopeFourService extends AfipService<IPersonaServiceA4PortSoap> {
   constructor(context: AfipContext) {

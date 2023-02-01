@@ -35,3 +35,10 @@ export enum EndpointsEnum {
   WSSR_PADRON_THIRTEEN = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA13",
   WSSR_PADRON_THIRTEEN_TEST = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA13",
 }
+
+export enum SoapServiceVersion {
+  /** Version 1.2 */
+  ServiceSoap12 = "ServiceSoap12",
+  /** Common version */
+  ServiceSoap = "ServiceSoap",
+}

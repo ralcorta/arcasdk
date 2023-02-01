@@ -1,19 +1,10 @@
+import { IAccessTicket, WSAuthTokens } from "./../types";
 import moment, { MomentInput } from "moment";
 import {
   ILoginCmsReturn,
   ILoginCmsReturnCredentials,
   ILoginCmsReturnHeaders,
 } from "../soap/interfaces/LoginCMSService/LoginCms";
-
-import { WSAuthTokens } from "./types";
-
-export interface IAccessTicket extends ILoginCmsReturn {
-  getSign(): string;
-  getToken(): string;
-  getExpiration(): Date;
-  getAuthKeyProps(): WSAuthTokens;
-  isAccessTicketValid(ta: IAccessTicket): boolean;
-}
 
 export class AccessTicket implements IAccessTicket {
   header: ILoginCmsReturnHeaders;
