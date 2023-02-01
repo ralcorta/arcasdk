@@ -8,11 +8,11 @@ import {
   LoginTicketResponse,
 } from "../soap/interfaces/LoginCMSService/LoginCms";
 import { AccessTicket } from "./access-ticket";
-import { EndpointsEnum } from "../endpoints.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { Cryptography } from "../utils/crypt-data";
-import { AfipContext } from "../afip-context";
+import { AfipContext } from "../types";
+import { EndpointsEnum } from "../enums";
 
 export class AfipAuth {
   constructor(private readonly context: AfipContext) {}

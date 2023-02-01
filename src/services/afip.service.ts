@@ -1,36 +1,16 @@
-import { resolve } from "path";
-import fs from "fs";
 import { Client } from "soap";
-import { AfipContext } from "../afip-context";
 import { AccessTicket } from "../auth/access-ticket";
 import { AfipAuth } from "../auth/afip-auth";
-import { WSAuthParam, WSAuthTokens } from "../auth/types";
-import { EndpointsEnum } from "../endpoints.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
-import { SoapClientFacade, SoapClientParams } from "../soap/soap-client-facade";
-import { WsdlPathEnum } from "../soap/wsdl-path.enum";
-
-enum SoapServiceVersion {
-  /** Version 1.2 */
-  ServiceSoap12 = "ServiceSoap12",
-  /** Common version */
-  ServiceSoap = "ServiceSoap",
-}
-
-export type AfipServiceSoapParam = SoapClientParams & {
-  v12?: boolean;
-  url: EndpointsEnum;
-  url_test?: EndpointsEnum;
-  wsdl_test?: WsdlPathEnum;
-} & { serviceName: ServiceNamesEnum };
-
-type SoapServices<T> = Record<
-  "Service",
-  Record<
-    SoapServiceVersion,
-    Record<keyof T, Record<"input" | "output", Record<string, any>>>
-  >
->;
+import { SoapClientFacade } from "../soap/soap-client-facade";
+import { SoapServiceVersion } from "../enums";
+import {
+  WSAuthTokens,
+  AfipContext,
+  AfipServiceSoapParam,
+  SoapServices,
+  WSAuthParam,
+} from "../types";
 
 export class AfipService<T extends Client> {
   private _soapCliente?: T;
@@ -122,7 +102,7 @@ export class AfipService<T extends Client> {
       this._tokens = ticket.getAuthKeyProps();
     }
 
-    return this._tokens;
+    return this._tokens as WSAuthTokens;
   }
 
   /**
