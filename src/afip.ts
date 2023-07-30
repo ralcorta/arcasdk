@@ -51,7 +51,7 @@ export class Afip {
     return this._registerScopeTThirteenService;
   }
 
-  public genericService<T extends Client = any>(
+  public genericService<T extends Client>(
     soapConfig: AfipServiceSoapParam
   ): AfipService<T> {
     return new AfipService(this.context, soapConfig);

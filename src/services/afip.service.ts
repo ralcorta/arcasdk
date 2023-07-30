@@ -23,6 +23,7 @@ export class AfipService<T extends Client> {
     private _soapParams: AfipServiceSoapParam
   ) {
     this._afipAuth = new AfipAuth(context);
+
     this._serviceName = this._soapParams.serviceName;
     this._tokens = this.context.authTokens;
     this._soapParams.v12 = this._soapParams.v12 || false;
@@ -32,6 +33,15 @@ export class AfipService<T extends Client> {
       this._soapParams.wsdl =
         this._soapParams.wsdl_test ?? this._soapParams.wsdl;
     }
+  }
+
+  public setTokens(tokens: WSAuthTokens): void {
+    this._tokens = tokens;
+  }
+
+  async getClient(): Promise<T> {
+    if (!this._soapCliente) this._soapCliente = await this.proxySoapClient();
+    return this._soapCliente;
   }
 
   private async proxySoapClient(): Promise<T> {
@@ -71,15 +81,6 @@ export class AfipService<T extends Client> {
     });
     client.setEndpoint(this._soapParams.url);
     return client;
-  }
-
-  protected async getClient(): Promise<T> {
-    if (!this._soapCliente) this._soapCliente = await this.proxySoapClient();
-    return this._soapCliente;
-  }
-
-  public setTokens(tokens: WSAuthTokens): void {
-    this._tokens = tokens;
   }
 
   /**
