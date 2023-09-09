@@ -1,10 +1,11 @@
+import { Env } from "./../../src/utils/env";
 import { resolve } from "path";
 import { readFileSync } from "fs";
 
 export const testConfig = {
-  testCredentialsFolder: `${__dirname}/../mocks/credentials`,
-  privateKeyFileName: "afip_test_private_key.key",
-  certFileName: "cert_test.crt",
+  testCredentialsFolder: Env.testCredentialsFolder,
+  privateKeyFileName: Env.testPrivateKeyFileName,
+  certFileName: Env.testCertFileName,
 };
 
 export const testConfigUtil = {
