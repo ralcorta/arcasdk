@@ -1,9 +1,4 @@
-import {
-  ParserOptions,
-  parseStringPromise,
-  Builder,
-  Parser as xmlParser,
-} from "xml2js";
+import { Builder, Parser as xmlParser } from "xml2js";
 
 /**
  * Parser based on node-xml2js package (https://github.com/Leonidas-from-XIV/node-xml2js).
