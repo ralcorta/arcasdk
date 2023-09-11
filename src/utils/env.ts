@@ -1,26 +1,36 @@
-import { consola } from "consola";
+import { config } from "dotenv";
 
-export class Env {
-  public static readonly testCredentialsFolder: string | undefined =
-    process.env.TEST_CREDENTIALS_FOLDER;
-  public static readonly testPrivateKeyFileName: string | undefined =
-    process.env.TEST_PRIVATE_KEY_FILE_NAME;
-  public static readonly testCertFileName: string | undefined =
-    process.env.TEST_CERT_FILE_NAME;
+export class Environment {
+  public readonly testCredentialsFolder: string;
+  public readonly testPrivateKeyFileName: string;
+  public readonly testCertFileName: string;
+  public readonly nodeEnv: string;
 
-  static checkEnv(): void {
-    const envMissed: string[] = [];
-    if (!process.env.TEST_CREDENTIALS_FOLDER)
-      envMissed.push("TEST_CREDENTIALS_FOLDER");
-    if (!process.env.TEST_PRIVATE_KEY_FILE_NAME)
-      envMissed.push("TEST_PRIVATE_KEY_FILE_NAME");
-    if (!process.env.TEST_CERT_FILE_NAME) envMissed.push("TEST_CERT_FILE_NAME");
+  constructor() {
+    config();
+    this.testCredentialsFolder = process.env.TEST_CREDENTIALS_FOLDER as string;
+    this.testPrivateKeyFileName = process.env
+      .TEST_PRIVATE_KEY_FILE_NAME as string;
+    this.testCertFileName = process.env.TEST_CERT_FILE_NAME as string;
+    this.nodeEnv = (process.env.NODE_ENV || "local") as string;
+  }
 
-    if (envMissed.length) {
-      consola.fatal(
-        new Error(`Env parameter not defined on .env file: 
-            > ${envMissed.join("\n\t> ")}`)
+  checkEnv(): void {
+    try {
+      if (!this.testCredentialsFolder)
+        throw new Error("TEST_CREDENTIALS_FOLDER");
+      if (!this.testPrivateKeyFileName)
+        throw new Error("TEST_PRIVATE_KEY_FILE_NAME");
+      if (!this.testCertFileName) throw new Error("TEST_CERT_FILE_NAME");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      throw new Error(
+        `Env parameter not defined on .env file: ${error.message}`
       );
     }
   }
 }
+
+const Env = new Environment();
+
+export default Env;

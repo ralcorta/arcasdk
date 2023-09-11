@@ -1,6 +1,6 @@
 import { data } from "./mocks/data/voucher";
 import { Afip } from "../src/afip";
-import { testConfigUtil } from "./utils/config";
+import { TestConfigUtils } from "./utils/config";
 
 describe("Services Test", () => {
   const cuit = process.env.CUIT as string;
@@ -10,8 +10,8 @@ describe("Services Test", () => {
   let afip: Afip;
 
   beforeAll(() => {
-    key = testConfigUtil.getKey();
-    cert = testConfigUtil.getCert();
+    key = TestConfigUtils.getKey();
+    cert = TestConfigUtils.getCert();
     afip = new Afip({
       key,
       cert,
@@ -20,22 +20,17 @@ describe("Services Test", () => {
   });
 
   describe("Electronic Billings - createVoucher", () => {
-    describe("Method Test - createVoucher", () => {
-      it("should create a voucher from correct params", async () => {
-        const { electronicBillingService } = afip;
-        const lastVoucher = await electronicBillingService.getLastVoucher(
-          2,
-          11
-        );
-        console.dir(lastVoucher, { depth: 50 });
-        const voucher = await electronicBillingService.createVoucher({
-          ...data,
-          CbteDesde: lastVoucher.CbteNro + 1,
-          CbteHasta: lastVoucher.CbteNro + 1,
-        });
-        console.dir(voucher, { depth: 50 });
-        expect(voucher).not.toBeNull();
+    it("should create a voucher from correct params with createVoucher", async () => {
+      const { electronicBillingService } = afip;
+      const lastVoucher = await electronicBillingService.getLastVoucher(2, 11);
+      console.dir(lastVoucher, { depth: 50 });
+      const voucher = await electronicBillingService.createVoucher({
+        ...data,
+        CbteDesde: lastVoucher.CbteNro + 1,
+        CbteHasta: lastVoucher.CbteNro + 1,
       });
+      console.dir(voucher, { depth: 50 });
+      expect(voucher).not.toBeNull();
     });
 
     // describe("Method Test - getLastVoucher", () => {
