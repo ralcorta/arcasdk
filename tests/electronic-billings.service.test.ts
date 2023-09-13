@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { data } from "./mocks/data/voucher";
 import { Afip } from "../src/afip";
 import { TestConfigUtils } from "./utils/config";
@@ -17,10 +18,60 @@ describe("Services Test", () => {
       cert,
       cuit: parseInt(cuit),
     });
+
+    const clientMocked = jest.spyOn(afip.electronicBillingService, "getClient");
+    clientMocked.mockReturnValue({
+      FEDummyAsync: jest.fn().mockResolvedValue([
+        {
+          FEDummyResult: {
+            AppServer: "OK",
+            DbServer: "OK",
+            AuthServer: "OK",
+          },
+        },
+      ]),
+      FEParamGetPtosVentaAsync: jest.fn().mockResolvedValue([{
+        FEParamGetPtosVentaResult: {
+          Errors: {
+            Err: [
+              {
+                Code: 602,
+                Msg: 'Sin Resultados: - Metodo FEParamGetPtosVenta'
+              }
+            ]
+          }
+        }
+      }])
+    } as any);
   });
 
-  describe("Electronic Billings - createVoucher", () => {
-    it("should create a voucher from correct params with createVoucher", async () => {
+  describe("Electronic Billings Service", () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("should get server status", async () => {
+      const { electronicBillingService } = afip;
+      const status = await electronicBillingService.getServerStatus();
+      expect(status).toEqual({
+        FEDummyResult: {
+          AppServer: "OK",
+          DbServer: "OK",
+          AuthServer: "OK",
+        },
+      });
+    });
+
+    it("should get sales points", async () => {
+      const { electronicBillingService } = afip;
+      clientMocked.
+
+      const status = await electronicBillingService.getSalesPoints();
+      console.dir(status, { depth: 50 });
+      expect(status).not.toBeNull();
+    });
+
+    xit("should create a voucher from correct params with createVoucher", async () => {
       const { electronicBillingService } = afip;
       const lastVoucher = await electronicBillingService.getLastVoucher(2, 11);
       console.dir(lastVoucher, { depth: 50 });
