@@ -128,6 +128,12 @@ export interface IVoucher {
   Compradores?: IComprador[];
 }
 
+export interface INextVoucher
+  extends Omit<IVoucher, "CbteDesde" | "CbteHasta"> {
+  CbteDesde?: number;
+  CbteHasta?: number;
+}
+
 export interface ICbtesAsoc {
   Tipo: number;
   PtoVta: number;

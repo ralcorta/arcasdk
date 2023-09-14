@@ -11,6 +11,7 @@ import {
   IGetSalesPointsResult,
   IVoucher,
   ICreateVoucherResult,
+  INextVoucher,
 } from "../types";
 import { EndpointsEnum } from "../enums";
 
@@ -127,14 +128,15 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
    * @param req data Same to data in Afip.createVoucher except that
    * 	don't need CbteDesde and CbteHasta attributes
    **/
-  async createNextVoucher(req: IVoucher) {
+  async createNextVoucher(req: INextVoucher) {
     const lastVoucher = await this.getLastVoucher(req.PtoVta, req.CbteTipo);
-    const voucherNumber = lastVoucher.CbteNro + 1;
-
-    req.CbteDesde = voucherNumber;
-    req.CbteHasta = voucherNumber;
-
-    return await this.createVoucher(req);
+    const nextVoucherNumber = lastVoucher.CbteNro + 1;
+    const nextVoucherPayload: IVoucher = {
+      ...req,
+      CbteDesde: nextVoucherNumber,
+      CbteHasta: nextVoucherNumber,
+    };
+    return await this.createVoucher(nextVoucherPayload);
   }
 
   /**

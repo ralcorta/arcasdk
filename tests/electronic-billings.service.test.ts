@@ -1,106 +1,194 @@
+import {
+  FECAESolicitarAsyncReturnMocks,
+  FECompConsultarAsyncReturnMocks,
+  FECompUltimoAutorizadoAsyncReturnMocks,
+  FEDummyAsyncReturnMocks,
+  FEParamGetPtosVentaAsyncReturnMocks,
+  FEParamGetTiposCbteAsyncReturnMocks,
+  FEParamGetTiposConceptoAsyncReturnMocks,
+  FEParamGetTiposDocAsyncReturnMocks,
+  FEParamGetTiposIvaAsyncReturnMocks,
+  FEParamGetTiposMonedasAsyncReturnMocks,
+  FEParamGetTiposOpcionalAsyncReturnMocks,
+  FEParamGetTiposTributosAsyncReturnMocks,
+} from "./mocks/data/soapClient.mock";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { data } from "./mocks/data/voucher";
+import {
+  data,
+  testCbteNro,
+  testCbteTipo,
+  testCuit,
+  testPtoVta,
+} from "./mocks/data/voucher.mock";
 import { Afip } from "../src/afip";
 import { TestConfigUtils } from "./utils/config";
 
-describe("Services Test", () => {
-  const cuit = process.env.CUIT as string;
-
-  let key: string;
-  let cert: string;
+describe("Electronic Billings Service", () => {
   let afip: Afip;
 
   beforeAll(() => {
-    key = TestConfigUtils.getKey();
-    cert = TestConfigUtils.getCert();
     afip = new Afip({
-      key,
-      cert,
-      cuit: parseInt(cuit),
+      key: TestConfigUtils.getKey(),
+      cert: TestConfigUtils.getCert(),
+      cuit: testCuit,
     });
 
-    const clientMocked = jest.spyOn(afip.electronicBillingService, "getClient");
-    clientMocked.mockReturnValue({
-      FEDummyAsync: jest.fn().mockResolvedValue([
-        {
-          FEDummyResult: {
-            AppServer: "OK",
-            DbServer: "OK",
-            AuthServer: "OK",
-          },
-        },
-      ]),
-      FEParamGetPtosVentaAsync: jest.fn().mockResolvedValue([{
-        FEParamGetPtosVentaResult: {
-          Errors: {
-            Err: [
-              {
-                Code: 602,
-                Msg: 'Sin Resultados: - Metodo FEParamGetPtosVenta'
-              }
-            ]
-          }
-        }
-      }])
+    jest.spyOn(afip.electronicBillingService, "getClient").mockReturnValue({
+      FEDummyAsync: jest.fn().mockResolvedValue(FEDummyAsyncReturnMocks),
+      FEParamGetPtosVentaAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetPtosVentaAsyncReturnMocks),
+      FECompUltimoAutorizadoAsync: jest
+        .fn()
+        .mockResolvedValue(FECompUltimoAutorizadoAsyncReturnMocks),
+      FECAESolicitarAsync: jest
+        .fn()
+        .mockResolvedValue(FECAESolicitarAsyncReturnMocks),
+      FECompConsultarAsync: jest
+        .fn()
+        .mockResolvedValue(FECompConsultarAsyncReturnMocks),
+      FEParamGetTiposCbteAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetTiposCbteAsyncReturnMocks),
+      FEParamGetTiposConceptoAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetTiposConceptoAsyncReturnMocks),
+      FEParamGetTiposDocAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetTiposDocAsyncReturnMocks),
+      FEParamGetTiposIvaAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetTiposIvaAsyncReturnMocks),
+      FEParamGetTiposMonedasAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetTiposMonedasAsyncReturnMocks),
+      FEParamGetTiposOpcionalAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetTiposOpcionalAsyncReturnMocks),
+      FEParamGetTiposTributosAsync: jest
+        .fn()
+        .mockResolvedValue(FEParamGetTiposTributosAsyncReturnMocks),
     } as any);
   });
 
-  describe("Electronic Billings Service", () => {
-    afterEach(() => {
-      jest.restoreAllMocks();
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should get server status", async () => {
+    const { electronicBillingService } = afip;
+    const status = await electronicBillingService.getServerStatus();
+    expect(status).toEqual(FEDummyAsyncReturnMocks[0]);
+  });
+
+  it("should get the last type 11 voucher from sale point 2", async () => {
+    const { electronicBillingService } = afip;
+    const lastVoucher = await electronicBillingService.getLastVoucher(
+      testPtoVta,
+      testCbteTipo
+    );
+    expect(lastVoucher).toStrictEqual(
+      FECompUltimoAutorizadoAsyncReturnMocks[0].FECompUltimoAutorizadoResult
+    );
+  });
+
+  it("should get sales points", async () => {
+    const { electronicBillingService } = afip;
+    const status = await electronicBillingService.getSalesPoints();
+    expect(status).not.toBeNull();
+  });
+
+  it("should create a voucher from correct params with createVoucher", async () => {
+    const { electronicBillingService } = afip;
+    const lastVoucher = await electronicBillingService.getLastVoucher(
+      testPtoVta,
+      testCbteTipo
+    );
+    const CbteDesde = lastVoucher.CbteNro + 1;
+    const CbteHasta = lastVoucher.CbteNro + 1;
+    const voucher = await electronicBillingService.createVoucher({
+      ...data,
+      CbteDesde,
+      CbteHasta,
     });
+    expect(voucher.response.Errors).toBeUndefined();
+    expect(voucher.response.FeDetResp.FECAEDetResponse[0].CbteDesde).toEqual(
+      CbteDesde
+    );
+    expect(voucher.response.FeDetResp.FECAEDetResponse[0].CbteHasta).toEqual(
+      CbteHasta
+    );
+  });
 
-    it("should get server status", async () => {
-      const { electronicBillingService } = afip;
-      const status = await electronicBillingService.getServerStatus();
-      expect(status).toEqual({
-        FEDummyResult: {
-          AppServer: "OK",
-          DbServer: "OK",
-          AuthServer: "OK",
-        },
-      });
-    });
+  it("should create a voucher using the previous voucher created as a starting point", async () => {
+    const { electronicBillingService } = afip;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { CbteDesde, CbteHasta, ...voucherData } = data;
+    const voucher = await electronicBillingService.createNextVoucher(
+      voucherData
+    );
+    expect(voucher.response.Errors).toBeUndefined();
+    expect(voucher.response.FeDetResp.FECAEDetResponse[0].CbteDesde).toEqual(
+      testCbteNro + 1
+    );
+    expect(voucher.response.FeDetResp.FECAEDetResponse[0].CbteHasta).toEqual(
+      testCbteNro + 1
+    );
+  });
 
-    it("should get sales points", async () => {
-      const { electronicBillingService } = afip;
-      clientMocked.
+  it("should get voucher info", async () => {
+    expect(
+      await afip.electronicBillingService.getVoucherInfo(
+        testCbteNro,
+        testPtoVta,
+        testCbteTipo
+      )
+    ).toStrictEqual(FECompConsultarAsyncReturnMocks[0].FECompConsultarResult);
+  });
 
-      const status = await electronicBillingService.getSalesPoints();
-      console.dir(status, { depth: 50 });
-      expect(status).not.toBeNull();
-    });
+  it("should get voucher types", async () => {
+    expect(await afip.electronicBillingService.getVoucherTypes()).toStrictEqual(
+      FEParamGetTiposCbteAsyncReturnMocks[0].FEParamGetTiposCbteResult
+    );
+  });
 
-    xit("should create a voucher from correct params with createVoucher", async () => {
-      const { electronicBillingService } = afip;
-      const lastVoucher = await electronicBillingService.getLastVoucher(2, 11);
-      console.dir(lastVoucher, { depth: 50 });
-      const voucher = await electronicBillingService.createVoucher({
-        ...data,
-        CbteDesde: lastVoucher.CbteNro + 1,
-        CbteHasta: lastVoucher.CbteNro + 1,
-      });
-      console.dir(voucher, { depth: 50 });
-      expect(voucher).not.toBeNull();
-    });
+  it("should get concept types", async () => {
+    expect(await afip.electronicBillingService.getConceptTypes()).toStrictEqual(
+      FEParamGetTiposConceptoAsyncReturnMocks[0].FEParamGetTiposConceptoResult
+    );
+  });
 
-    // describe("Method Test - getLastVoucher", () => {
-    //   it("should get last voucher created", async () => {
-    //     const voucher = await afip.electronicBillingService.getLastVoucher(
-    //       2,
-    //       11
-    //     );
-    //     console.dir(voucher, { depth: 50 });
-    //     expect(voucher).not.toBeNull();
-    //   });
-    // });
+  it("should get document types", async () => {
+    expect(
+      await afip.electronicBillingService.getDocumentTypes()
+    ).toStrictEqual(
+      FEParamGetTiposDocAsyncReturnMocks[0].FEParamGetTiposDocResult
+    );
+  });
 
-    // describe("Method Test - getTaxTypes", () => {
-    //   it("should get all tax types", async () => {
-    //     const types = await afip.electronicBillingService.getTaxTypes();
-    //     console.dir(types, { depth: 50 });
-    //     expect(types).not.toBeNull();
-    //   });
-    // });
+  it("should get aliquota types", async () => {
+    expect(await afip.electronicBillingService.getAliquotTypes()).toStrictEqual(
+      FEParamGetTiposIvaAsyncReturnMocks[0].FEParamGetTiposIvaResult
+    );
+  });
+
+  it("should get currencies types", async () => {
+    expect(
+      await afip.electronicBillingService.getCurrenciesTypes()
+    ).toStrictEqual(
+      FEParamGetTiposMonedasAsyncReturnMocks[0].FEParamGetTiposMonedasResult
+    );
+  });
+
+  it("should get Options types", async () => {
+    expect(await afip.electronicBillingService.getOptionsTypes()).toStrictEqual(
+      FEParamGetTiposOpcionalAsyncReturnMocks[0].FEParamGetTiposOpcionalResult
+    );
+  });
+
+  it("should get Tax types", async () => {
+    expect(await afip.electronicBillingService.getTaxTypes()).toStrictEqual(
+      FEParamGetTiposTributosAsyncReturnMocks[0].FEParamGetTiposTributosResult
+    );
   });
 });
