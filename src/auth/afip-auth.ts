@@ -13,6 +13,7 @@ import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { Cryptography } from "../utils/crypt-data";
 import { AfipContext } from "../types";
 import { EndpointsEnum } from "../enums";
+import { logger } from "../utils/logger";
 
 export class AfipAuth {
   constructor(private readonly context: AfipContext) {}
@@ -65,16 +66,12 @@ export class AfipAuth {
   }
 
   /**
-   * Get token authorization
+   * Get login cms from new request to afip
    *
-   * @param serviceName
-   * @param cert
-   * @param key
-   * @returns
+   * @param serviceName ServiceNamesEnum
+   * @returns ILoginCmsReturn
    */
-  public async getAccessTicket(
-    serviceName: ServiceNamesEnum
-  ): Promise<AccessTicket> {
+  async getLoginCms(serviceName: ServiceNamesEnum): Promise<ILoginCmsReturn> {
     // Create amd sign TRA
     const traXml = await Parser.jsonToXml(this.getTRA(serviceName));
     const signedTRA = this.signTRA(traXml);
@@ -86,7 +83,7 @@ export class AfipAuth {
       loginCmsResult.loginCmsReturn
     );
 
-    return new AccessTicket(loginReturn.loginticketresponse);
+    return loginReturn.loginticketresponse;
   }
 
   /**
@@ -102,26 +99,55 @@ export class AfipAuth {
   }
 
   /**
+   * Get path to the ticket file
+   *
+   * @param serviceName ServiceNamesEnum
+   * @returns
+   */
+  private getTicketFilePathByService(serviceName: ServiceNamesEnum): string {
+    return resolve(this.context.ticketPath, this.createFileName(serviceName));
+  }
+
+  /**
+   * Get token authorization
+   *
+   * @param serviceName ServiceNamesEnum
+   * @returns AccessTicket
+   */
+  public async getAccessTicket(
+    serviceName: ServiceNamesEnum
+  ): Promise<AccessTicket> {
+    let accessTicket = await this.getLocalAccessTicket(serviceName);
+
+    if (!accessTicket) {
+      const loginTicketResponse = await this.getLoginCms(serviceName);
+      accessTicket = new AccessTicket(loginTicketResponse);
+      await this.saveLocalAccessTicket(accessTicket, serviceName);
+    }
+
+    return accessTicket;
+  }
+
+  /**
    * Save the access ticket locally using file system
    *
    * @param ticket accessmticket header and credentials
    * @param serviceName name from Afip WS
+   * @returns void
    */
   public async saveLocalAccessTicket(
-    { header, credentials }: AccessTicket,
+    ticket: AccessTicket,
     serviceName: ServiceNamesEnum
   ): Promise<void> {
     try {
       fs.mkdir(this.context.ticketPath, { recursive: true });
     } catch (error) {
+      logger.error(error.message);
       throw error;
     }
 
-    await fs.writeFile(
-      resolve(this.context.ticketPath, this.createFileName(serviceName)),
-      JSON.stringify({ header, credentials }),
-      "utf8"
-    );
+    const filePath = this.getTicketFilePathByService(serviceName);
+    await fs.writeFile(filePath, JSON.stringify(ticket), "utf8");
   }
 
   /**
@@ -136,21 +162,18 @@ export class AfipAuth {
   public async getLocalAccessTicket(
     serviceName: ServiceNamesEnum
   ): Promise<AccessTicket | undefined> {
-    let data: string;
-    try {
-      data = await fs.readFile(
-        resolve(this.context.ticketPath, this.createFileName(serviceName)),
-        "utf8"
-      );
-    } catch {
-      return undefined;
-    }
+    const filePath = this.getTicketFilePathByService(serviceName);
+
+    if (!fs.access(filePath, fs.constants.F_OK)) return undefined;
+    if (!fs.access(filePath, fs.constants.R_OK))
+      throw new Error(`Access denied to ticket file: ${filePath}`);
+
+    const fileData = await fs.readFile(filePath, "utf8");
 
     try {
-      const obj: ILoginCmsReturn = JSON.parse(data);
-      return new AccessTicket(obj);
+      return new AccessTicket(JSON.parse(fileData));
     } catch (error) {
-      throw new Error("Invalid access ticket format read");
+      throw new Error("Invalid access ticket format");
     }
   }
 }

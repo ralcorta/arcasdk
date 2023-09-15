@@ -84,27 +84,56 @@ export class AfipService<T extends Client> {
   }
 
   /**
-   * I generate signatures through the WSAA. If handleTicket is not defined, the function will save the tokens locally.
+   * Generate signatures through the WSAA. If handleTicket is not defined, the function will save the tokens locally.
    * @returns tokens
    */
   public async logIn(): Promise<WSAuthTokens> {
-    if (!this._tokens) {
-      if (this.context.handleTicket)
-        throw new Error(
-          "Tokens are not defined yet. Set it when Afip class is instanced."
-        );
-
-      let ticket = await this._afipAuth.getLocalAccessTicket(this._serviceName);
-
-      if (!ticket?.isAccessTicketValid()) {
-        ticket = await this._afipAuth.getAccessTicket(this._serviceName);
-        await this._afipAuth.saveLocalAccessTicket(ticket, this._serviceName);
-      }
-      this._tokens = ticket.getAuthKeyProps();
+    if (this._tokens) {
+      return this._tokens as WSAuthTokens;
     }
 
+    if (this.context.handleTicket) {
+      throw new Error(
+        "Tokens are not defined yet and handleTicket param is 'true'. Set them when the Afip class is instantiated."
+      );
+    }
+
+    // let accessTicket = await this._afipAuth.getLocalAccessTicket(
+    //   this._serviceName
+    // );
+
+    // if (!accessTicket?.isAccessTicketValid()) {
+    //   accessTicket = await this._afipAuth.getAccessTicket(this._serviceName);
+    //   await this._afipAuth.saveLocalAccessTicket(
+    //     accessTicket,
+    //     this._serviceName
+    //   );
+    // }
+
+    // this._tokens = accessTicket.getAuthKeyProps();
+    const ticket = await this._afipAuth.getAccessTicket(this._serviceName);
+    this._tokens = ticket.getAuthKeyProps();
     return this._tokens as WSAuthTokens;
   }
+
+  // public async logIn(): Promise<WSAuthTokens> {
+  //   if (!this._tokens) {
+  //     if (this.context.handleTicket)
+  //       throw new Error(
+  //         "Tokens are not defined yet. Set it when Afip class is instanced."
+  //       );
+
+  //     let ticket = await this._afipAuth.getLocalAccessTicket(this._serviceName);
+
+  //     if (!ticket?.isAccessTicketValid()) {
+  //       ticket = await this._afipAuth.getAccessTicket(this._serviceName);
+  //       await this._afipAuth.saveLocalAccessTicket(ticket, this._serviceName);
+  //     }
+  //     this._tokens = ticket.getAuthKeyProps();
+  //   }
+
+  //   return this._tokens as WSAuthTokens;
+  // }
 
   /**
    * Send request to AFIP WSAA and return the auth object required for protected services
@@ -112,20 +141,18 @@ export class AfipService<T extends Client> {
    * @param params Parameters to send
    **/
   protected async getAuthTokens(): Promise<WSAuthParam> {
-    if (this._tokens) {
-      if (AccessTicket.hasExpired(this._tokens.expirationDate)) {
-        if (this.context.handleTicket) {
-          throw new Error("Tokens expired.");
-        }
-      } else {
-        return {
-          Auth: {
-            Cuit: this.context.cuit,
-            Sign: this._tokens.sign,
-            Token: this._tokens.token,
-          },
-        };
-      }
+    if (this._tokens && !AccessTicket.hasExpired(this._tokens.expirationDate)) {
+      return {
+        Auth: {
+          Token: this._tokens.token,
+          Sign: this._tokens.sign,
+          Cuit: this.context.cuit,
+        },
+      };
+    }
+
+    if (this._tokens && this.context.handleTicket) {
+      throw new Error("Tokens expired.");
     }
 
     this._tokens = await this.logIn();
@@ -138,4 +165,32 @@ export class AfipService<T extends Client> {
       },
     };
   }
+
+  // protected async getAuthTokens(): Promise<WSAuthParam> {
+  //   if (this._tokens) {
+  //     if (AccessTicket.hasExpired(this._tokens.expirationDate)) {
+  //       if (this.context.handleTicket) {
+  //         throw new Error("Tokens expired.");
+  //       }
+  //     } else {
+  //       return {
+  //         Auth: {
+  //           Cuit: this.context.cuit,
+  //           Sign: this._tokens.sign,
+  //           Token: this._tokens.token,
+  //         },
+  //       };
+  //     }
+  //   }
+
+  //   this._tokens = await this.logIn();
+
+  //   return {
+  //     Auth: {
+  //       Token: this._tokens.token,
+  //       Sign: this._tokens.sign,
+  //       Cuit: this.context.cuit,
+  //     },
+  //   };
+  // }
 }
