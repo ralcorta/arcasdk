@@ -26,10 +26,10 @@ import { TestConfigUtils } from "../utils/config";
 describe("Electronic Billings Service", () => {
   let afip: Afip;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     afip = new Afip({
-      key: TestConfigUtils.getKey(),
-      cert: TestConfigUtils.getCert(),
+      key: await TestConfigUtils.getKey(),
+      cert: await TestConfigUtils.getCert(),
       cuit: testCuit,
     });
 

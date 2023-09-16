@@ -180,9 +180,17 @@ export class AfipAuth {
   ): Promise<AccessTicket | undefined> {
     const filePath = this.getTicketFilePathByService(serviceName);
 
-    if (!fs.access(filePath, fs.constants.F_OK)) return undefined;
-    if (!fs.access(filePath, fs.constants.R_OK))
+    try {
+      await fs.access(filePath, fs.constants.F_OK);
+    } catch (error) {
+      return undefined;
+    }
+
+    try {
+      await fs.access(filePath, fs.constants.R_OK);
+    } catch (error) {
       throw new Error(`Access denied to ticket file: ${filePath}`);
+    }
 
     const fileData = await fs.readFile(filePath, "utf8");
 

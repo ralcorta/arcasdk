@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npx tsc",
     "postbuild": "rm -rf lib/soap/wsdl && cp -R src/soap/wsdl lib/soap/wsdl",
-    "test": "ts-node tests/utils/check-requirements.ts && jest",
+    "test": "jest",
     "doc": "typedoc --theme oxide --name 'afip.ts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --",
     "docs:dev": "vuepress dev docs",
