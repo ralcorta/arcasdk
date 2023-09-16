@@ -1,5 +1,5 @@
 import { IAccessTicket, ILoginCredentials, WSAuthTokens } from "./../types";
-import moment, { MomentInput } from "moment";
+import moment from "moment";
 import {
   ILoginCmsReturnCredentials,
   ILoginCmsReturnHeaders,

@@ -12,16 +12,16 @@ import {
   FEParamGetTiposMonedasAsyncReturnMocks,
   FEParamGetTiposOpcionalAsyncReturnMocks,
   FEParamGetTiposTributosAsyncReturnMocks,
-} from "./mocks/data/soapClient.mock";
+} from "../mocks/data/soapClient.mock";
 import {
   data,
   testCbteNro,
   testCbteTipo,
   testCuit,
   testPtoVta,
-} from "./mocks/data/voucher.mock";
-import { Afip } from "../src/afip";
-import { TestConfigUtils } from "./utils/config";
+} from "../mocks/data/voucher.mock";
+import { Afip } from "../../src/afip";
+import { TestConfigUtils } from "../utils/config";
 
 describe("Electronic Billings Service", () => {
   let afip: Afip;

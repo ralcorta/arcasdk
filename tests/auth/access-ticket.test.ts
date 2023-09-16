@@ -1,0 +1,110 @@
+import moment from "moment";
+import { AccessTicket } from "../../src/auth/access-ticket";
+import { ILoginCredentials } from "../../src/types";
+
+describe("Access Ticket", () => {
+  const mockLoginCredentials: ILoginCredentials = {
+    header: [
+      {
+        version: "1.0",
+      },
+      {
+        source: "source",
+        destination: "destination",
+        uniqueid: "uniqueid",
+        generationtime: moment().toISOString(),
+        expirationtime: moment().add(1, "day").toISOString(),
+      },
+    ],
+    credentials: { sign: "mock-signature", token: "mock-token" },
+  };
+
+  describe("getSign", () => {
+    it("should return the sign", () => {
+      const accessTicket = new AccessTicket(mockLoginCredentials);
+      expect(accessTicket.getSign()).toBe("mock-signature");
+    });
+  });
+
+  describe("getToken", () => {
+    it("should return the token", () => {
+      const accessTicket = new AccessTicket(mockLoginCredentials);
+      expect(accessTicket.getToken()).toBe("mock-token");
+    });
+  });
+
+  describe("getExpiration", () => {
+    it("should return the expiration date as a Date object", () => {
+      const accessTicket = new AccessTicket(mockLoginCredentials);
+      const expirationDate = accessTicket.getExpiration();
+      expect(expirationDate instanceof Date).toBe(true);
+    });
+  });
+
+  describe("getHeaders", () => {
+    it("should return the headers", () => {
+      const accessTicket = new AccessTicket(mockLoginCredentials);
+      const headers = accessTicket.getHeaders();
+      expect(headers).toEqual([
+        { version: "1.0" },
+        {
+          source: "source",
+          destination: "destination",
+          uniqueid: "uniqueid",
+          generationtime: expect.any(String),
+          expirationtime: expect.any(String),
+        },
+      ]);
+    });
+  });
+
+  describe("getCredentials", () => {
+    it("should return the credentials", () => {
+      const accessTicket = new AccessTicket(mockLoginCredentials);
+      const credentials = accessTicket.getCredentials();
+      expect(credentials).toEqual({
+        sign: "mock-signature",
+        token: "mock-token",
+      });
+    });
+  });
+
+  describe("getAuthKeyProps", () => {
+    it("should return the authentication key properties", () => {
+      const accessTicket = new AccessTicket(mockLoginCredentials);
+      const authKeyProps = accessTicket.getAuthKeyProps();
+      expect(authKeyProps).toEqual({
+        token: "mock-token",
+        sign: "mock-signature",
+        expirationDate: expect.any(String),
+      });
+    });
+  });
+
+  describe("isExpired", () => {
+    it("should return true if the access ticket is expired", () => {
+      const expiredCredentials: ILoginCredentials = {
+        header: [
+          {
+            version: "1.0",
+          },
+          {
+            source: "source",
+            destination: "destination",
+            uniqueid: "uniqueid",
+            generationtime: moment().toISOString(),
+            expirationtime: moment().subtract(1, "day").toISOString(),
+          },
+        ],
+        credentials: { sign: "expired-signature", token: "expired-token" },
+      };
+      const accessTicket = new AccessTicket(expiredCredentials);
+      expect(accessTicket.isExpired()).toBe(true);
+    });
+
+    it("should return false if the access ticket is not expired", () => {
+      const accessTicket = new AccessTicket(mockLoginCredentials);
+      expect(accessTicket.isExpired()).toBe(false);
+    });
+  });
+});
