@@ -1,24 +1,9 @@
+import { mockLoginCredentials } from "./../mocks/data/credential-json.mock";
 import moment from "moment";
 import { AccessTicket } from "../../src/auth/access-ticket";
 import { ILoginCredentials } from "../../src/types";
 
 describe("Access Ticket", () => {
-  const mockLoginCredentials: ILoginCredentials = {
-    header: [
-      {
-        version: "1.0",
-      },
-      {
-        source: "source",
-        destination: "destination",
-        uniqueid: "uniqueid",
-        generationtime: moment().toISOString(),
-        expirationtime: moment().add(1, "day").toISOString(),
-      },
-    ],
-    credentials: { sign: "mock-signature", token: "mock-token" },
-  };
-
   describe("getSign", () => {
     it("should return the sign", () => {
       const accessTicket = new AccessTicket(mockLoginCredentials);

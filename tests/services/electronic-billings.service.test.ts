@@ -127,8 +127,6 @@ describe("Electronic Billings Service", () => {
     const voucher = await electronicBillingService.createNextVoucher(
       voucherData
     );
-    console.dir(voucher, { depth: 50 });
-
     expect(voucher.response.Errors).toBeUndefined();
     expect(voucher.response.FeDetResp.FECAEDetResponse[0].CbteDesde).toEqual(
       testCbteNro + 1
