@@ -114,8 +114,9 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
 
     return {
       response: FECAESolicitarResult,
-      cae: FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAE,
-      caeFchVto: FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAEFchVto,
+      cae: FECAESolicitarResult.FeDetResp?.FECAEDetResponse?.[0]?.CAE,
+      caeFchVto:
+        FECAESolicitarResult.FeDetResp?.FECAEDetResponse?.[0]?.CAEFchVto,
     };
   }
 
@@ -128,7 +129,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
    * @param req data Same to data in Afip.createVoucher except that
    * 	don't need CbteDesde and CbteHasta attributes
    **/
-  async createNextVoucher(req: INextVoucher) {
+  async createNextVoucher(req: INextVoucher): Promise<ICreateVoucherResult> {
     const lastVoucher = await this.getLastVoucher(req.PtoVta, req.CbteTipo);
     const nextVoucherNumber = lastVoucher.CbteNro + 1;
     const nextVoucherPayload: IVoucher = {

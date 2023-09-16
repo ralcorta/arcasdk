@@ -111,9 +111,7 @@ export class AfipService<T extends Client> {
     // }
 
     // this._tokens = accessTicket.getAuthKeyProps();
-    const ticket = await this._afipAuth.getAccessTicket(this._serviceName);
-    this._tokens = ticket.getAuthKeyProps();
-    return this._tokens as WSAuthTokens;
+    return await this._afipAuth.getAuthKey(this._serviceName);
   }
 
   // public async logIn(): Promise<WSAuthTokens> {

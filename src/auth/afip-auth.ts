@@ -11,7 +11,7 @@ import { AccessTicket } from "./access-ticket";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { Cryptography } from "../utils/crypt-data";
-import { AfipContext } from "../types";
+import { AfipContext, WSAuthTokens } from "../types";
 import { EndpointsEnum } from "../enums";
 import { logger } from "../utils/logger";
 
@@ -106,6 +106,13 @@ export class AfipAuth {
    */
   private getTicketFilePathByService(serviceName: ServiceNamesEnum): string {
     return resolve(this.context.ticketPath, this.createFileName(serviceName));
+  }
+
+  public async getAuthKey(
+    serviceName: ServiceNamesEnum
+  ): Promise<WSAuthTokens> {
+    const ticket = await this.getAccessTicket(serviceName);
+    return ticket.getAuthKeyProps();
   }
 
   /**

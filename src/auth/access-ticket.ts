@@ -47,7 +47,11 @@ export class AccessTicket implements IAccessTicket {
     return AccessTicket.hasExpired(this.getExpiration());
   }
 
+  public hasExpired(expirationDateIsoFormat: MomentInput): boolean {
+    return moment(expirationDateIsoFormat).isBefore(new Date());
+  }
+
   public static hasExpired(expirationDateIsoFormat: MomentInput): boolean {
-    return moment(expirationDateIsoFormat).isAfter(new Date());
+    return moment(expirationDateIsoFormat).isBefore(new Date());
   }
 }
