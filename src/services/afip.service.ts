@@ -5,16 +5,16 @@ import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { SoapClientFacade } from "../soap/soap-client-facade";
 import { SoapServiceVersion } from "../enums";
 import {
-  WSAuthTokens,
   AfipContext,
   AfipServiceSoapParam,
   SoapServices,
   WSAuthParam,
+  ILoginCredentials,
 } from "../types";
 
 export class AfipService<T extends Client> {
   private _soapCliente?: T;
-  private _tokens?: WSAuthTokens;
+  private _credentials?: AccessTicket;
   private readonly _serviceName: ServiceNamesEnum;
   private readonly _afipAuth: AfipAuth;
 
@@ -23,10 +23,10 @@ export class AfipService<T extends Client> {
     private _soapParams: AfipServiceSoapParam
   ) {
     this._afipAuth = new AfipAuth(context);
-
     this._serviceName = this._soapParams.serviceName;
-    this._tokens = this.context.authTokens;
     this._soapParams.v12 = this._soapParams.v12 || false;
+
+    this.context.credentials && this.setCredentials(this.context.credentials);
 
     if (!this.context.production) {
       this._soapParams.url = this._soapParams.url_test ?? this._soapParams.url;
@@ -35,8 +35,8 @@ export class AfipService<T extends Client> {
     }
   }
 
-  public setTokens(tokens: WSAuthTokens): void {
-    this._tokens = tokens;
+  public setCredentials(credentials: ILoginCredentials): void {
+    this._credentials = new AccessTicket(credentials);
   }
 
   async getClient(): Promise<T> {
@@ -59,7 +59,7 @@ export class AfipService<T extends Client> {
           if (soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"]) {
             return async (req: Record<string, any>) => {
               return target[prop]({
-                ...(await this.getAuthTokens()),
+                ...(await this.logIn()),
                 ...req,
               });
             };
@@ -85,110 +85,26 @@ export class AfipService<T extends Client> {
 
   /**
    * Generate signatures through the WSAA. If handleTicket is not defined, the function will save the tokens locally.
-   * @returns tokens
-   */
-  public async logIn(): Promise<WSAuthTokens> {
-    if (this._tokens) {
-      return this._tokens as WSAuthTokens;
-    }
-
-    if (this.context.handleTicket) {
-      throw new Error(
-        "Tokens are not defined yet and handleTicket param is 'true'. Set them when the Afip class is instantiated."
-      );
-    }
-
-    // let accessTicket = await this._afipAuth.getLocalAccessTicket(
-    //   this._serviceName
-    // );
-
-    // if (!accessTicket?.isAccessTicketValid()) {
-    //   accessTicket = await this._afipAuth.getAccessTicket(this._serviceName);
-    //   await this._afipAuth.saveLocalAccessTicket(
-    //     accessTicket,
-    //     this._serviceName
-    //   );
-    // }
-
-    // this._tokens = accessTicket.getAuthKeyProps();
-    return await this._afipAuth.getAuthKey(this._serviceName);
-  }
-
-  // public async logIn(): Promise<WSAuthTokens> {
-  //   if (!this._tokens) {
-  //     if (this.context.handleTicket)
-  //       throw new Error(
-  //         "Tokens are not defined yet. Set it when Afip class is instanced."
-  //       );
-
-  //     let ticket = await this._afipAuth.getLocalAccessTicket(this._serviceName);
-
-  //     if (!ticket?.isAccessTicketValid()) {
-  //       ticket = await this._afipAuth.getAccessTicket(this._serviceName);
-  //       await this._afipAuth.saveLocalAccessTicket(ticket, this._serviceName);
-  //     }
-  //     this._tokens = ticket.getAuthKeyProps();
-  //   }
-
-  //   return this._tokens as WSAuthTokens;
-  // }
-
-  /**
-   * Send request to AFIP WSAA and return the auth object required for protected services
    *
    * @param params Parameters to send
    **/
-  protected async getAuthTokens(): Promise<WSAuthParam> {
-    if (this._tokens && !AccessTicket.hasExpired(this._tokens.expirationDate)) {
-      return {
-        Auth: {
-          Token: this._tokens.token,
-          Sign: this._tokens.sign,
-          Cuit: this.context.cuit,
-        },
-      };
+  protected async logIn(): Promise<WSAuthParam> {
+    if (this.context.handleTicket) {
+      if (!this._credentials) {
+        throw new Error(
+          "Credentials are not defined yet, and handleTicket param is 'true'. Set them when the Afip class is instantiated."
+        );
+      } else if (this._credentials.isExpired()) {
+        throw new Error("Credentials expired.");
+      }
     }
 
-    if (this._tokens && this.context.handleTicket) {
-      throw new Error("Tokens expired.");
+    if (this._credentials && !this._credentials.isExpired()) {
+      return this._afipAuth.getWSAuthForRequest(this._credentials);
     }
 
-    this._tokens = await this.logIn();
+    this._credentials = await this._afipAuth.getAccessTicket(this._serviceName);
 
-    return {
-      Auth: {
-        Token: this._tokens.token,
-        Sign: this._tokens.sign,
-        Cuit: this.context.cuit,
-      },
-    };
+    return this._afipAuth.getWSAuthForRequest(this._credentials);
   }
-
-  // protected async getAuthTokens(): Promise<WSAuthParam> {
-  //   if (this._tokens) {
-  //     if (AccessTicket.hasExpired(this._tokens.expirationDate)) {
-  //       if (this.context.handleTicket) {
-  //         throw new Error("Tokens expired.");
-  //       }
-  //     } else {
-  //       return {
-  //         Auth: {
-  //           Cuit: this.context.cuit,
-  //           Sign: this._tokens.sign,
-  //           Token: this._tokens.token,
-  //         },
-  //       };
-  //     }
-  //   }
-
-  //   this._tokens = await this.logIn();
-
-  //   return {
-  //     Auth: {
-  //       Token: this._tokens.token,
-  //       Sign: this._tokens.sign,
-  //       Cuit: this.context.cuit,
-  //     },
-  //   };
-  // }
 }

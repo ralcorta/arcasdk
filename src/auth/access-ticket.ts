@@ -1,18 +1,17 @@
-import { IAccessTicket, WSAuthTokens } from "./../types";
+import { IAccessTicket, ILoginCredentials, WSAuthTokens } from "./../types";
 import moment, { MomentInput } from "moment";
 import {
-  ILoginCmsReturn,
   ILoginCmsReturnCredentials,
   ILoginCmsReturnHeaders,
 } from "../soap/interfaces/LoginCMSService/LoginCms";
 
 export class AccessTicket implements IAccessTicket {
-  header: ILoginCmsReturnHeaders;
-  credentials: ILoginCmsReturnCredentials;
+  readonly header: ILoginCmsReturnHeaders;
+  readonly credentials: ILoginCmsReturnCredentials;
 
-  constructor(loginReturn: ILoginCmsReturn) {
-    this.header = loginReturn.header;
-    this.credentials = loginReturn.credentials;
+  constructor({ header, credentials }: ILoginCredentials) {
+    this.header = header;
+    this.credentials = credentials;
   }
 
   getSign(): string {
@@ -43,15 +42,7 @@ export class AccessTicket implements IAccessTicket {
     };
   }
 
-  public isAccessTicketValid(): boolean {
-    return AccessTicket.hasExpired(this.getExpiration());
-  }
-
-  public hasExpired(expirationDateIsoFormat: MomentInput): boolean {
-    return moment(expirationDateIsoFormat).isBefore(new Date());
-  }
-
-  public static hasExpired(expirationDateIsoFormat: MomentInput): boolean {
-    return moment(expirationDateIsoFormat).isBefore(new Date());
+  public isExpired(): boolean {
+    return moment(this.getExpiration()).isBefore(new Date());
   }
 }

@@ -42,8 +42,8 @@ export class RegisterScopeThirteenService extends AfipService<IPersonaServiceA13
   async getTaxpayerDetails(
     identifier: number
   ): Promise<PersonaServiceA13PortTypes.IpersonaReturn> {
-    const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
+    const { Auth } = await this.logIn();
     const [output] = await client.getPersonaAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,
@@ -62,8 +62,8 @@ export class RegisterScopeThirteenService extends AfipService<IPersonaServiceA13
   async getTaxIDByDocument(
     documentNumber: string
   ): Promise<PersonaServiceA13PortTypes.IidPersonaListReturn> {
-    const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
+    const { Auth } = await this.logIn();
     const [output] = await client.getIdPersonaListByDocumentoAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,

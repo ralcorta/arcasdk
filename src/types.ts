@@ -28,12 +28,15 @@ export type SoapClientParams = {
   options?: IOptions;
 };
 
-export interface IAccessTicket extends ILoginCmsReturn {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ILoginCredentials extends ILoginCmsReturn {}
+
+export interface IAccessTicket extends ILoginCredentials {
   getSign(): string;
   getToken(): string;
   getExpiration(): Date;
   getAuthKeyProps(): WSAuthTokens;
-  isAccessTicketValid(ta: IAccessTicket): boolean;
+  isExpired(): boolean;
 }
 
 export type AfipServiceSoapParam = SoapClientParams & {
@@ -85,9 +88,9 @@ export type AfipContext = {
   /**
    * Tokens object if you have one created before
    *
-   * @var authTokens
+   * @var credentials
    **/
-  authTokens?: WSAuthTokens;
+  credentials?: ILoginCredentials;
 
   /**
    * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved locally.
@@ -173,4 +176,5 @@ export interface ICreateVoucherResult {
   caeFchVto: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput {}

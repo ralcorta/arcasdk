@@ -11,7 +11,7 @@ import { AccessTicket } from "./access-ticket";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { Cryptography } from "../utils/crypt-data";
-import { AfipContext, WSAuthTokens } from "../types";
+import { AfipContext, WSAuthParam } from "../types";
 import { EndpointsEnum } from "../enums";
 import { logger } from "../utils/logger";
 
@@ -87,6 +87,22 @@ export class AfipAuth {
   }
 
   /**
+   * Creates the format of the authentication headers requested by the afip endpoints
+   *
+   * @param ticket AccessTicket
+   * @returns WSAuthParam
+   */
+  async getWSAuthForRequest(ticket: AccessTicket): Promise<WSAuthParam> {
+    return {
+      Auth: {
+        Token: ticket.getToken(),
+        Sign: ticket.getSign(),
+        Cuit: this.context.cuit,
+      },
+    };
+  }
+
+  /**
    * Create the file name with a standard format
    *
    * @param serviceName name from Afip WS
@@ -108,13 +124,6 @@ export class AfipAuth {
     return resolve(this.context.ticketPath, this.createFileName(serviceName));
   }
 
-  public async getAuthKey(
-    serviceName: ServiceNamesEnum
-  ): Promise<WSAuthTokens> {
-    const ticket = await this.getAccessTicket(serviceName);
-    return ticket.getAuthKeyProps();
-  }
-
   /**
    * Get token authorization
    *
@@ -126,7 +135,7 @@ export class AfipAuth {
   ): Promise<AccessTicket> {
     let accessTicket = await this.getLocalAccessTicket(serviceName);
 
-    if (!accessTicket) {
+    if (!accessTicket || accessTicket.isExpired()) {
       const loginTicketResponse = await this.getLoginCms(serviceName);
       accessTicket = new AccessTicket(loginTicketResponse);
       await this.saveLocalAccessTicket(accessTicket, serviceName);

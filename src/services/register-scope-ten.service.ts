@@ -42,8 +42,8 @@ export class RegisterScopeTenService extends AfipService<IPersonaServiceA10PortS
   async getTaxpayerDetails(
     identifier: number
   ): Promise<PersonaServiceA10PortTypes.IpersonaReturn> {
-    const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
+    const { Auth } = await this.logIn();
     const [output] = await client.getPersonaAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,

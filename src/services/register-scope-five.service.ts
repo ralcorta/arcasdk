@@ -42,8 +42,8 @@ export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortS
   async getTaxpayerDetails(
     identifier: number
   ): Promise<PersonaServiceA5PortTypes.IpersonaReturn> {
-    const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
+    const { Auth } = await this.logIn();
     const [output] = await client.getPersona_v2Async({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,
@@ -61,8 +61,8 @@ export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortS
   async getTaxpayersDetails(
     identifier: number
   ): Promise<PersonaServiceA5PortTypes.IpersonaListReturn> {
-    const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
+    const { Auth } = await this.logIn();
     const [output] = await client.getPersonaList_v2Async({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,
