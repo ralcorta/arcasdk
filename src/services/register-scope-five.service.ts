@@ -5,11 +5,11 @@ import {
   IPersonaServiceA5PortSoap,
   PersonaServiceA5PortTypes,
 } from "../soap/interfaces/PersonaServiceA5/PersonaServiceA5Port";
-import { AfipContext } from "../types";
+import { Context } from "../types";
 import { EndpointsEnum } from "../enums";
 
 export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortSoap> {
-  constructor(context: AfipContext) {
+  constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSSR_PADRON_FIVE,
       url_test: EndpointsEnum.WSSR_PADRON_FIVE_TEST,
@@ -43,7 +43,7 @@ export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortS
     identifier: number
   ): Promise<PersonaServiceA5PortTypes.IpersonaReturn> {
     const client = await this.getClient();
-    const { Auth } = await this.logIn();
+    const { Auth } = await this.getWsAuth();
     const [output] = await client.getPersona_v2Async({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,
@@ -62,7 +62,7 @@ export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortS
     identifier: number
   ): Promise<PersonaServiceA5PortTypes.IpersonaListReturn> {
     const client = await this.getClient();
-    const { Auth } = await this.logIn();
+    const { Auth } = await this.getWsAuth();
     const [output] = await client.getPersonaList_v2Async({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,

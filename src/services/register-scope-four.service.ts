@@ -5,11 +5,11 @@ import {
   IPersonaServiceA4PortSoap,
   PersonaServiceA4PortTypes,
 } from "../soap/interfaces/PersonaServiceA4/PersonaServiceA4Port";
-import { AfipContext } from "../types";
+import { Context } from "../types";
 import { EndpointsEnum } from "../enums";
 
 export class RegisterScopeFourService extends AfipService<IPersonaServiceA4PortSoap> {
-  constructor(context: AfipContext) {
+  constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSSR_PADRON_FOUR,
       url_test: EndpointsEnum.WSSR_PADRON_FOUR_TEST,
@@ -43,7 +43,7 @@ export class RegisterScopeFourService extends AfipService<IPersonaServiceA4PortS
     identifier: number
   ): Promise<PersonaServiceA4PortTypes.IpersonaReturn> {
     const client = await this.getClient();
-    const { Auth } = await this.logIn();
+    const { Auth } = await this.getWsAuth();
     const [output] = await client.getPersonaAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,

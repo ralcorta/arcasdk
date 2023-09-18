@@ -5,7 +5,7 @@ import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { SoapClientFacade } from "../soap/soap-client-facade";
 import { SoapServiceVersion } from "../enums";
 import {
-  AfipContext,
+  Context,
   AfipServiceSoapParam,
   SoapServices,
   WSAuthParam,
@@ -19,7 +19,7 @@ export class AfipService<T extends Client> {
   private readonly _afipAuth: AfipAuth;
 
   constructor(
-    protected readonly context: AfipContext,
+    protected readonly context: Context,
     private _soapParams: AfipServiceSoapParam
   ) {
     this._afipAuth = new AfipAuth(context);
@@ -44,6 +44,19 @@ export class AfipService<T extends Client> {
     return this._soapCliente;
   }
 
+  private async instanceSoapClient(): Promise<T> {
+    const client = await SoapClientFacade.create<T>({
+      wsdl: this._soapParams.wsdl,
+      options: {
+        disableCache: true,
+        forceSoap12Headers: this._soapParams.v12,
+        ...this._soapParams.options,
+      },
+    });
+    client.setEndpoint(this._soapParams.url);
+    return client;
+  }
+
   private async proxySoapClient(): Promise<T> {
     const client = await this.instanceSoapClient();
     return new Proxy(client, {
@@ -59,7 +72,7 @@ export class AfipService<T extends Client> {
           if (soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"]) {
             return async (req: Record<string, any>) => {
               return target[prop]({
-                ...(await this.logIn()),
+                ...(await this.getWsAuth()),
                 ...req,
               });
             };
@@ -70,17 +83,8 @@ export class AfipService<T extends Client> {
     });
   }
 
-  private async instanceSoapClient(): Promise<T> {
-    const client = await SoapClientFacade.create<T>({
-      wsdl: this._soapParams.wsdl,
-      options: {
-        disableCache: true,
-        forceSoap12Headers: this._soapParams.v12,
-        ...this._soapParams.options,
-      },
-    });
-    client.setEndpoint(this._soapParams.url);
-    return client;
+  async login() {
+    return this._afipAuth.login(this._serviceName);
   }
 
   /**
@@ -88,7 +92,7 @@ export class AfipService<T extends Client> {
    *
    * @param params Parameters to send
    **/
-  protected async logIn(): Promise<WSAuthParam> {
+  async getWsAuth(): Promise<WSAuthParam> {
     if (this.context.handleTicket) {
       if (!this._credentials) {
         throw new Error(
@@ -97,14 +101,12 @@ export class AfipService<T extends Client> {
       } else if (this._credentials.isExpired()) {
         throw new Error("Credentials expired.");
       }
+    } else if (!this._credentials || this._credentials.isExpired()) {
+      this._credentials = await this._afipAuth.getAccessTicket(
+        this._serviceName
+      );
     }
 
-    if (this._credentials && !this._credentials.isExpired()) {
-      return this._afipAuth.getWSAuthForRequest(this._credentials);
-    }
-
-    this._credentials = await this._afipAuth.getAccessTicket(this._serviceName);
-
-    return this._afipAuth.getWSAuthForRequest(this._credentials);
+    return this._credentials.getWSAuthFormat(this.context.cuit);
   }
 }

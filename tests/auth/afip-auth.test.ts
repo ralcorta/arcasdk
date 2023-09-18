@@ -1,7 +1,7 @@
 import { mockLoginCredentials } from "./../mocks/data/credential-json.mock";
 import { AfipAuth } from "./../../src/auth/afip-auth";
 import { ServiceNamesEnum } from "../../src/soap/service-names.enum";
-import { AfipContext, ILoginCredentials } from "./../../src/types";
+import { Context, ILoginCredentials } from "./../../src/types";
 import { AccessTicket } from "../../src/auth/access-ticket";
 import moment from "moment";
 import { promises as fs } from "fs";
@@ -43,7 +43,7 @@ jest.mock("../../src/utils/logger", () => ({
 }));
 
 describe("AfipAuth", () => {
-  const mockContext: AfipContext = {
+  const mockContext: Context = {
     cuit: 123456789,
     cert: "mock-cert",
     key: "mock-key",

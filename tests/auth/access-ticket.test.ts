@@ -2,6 +2,7 @@ import { mockLoginCredentials } from "./../mocks/data/credential-json.mock";
 import moment from "moment";
 import { AccessTicket } from "../../src/auth/access-ticket";
 import { ILoginCredentials } from "../../src/types";
+import EnvTest from "../utils/env-test";
 
 describe("Access Ticket", () => {
   describe("getSign", () => {
@@ -54,14 +55,16 @@ describe("Access Ticket", () => {
     });
   });
 
-  describe("getAuthKeyProps", () => {
+  describe("getWSAuthFormat", () => {
     it("should return the authentication key properties", () => {
       const accessTicket = new AccessTicket(mockLoginCredentials);
-      const authKeyProps = accessTicket.getAuthKeyProps();
+      const authKeyProps = accessTicket.getWSAuthFormat(parseInt(EnvTest.cuit));
       expect(authKeyProps).toEqual({
-        token: "mock-token",
-        sign: "mock-signature",
-        expirationDate: expect.any(String),
+        Auth: {
+          Token: "mock-token",
+          Sign: "mock-signature",
+          Cuit: parseInt(EnvTest.cuit),
+        },
       });
     });
   });

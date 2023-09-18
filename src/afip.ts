@@ -6,7 +6,7 @@ import { RegisterScopeFiveService } from "./services/register-scope-five.service
 import { RegisterScopeFourService } from "./services/register-scope-four.service";
 import { RegisterScopeTenService } from "./services/register-scope-ten.service";
 import { RegisterScopeThirteenService } from "./services/register-scope-thirteen.service";
-import { AfipContext, Context, AfipServiceSoapParam } from "./types";
+import { Context, AfipServiceSoapParam } from "./types";
 
 export class Afip {
   private readonly _electronicBillingService: ElectronicBillingService;
@@ -14,7 +14,7 @@ export class Afip {
   private readonly _registerScopeFiveService: RegisterScopeFiveService;
   private readonly _registerScopeTenService: RegisterScopeTenService;
   private readonly _registerScopeTThirteenService: RegisterScopeThirteenService;
-  private readonly context: AfipContext;
+  private readonly context: Context;
 
   constructor(context: Context) {
     this.context = {

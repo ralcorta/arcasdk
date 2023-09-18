@@ -5,11 +5,11 @@ import {
   IPersonaServiceA10PortSoap,
   PersonaServiceA10PortTypes,
 } from "../soap/interfaces/PersonaServiceA10/PersonaServiceA10Port";
-import { AfipContext } from "../types";
+import { Context } from "../types";
 import { EndpointsEnum } from "../enums";
 
 export class RegisterScopeTenService extends AfipService<IPersonaServiceA10PortSoap> {
-  constructor(context: AfipContext) {
+  constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSSR_PADRON_TEN,
       url_test: EndpointsEnum.WSSR_PADRON_TEN_TEST,
@@ -43,7 +43,7 @@ export class RegisterScopeTenService extends AfipService<IPersonaServiceA10PortS
     identifier: number
   ): Promise<PersonaServiceA10PortTypes.IpersonaReturn> {
     const client = await this.getClient();
-    const { Auth } = await this.logIn();
+    const { Auth } = await this.getWsAuth();
     const [output] = await client.getPersonaAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,

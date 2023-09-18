@@ -7,7 +7,7 @@ import {
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import {
-  AfipContext,
+  Context,
   IGetSalesPointsResult,
   IVoucher,
   ICreateVoucherResult,
@@ -16,7 +16,7 @@ import {
 import { EndpointsEnum } from "../enums";
 
 export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
-  constructor(context: AfipContext) {
+  constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSFEV1,
       url_test: EndpointsEnum.WSFEV1_TEST,

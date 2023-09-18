@@ -1,4 +1,4 @@
-import { IAccessTicket, ILoginCredentials, WSAuthTokens } from "./../types";
+import { IAccessTicket, ILoginCredentials, WSAuthParam } from "./../types";
 import moment from "moment";
 import {
   ILoginCmsReturnCredentials,
@@ -34,11 +34,13 @@ export class AccessTicket implements IAccessTicket {
     return this.credentials;
   }
 
-  getAuthKeyProps(): WSAuthTokens {
+  getWSAuthFormat(cuit: number): WSAuthParam {
     return {
-      token: this.getToken(),
-      sign: this.getSign(),
-      expirationDate: this.getExpiration().toISOString(),
+      Auth: {
+        Token: this.getToken(),
+        Sign: this.getSign(),
+        Cuit: cuit,
+      },
     };
   }
 

@@ -3,7 +3,6 @@ import { promises as fs } from "fs";
 import { resolve } from "path";
 import { SoapClientFacade } from "../soap/soap-client-facade";
 import {
-  ILoginCmsReturn,
   ILoginCmsSoap,
   LoginTicketResponse,
 } from "../soap/interfaces/LoginCMSService/LoginCms";
@@ -11,12 +10,17 @@ import { AccessTicket } from "./access-ticket";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { Cryptography } from "../utils/crypt-data";
-import { AfipContext, WSAuthParam } from "../types";
+import { Context, WSAuthParam } from "../types";
 import { EndpointsEnum } from "../enums";
 import { logger } from "../utils/logger";
 
 export class AfipAuth {
-  constructor(private readonly context: AfipContext) {}
+  resolvedFolderPath: string;
+
+  constructor(private readonly context: Context) {
+    this.resolvedFolderPath =
+      context.ticketPath ?? resolve(__dirname, "tickets");
+  }
 
   private async getAuthClient() {
     return SoapClientFacade.create<ILoginCmsSoap>({
@@ -71,7 +75,7 @@ export class AfipAuth {
    * @param serviceName ServiceNamesEnum
    * @returns ILoginCmsReturn
    */
-  async getLoginCms(serviceName: ServiceNamesEnum): Promise<ILoginCmsReturn> {
+  async login(serviceName: ServiceNamesEnum): Promise<AccessTicket> {
     // Create amd sign TRA
     const traXml = await Parser.jsonToXml(this.getTRA(serviceName));
     const signedTRA = this.signTRA(traXml);
@@ -83,7 +87,7 @@ export class AfipAuth {
       loginCmsResult.loginCmsReturn
     );
 
-    return loginReturn.loginticketresponse;
+    return new AccessTicket(loginReturn.loginticketresponse);
   }
 
   /**
@@ -121,7 +125,7 @@ export class AfipAuth {
    * @returns
    */
   private getTicketFilePathByService(serviceName: ServiceNamesEnum): string {
-    return resolve(this.context.ticketPath, this.createFileName(serviceName));
+    return resolve(this.resolvedFolderPath, this.createFileName(serviceName));
   }
 
   /**
@@ -136,8 +140,7 @@ export class AfipAuth {
     let accessTicket = await this.getLocalAccessTicket(serviceName);
 
     if (!accessTicket || accessTicket.isExpired()) {
-      const loginTicketResponse = await this.getLoginCms(serviceName);
-      accessTicket = new AccessTicket(loginTicketResponse);
+      accessTicket = await this.login(serviceName);
       await this.saveLocalAccessTicket(accessTicket, serviceName);
     }
 
@@ -156,7 +159,7 @@ export class AfipAuth {
     serviceName: ServiceNamesEnum
   ): Promise<void> {
     try {
-      fs.mkdir(this.context.ticketPath, { recursive: true });
+      fs.mkdir(this.resolvedFolderPath, { recursive: true });
     } catch (error) {
       logger.error(error.message);
       throw error;

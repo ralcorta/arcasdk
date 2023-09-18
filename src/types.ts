@@ -35,7 +35,7 @@ export interface IAccessTicket extends ILoginCredentials {
   getSign(): string;
   getToken(): string;
   getExpiration(): Date;
-  getAuthKeyProps(): WSAuthTokens;
+  getWSAuthFormat(cuit: number): WSAuthParam;
   isExpired(): boolean;
 }
 
@@ -54,9 +54,7 @@ export type SoapServices<T> = Record<
   >
 >;
 
-export type Context = Omit<AfipContext, "ticketPath"> & { ticketPath?: string };
-
-export type AfipContext = {
+export type Context = {
   /**
    * Flag for production or testing environment
    *
@@ -100,7 +98,7 @@ export type AfipContext = {
   /**
    * The path of the auth obj if the package is auto managed
    */
-  ticketPath: string;
+  ticketPath?: string;
 };
 
 export interface IVoucher {
