@@ -84,9 +84,7 @@ export class AfipAuth {
 
     // Request TR
     const client = await this.getAuthClient();
-    const result = await client.loginCmsAsync({ in0: signedTRA });
-    console.dir(result, { depth: 50 });
-    const [loginCmsResult] = result;
+    const [loginCmsResult] = await client.loginCmsAsync({ in0: signedTRA });
     const loginReturn = await Parser.xmlToJson<LoginTicketResponse>(
       loginCmsResult.loginCmsReturn
     );

@@ -22,11 +22,13 @@ import {
 } from "../mocks/data/voucher.mock";
 import { Afip } from "../../src/afip";
 import { TestConfigUtils } from "../utils/config.utils";
+import { AccessTicket } from "../../src/auth/access-ticket";
+import { mockLoginCredentials } from "../mocks/data/credential-json.mock";
 
 describe("Electronic Billings Service", () => {
   let afip: Afip;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     afip = new Afip({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
@@ -71,7 +73,7 @@ describe("Electronic Billings Service", () => {
     } as any);
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -144,6 +146,30 @@ describe("Electronic Billings Service", () => {
         testCbteTipo
       )
     ).toStrictEqual(FECompConsultarAsyncReturnMocks[0].FECompConsultarResult);
+  });
+
+  it("should call AfipAuth login method and return the result", async () => {
+    const { electronicBillingService } = new Afip({
+      key: await TestConfigUtils.getKey(),
+      cert: await TestConfigUtils.getCert(),
+      cuit: testCuit,
+      handleTicket: true,
+    });
+
+    const afipAuthMock = {
+      login: jest
+        .fn()
+        .mockResolvedValue(new AccessTicket(mockLoginCredentials)),
+    };
+
+    electronicBillingService["_afipAuth"] = afipAuthMock as any;
+
+    jest.spyOn(electronicBillingService, "getWsAuth");
+    const ticket = await electronicBillingService.login();
+    electronicBillingService.setCredentials(ticket);
+    const status = await electronicBillingService.getSalesPoints();
+    expect(status).not.toBeNull();
+    expect(electronicBillingService.getWsAuth).toHaveBeenCalled();
   });
 
   it("should get voucher types", async () => {

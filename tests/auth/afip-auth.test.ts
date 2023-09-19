@@ -47,8 +47,6 @@ describe("AfipAuth", () => {
     cuit: 123456789,
     cert: "mock-cert",
     key: "mock-key",
-    ticketPath: "/mock/ticket/path",
-    production: true,
   };
 
   const serviceName = ServiceNamesEnum.WSFE;
@@ -68,6 +66,23 @@ describe("AfipAuth", () => {
   };
 
   describe("getAccessTicket", () => {
+    it("should return a access ticket of login", async () => {
+      const ticket = new AccessTicket(credentials);
+      const afipAuth = new AfipAuth({
+        ...mockContext,
+        handleTicket: true,
+      });
+      afipAuth["requestLogin"] = jest.fn().mockResolvedValue(ticket);
+      afipAuth["getLocalAccessTicket"] = jest.fn();
+
+      const accessTicket = await afipAuth.login(serviceName);
+
+      expect(accessTicket).toBeInstanceOf(AccessTicket);
+      expect(accessTicket).toStrictEqual(ticket);
+      expect(afipAuth["requestLogin"]).toBeCalled();
+      expect(afipAuth["getLocalAccessTicket"]).not.toBeCalled();
+    });
+
     it("should return a new access ticket if not found locally", async () => {
       const afipAuth = new AfipAuth(mockContext);
 
@@ -100,7 +115,7 @@ describe("AfipAuth", () => {
       await afipAuth.saveLocalAccessTicket(accessTicket, serviceName);
 
       expect(fs.writeFile).toHaveBeenCalledWith(
-        expect.stringContaining("/mock/ticket/path"),
+        expect.any(String),
         expect.any(String),
         "utf8"
       );
