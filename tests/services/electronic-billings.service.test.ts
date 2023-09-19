@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   FECAESolicitarAsyncReturnMocks,
@@ -27,6 +28,7 @@ import { mockLoginCredentials } from "../mocks/data/credential-json.mock";
 
 describe("Electronic Billings Service", () => {
   let afip: Afip;
+  let afipRemote: Afip;
 
   beforeEach(async () => {
     afip = new Afip({
@@ -35,7 +37,14 @@ describe("Electronic Billings Service", () => {
       cuit: testCuit,
     });
 
-    jest.spyOn(afip.electronicBillingService, "getClient").mockReturnValue({
+    afipRemote = new Afip({
+      key: await TestConfigUtils.getKey(),
+      cert: await TestConfigUtils.getCert(),
+      cuit: testCuit,
+      handleTicket: true,
+    });
+
+    const afipMockParams = {
       FEDummyAsync: jest.fn().mockResolvedValue(FEDummyAsyncReturnMocks),
       FEParamGetPtosVentaAsync: jest
         .fn()
@@ -70,7 +79,14 @@ describe("Electronic Billings Service", () => {
       FEParamGetTiposTributosAsync: jest
         .fn()
         .mockResolvedValue(FEParamGetTiposTributosAsyncReturnMocks),
-    } as any);
+    } as any;
+
+    jest
+      .spyOn(afip.electronicBillingService, "getClient")
+      .mockReturnValue(afipMockParams);
+    jest
+      .spyOn(afipRemote.electronicBillingService, "getClient")
+      .mockReturnValue(afipMockParams);
   });
 
   afterEach(() => {
@@ -148,7 +164,7 @@ describe("Electronic Billings Service", () => {
     ).toStrictEqual(FECompConsultarAsyncReturnMocks[0].FECompConsultarResult);
   });
 
-  it("should call AfipAuth login method and return the result", async () => {
+  it("should get sales points with an authorized ticket after an initialization of afib with handleTicket true", async () => {
     const { electronicBillingService } = new Afip({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
@@ -170,6 +186,31 @@ describe("Electronic Billings Service", () => {
     const status = await electronicBillingService.getSalesPoints();
     expect(status).not.toBeNull();
     expect(electronicBillingService.getWsAuth).toHaveBeenCalled();
+  });
+
+  it("should create a voucher with an authorized ticket after an initialization of afib with handleTicket true", async () => {
+    const { electronicBillingService } = afipRemote;
+    const afipAuthMock = {
+      login: jest
+        .fn()
+        .mockResolvedValue(new AccessTicket(mockLoginCredentials)),
+    };
+
+    electronicBillingService["_afipAuth"] = afipAuthMock as any;
+
+    const ticket = await electronicBillingService.login();
+    electronicBillingService.setCredentials(ticket);
+    const { CbteDesde, CbteHasta, ...voucherData } = data;
+    const voucher = await electronicBillingService.createNextVoucher(
+      voucherData
+    );
+    expect(voucher.response.Errors).toBeUndefined();
+    expect(voucher.response.FeDetResp.FECAEDetResponse[0].CbteDesde).toEqual(
+      testCbteNro + 1
+    );
+    expect(voucher.response.FeDetResp.FECAEDetResponse[0].CbteHasta).toEqual(
+      testCbteNro + 1
+    );
   });
 
   it("should get voucher types", async () => {

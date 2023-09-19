@@ -8,14 +8,18 @@ describe("Access Ticket", () => {
   describe("getSign", () => {
     it("should return the sign", () => {
       const accessTicket = new AccessTicket(mockLoginCredentials);
-      expect(accessTicket.getSign()).toBe("mock-signature");
+      expect(accessTicket.getSign()).toBe(
+        mockLoginCredentials.credentials.sign
+      );
     });
   });
 
   describe("getToken", () => {
     it("should return the token", () => {
       const accessTicket = new AccessTicket(mockLoginCredentials);
-      expect(accessTicket.getToken()).toBe("mock-token");
+      expect(accessTicket.getToken()).toBe(
+        mockLoginCredentials.credentials.token
+      );
     });
   });
 
@@ -49,8 +53,8 @@ describe("Access Ticket", () => {
       const accessTicket = new AccessTicket(mockLoginCredentials);
       const credentials = accessTicket.getCredentials();
       expect(credentials).toEqual({
-        sign: "mock-signature",
-        token: "mock-token",
+        sign: mockLoginCredentials.credentials.sign,
+        token: mockLoginCredentials.credentials.token,
       });
     });
   });
@@ -61,8 +65,8 @@ describe("Access Ticket", () => {
       const authKeyProps = accessTicket.getWSAuthFormat(parseInt(EnvTest.cuit));
       expect(authKeyProps).toEqual({
         Auth: {
-          Token: "mock-token",
-          Sign: "mock-signature",
+          Token: mockLoginCredentials.credentials.token,
+          Sign: mockLoginCredentials.credentials.sign,
           Cuit: parseInt(EnvTest.cuit),
         },
       });
@@ -84,7 +88,10 @@ describe("Access Ticket", () => {
             expirationtime: moment().subtract(1, "day").toISOString(),
           },
         ],
-        credentials: { sign: "expired-signature", token: "expired-token" },
+        credentials: {
+          sign: mockLoginCredentials.credentials.sign,
+          token: mockLoginCredentials.credentials.token,
+        },
       };
       const accessTicket = new AccessTicket(expiredCredentials);
       expect(accessTicket.isExpired()).toBe(true);
