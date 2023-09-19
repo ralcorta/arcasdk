@@ -21,7 +21,7 @@ import {
   testPtoVta,
 } from "../mocks/data/voucher.mock";
 import { Afip } from "../../src/afip";
-import { TestConfigUtils } from "../utils/config";
+import { TestConfigUtils } from "../utils/config.utils";
 
 describe("Electronic Billings Service", () => {
   let afip: Afip;

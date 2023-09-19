@@ -75,14 +75,18 @@ export class AfipAuth {
    * @param serviceName ServiceNamesEnum
    * @returns ILoginCmsReturn
    */
-  async login(serviceName: ServiceNamesEnum): Promise<AccessTicket> {
+  private async requestLogin(
+    serviceName: ServiceNamesEnum
+  ): Promise<AccessTicket> {
     // Create amd sign TRA
     const traXml = await Parser.jsonToXml(this.getTRA(serviceName));
     const signedTRA = this.signTRA(traXml);
 
     // Request TR
     const client = await this.getAuthClient();
-    const [loginCmsResult] = await client.loginCmsAsync({ in0: signedTRA });
+    const result = await client.loginCmsAsync({ in0: signedTRA });
+    console.dir(result, { depth: 50 });
+    const [loginCmsResult] = result;
     const loginReturn = await Parser.xmlToJson<LoginTicketResponse>(
       loginCmsResult.loginCmsReturn
     );
@@ -134,13 +138,12 @@ export class AfipAuth {
    * @param serviceName ServiceNamesEnum
    * @returns AccessTicket
    */
-  public async getAccessTicket(
-    serviceName: ServiceNamesEnum
-  ): Promise<AccessTicket> {
+  public async login(serviceName: ServiceNamesEnum): Promise<AccessTicket> {
+    if (this.context.handleTicket) return await this.requestLogin(serviceName);
     let accessTicket = await this.getLocalAccessTicket(serviceName);
 
     if (!accessTicket || accessTicket.isExpired()) {
-      accessTicket = await this.login(serviceName);
+      accessTicket = await this.requestLogin(serviceName);
       await this.saveLocalAccessTicket(accessTicket, serviceName);
     }
 

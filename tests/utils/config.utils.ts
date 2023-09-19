@@ -1,8 +1,8 @@
-import EnvTest from "./env-test";
 import { resolve } from "path";
 import { readFileSync } from "fs";
 import { config } from "dotenv";
 import { promises as fs } from "fs";
+import EnvTest from "../env-test";
 config();
 
 export class TestConfigUtils {

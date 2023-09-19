@@ -15,8 +15,8 @@ import {
 export class AfipService<T extends Client> {
   private _soapCliente?: T;
   private _credentials?: AccessTicket;
-  private readonly _serviceName: ServiceNamesEnum;
-  private readonly _afipAuth: AfipAuth;
+  private _serviceName: ServiceNamesEnum;
+  private _afipAuth: AfipAuth;
 
   constructor(
     protected readonly context: Context,
@@ -71,8 +71,9 @@ export class AfipService<T extends Client> {
           // Get tokens only if the method exist and require Auth.
           if (soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"]) {
             return async (req: Record<string, any>) => {
+              const auth = await this.getWsAuth();
               return target[prop]({
-                ...(await this.getWsAuth()),
+                ...auth,
                 ...req,
               });
             };
@@ -83,6 +84,10 @@ export class AfipService<T extends Client> {
     });
   }
 
+  /**
+   * Generate signatures through the WSAA.
+   *
+   **/
   async login() {
     return this._afipAuth.login(this._serviceName);
   }
@@ -102,9 +107,7 @@ export class AfipService<T extends Client> {
         throw new Error("Credentials expired.");
       }
     } else if (!this._credentials || this._credentials.isExpired()) {
-      this._credentials = await this._afipAuth.getAccessTicket(
-        this._serviceName
-      );
+      this._credentials = await this._afipAuth.login(this._serviceName);
     }
 
     return this._credentials.getWSAuthFormat(this.context.cuit);

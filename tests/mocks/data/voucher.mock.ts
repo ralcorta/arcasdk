@@ -1,6 +1,6 @@
 import { IVoucher } from "../../../src/types";
 import moment from "moment";
-import EnvTest from "../../utils/env-test";
+import EnvTest from "../../env-test";
 
 export const testCuit = parseInt(EnvTest.cuit);
 export const testPtoVta = 2;

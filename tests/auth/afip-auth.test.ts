@@ -71,7 +71,7 @@ describe("AfipAuth", () => {
     it("should return a new access ticket if not found locally", async () => {
       const afipAuth = new AfipAuth(mockContext);
 
-      const accessTicket = await afipAuth.getAccessTicket(serviceName);
+      const accessTicket = await afipAuth.login(serviceName);
 
       expect(accessTicket).toBeInstanceOf(AccessTicket);
     });
@@ -86,7 +86,7 @@ describe("AfipAuth", () => {
         .spyOn(afipAuth, "getLocalAccessTicket")
         .mockResolvedValue(mockAccessTicket);
 
-      const accessTicket = await afipAuth.getAccessTicket(serviceName);
+      const accessTicket = await afipAuth.login(serviceName);
 
       expect(accessTicket).toBe(mockAccessTicket);
     });
