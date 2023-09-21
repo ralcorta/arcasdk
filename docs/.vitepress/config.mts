@@ -15,64 +15,71 @@ export default defineConfig({
     nav: [
       {
         text: "📖 Guia",
-        link: "/guide/index",
+        link: "/introduction",
       },
-      // {
-      //   text: "Contribuir",
-      //   link: "/contributions/index",
-      // },
     ],
 
-    sidebar: {
-      "/guide/": [
-        {
-          text: "Guia",
-          base: "/guide",
-          items: [
-            { text: "🎉 Introducción", link: "/index" },
-            { text: "🚀 Uso basico", link: "/basic-use" },
-            { text: "⚙️ Configuración", link: "/config" },
-            { text: "🧐 Comportamiento", link: "/behaviour" },
-            {
-              text: "🛠️ Servicios",
-              base: "/guide/services",
-              items: [
-                {
-                  text: "💸 Facturación electrónica",
-                  link: "/facturacion_electronica",
-                },
-                {
-                  text: "🔍 Consultas de padron",
-                  collapsed: true,
-                  items: [
-                    {
-                      text: "4️⃣ Alcance 4",
-                      link: "/consulta_padron_alcance_4",
-                    },
-                    {
-                      text: "5️⃣ Alcance 5",
-                      link: "/consulta_padron_alcance_5",
-                    },
-                    {
-                      text: "🔟 Alcance 10",
-                      link: "/consulta_padron_alcance_10",
-                    },
-                    {
-                      text: "1️⃣ 3️⃣ Alcance 13",
-                      link: "/consulta_padron_alcance_13",
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              text: "☁️ Gestión de Credenciales",
-              link: "/credential_management",
-            },
-          ],
-        },
-      ],
-    },
+    sidebar: [
+      {
+        text: "Guia",
+        items: [
+          { text: "🎉 Introducción", link: "/introduction" },
+          { text: "🚀 Uso basico", link: "/basic-use" },
+          { text: "⚙️ Configuración", link: "/config" },
+          { text: "🧐 Comportamiento", link: "/behaviour" },
+          {
+            text: "🛠️ Servicios",
+            base: "/services",
+            items: [
+              {
+                text: "💸 Facturación electrónica",
+                link: "/facturacion_electronica",
+              },
+              {
+                text: "🔍 Consultas de padron",
+                collapsed: true,
+                items: [
+                  {
+                    text: "4️⃣ Alcance 4",
+                    link: "/consulta_padron_alcance_4",
+                  },
+                  {
+                    text: "5️⃣ Alcance 5",
+                    link: "/consulta_padron_alcance_5",
+                  },
+                  {
+                    text: "🔟 Alcance 10",
+                    link: "/consulta_padron_alcance_10",
+                  },
+                  {
+                    text: "1️⃣ 3️⃣ Alcance 13",
+                    link: "/consulta_padron_alcance_13",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            text: "☁️ Gestión de Credenciales",
+            link: "/credential_management",
+          },
+          {
+            text: "📚 Obtener certificados",
+            base: "tutorial",
+            items: [
+              {
+                text: "Habilitar certificados de testing",
+                link: "/enable_testing_certificates",
+              },
+              {
+                text: "Obtener certificado de testing",
+                link: "/obtain-testing-certificate",
+              },
+            ],
+          },
+        ],
+      },
+    ],
 
     socialLinks: [
       { icon: "github", link: "https://github.com/ralcorta/afip.ts" },

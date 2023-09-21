@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Ir a la Documentacion
-      link: /guide/index
+      link: /introduction
       
 features:
   - title: TypeScript desde el inicio
