@@ -1,29 +1,27 @@
-# Uso Básico
+# 🚀 Uso Básico
 
-### Ejemplo basico:
+### Ejemplo Básico
 
-Para usar la SDK debemos instanciar la clase `Afip` con los siguientes minimos datos:
+Para utilizar la SDK, debes instanciar la clase `Afip` proporcionando los siguientes datos mínimos:
 
-- [`key`](https://www.afip.gob.ar/ws/documentacion/certificados.asp) : Contenido de la clave privada generada para Afip
-- [`cert`](https://www.afip.gob.ar/ws/documentacion/certificados.asp) : Contenido del certificado generado en Afip
-- `cuit` : Cuit del usuario
+- [`key`](https://www.afip.gob.ar/ws/documentacion/certificados.asp): Contenido de la clave privada generada para AFIP.
+- [`cert`](https://www.afip.gob.ar/ws/documentacion/certificados.asp): Contenido del certificado generado en AFIP.
+- `cuit`: CUIT del usuario.
 
-Esto data como resultado un objecto con los respectivos servicios disponibles para usar, como por ejemplo `electronicBillingService`:
+Esto resultará en la creación de un objeto con los servicios disponibles para su uso, como por ejemplo `electronicBillingService`:
 
 ```ts
 import { Afip } from "afip.ts";
 
 const afip: Afip = new Afip({
-  key: "private_key_content",
-  cert: "crt_content",
+  key: "contenido_de_la_clave_privada",
+  cert: "contenido_del_certificado",
   cuit: 20111111112,
 });
 
-const voucher = await afip.electronicBillingService.createInvoice({
-  // voucher data
+const factura = await afip.electronicBillingService.createInvoice({
+  // datos de la factura
 });
 ```
 
-<br>
-
-La clase Afip recibe como parametro en el constructor el contexto (Ver type). Ahi esta explicado todos los comportamientos que puede tomar afip.
+La clase `Afip` acepta un parámetro adicional en el constructor llamado "contexto" (ver tipo). Aquí se explican todos los comportamientos que puede tomar Afip.
