@@ -39,6 +39,10 @@ export class AfipService<T extends Client> {
     this._credentials = new AccessTicket(credentials);
   }
 
+  public isCredentialStillValid(): boolean {
+    return this._credentials ? !this._credentials.isExpired() : false;
+  }
+
   async getClient(): Promise<T> {
     if (!this._soapCliente) this._soapCliente = await this.proxySoapClient();
     return this._soapCliente;

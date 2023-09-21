@@ -11,8 +11,9 @@
     "test": "jest",
     "doc": "typedoc --theme oxide --name 'afip.ts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "author": "valiuLab",
   "license": "ISC",
@@ -26,7 +27,7 @@
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "vuepress": "^1.9.9",
+    "vitepress": "1.0.0-rc.15",
     "wsdl-to-ts": "^0.2.3",
     "wsdl-tsclient": "^1.4.0"
   },

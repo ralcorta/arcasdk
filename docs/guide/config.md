@@ -1,24 +1,24 @@
-# Contexto
+# ⚙️ Contexto
 
-### Afip Context:
+### Contexto de Afip:
 
-La clase `Afip` recibe como parametro un objecto de tipo `Context` el cual provee de los datos basicos necesarios para el uso de los Web Services de Afip, como tambien de como debe comportarse:
+La clase `Afip` recibe un objeto de tipo `Context` como parámetro, el cual proporciona los datos básicos necesarios para utilizar los servicios web de AFIP, así como también cómo deben comportarse:
 
 ```ts
-const instance = new Afip(Context);
+const instancia = new Afip(Contexto);
 ```
 
-- `Context`:
-  - `production` <small>(boolean)</small>: Flag que permite indicar si se usara los servicios de produccion o de homologacion (Testing).
-  - `cert` <small>\*(string)</small>: Contenido del certificado `(.crt)`.
-  - `key` <small>\*(string)</small>: Contenido de la llave privada.
-  - `cuit` <small>\*(number)</small>: Cuit del usuario a usar.
-  - `credentials` <small>(WSAuthTokens)</small>: Objeto de tipo WSAuthTokens ([Ver](https://github.com/valiulab/afip.ts/blob/main/src/auth/types.ts#L5)). Aca es donde se asigna los tokens de autenticacion si es que tiene alguno guardado.
-  - `handleTicket` <small>(boolean)</small>: Flag que indica si los tickets de autenticacion son manejados localmente automaticamente por el package o van a ser dados por el desarrollador (Mas adelante se indicara como hacer log in y luego pasar los tokens antes de una llamada al Web Service deseado). Esto es util cuando se desea usar el package sobre una `lambda`, ya que en estas no podremos guardar localemnte los tokens.
-  - `ticketPath` <small>(string)</small>: Ruta preferencial donde se desea guardaran los tokens obtenidos desde el servicio WSAA si no se desea la carpeta default.
+- `Contexto`:
+  - `production` <small>(booleano)</small>: Flag que permite especificar si se utilizarán los servicios de producción o de homologación (pruebas).
+  - `cert` <small>\*(cadena)</small>: Contenido del certificado `(.crt)`.
+  - `key` <small>\*(cadena)</small>: Contenido de la llave privada.
+  - `cuit` <small>\*(número)</small>: CUIT del usuario que se utilizará.
+  - `credentials` <small>(WSAuthTokens)</small>: Un objeto de tipo WSAuthTokens ([Ver](https://github.com/valiulab/afip.ts/blob/main/src/auth/types.ts#L5)). Aquí es donde se asignan los tokens de autenticación si ya se tienen guardados.
+  - `handleTicket` <small>(booleano)</small>: Flag que indica si los tickets de autenticación son gestionados automáticamente por el paquete o si serán proporcionados por el desarrollador (más adelante se explicará cómo hacer inicio de sesión y luego pasar los tokens antes de llamar al servicio web deseado). Esto es útil cuando se desea utilizar el paquete en una función `lambda` o en algun lugar que no se tenga almacenamiento.
+  - `ticketPath` <small>(cadena)</small>: La ruta preferida donde se desean guardar los tokens obtenidos del servicio WSAA si no se desea utilizar la carpeta predeterminada.
 
 <br/>
-Context Type code:
+Context Type:
 
 ```ts
 type Context = {
@@ -37,7 +37,7 @@ type Context = {
   cert: string;
 
   /**
-   * Content file for the private key correspoding to CERT (PEM)
+   * Content file for the private key corresponding to CERT (PEM)
    *
    * @var string
    **/
@@ -55,7 +55,7 @@ type Context = {
    *
    * @var credentials
    **/
-  credentials?: WSAuthTokens;
+  credentials?: ILoginCredentials;
 
   /**
    * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved locally.
