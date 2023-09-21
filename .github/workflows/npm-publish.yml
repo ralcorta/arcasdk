@@ -22,15 +22,15 @@ jobs:
 
       # Install dependencies (required by Run tests step or Run Build)
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       # Build typescript project
       - name: Build
         run: npm run build
       
       # Tests
-      #- name: Run tests
-      #  run: yarn test
+      - name: Run tests
+        run: npm run test
 
       # Configure Git
       - name: Git configuration
