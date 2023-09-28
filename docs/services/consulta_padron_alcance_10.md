@@ -4,12 +4,10 @@ Los métodos de este Web Service se encuentran disponibles en `afip.registerScop
 
 La especificación de este Web Service se encuentra disponible [aquí](http://www.afip.gob.ar/ws/ws_sr_padron_a10/manual_ws_sr_padron_a10_v1.1.pdf)
 
-### Métodos disponibles
+<h2> Índice </h2>
 
-- [Padrón de AFIP alcance 10](#padrón-de-afip-alcance-10)
-    - [Métodos disponibles](#métodos-disponibles)
-  - [Obtener datos del contribuyente](#obtener-datos-del-contribuyente)
-  - [Obtener estado del servidor](#obtener-estado-del-servidor)
+[[toc]]
+
 
 ## Obtener datos del contribuyente
 

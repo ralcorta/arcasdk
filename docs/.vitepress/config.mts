@@ -75,6 +75,10 @@ export default defineConfig({
                 text: "Obtener certificado de testing",
                 link: "/obtain-testing-certificate",
               },
+              {
+                text: "Autorizar servicio web de testing",
+                link: "/authorize-test-web-service",
+              },
             ],
           },
         ],

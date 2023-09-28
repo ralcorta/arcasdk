@@ -4,13 +4,10 @@ Los métodos de este Web Service se encuentran disponibles en `afip.registerScop
 
 La especificación de este Web Service se encuentra disponible [aquí](http://www.afip.gob.ar/ws/ws-padron-a13/manual-ws-sr-padron-a13-v1.2.pdf)
 
-### Métodos disponibles
+<h2> Índice </h2>
 
-- [Padrón de AFIP alcance 13](#padrón-de-afip-alcance-13)
-    - [Métodos disponibles](#métodos-disponibles)
-  - [Obtener datos del contribuyente](#obtener-datos-del-contribuyente)
-  - [Obtener CUIT a partir de un DNI](#obtener-cuit-a-partir-de-un-dni)
-  - [Obtener estado del servidor](#obtener-estado-del-servidor)
+[[toc]]
+
 
 ## Obtener datos del contribuyente
 

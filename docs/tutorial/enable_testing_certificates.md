@@ -1,8 +1,6 @@
-# 📚 Tutorial
+# Cómo Habilitar el Administrador de Certificados de Pruebas
 
-## Cómo Habilitar el Administrador de Certificados de Pruebas
-
-Para agregar la aplicación "Administración de Certificados Digitales" a tu escritorio de AFIP, primero debes ingresar en "Administrador de Relaciones de Clave Fiscal".
+Para agregar la aplicación **WSASS "Administración de Certificados Digitales"** a tu escritorio de AFIP, primero debes ingresar en **"Administrador de Relaciones de Clave Fiscal"**.
 
 ![Paso 1](/tutorial/tutorial_1_1.png)
 

@@ -9,7 +9,8 @@ Dentro de la consola, el primer comando que debemos ejecutar es el siguiente par
 openssl genrsa -out [nombre de archivo] 2048
 ```
 
-Reemplaza `[nombre de archivo]` con el nombre que deseas para el archivo key. Este archivo key es crucial, ya que representa la "contraseña" con la que funcionará el certificado, así que no lo pierdas. Por ejemplo:
+Reemplaza:
+ - `[nombre de archivo]` con el nombre que deseas para el archivo key. Este archivo key es crucial, ya que representa la "contraseña" con la que funcionará el certificado, así que no lo pierdas. Por ejemplo:
 ```
 openssl genrsa -out keytest 2048
 ```
