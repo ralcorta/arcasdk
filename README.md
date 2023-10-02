@@ -1,10 +1,13 @@
 # 🚀 Afip SDK
 
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
 [![npm](https://img.shields.io/npm/v/afip.ts.svg?style=flat-square)](https://npmjs.org/package/afip.ts)
-[![NPM][npm-shield]](https://www.npmjs.org/package/afip.ts)
-[![Contributors][contributors-shield]](https://github.com/ralcorta/afip.ts/graphs/contributors)
-[![Closed issues][issues-shield]](https://github.com/ralcorta/afip.ts/issues)
-[![License][license-shield]](https://github.com/ralcorta/afip.ts/blob/master/LICENSE)
+![GitHub Repo stars](https://img.shields.io/github/stars/ralcorta/afip.ts)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ralcorta/afip.ts)
+![GitHub](https://img.shields.io/github/license/ralcorta/afip.ts)
+![npm](https://img.shields.io/npm/dt/afip.ts)
+
 
 <br />
 <p align="center">
