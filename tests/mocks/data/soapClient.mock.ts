@@ -1105,3 +1105,9 @@ export const FEParamGetTiposTributosAsyncReturnMocks = [
     },
   },
 ];
+
+export const dummyAsyncReturnMocks = [
+  {
+    return: { appserver: "OK", authserver: "OK", dbserver: "OK" },
+  },
+];

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import { Client } from "soap";
 import { SoapAsyncFunc } from "../../../types";
 /* tslint:disable:max-line-length no-empty-interface */
