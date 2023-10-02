@@ -1,6 +1,10 @@
 # 🚀 Afip SDK
 
 [![npm](https://img.shields.io/npm/v/afip.ts.svg?style=flat-square)](https://npmjs.org/package/afip.ts)
+[![NPM][npm-shield]](https://www.npmjs.org/package/afip.ts)
+[![Contributors][contributors-shield]](https://github.com/ralcorta/afip.ts/graphs/contributors)
+[![Closed issues][issues-shield]](https://github.com/ralcorta/afip.ts/issues)
+[![License][license-shield]](https://github.com/ralcorta/afip.ts/blob/master/LICENSE)
 
 <br />
 <p align="center">
@@ -12,7 +16,7 @@
 
   <p align="center">
     SDK para consumir y usar los Web Services de AFIP
-    <br />
+    <br />g
     <a href="https://ralcorta.github.io/afip.ts">Ver documentacion completa</a>
     <br />
     <br />
