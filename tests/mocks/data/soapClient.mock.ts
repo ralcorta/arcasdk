@@ -1111,3 +1111,43 @@ export const dummyAsyncReturnMocks = [
     return: { appserver: "OK", authserver: "OK", dbserver: "OK" },
   },
 ];
+
+export const getPersona_v2AsyncReturnMocks = [
+  {
+    personaReturn: {
+      errorConstancia: {
+        apellido: "Doe",
+        error: ["Domicilio Incompleto"],
+        idPersona: 20111111111,
+        nombre: "John",
+      },
+      metadata: { fechaHora: "2023-9-03T19:32:13.721Z", servidor: "setiwsh2" },
+    },
+  },
+];
+
+export const getPersonaList_v2AsyncReturnMocks = [
+  {
+    personaListReturn: {
+      metadata: { fechaHora: "2023-9-03T19:32:13.721Z", servidor: "setiwsh2" },
+      persona: [
+        {
+          errorConstancia: {
+            apellido: "Doe",
+            error: ["Domicilio Incompleto"],
+            idPersona: 20111111111,
+            nombre: "John",
+          },
+        },
+        {
+          errorConstancia: {
+            apellido: "Doe",
+            error: ["Domicilio Incompleto"],
+            idPersona: 20111111111,
+            nombre: "John",
+          },
+        },
+      ],
+    },
+  },
+];
