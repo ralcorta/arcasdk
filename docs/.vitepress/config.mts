@@ -14,11 +14,14 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       {
-        text: "📖 Guia",
-        link: "/introduction",
+        text: "📖 Ejemplo",
+        link: "/basic-use",
+      },
+      {
+        text: "💸 Facturar",
+        link: "/services/facturacion_electronica#crear-y-asignar-cae-a-un-comprobante",
       },
     ],
-
     sidebar: [
       {
         text: "Guia",

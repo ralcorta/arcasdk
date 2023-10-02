@@ -7,3 +7,5 @@ pnpm-lock.yaml
 
 src/auth/tickets
 tests/mocks/credentials
+
+docs/.vitepress/dist

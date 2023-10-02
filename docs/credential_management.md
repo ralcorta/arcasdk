@@ -2,7 +2,7 @@
 
 ### Gestión de credenciales
 
-Por defecto, el paquete guardará automáticamente las credenciales recibidas del Web Service de AFIP al iniciar sesión. Estas credenciales se almacenan para su posterior uso en las request que las requieran. Esta práctica se debe a que el servicio de autenticación de AFIP (WSAA) limita la generación de credenciales para un usuario en intervalos de tiempo específicos, como se explica en la sección de [comportamientos](/guide/behaviour).
+Por defecto, el paquete guardará automáticamente las credenciales recibidas del Web Service de AFIP al iniciar sesión. Estas credenciales se almacenan para su posterior uso en las request que las requieran. Esta práctica se debe a que el servicio de autenticación de AFIP (WSAA) limita la generación de credenciales para un usuario en intervalos de tiempo específicos, como se explica en la sección de [comportamientos](./behaviour).
 
 Sin embargo, si estás trabajando en un entorno que no puede administrar el espacio de memoria de manera prolongada para almacenar estas credenciales, debes encargarte de su gestión de forma manual. Para ello, puedes utilizar la función de inicio de sesión proporcionada y especificarle a la instancia que lo manejaras por tu cuenta, agregandole al contexto dado en el momento de la isntancia de afip el flag `handleTicket` en `true`. Cada Service tiene su propio método de inicio de sesión, el cual devuelve un objeto JSON que contiene las credenciales. Estas credenciales deben guardarse de manera segura para poder proporcionarlas posteriormente a la instancia de Afip. Puedes hacerlo a través de su constructor o configurándolas con el método `.setCredentials(credentials)`.
 

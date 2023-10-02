@@ -62,6 +62,7 @@ let data = {
   ],
 };
 
+// Tip: .createInvoice() es un alias de .createVoucher()
 const res = await afip.electronicBillingService.createVoucher(data);
 ```
 
