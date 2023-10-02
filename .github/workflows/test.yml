@@ -1,0 +1,14 @@
+name: Tests
+
+on: [pull_request]
+jobs:
+  test:
+    name: Run Jest Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Jest Tests
+        run: npm test
