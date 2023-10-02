@@ -1,4 +1,4 @@
-# Obtención de Certificado de Pruebas
+# Obtención de Certificado de Testing
 
 ### Paso 1 - Instalación de OpenSSL
 Para generar el certificado, vamos a utilizar OpenSSL, que ya está incluido en sistemas Linux/Unix. Para Windows, puedes descargarlo desde https://sourceforge.net/projects/openssl y, una vez descargado, copiar la carpeta `bin` en `C:\` con el nombre `OpenSSL`. Luego, abre una consola. En Windows, asegúrate de abrirla en modo administrador y navegar hasta `C:\OpenSSL`.

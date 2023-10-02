@@ -10,7 +10,7 @@ Para utilizar la SDK, debes instanciar la clase `Afip` proporcionando los siguie
 
 Esto resultará en la creación de un objeto con los servicios disponibles para su uso, como por ejemplo `electronicBillingService`:
 
-```ts
+```ts:line-numbers
 import { Afip } from "afip.ts";
 
 const afip: Afip = new Afip({

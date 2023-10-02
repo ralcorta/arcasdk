@@ -79,6 +79,18 @@ export default defineConfig({
                 text: "Autorizar servicio web de testing",
                 link: "/authorize-test-web-service",
               },
+              {
+                text: "Habilitar administrador de certificados de producción",
+                link: "/enable-production-certificate-manager",
+              },
+              {
+                text: "Obtención de certificado de producción",
+                link: "/obtain-production-certificate",
+              },
+              {
+                text: "Autorizar web service de producción",
+                link: "/authorize-web-production-service",
+              },
             ],
           },
         ],

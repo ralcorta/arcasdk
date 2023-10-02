@@ -1,4 +1,4 @@
-# Autorización para Acceder a un Servicio Web de Pruebas
+# Autorizar Servicio Web de Testing
 
 Para permitir que los certificados accedan a un servicio web, es necesario crear una autorización. Sigue estos pasos:
 

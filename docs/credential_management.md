@@ -10,7 +10,7 @@ Una vez que las credenciales se han configurado correctamente, puedes ejecutar c
 
 
 #### Ejemplo
-```ts
+```ts:line-numbers
 import { Afip } from "afip.ts";
 
 const afip: Afip = new Afip({
