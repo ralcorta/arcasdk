@@ -1,0 +1,75 @@
+name: Build and Deploy Docs
+on:
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+  workflow_dispatch:
+  
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: npm
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Build with VitePress
+        run: |
+          npm run docs:build
+          touch docs/.vitepress/dist/.nojekyll
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+
+# jobs:
+#   build-and-deploy-doc:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@master
+#     - name: "Give permissions"
+#       run: |
+#           sudo chown -R root:root $GITHUB_WORKSPACE
+#     - name: Vitepress Deploy
+#       uses: jenkey2011/vuepress-deploy@master
+#       env:
+#         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         TARGET_REPO: ralcorta/afip.ts
+#         TARGET_BRANCH: gh-pages
+#         BUILD_SCRIPT: npm i && npm run docs:build
+#         BUILD_DIR: docs/.vuepress/dist
+#         CNAME: https://www.afipts.com
+        
