@@ -5,7 +5,11 @@ export class Cryptography {
   sign(data: string): string {
     const p7 = forge.pkcs7.createSignedData();
     p7.content = forge.util.createBuffer(data, "utf8");
-    p7.addCertificate(this.cert);
+    try {
+      p7.addCertificate(this.cert);
+    } catch (error) {
+      throw new Error("Invalid PEM formatted message. Check your cert.");
+    }
     p7.addSigner({
       authenticatedAttributes: [
         {

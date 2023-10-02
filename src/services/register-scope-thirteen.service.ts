@@ -5,11 +5,11 @@ import {
   IPersonaServiceA13PortSoap,
   PersonaServiceA13PortTypes,
 } from "../soap/interfaces/PersonaServiceA13/PersonaServiceA13Port";
-import { AfipContext } from "../types";
+import { Context } from "../types";
 import { EndpointsEnum } from "../enums";
 
 export class RegisterScopeThirteenService extends AfipService<IPersonaServiceA13PortSoap> {
-  constructor(context: AfipContext) {
+  constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSSR_PADRON_THIRTEEN,
       url_test: EndpointsEnum.WSSR_PADRON_THIRTEEN_TEST,
@@ -42,8 +42,8 @@ export class RegisterScopeThirteenService extends AfipService<IPersonaServiceA13
   async getTaxpayerDetails(
     identifier: number
   ): Promise<PersonaServiceA13PortTypes.IpersonaReturn> {
-    const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
+    const { Auth } = await this.getWsAuth();
     const [output] = await client.getPersonaAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,
@@ -62,8 +62,8 @@ export class RegisterScopeThirteenService extends AfipService<IPersonaServiceA13
   async getTaxIDByDocument(
     documentNumber: string
   ): Promise<PersonaServiceA13PortTypes.IidPersonaListReturn> {
-    const { Auth } = await this.getAuthTokens();
     const client = await this.getClient();
+    const { Auth } = await this.getWsAuth();
     const [output] = await client.getIdPersonaListByDocumentoAsync({
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,

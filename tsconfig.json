@@ -26,7 +26,7 @@
     /* Modules */
     "module": "commonjs" /* Specify what module code is generated. */,
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
-    // "moduleResolution": "node",                       /* Specify how TypeScript looks up a file from a given module specifier. */
+    "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
@@ -81,7 +81,7 @@
     // "strictBindCallApply": true,                      /* Check that the arguments for `bind`, `call`, and `apply` methods match the original function. */
     // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
     // "noImplicitThis": true,                           /* Enable error reporting when `this` is given the type `any`. */
-    // "useUnknownInCatchVariables": true,               /* Type catch clause variables as 'unknown' instead of 'any'. */
+    "useUnknownInCatchVariables": false /* Type catch clause variables as 'unknown' instead of 'any'. */,
     // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
     // "noUnusedLocals": true,                           /* Enable error reporting when a local variables aren't read. */
     // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read */

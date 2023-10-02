@@ -28,12 +28,15 @@ export type SoapClientParams = {
   options?: IOptions;
 };
 
-export interface IAccessTicket extends ILoginCmsReturn {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ILoginCredentials extends ILoginCmsReturn {}
+
+export interface IAccessTicket extends ILoginCredentials {
   getSign(): string;
   getToken(): string;
   getExpiration(): Date;
-  getAuthKeyProps(): WSAuthTokens;
-  isAccessTicketValid(ta: IAccessTicket): boolean;
+  getWSAuthFormat(cuit: number): WSAuthParam;
+  isExpired(): boolean;
 }
 
 export type AfipServiceSoapParam = SoapClientParams & {
@@ -51,9 +54,7 @@ export type SoapServices<T> = Record<
   >
 >;
 
-export type Context = Omit<AfipContext, "ticketPath"> & { ticketPath?: string };
-
-export type AfipContext = {
+export type Context = {
   /**
    * Flag for production or testing environment
    *
@@ -85,9 +86,9 @@ export type AfipContext = {
   /**
    * Tokens object if you have one created before
    *
-   * @var authTokens
+   * @var credentials
    **/
-  authTokens?: WSAuthTokens;
+  credentials?: ILoginCredentials;
 
   /**
    * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved locally.
@@ -97,7 +98,7 @@ export type AfipContext = {
   /**
    * The path of the auth obj if the package is auto managed
    */
-  ticketPath: string;
+  ticketPath?: string;
 };
 
 export interface IVoucher {
@@ -126,6 +127,12 @@ export interface IVoucher {
   Iva?: IIva[];
   Opcionales?: IOpcional[];
   Compradores?: IComprador[];
+}
+
+export interface INextVoucher
+  extends Omit<IVoucher, "CbteDesde" | "CbteHasta"> {
+  CbteDesde?: number;
+  CbteHasta?: number;
 }
 
 export interface ICbtesAsoc {
@@ -167,4 +174,5 @@ export interface ICreateVoucherResult {
   caeFchVto: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput {}

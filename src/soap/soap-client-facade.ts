@@ -3,6 +3,7 @@ import { Client, createClientAsync } from "soap";
 import { SoapClientParams } from "../types";
 
 export class SoapClientFacade {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private construct() {}
 
   /**

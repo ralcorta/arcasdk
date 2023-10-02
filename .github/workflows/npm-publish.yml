@@ -18,19 +18,19 @@ jobs:
         uses: actions/setup-node@v2
         with:
           registry-url: https://registry.npmjs.org/
-          node-version: '16'
+          node-version: '18'
 
       # Install dependencies (required by Run tests step or Run Build)
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       # Build typescript project
       - name: Build
         run: npm run build
       
       # Tests
-      #- name: Run tests
-      #  run: yarn test
+      - name: Run tests
+        run: npm run test
 
       # Configure Git
       - name: Git configuration

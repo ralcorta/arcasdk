@@ -1,10 +1,11 @@
 lib
+.env
 
 node_modules
 package-lock.json
 pnpm-lock.yaml
 
 src/auth/tickets
-test-files
+tests/mocks/credentials
 
-.DS_Store
+docs/.vitepress/dist
