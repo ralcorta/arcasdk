@@ -19,7 +19,7 @@
 
   <p align="center">
     SDK para consumir y usar los Web Services de AFIP
-    <br />g
+    <br />
     <a href="https://ralcorta.github.io/afip.ts">Ver documentacion completa</a>
     <br />
     <br />
