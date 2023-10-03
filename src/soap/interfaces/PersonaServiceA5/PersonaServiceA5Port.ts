@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import { Client } from "soap";
 import { SoapAsyncFunc } from "../../../types";
 /* tslint:disable:max-line-length no-empty-interface */
@@ -60,7 +61,7 @@ export interface IgetPersonaList_v2Input {
   /** http://a5.soap.ws.server.puc.sr/#xs:long(undefined) */
   cuitRepresentada: number;
   /** http://a5.soap.ws.server.puc.sr/#xs:long(undefined) */
-  idPersona: number;
+  idPersona: number[];
 }
 
 export interface IgetPersonaList_v2Output {

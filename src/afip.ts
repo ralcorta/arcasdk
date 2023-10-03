@@ -13,7 +13,7 @@ export class Afip {
   private readonly _registerScopeFourService: RegisterScopeFourService;
   private readonly _registerScopeFiveService: RegisterScopeFiveService;
   private readonly _registerScopeTenService: RegisterScopeTenService;
-  private readonly _registerScopeTThirteenService: RegisterScopeThirteenService;
+  private readonly _registerScopeThirteenService: RegisterScopeThirteenService;
   private readonly context: Context;
 
   constructor(context: Context) {
@@ -26,7 +26,7 @@ export class Afip {
     this._registerScopeFourService = new RegisterScopeFourService(this.context);
     this._registerScopeFiveService = new RegisterScopeFiveService(this.context);
     this._registerScopeTenService = new RegisterScopeTenService(this.context);
-    this._registerScopeTThirteenService = new RegisterScopeThirteenService(
+    this._registerScopeThirteenService = new RegisterScopeThirteenService(
       this.context
     );
   }
@@ -47,8 +47,8 @@ export class Afip {
     return this._registerScopeTenService;
   }
 
-  get registerScopeTThirteenService(): RegisterScopeThirteenService {
-    return this._registerScopeTThirteenService;
+  get registerScopeThirteenService(): RegisterScopeThirteenService {
+    return this._registerScopeThirteenService;
   }
 
   public genericService<T extends Client>(

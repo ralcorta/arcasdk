@@ -59,7 +59,7 @@ export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortS
    * @return [object] returns web service full response
    **/
   async getTaxpayersDetails(
-    identifier: number
+    identifiers: number[]
   ): Promise<PersonaServiceA5PortTypes.IpersonaListReturn> {
     const client = await this.getClient();
     const { Auth } = await this.getWsAuth();
@@ -67,7 +67,7 @@ export class RegisterScopeFiveService extends AfipService<IPersonaServiceA5PortS
       cuitRepresentada: Auth.Cuit,
       sign: Auth.Sign,
       token: Auth.Token,
-      idPersona: identifier,
+      idPersona: identifiers,
     });
     return output.personaListReturn;
   }
