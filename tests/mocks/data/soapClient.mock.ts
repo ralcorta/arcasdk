@@ -1151,3 +1151,142 @@ export const getPersonaList_v2AsyncReturnMocks = [
     },
   },
 ];
+
+export const scopeFourDummyAsyncReturnMocks = [
+  { return: { appserver: "OK", authserver: "OK", dbserver: "OK" } },
+];
+
+export const scopeFourGetPersonaAsyncReturnMocks = [
+  {
+    personaReturn: {
+      metadata: { fechaHora: "2023-10-02T22:45:02.984Z", servidor: "setiwsh2" },
+      persona: {
+        actividad: [
+          {
+            descripcionActividad:
+              "SERVICIOS DE ASESORAMIENTO, DIRECCIÓN Y GESTIÓN EMPRESARIAL REALIZADOS POR INTEGRANTES DE LOS ÓRGANOS DE ADMINISTRACIÓN Y/O FISCALIZACIÓN EN SOCIEDADES ANÓNIMAS",
+            idActividad: 702091,
+            nomenclador: 883,
+            orden: 1,
+            periodo: 201501,
+          },
+        ],
+        apellido: "John",
+        estadoClave: "ACTIVO",
+        fechaInscripcion: "2009-11-07T15:00:00.000Z",
+        fechaNacimiento: "1991-10-15T15:00:00.000Z",
+        idPersona: 20111111111,
+        impuesto: [
+          {
+            descripcionImpuesto: "IVA",
+            diaPeriodo: 1,
+            estado: "ACTIVO",
+            ffInscripcion: "2010-10-29T15:40:13.000Z",
+            idImpuesto: 30,
+            periodo: 199101,
+          },
+          {
+            descripcionImpuesto: "SIRE -  IVA",
+            diaPeriodo: 1,
+            estado: "ACTIVO",
+            ffInscripcion: "2017-01-01T15:00:00.000Z",
+            idImpuesto: 216,
+            periodo: 201701,
+          },
+          {
+            descripcionImpuesto: "IMP.A LAS GAN.- BENEF.DEL EXT.",
+            diaPeriodo: 1,
+            estado: "ACTIVO",
+            ffInscripcion: "2017-01-01T15:00:00.000Z",
+            idImpuesto: 218,
+            periodo: 201701,
+          },
+          {
+            descripcionImpuesto: "PRESENT. DJ SIRE IMPOSITIVO",
+            diaPeriodo: 1,
+            estado: "ACTIVO",
+            ffInscripcion: "2017-01-01T15:00:00.000Z",
+            idImpuesto: 785,
+            periodo: 201701,
+          },
+          {
+            descripcionImpuesto: "GANANCIAS PERSONAS FISICAS",
+            diaPeriodo: 1,
+            estado: "ACTIVO",
+            ffInscripcion: "2007-03-06T15:00:00.000Z",
+            idImpuesto: 11,
+            periodo: 200401,
+          },
+        ],
+        mesCierre: 12,
+        nombre: "John Doe",
+        numeroDocumento: "11111111",
+        relacion: [
+          {
+            ffRelacion: "2010-08-23T15:05:43.000Z",
+            idPersona: 20111111111,
+            idPersonaAsociada: 20111111111,
+            tipoRelacion: "PERSONA JURIDICA/ PERSONA FISICA REPRESENTADA",
+          },
+        ],
+        sexo: "MASCULINO",
+        tipoClave: "CUIT",
+        tipoDocumento: "DNI",
+        tipoPersona: "FISICA",
+      },
+    },
+  },
+];
+
+export const scopeTenDummyAsyncReturnMocks = [
+  { return: { appserver: "OK", authserver: "OK", dbserver: "OK" } },
+];
+
+export const scopeTenGetPersonaAsyncReturnMocks = [
+  {
+    personaReturn: {
+      metadata: { fechaHora: "2023-10-03T11:26:32.010Z", servidor: "setiwsh2" },
+      persona: {
+        apellido: "Doe",
+        descripcionActividadPrincipal:
+          "SERVICIOS DE ASESORAMIENTO, DIRECCIÓN Y GESTIÓN EMPRESARIAL REALIZADOS POR INTEGRANTES DE LOS ÓRGANOS DE ADMINISTRACIÓN Y/O FISCALIZACIÓN EN SOCIEDADES ANÓNIMAS",
+        estadoClave: "ACTIVO",
+        idActividadPrincipal: 702091,
+        idPersona: 20111111111,
+        nombre: "John Doe",
+        numeroDocumento: "11111111",
+        tipoClave: "CUIT",
+        tipoDocumento: "DNI",
+        tipoPersona: "FISICA",
+      },
+    },
+  },
+];
+
+export const scopeThirteenDummyAsyncReturnMocks = [
+  { return: { appserver: "OK", authserver: "OK", dbserver: "OK" } },
+];
+
+export const scopeThirteenGetPersonaAsyncReturnMocks = [
+  {
+    personaReturn: {
+      metadata: { fechaHora: "2023-10-03T11:39:33.448Z", servidor: "setiwsh2" },
+      persona: {
+        apellido: "Doe",
+        descripcionActividadPrincipal:
+          "SERVICIOS DE ASESORAMIENTO, DIRECCIÓN Y GESTIÓN EMPRESARIAL REALIZADOS POR INTEGRANTES DE LOS ÓRGANOS DE ADMINISTRACIÓN Y/O FISCALIZACIÓN EN SOCIEDADES ANÓNIMAS",
+        estadoClave: "ACTIVO",
+        fechaNacimiento: "1991-10-15T15:00:00.000Z",
+        idActividadPrincipal: 702091,
+        idPersona: 20111111111,
+        mesCierre: 12,
+        nombre: "John Doe",
+        numeroDocumento: "11111111",
+        periodoActividadPrincipal: 201501,
+        tipoClave: "CUIT",
+        tipoDocumento: "DNI",
+        tipoPersona: "FISICA",
+      },
+    },
+  },
+];
