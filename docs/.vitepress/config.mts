@@ -31,70 +31,70 @@ export default defineConfig({
           { text: "⚙️ Configuración", link: "/config" },
           { text: "🧐 Comportamiento", link: "/behaviour" },
           {
-            text: "🛠️ Servicios",
-            base: "/services",
-            items: [
-              {
-                text: "💸 Facturación electrónica",
-                link: "/facturacion_electronica",
-              },
-              {
-                text: "🔍 Consultas de padron",
-                collapsed: true,
-                items: [
-                  {
-                    text: "4️⃣ Alcance 4",
-                    link: "/consulta_padron_alcance_4",
-                  },
-                  {
-                    text: "5️⃣ Alcance 5",
-                    link: "/consulta_padron_alcance_5",
-                  },
-                  {
-                    text: "🔟 Alcance 10",
-                    link: "/consulta_padron_alcance_10",
-                  },
-                  {
-                    text: "1️⃣ 3️⃣ Alcance 13",
-                    link: "/consulta_padron_alcance_13",
-                  },
-                ],
-              },
-            ],
-          },
-          {
             text: "☁️ Gestión de Credenciales",
             link: "/credential_management",
           },
+        ],
+      },
+      {
+        text: "🛠️ Servicios",
+        base: "/services",
+        items: [
           {
-            text: "📚 Obtener certificados",
-            base: "tutorial",
+            text: "💸 Facturación electrónica",
+            link: "/facturacion_electronica",
+          },
+          {
+            text: "🔍 Consultas de padron",
+            collapsed: true,
             items: [
               {
-                text: "Habilitar certificados de testing",
-                link: "/enable_testing_certificates",
+                text: "4️⃣ Alcance 4",
+                link: "/consulta_padron_alcance_4",
               },
               {
-                text: "Obtener certificado de testing",
-                link: "/obtain-testing-certificate",
+                text: "5️⃣ Alcance 5",
+                link: "/consulta_padron_alcance_5",
               },
               {
-                text: "Autorizar servicio web de testing",
-                link: "/authorize-test-web-service",
+                text: "🔟 Alcance 10",
+                link: "/consulta_padron_alcance_10",
               },
               {
-                text: "Habilitar administrador de certificados de producción",
-                link: "/enable-production-certificate-manager",
-              },
-              {
-                text: "Obtención de certificado de producción",
-                link: "/obtain-production-certificate",
-              },
-              {
-                text: "Autorizar web service de producción",
-                link: "/authorize-web-production-service",
+                text: "1️⃣ 3️⃣ Alcance 13",
+                link: "/consulta_padron_alcance_13",
               },
             ],
+          },
+        ],
+      },
+      {
+        text: "📚 Obtener certificados",
+        base: "tutorial",
+        items: [
+          {
+            text: "Habilitar certificados de testing",
+            link: "/enable_testing_certificates",
+          },
+          {
+            text: "Obtener certificado de testing",
+            link: "/obtain-testing-certificate",
+          },
+          {
+            text: "Autorizar servicio web de testing",
+            link: "/authorize-test-web-service",
+          },
+          {
+            text: "Habilitar administrador de certificados de producción",
+            link: "/enable-production-certificate-manager",
+          },
+          {
+            text: "Obtención de certificado de producción",
+            link: "/obtain-production-certificate",
+          },
+          {
+            text: "Autorizar web service de producción",
+            link: "/authorize-web-production-service",
           },
         ],
       },
