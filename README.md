@@ -1,6 +1,13 @@
 # 🚀 Afip SDK
 
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
 [![npm](https://img.shields.io/npm/v/afip.ts.svg?style=flat-square)](https://npmjs.org/package/afip.ts)
+![GitHub Repo stars](https://img.shields.io/github/stars/ralcorta/afip.ts)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ralcorta/afip.ts)
+![GitHub](https://img.shields.io/github/license/ralcorta/afip.ts)
+![npm](https://img.shields.io/npm/dt/afip.ts)
+
 
 <br />
 <p align="center">
@@ -44,9 +51,10 @@ yarn add afip.ts
 
 ##### Requisitos previos
 
-Se debe tener los certificados emitidos por AFIP, ya sean para los servidores de homologacion o produccion, para poder pasarselos como parametro al paquete y que este haga uso de ellos para comunicarse con los web services.
+Se debe tener los certificados emitidos por AFIP, ya sean para los servidores de homologacion (test) o produccion, para poder pasarselos como parametro al paquete y que este haga uso de ellos para comunicarse con los web services.
 
-[Documentacion oficial de certificados](https://www.afip.gob.ar/ws/documentacion/certificados.asp)
+- [Guia de como obtenerlos](https://ralcorta.github.io/afip.ts/tutorial/enable_testing_certificates.html)
+- [Documentacion oficial de certificados](https://www.afip.gob.ar/ws/documentacion/certificados.asp)
 
 ##### Ejemplo basico
 

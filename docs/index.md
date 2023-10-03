@@ -8,7 +8,7 @@ hero:
   #   alt: Afip.ts
   name: "Afip.ts"
   text: "Afip Typescript SDK"
-  tagline: Solucion REST para Web Services de AFIP
+  tagline: Solución REST para Web Services de AFIP
   actions:
     - theme: brand
       text: Ir a la Documentacion
