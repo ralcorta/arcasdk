@@ -98,6 +98,16 @@ export default defineConfig({
           },
         ],
       },
+      {
+        text: "💬 FAQ",
+        base: "faq",
+        items: [
+          {
+            text: "❗Errores",
+            link: "/errors",
+          },
+        ],
+      },
     ],
 
     socialLinks: [
