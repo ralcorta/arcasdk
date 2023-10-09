@@ -27,7 +27,7 @@
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "vitepress": "1.0.0-rc.15",
+    "vitepress": "1.0.0-rc.20",
     "wsdl-to-ts": "^0.2.3",
     "wsdl-tsclient": "^1.4.0"
   },
