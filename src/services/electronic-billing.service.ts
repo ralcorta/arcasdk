@@ -260,7 +260,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   /**
    * Alias for createVoucher method.
    */
-  async createNextInvoice(req: IVoucher) {
+  async createNextInvoice(req: INextVoucher) {
     return this.createNextVoucher(req);
   }
 }
