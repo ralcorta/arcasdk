@@ -64,6 +64,10 @@ export default defineConfig({
                 text: "1️⃣ 3️⃣ Alcance 13",
                 link: "/consulta_padron_alcance_13",
               },
+              {
+                text: "📃 Constancia inscripción",
+                link: "/consulta_padron_constancia_inscripcion",
+              },
             ],
           },
         ],

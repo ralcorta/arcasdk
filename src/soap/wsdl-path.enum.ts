@@ -4,6 +4,9 @@ export enum WsdlPathEnum {
   WSFE = "wsfe-production.wsdl",
   WSFE_TEST = "wsfe.wsdl",
 
+  WSSR_INSCRIPTION_PROOF = "ws_sr_inscription_proof-production.wsdl",
+  WSSR_INSCRIPTION_PROOF_TEST = "ws_sr_inscription_proof.wsdl",
+
   WSSR_PADRON_FOUR = "ws_sr_padron_a4-production.wsdl",
   WSSR_PADRON_FOUR_TEST = "ws_sr_padron_a4.wsdl",
 
