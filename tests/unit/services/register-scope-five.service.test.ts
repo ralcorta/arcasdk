@@ -1,4 +1,4 @@
-import { testCuit } from "./../../mocks/data/voucher.mock";
+import { testCuit } from "../../mocks/data/voucher.mock";
 import { Afip } from "../../../src/afip";
 import { TestConfigUtils } from "../../utils/config.utils";
 import {
