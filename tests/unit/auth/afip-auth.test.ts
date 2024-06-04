@@ -1,12 +1,12 @@
-import { mockLoginCredentials } from "./../mocks/data/credential-json.mock";
-import { AfipAuth } from "./../../src/auth/afip-auth";
-import { ServiceNamesEnum } from "../../src/soap/service-names.enum";
-import { Context, ILoginCredentials } from "./../../src/types";
-import { AccessTicket } from "../../src/auth/access-ticket";
+import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
+import { AfipAuth } from "../../../src/auth/afip-auth";
+import { ServiceNamesEnum } from "../../../src/soap/service-names.enum";
+import { Context, ILoginCredentials } from "../../../src/types";
+import { AccessTicket } from "../../../src/auth/access-ticket";
 import moment from "moment";
 import { promises as fs } from "fs";
 
-jest.mock("../../src/soap/soap-client-facade", () => ({
+jest.mock("../../../src/soap/soap-client-facade", () => ({
   create: jest.fn(() => ({
     loginCmsAsync: jest.fn(() => {
       return [{ loginCmsReturn: "" }, "", {}, ""];
@@ -14,12 +14,12 @@ jest.mock("../../src/soap/soap-client-facade", () => ({
   })),
 }));
 
-jest.mock("../../src/utils/parser", () => ({
+jest.mock("../../../src/utils/parser", () => ({
   jsonToXml: jest.fn((json) => JSON.stringify(json)),
   xmlToJson: jest.fn((xml) => JSON.parse(xml)),
 }));
 
-jest.mock("../../src/utils/crypt-data", () => ({
+jest.mock("../../../src/utils/crypt-data", () => ({
   Cryptography: jest.fn(() => ({
     sign: jest.fn(() => "signedTRA"),
   })),
@@ -38,7 +38,7 @@ jest.mock("fs", () => ({
   },
 }));
 
-jest.mock("../../src/utils/logger", () => ({
+jest.mock("../../../src/utils/logger", () => ({
   error: jest.fn(),
 }));
 

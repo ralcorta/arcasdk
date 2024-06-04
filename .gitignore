@@ -7,6 +7,6 @@ package-lock.json
 pnpm-lock.yaml
 
 src/auth/tickets
-tests/mocks/credentials
+*/mocks/credentials
 
 docs/.vitepress/dist

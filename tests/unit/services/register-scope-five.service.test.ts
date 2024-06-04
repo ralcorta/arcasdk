@@ -1,18 +1,18 @@
-import { testCuit } from "./../mocks/data/voucher.mock";
-import { Afip } from "../../src/afip";
-import { TestConfigUtils } from "../utils/config.utils";
+import { testCuit } from "../../mocks/data/voucher.mock";
+import { Afip } from "../../../src/afip";
+import { TestConfigUtils } from "../../utils/config.utils";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
   getPersona_v2AsyncReturnMocks,
-} from "../mocks/data/soapClient.mock";
-import { mockLoginCredentials } from "../mocks/data/credential-json.mock";
-import { RegisterInscriptionProofService } from "../../src/services/register-inscription-proof.service";
+} from "../../mocks/data/soapClient.mock";
+import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
+import { RegisterScopeFiveService } from "../../../src/services/register-scope-five.service";
 
-describe("Register Inscription Proof Service", () => {
+describe("Register Scope Five Service", () => {
   const originalNodeTlsRejectUnauthStatus =
     process.env.NODE_TLS_REJECT_UNAUTHORIZED;
-  let registerInscriptionProofService: RegisterInscriptionProofService;
+  let registerScopeFiveService: RegisterScopeFiveService;
   const cuitPayload = 20111111111;
 
   beforeAll(() => {
@@ -25,13 +25,13 @@ describe("Register Inscription Proof Service", () => {
   });
 
   beforeEach(async () => {
-    registerInscriptionProofService = new Afip({
+    registerScopeFiveService = new Afip({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
       cuit: testCuit,
-    }).registerInscriptionProofService;
+    }).registerScopeFiveService;
 
-    registerInscriptionProofService.getWsAuth = jest.fn().mockReturnValue({
+    registerScopeFiveService.getWsAuth = jest.fn().mockReturnValue({
       Auth: {
         Token: mockLoginCredentials.credentials.token,
         Sign: mockLoginCredentials.credentials.sign,
@@ -50,7 +50,7 @@ describe("Register Inscription Proof Service", () => {
     } as any;
 
     jest
-      .spyOn(registerInscriptionProofService, "getClient")
+      .spyOn(registerScopeFiveService, "getClient")
       .mockReturnValue(afipMockParams);
   });
 
@@ -59,12 +59,12 @@ describe("Register Inscription Proof Service", () => {
   });
 
   it("should get server status", async () => {
-    const status = await registerInscriptionProofService.getServerStatus();
+    const status = await registerScopeFiveService.getServerStatus();
     expect(status).toEqual(dummyAsyncReturnMocks[0]);
   });
 
   it("should get taxpayer details", async () => {
-    const details = await registerInscriptionProofService.getTaxpayerDetails(
+    const details = await registerScopeFiveService.getTaxpayerDetails(
       cuitPayload
     );
     expect(details).toStrictEqual(
@@ -73,7 +73,7 @@ describe("Register Inscription Proof Service", () => {
   });
 
   it("should get taxpayers details", async () => {
-    const details = await registerInscriptionProofService.getTaxpayersDetails([
+    const details = await registerScopeFiveService.getTaxpayersDetails([
       cuitPayload,
       cuitPayload,
     ]);
