@@ -111,7 +111,7 @@ export class AfipService<T extends Client> {
         throw new Error("Credentials expired.");
       }
     } else if (!this._credentials || this._credentials.isExpired()) {
-      this._credentials = await this._afipAuth.login(this._serviceName);
+      this._credentials = await this.login();
     }
 
     return this._credentials.getWSAuthFormat(this.context.cuit);

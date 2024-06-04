@@ -1,13 +1,13 @@
-import { testCuit } from "./../mocks/data/voucher.mock";
-import { Afip } from "../../src/afip";
-import { TestConfigUtils } from "../utils/config.utils";
+import { testCuit } from "../../mocks/data/voucher.mock";
+import { Afip } from "../../../src/afip";
+import { TestConfigUtils } from "../../utils/config.utils";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
   getPersona_v2AsyncReturnMocks,
-} from "../mocks/data/soapClient.mock";
-import { mockLoginCredentials } from "../mocks/data/credential-json.mock";
-import { RegisterInscriptionProofService } from "../../src/services/register-inscription-proof.service";
+} from "../../mocks/data/soapClient.mock";
+import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
+import { RegisterInscriptionProofService } from "../../../src/services/register-inscription-proof.service";
 
 describe("Register Inscription Proof Service", () => {
   const originalNodeTlsRejectUnauthStatus =

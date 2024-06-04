@@ -1,12 +1,12 @@
-import { testCuit } from "../mocks/data/voucher.mock";
-import { Afip } from "../../src/afip";
-import { TestConfigUtils } from "../utils/config.utils";
-import { mockLoginCredentials } from "../mocks/data/credential-json.mock";
-import { RegisterScopeTenService } from "../../src/services/register-scope-ten.service";
+import { testCuit } from "../../mocks/data/voucher.mock";
+import { Afip } from "../../../src/afip";
+import { TestConfigUtils } from "../../utils/config.utils";
+import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
+import { RegisterScopeTenService } from "../../../src/services/register-scope-ten.service";
 import {
   scopeTenDummyAsyncReturnMocks,
   scopeTenGetPersonaAsyncReturnMocks,
-} from "../mocks/data/soapClient.mock";
+} from "../../mocks/data/soapClient.mock";
 
 describe("Register Scope Ten Service", () => {
   const originalNodeTlsRejectUnauthStatus =

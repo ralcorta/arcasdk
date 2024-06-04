@@ -1,8 +1,8 @@
-import { mockLoginCredentials } from "./../mocks/data/credential-json.mock";
-import { AfipAuth } from "./../../src/auth/afip-auth";
-import { ServiceNamesEnum } from "../../src/soap/service-names.enum";
-import { Context, ILoginCredentials } from "./../../src/types";
-import { AccessTicket } from "../../src/auth/access-ticket";
+import { mockLoginCredentials } from "./../../mocks/data/credential-json.mock";
+import { AfipAuth } from "./../../../src/auth/afip-auth";
+import { ServiceNamesEnum } from "../../../src/soap/service-names.enum";
+import { Context, ILoginCredentials } from "./../../../src/types";
+import { AccessTicket } from "../../../src/auth/access-ticket";
 import moment from "moment";
 import { promises as fs } from "fs";
 

@@ -193,10 +193,16 @@ export class AfipAuth {
     try {
       await fs.access(filePath, fs.constants.R_OK);
     } catch (error) {
+      console.log(error.message);
       throw new Error(`Access denied to ticket file: ${filePath}`);
     }
 
-    const fileData = await fs.readFile(filePath, "utf8");
+    let fileData;
+    try {
+      fileData = await fs.readFile(filePath, "utf8");
+    } catch (error) {
+      return undefined;
+    }
 
     try {
       return new AccessTicket(JSON.parse(fileData));

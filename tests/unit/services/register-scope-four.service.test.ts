@@ -1,12 +1,12 @@
-import { testCuit } from "../mocks/data/voucher.mock";
-import { Afip } from "../../src/afip";
-import { TestConfigUtils } from "../utils/config.utils";
+import { testCuit } from "../../mocks/data/voucher.mock";
+import { Afip } from "../../../src/afip";
+import { TestConfigUtils } from "../../utils/config.utils";
 import {
   scopeFourDummyAsyncReturnMocks,
   scopeFourGetPersonaAsyncReturnMocks,
-} from "../mocks/data/soapClient.mock";
-import { mockLoginCredentials } from "../mocks/data/credential-json.mock";
-import { RegisterScopeFourService } from "../../src/services/register-scope-four.service";
+} from "../../mocks/data/soapClient.mock";
+import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
+import { RegisterScopeFourService } from "../../../src/services/register-scope-four.service";
 
 describe("Register Scope Four Service", () => {
   const originalNodeTlsRejectUnauthStatus =

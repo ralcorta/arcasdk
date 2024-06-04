@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client } from "soap";
-import { EndpointsEnum, SoapServiceVersion } from "../../src/enums";
-import { AfipService } from "../../src/services/afip.service";
-import { IServiceSoap12Soap } from "../../src/soap/interfaces/Service/ServiceSoap12";
-import { ServiceNamesEnum } from "../../src/soap/service-names.enum";
-import { WsdlPathEnum } from "../../src/soap/wsdl-path.enum";
-import { AfipServiceSoapParam, Context } from "../../src/types";
-import { testCuit } from "../mocks/data/voucher.mock";
-import { TestConfigUtils } from "../utils/config.utils";
-import { mockFn } from "../utils/jest.utils";
+import { EndpointsEnum, SoapServiceVersion } from "../../../src/enums";
+import { AfipService } from "../../../src/services/afip.service";
+import { IServiceSoap12Soap } from "../../../src/soap/interfaces/Service/ServiceSoap12";
+import { ServiceNamesEnum } from "../../../src/soap/service-names.enum";
+import { WsdlPathEnum } from "../../../src/soap/wsdl-path.enum";
+import { AfipServiceSoapParam, Context } from "../../../src/types";
+import { testCuit } from "../../mocks/data/voucher.mock";
+import { TestConfigUtils } from "../../utils/config.utils";
+import { mockFn } from "../../utils/jest.utils";
 
 describe("AfipService", () => {
   let afipService: AfipService<Client>;

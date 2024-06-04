@@ -1,8 +1,8 @@
-import { mockLoginCredentials } from "./../mocks/data/credential-json.mock";
+import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
 import moment from "moment";
-import { AccessTicket } from "../../src/auth/access-ticket";
-import { ILoginCredentials } from "../../src/types";
-import EnvTest from "../utils/env-test";
+import { AccessTicket } from "../../../src/auth/access-ticket";
+import { ILoginCredentials } from "../../../src/types";
+import EnvTest from "../../utils/env-test";
 
 describe("Access Ticket", () => {
   describe("getSign", () => {
