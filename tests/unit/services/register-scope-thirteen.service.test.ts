@@ -1,5 +1,5 @@
 import { testCuit } from "../../mocks/data/voucher.mock";
-import { Afip } from "../../../src/afip";
+import { Arca } from "../../../src/arca";
 import { TestConfigUtils } from "../../utils/config.utils";
 import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
 import { RegisterScopeThirteenService } from "../../../src/services/register-scope-thirteen.service";
@@ -24,7 +24,7 @@ describe("Register Scope Thirteen Service", () => {
   });
 
   beforeEach(async () => {
-    registerScopeThirteenService = new Afip({
+    registerScopeThirteenService = new Arca({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
       cuit: testCuit,

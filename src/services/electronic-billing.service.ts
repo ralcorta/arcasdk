@@ -1,4 +1,4 @@
-import { AfipService } from "./afip.service";
+import { ArcaService } from "./arca.service";
 import {
   IFEDummyOutput,
   IServiceSoap12Soap,
@@ -15,7 +15,7 @@ import {
 } from "../types";
 import { EndpointsEnum } from "../enums";
 
-export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
+export class ElectronicBillingService extends ArcaService<IServiceSoap12Soap> {
   constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSFEV1,
@@ -41,7 +41,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for sales points availables {@see WS
+   * Asks to ARCA Servers for sales points availables {@see WS
    * Specification item 4.11}
    *
    * @return array All sales points availables
@@ -53,7 +53,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to Afip servers for number of the last voucher created for
+   * Asks to Arca servers for number of the last voucher created for
    * certain sales point and voucher type
    *
    * @param salesPoint Sales point to ask for last voucher
@@ -73,9 +73,9 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Create a voucher from AFIP
+   * Create a voucher from ARCA
    *
-   * Send to AFIP servers request for create a voucher and assign
+   * Send to ARCA servers request for create a voucher and assign
    * CAE to them
    *
    * @param req data Voucher parameter
@@ -121,12 +121,12 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Create next voucher from AFIP
+   * Create next voucher from ARCA
    *
    * This method combines getLastVoucher and createVoucher
    * for create the next voucher
    *
-   * @param req data Same to data in Afip.createVoucher except that
+   * @param req data Same to data in Arca.createVoucher except that
    * 	don't need CbteDesde and CbteHasta attributes
    **/
   async createNextVoucher(req: INextVoucher): Promise<ICreateVoucherResult> {
@@ -143,7 +143,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   /**
    * Get voucher information
    *
-   * Asks to AFIP servers for complete information of voucher
+   * Asks to ARCA servers for complete information of voucher
    *
    * @param number 		Number of voucher to get information
    * @param salesPoint 	Sales point of voucher to get information
@@ -176,7 +176,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for voucher types availables
+   * Asks to ARCA Servers for voucher types availables
    **/
   async getVoucherTypes(): Promise<ServiceSoap12Types.IFEParamGetTiposCbteResult> {
     const client = await this.getClient();
@@ -185,7 +185,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for voucher concepts availables
+   * Asks to ARCA Servers for voucher concepts availables
    *
    * @return data with array of all voucher concepts availables
    **/
@@ -196,7 +196,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for document types availables
+   * Asks to ARCA Servers for document types availables
    *
    * @return data with array of all document types availables
    **/
@@ -207,7 +207,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for aliquot availables
+   * Asks to ARCA Servers for aliquot availables
    *
    * @return data with array of all aliquot availables
    **/
@@ -218,7 +218,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for currencies availables
+   * Asks to ARCA Servers for currencies availables
    *
    * @return data with array of all currencies availables
    **/
@@ -229,7 +229,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for voucher optional data available
+   * Asks to ARCA Servers for voucher optional data available
    *
    * @return data with array of all voucher optional data available
    **/
@@ -240,7 +240,7 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
-   * Asks to AFIP Servers for tax availables
+   * Asks to ARCA Servers for tax availables
    *
    * @return data with array of all tax availables
    **/

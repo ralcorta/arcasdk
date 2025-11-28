@@ -1,28 +1,28 @@
 import { Client } from "soap";
 import { AccessTicket } from "../auth/access-ticket";
-import { AfipAuth } from "../auth/afip-auth";
+import { ArcaAuth } from "../auth/arca-auth";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { SoapClientFacade } from "../soap/soap-client-facade";
 import { SoapServiceVersion } from "../enums";
 import {
   Context,
-  AfipServiceSoapParam,
+  ArcaServiceSoapParam,
   SoapServices,
   WSAuthParam,
   ILoginCredentials,
 } from "../types";
 
-export class AfipService<T extends Client> {
+export class ArcaService<T extends Client> {
   private _soapCliente?: T;
   private _credentials?: AccessTicket;
   private _serviceName: ServiceNamesEnum;
-  private _afipAuth: AfipAuth;
+  private _afipAuth: ArcaAuth;
 
   constructor(
     protected readonly context: Context,
-    private _soapParams: AfipServiceSoapParam
+    private _soapParams: ArcaServiceSoapParam
   ) {
-    this._afipAuth = new AfipAuth(context);
+    this._afipAuth = new ArcaAuth(context);
     this._serviceName = this._soapParams.serviceName;
     this._soapParams.v12 = this._soapParams.v12 || false;
 
@@ -105,7 +105,7 @@ export class AfipService<T extends Client> {
     if (this.context.handleTicket) {
       if (!this._credentials) {
         throw new Error(
-          "Credentials are not defined yet, and handleTicket param is 'true'. Set them when the Afip class is instantiated."
+          "Credentials are not defined yet, and handleTicket param is 'true'. Set them when the Arca class is instantiated."
         );
       } else if (this._credentials.isExpired()) {
         throw new Error("Credentials expired.");

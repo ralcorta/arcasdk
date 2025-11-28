@@ -1,5 +1,5 @@
 import { testCuit } from "../../mocks/data/voucher.mock";
-import { Afip } from "../../../src/afip";
+import { Arca } from "../../../src/arca";
 import { TestConfigUtils } from "../../utils/config.utils";
 import {
   dummyAsyncReturnMocks,
@@ -25,7 +25,7 @@ describe("Register Inscription Proof Service", () => {
   });
 
   beforeEach(async () => {
-    registerInscriptionProofService = new Afip({
+    registerInscriptionProofService = new Arca({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
       cuit: testCuit,

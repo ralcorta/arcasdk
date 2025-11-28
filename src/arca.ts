@@ -1,15 +1,15 @@
 import { resolve } from "path";
 import { Client } from "soap";
-import { AfipService } from "./services/afip.service";
+import { ArcaService } from "./services/arca.service";
 import { ElectronicBillingService } from "./services/electronic-billing.service";
 import { RegisterInscriptionProofService } from "./services/register-inscription-proof.service";
 import { RegisterScopeFiveService } from "./services/register-scope-five.service";
 import { RegisterScopeFourService } from "./services/register-scope-four.service";
 import { RegisterScopeTenService } from "./services/register-scope-ten.service";
 import { RegisterScopeThirteenService } from "./services/register-scope-thirteen.service";
-import { Context, AfipServiceSoapParam } from "./types";
+import { Context, ArcaServiceSoapParam } from "./types";
 
-export class Afip {
+export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;
   private readonly _registerInscriptionProofService: RegisterInscriptionProofService;
   private readonly _registerScopeFourService: RegisterScopeFourService;
@@ -25,7 +25,9 @@ export class Afip {
     };
 
     this._electronicBillingService = new ElectronicBillingService(this.context);
-    this._registerInscriptionProofService = new RegisterInscriptionProofService(this.context);
+    this._registerInscriptionProofService = new RegisterInscriptionProofService(
+      this.context
+    );
     this._registerScopeFourService = new RegisterScopeFourService(this.context);
     this._registerScopeFiveService = new RegisterScopeFiveService(this.context);
     this._registerScopeTenService = new RegisterScopeTenService(this.context);
@@ -59,8 +61,8 @@ export class Afip {
   }
 
   public genericService<T extends Client>(
-    soapConfig: AfipServiceSoapParam
-  ): AfipService<T> {
-    return new AfipService(this.context, soapConfig);
+    soapConfig: ArcaServiceSoapParam
+  ): ArcaService<T> {
+    return new ArcaService(this.context, soapConfig);
   }
 }

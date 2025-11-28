@@ -14,7 +14,7 @@ import { Context, WSAuthParam } from "../types";
 import { EndpointsEnum } from "../enums";
 import { logger } from "../utils/logger";
 
-export class AfipAuth {
+export class ArcaAuth {
   resolvedFolderPath: string;
 
   constructor(private readonly context: Context) {
@@ -70,7 +70,7 @@ export class AfipAuth {
   }
 
   /**
-   * Get login cms from new request to afip
+   * Get login cms from new request to arca
    *
    * @param serviceName ServiceNamesEnum
    * @returns ILoginCmsReturn
@@ -93,7 +93,7 @@ export class AfipAuth {
   }
 
   /**
-   * Creates the format of the authentication headers requested by the afip endpoints
+   * Creates the format of the authentication headers requested by the arca endpoints
    *
    * @param ticket AccessTicket
    * @returns WSAuthParam
@@ -111,7 +111,7 @@ export class AfipAuth {
   /**
    * Create the file name with a standard format
    *
-   * @param serviceName name from Afip WS
+   * @param serviceName name from Arca WS
    * @returns
    */
   public createFileName(serviceName: ServiceNamesEnum): string {
@@ -152,7 +152,7 @@ export class AfipAuth {
    * Save the access ticket locally using file system
    *
    * @param ticket accessmticket header and credentials
-   * @param serviceName name from Afip WS
+   * @param serviceName name from Arca WS
    * @returns void
    */
   public async saveLocalAccessTicket(
@@ -176,7 +176,7 @@ export class AfipAuth {
    *
    * ** Check if the folder has the correct access permission. **
    *
-   * @param serviceName name from Afip WS
+   * @param serviceName name from Arca WS
    * @returns access ticket or undefined if it is not there
    */
   public async getLocalAccessTicket(

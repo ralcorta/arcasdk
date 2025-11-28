@@ -5,15 +5,15 @@ layout: home
 hero:
   # image:
   #   src: /logo.png
-  #   alt: Afip.ts
-  name: "Afip.ts"
-  text: "Afip Typescript SDK"
-  tagline: Solución REST para Web Services de AFIP
+  #   alt: Arca SDK
+  name: "Arca SDK"
+  text: "Arca Typescript SDK"
+  tagline: Solución REST para Web Services de ARCA
   actions:
     - theme: brand
       text: Ir a la Documentacion
       link: /introduction
-      
+
 features:
   - title: TypeScript desde el inicio
     details: Desarrollado en TypeScript desde el principio para una base sólida.
@@ -22,4 +22,3 @@ features:
   - title: Sencillo y Práctico
     details: Fácil de utilizar y configurar, sin complicaciones.
 ---
-

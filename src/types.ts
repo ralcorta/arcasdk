@@ -29,7 +29,7 @@ export type SoapClientParams = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ILoginCredentials extends ILoginCmsReturn { }
+export interface ILoginCredentials extends ILoginCmsReturn {}
 
 export interface IAccessTicket extends ILoginCredentials {
   getSign(): string;
@@ -39,7 +39,7 @@ export interface IAccessTicket extends ILoginCredentials {
   isExpired(): boolean;
 }
 
-export type AfipServiceSoapParam = SoapClientParams & {
+export type ArcaServiceSoapParam = SoapClientParams & {
   v12?: boolean;
   url: EndpointsEnum;
   url_test?: EndpointsEnum;
@@ -177,4 +177,4 @@ export interface ICreateVoucherResult {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput { }
+export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput {}

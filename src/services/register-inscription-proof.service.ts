@@ -1,14 +1,14 @@
-import { AfipService } from "./afip.service";
+import { ArcaService } from "./arca.service";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import {
   IPersonaServiceInscriptionProofPortSoap,
-  PersonaServiceInscriptionProofPortTypes
+  PersonaServiceInscriptionProofPortTypes,
 } from "../soap/interfaces/PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
 import { Context } from "../types";
 import { EndpointsEnum } from "../enums";
 
-export class RegisterInscriptionProofService extends AfipService<IPersonaServiceInscriptionProofPortSoap> {
+export class RegisterInscriptionProofService extends ArcaService<IPersonaServiceInscriptionProofPortSoap> {
   constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSSR_INSCRIPTION_PROOF,

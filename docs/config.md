@@ -1,11 +1,11 @@
 # ⚙️ Contexto
 
-### Contexto de Afip:
+### Contexto de Arca:
 
-La clase `Afip` recibe un objeto de tipo `Context` como parámetro, el cual proporciona los datos básicos necesarios para utilizar los servicios web de AFIP, así como también cómo deben comportarse:
+La clase `Arca` recibe un objeto de tipo `Context` como parámetro, el cual proporciona los datos básicos necesarios para utilizar los servicios web de ARCA, así como también cómo deben comportarse:
 
 ```ts
-const instancia = new Afip(Contexto);
+const instancia = new Arca(Contexto);
 ```
 
 - `Contexto`:

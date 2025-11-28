@@ -1,5 +1,5 @@
 import { testCuit } from "../../mocks/data/voucher.mock";
-import { Afip } from "../../../src/afip";
+import { Arca } from "../../../src/arca";
 import { TestConfigUtils } from "../../utils/config.utils";
 import {
   scopeFourDummyAsyncReturnMocks,
@@ -24,7 +24,7 @@ describe("Register Scope Four Service", () => {
   });
 
   beforeEach(async () => {
-    registerScopeFourService = new Afip({
+    registerScopeFourService = new Arca({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
       cuit: testCuit,

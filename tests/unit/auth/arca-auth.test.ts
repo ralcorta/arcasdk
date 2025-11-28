@@ -1,5 +1,5 @@
 import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
-import { AfipAuth } from "../../../src/auth/afip-auth";
+import { ArcaAuth } from "../../../src/auth/arca-auth";
 import { ServiceNamesEnum } from "../../../src/soap/service-names.enum";
 import { Context, ILoginCredentials } from "../../../src/types";
 import { AccessTicket } from "../../../src/auth/access-ticket";
@@ -42,7 +42,7 @@ jest.mock("../../../src/utils/logger", () => ({
   error: jest.fn(),
 }));
 
-describe("AfipAuth", () => {
+describe("ArcaAuth", () => {
   const mockContext: Context = {
     cuit: 123456789,
     cert: "mock-cert",
@@ -68,40 +68,40 @@ describe("AfipAuth", () => {
   describe("getAccessTicket", () => {
     it("should return a access ticket of login", async () => {
       const ticket = new AccessTicket(credentials);
-      const afipAuth = new AfipAuth({
+      const arcaAuth = new ArcaAuth({
         ...mockContext,
         handleTicket: true,
       });
-      afipAuth["requestLogin"] = jest.fn().mockResolvedValue(ticket);
-      afipAuth["getLocalAccessTicket"] = jest.fn();
+      arcaAuth["requestLogin"] = jest.fn().mockResolvedValue(ticket);
+      arcaAuth["getLocalAccessTicket"] = jest.fn();
 
-      const accessTicket = await afipAuth.login(serviceName);
+      const accessTicket = await arcaAuth.login(serviceName);
 
       expect(accessTicket).toBeInstanceOf(AccessTicket);
       expect(accessTicket).toStrictEqual(ticket);
-      expect(afipAuth["requestLogin"]).toBeCalled();
-      expect(afipAuth["getLocalAccessTicket"]).not.toBeCalled();
+      expect(arcaAuth["requestLogin"]).toBeCalled();
+      expect(arcaAuth["getLocalAccessTicket"]).not.toBeCalled();
     });
 
     it("should return a new access ticket if not found locally", async () => {
-      const afipAuth = new AfipAuth(mockContext);
+      const arcaAuth = new ArcaAuth(mockContext);
 
-      const accessTicket = await afipAuth.login(serviceName);
+      const accessTicket = await arcaAuth.login(serviceName);
 
       expect(accessTicket).toBeInstanceOf(AccessTicket);
     });
 
     it("should return a locally cached access ticket if not expired", async () => {
-      const afipAuth = new AfipAuth(mockContext);
+      const arcaAuth = new ArcaAuth(mockContext);
 
       // Mock a non-expired local access ticket
       const mockAccessTicket = new AccessTicket(credentials);
 
       jest
-        .spyOn(afipAuth, "getLocalAccessTicket")
+        .spyOn(arcaAuth, "getLocalAccessTicket")
         .mockResolvedValue(mockAccessTicket);
 
-      const accessTicket = await afipAuth.login(serviceName);
+      const accessTicket = await arcaAuth.login(serviceName);
 
       expect(accessTicket).toBe(mockAccessTicket);
     });
@@ -109,10 +109,10 @@ describe("AfipAuth", () => {
 
   describe("saveLocalAccessTicket", () => {
     it("should save the access ticket locally", async () => {
-      const afipAuth = new AfipAuth(mockContext);
+      const arcaAuth = new ArcaAuth(mockContext);
       const accessTicket = new AccessTicket(credentials);
 
-      await afipAuth.saveLocalAccessTicket(accessTicket, serviceName);
+      await arcaAuth.saveLocalAccessTicket(accessTicket, serviceName);
 
       expect(fs.writeFile).toHaveBeenCalledWith(
         expect.any(String),

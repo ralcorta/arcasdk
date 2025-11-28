@@ -1,7 +1,7 @@
 {
-  "name": "afip.ts",
-  "version": "3.2.3",
-  "description": "Afip typescript SDK",
+  "name": "@arcasdk/core",
+  "version": "1.0.0",
+  "description": "Arca typescript SDK",
   "source": "src/index.ts",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,7 +9,7 @@
     "build": "npx tsc",
     "postbuild": "rimraf lib/soap/wsdl && copyfiles -u 2 src/soap/wsdl/* lib/soap/",
     "test": "jest",
-    "doc": "typedoc --theme oxide --name 'afip.ts' --out docs src/index.ts",
+    "doc": "typedoc --theme oxide --name 'arca.ts' --out docs src/index.ts",
     "wsdl-gen": "wsdl-to-ts --",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
@@ -20,7 +20,9 @@
   "devDependencies": {
     "@jest/globals": "^29.6.2",
     "@types/jest": "^29.5.1",
+    "@types/node": "^24.10.1",
     "@types/node-forge": "^1.3.2",
+    "@types/soap": "^0.18.0",
     "@types/underscore": "^1.11.5",
     "@types/xml2js": "^0.4.11",
     "copyfiles": "^2.4.1",
@@ -46,12 +48,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ralcorta/afip.ts.git"
+    "url": "git+https://github.com/ralcorta/arca-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/ralcorta/afip.ts/issues"
+    "url": "https://github.com/ralcorta/arca-sdk/issues"
   },
-  "homepage": "https://github.com/ralcorta/afip.ts#readme",
+  "homepage": "https://github.com/ralcorta/arca-sdk#readme",
   "files": [
     "lib/**/*"
   ],
@@ -59,6 +61,7 @@
     "web-service",
     "factura-electronica",
     "padron",
+    "arca",
     "afip",
     "sdk",
     "package",

@@ -1,4 +1,4 @@
-import { AfipService } from "./afip.service";
+import { ArcaService } from "./arca.service";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import {
@@ -8,7 +8,7 @@ import {
 import { Context } from "../types";
 import { EndpointsEnum } from "../enums";
 
-export class RegisterScopeThirteenService extends AfipService<IPersonaServiceA13PortSoap> {
+export class RegisterScopeThirteenService extends ArcaService<IPersonaServiceA13PortSoap> {
   constructor(context: Context) {
     super(context, {
       url: EndpointsEnum.WSSR_PADRON_THIRTEEN,

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client } from "soap";
 import { EndpointsEnum, SoapServiceVersion } from "../../../src/enums";
-import { AfipService } from "../../../src/services/afip.service";
+import { ArcaService } from "../../../src/services/arca.service";
 import { IServiceSoap12Soap } from "../../../src/soap/interfaces/Service/ServiceSoap12";
 import { ServiceNamesEnum } from "../../../src/soap/service-names.enum";
 import { WsdlPathEnum } from "../../../src/soap/wsdl-path.enum";
-import { AfipServiceSoapParam, Context } from "../../../src/types";
+import { ArcaServiceSoapParam, Context } from "../../../src/types";
 import { testCuit } from "../../mocks/data/voucher.mock";
 import { TestConfigUtils } from "../../utils/config.utils";
 import { mockFn } from "../../utils/jest.utils";
 
-describe("AfipService", () => {
-  let afipService: AfipService<Client>;
+describe("ArcaService", () => {
+  let arcaService: ArcaService<Client>;
   let context: Context;
-  let soapParams: AfipServiceSoapParam;
+  let soapParams: ArcaServiceSoapParam;
 
   beforeAll(async () => {
     context = {
@@ -31,8 +31,8 @@ describe("AfipService", () => {
     };
   });
 
-  it("should call AfipAuth login method and return the result", async () => {
-    afipService = new AfipService<Client>(context, soapParams);
+  it("should call ArcaAuth login method and return the result", async () => {
+    arcaService = new ArcaService<Client>(context, soapParams);
     const expectedLoginResult = {
       Auth: {
         Token: "your_token",
@@ -41,20 +41,20 @@ describe("AfipService", () => {
       },
     };
 
-    const afipAuthMock = {
+    const arcaAuthMock = {
       login: jest.fn().mockResolvedValue(expectedLoginResult),
     };
 
-    afipService["_afipAuth"] = afipAuthMock as any;
+    arcaService["_afipAuth"] = arcaAuthMock as any;
 
-    const result = await afipService.login();
+    const result = await arcaService.login();
 
     expect(result).toEqual(expectedLoginResult);
-    expect(afipAuthMock.login).toHaveBeenCalledWith(ServiceNamesEnum.WSFE);
+    expect(arcaAuthMock.login).toHaveBeenCalledWith(ServiceNamesEnum.WSFE);
   });
 
   it("should create a proxy client with the correct behavior", async () => {
-    afipService = new AfipService<IServiceSoap12Soap>(context, soapParams);
+    arcaService = new ArcaService<IServiceSoap12Soap>(context, soapParams);
     const methodName = "FEDummy";
     const asyncMethodName = `${methodName}Async`;
     const soapServiceContent = {
@@ -87,15 +87,15 @@ describe("AfipService", () => {
       [methodName]: mockFn(),
     };
 
-    afipService["instanceSoapClient"] = jest
+    arcaService["instanceSoapClient"] = jest
       .fn()
       .mockResolvedValue(soapClientMock);
 
-    afipService["getWsAuth"] = jest
+    arcaService["getWsAuth"] = jest
       .fn()
       .mockResolvedValue(expectedWsAuthResult);
 
-    const proxyClient = await afipService["proxySoapClient"]();
+    const proxyClient = await arcaService["proxySoapClient"]();
 
     const describeResult = proxyClient.describe();
     expect(describeResult).toEqual(expectedDescribeResult);
@@ -107,6 +107,6 @@ describe("AfipService", () => {
     expect(nonExistentMethodResult).toBeUndefined();
 
     expect(soapClientMock.describe).toHaveBeenCalled();
-    expect(afipService["getWsAuth"]).toHaveBeenCalled();
+    expect(arcaService["getWsAuth"]).toHaveBeenCalled();
   });
 });

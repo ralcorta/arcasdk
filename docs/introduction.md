@@ -20,15 +20,15 @@ Si deseas contribuir y añadir soporte para un nuevo servicio, puedes hacer un f
 ##### NPM
 
 ```sh
-npm i afip.ts --save
+npm i @arcasdk/core --save
 ```
 
 ##### Yarn
 
 ```sh
-yarn add afip.ts
+yarn add @arcasdk/core
 ```
 
 ### Requisitos Previos
 
-Para utilizar esta SDK, debes tener los certificados emitidos por AFIP, ya sea para los servidores de homologación o producción. Estos certificados serán necesarios para la autenticación a través del servicio WSAA en la instancia de Afip.
+Para utilizar esta SDK, debes tener los certificados emitidos por ARCA, ya sea para los servidores de homologación o producción. Estos certificados serán necesarios para la autenticación a través del servicio WSAA en la instancia de Arca.

@@ -21,23 +21,23 @@ import {
   testCuit,
   testPtoVta,
 } from "../../mocks/data/voucher.mock";
-import { Afip } from "../../../src/afip";
+import { Arca } from "../../../src/arca";
 import { TestConfigUtils } from "../../utils/config.utils";
 import { AccessTicket } from "../../../src/auth/access-ticket";
 import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
 
 describe("Electronic Billings Service", () => {
-  let afip: Afip;
-  let afipRemote: Afip;
+  let arca: Arca;
+  let arcaRemote: Arca;
 
   beforeEach(async () => {
-    afip = new Afip({
+    arca = new Arca({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
       cuit: testCuit,
     });
 
-    afipRemote = new Afip({
+    arcaRemote = new Arca({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
       cuit: testCuit,
@@ -82,10 +82,10 @@ describe("Electronic Billings Service", () => {
     } as any;
 
     jest
-      .spyOn(afip.electronicBillingService, "getClient")
+      .spyOn(arca.electronicBillingService, "getClient")
       .mockReturnValue(afipMockParams);
     jest
-      .spyOn(afipRemote.electronicBillingService, "getClient")
+      .spyOn(arcaRemote.electronicBillingService, "getClient")
       .mockReturnValue(afipMockParams);
   });
 
@@ -94,13 +94,13 @@ describe("Electronic Billings Service", () => {
   });
 
   it("should get server status", async () => {
-    const { electronicBillingService } = afip;
+    const { electronicBillingService } = arca;
     const status = await electronicBillingService.getServerStatus();
     expect(status).toEqual(FEDummyAsyncReturnMocks[0]);
   });
 
   it("should get the last type 11 voucher from sale point 2", async () => {
-    const { electronicBillingService } = afip;
+    const { electronicBillingService } = arca;
     const lastVoucher = await electronicBillingService.getLastVoucher(
       testPtoVta,
       testCbteTipo
@@ -111,13 +111,13 @@ describe("Electronic Billings Service", () => {
   });
 
   it("should get sales points", async () => {
-    const { electronicBillingService } = afip;
+    const { electronicBillingService } = arca;
     const status = await electronicBillingService.getSalesPoints();
     expect(status).not.toBeNull();
   });
 
   it("should create a voucher from correct params with createVoucher", async () => {
-    const { electronicBillingService } = afip;
+    const { electronicBillingService } = arca;
     const lastVoucher = await electronicBillingService.getLastVoucher(
       testPtoVta,
       testCbteTipo
@@ -139,7 +139,7 @@ describe("Electronic Billings Service", () => {
   });
 
   it("should create the next voucher using the previous voucher created as a starting point", async () => {
-    const { electronicBillingService } = afip;
+    const { electronicBillingService } = arca;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { CbteDesde, CbteHasta, ...voucherData } = data;
     const voucher = await electronicBillingService.createNextVoucher(
@@ -156,7 +156,7 @@ describe("Electronic Billings Service", () => {
 
   it("should get voucher info", async () => {
     expect(
-      await afip.electronicBillingService.getVoucherInfo(
+      await arca.electronicBillingService.getVoucherInfo(
         testCbteNro,
         testPtoVta,
         testCbteTipo
@@ -165,7 +165,7 @@ describe("Electronic Billings Service", () => {
   });
 
   it("should get sales points with an authorized ticket after an initialization of afib with handleTicket true", async () => {
-    const { electronicBillingService } = new Afip({
+    const { electronicBillingService } = new Arca({
       key: await TestConfigUtils.getKey(),
       cert: await TestConfigUtils.getCert(),
       cuit: testCuit,
@@ -189,7 +189,7 @@ describe("Electronic Billings Service", () => {
   });
 
   it("should create a voucher with an authorized ticket after an initialization of afib with handleTicket true", async () => {
-    const { electronicBillingService } = afipRemote;
+    const { electronicBillingService } = arcaRemote;
     const afipAuthMock = {
       login: jest
         .fn()
@@ -214,47 +214,47 @@ describe("Electronic Billings Service", () => {
   });
 
   it("should get voucher types", async () => {
-    expect(await afip.electronicBillingService.getVoucherTypes()).toStrictEqual(
+    expect(await arca.electronicBillingService.getVoucherTypes()).toStrictEqual(
       FEParamGetTiposCbteAsyncReturnMocks[0].FEParamGetTiposCbteResult
     );
   });
 
   it("should get concept types", async () => {
-    expect(await afip.electronicBillingService.getConceptTypes()).toStrictEqual(
+    expect(await arca.electronicBillingService.getConceptTypes()).toStrictEqual(
       FEParamGetTiposConceptoAsyncReturnMocks[0].FEParamGetTiposConceptoResult
     );
   });
 
   it("should get document types", async () => {
     expect(
-      await afip.electronicBillingService.getDocumentTypes()
+      await arca.electronicBillingService.getDocumentTypes()
     ).toStrictEqual(
       FEParamGetTiposDocAsyncReturnMocks[0].FEParamGetTiposDocResult
     );
   });
 
   it("should get aliquota types", async () => {
-    expect(await afip.electronicBillingService.getAliquotTypes()).toStrictEqual(
+    expect(await arca.electronicBillingService.getAliquotTypes()).toStrictEqual(
       FEParamGetTiposIvaAsyncReturnMocks[0].FEParamGetTiposIvaResult
     );
   });
 
   it("should get currencies types", async () => {
     expect(
-      await afip.electronicBillingService.getCurrenciesTypes()
+      await arca.electronicBillingService.getCurrenciesTypes()
     ).toStrictEqual(
       FEParamGetTiposMonedasAsyncReturnMocks[0].FEParamGetTiposMonedasResult
     );
   });
 
   it("should get Options types", async () => {
-    expect(await afip.electronicBillingService.getOptionsTypes()).toStrictEqual(
+    expect(await arca.electronicBillingService.getOptionsTypes()).toStrictEqual(
       FEParamGetTiposOpcionalAsyncReturnMocks[0].FEParamGetTiposOpcionalResult
     );
   });
 
   it("should get Tax types", async () => {
-    expect(await afip.electronicBillingService.getTaxTypes()).toStrictEqual(
+    expect(await arca.electronicBillingService.getTaxTypes()).toStrictEqual(
       FEParamGetTiposTributosAsyncReturnMocks[0].FEParamGetTiposTributosResult
     );
   });

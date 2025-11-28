@@ -2,8 +2,8 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Afip TS",
-  description: "Afip typescript SDK",
+  title: "Arca SDK",
+  description: "Arca typescript SDK",
   lang: "es",
   head: [["link", { rel: "icon", href: "/logo.ico" }]],
   themeConfig: {
