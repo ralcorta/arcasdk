@@ -3,17 +3,17 @@ on:
   workflow_dispatch:
     inputs:
       release-type:
-        description: "Release type (one of): patch, minor, major, prepatch, preminor, premajor, prerelease"
+        description: "Release type"
         required: true
         type: choice
         options:
-          - patch
-          - minor
-          - major
-          - prepatch
-          - preminor
-          - premajor
-          - prerelease
+          - "patch (0.0.x)"
+          - "minor (0.x.0)"
+          - "major (x.0.0)"
+          - "prepatch (0.0.x-beta)"
+          - "preminor (0.x.0-beta)"
+          - "premajor (x.0.0-beta)"
+          - "prerelease (beta)"
 
 jobs:
   release:
@@ -49,7 +49,9 @@ jobs:
       - name: Determine Release Version
         id: version
         run: |
-          RELEASE_TYPE=${{ github.event.inputs.release-type }}
+          # Extract the first word from the input (e.g., "patch" from "patch (0.0.x)")
+          RELEASE_TYPE=$(echo "${{ github.event.inputs.release-type }}" | awk '{print $1}')
+
           if [[ "$RELEASE_TYPE" == "pre"* ]]; then
             NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)
             echo "RELEASE_TAG=beta" >> $GITHUB_ENV
