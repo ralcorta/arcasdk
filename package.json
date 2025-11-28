@@ -1,6 +1,6 @@
 {
   "name": "@arcasdk/core",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Arca typescript SDK",
   "source": "src/index.ts",
   "main": "lib/index.js",
@@ -48,12 +48,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ralcorta/arca-sdk.git"
+    "url": "git+https://github.com/ralcorta/arcasdk.git"
   },
   "bugs": {
-    "url": "https://github.com/ralcorta/arca-sdk/issues"
+    "url": "https://github.com/ralcorta/arcasdk/issues"
   },
-  "homepage": "https://github.com/ralcorta/arca-sdk#readme",
+  "homepage": "https://github.com/ralcorta/arcasdk#readme",
   "files": [
     "lib/**/*"
   ],
