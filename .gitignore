@@ -4,8 +4,6 @@ lib
 
 node_modules
 
-pnpm-lock.yaml
-
 src/auth/tickets
 */mocks/credentials
 
