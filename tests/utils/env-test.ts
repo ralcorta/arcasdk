@@ -6,27 +6,31 @@ class EnvirnonmentTest extends Environment {
   testPrivateKeyFileName: string;
   testCertFileName: string;
   nodeEnv: string;
+  enableIntegrationTests: boolean;
 
   constructor() {
     super();
+    // Support both absolute and relative paths for credentials folder
     this.testCredentialsFolder = (process.env.TEST_CREDENTIALS_FOLDER ??
-      "folder_name") as string;
+      "test-credentials") as string;
     this.testPrivateKeyFileName = (process.env.TEST_PRIVATE_KEY_FILE_NAME ??
-      "priv_key") as string;
+      "homologacion.key") as string;
     this.testCertFileName = (process.env.TEST_CERT_FILE_NAME ??
-      "cert") as string;
-    this.nodeEnv = (process.env.NODE_ENV || "local") as string;
-    this.cuit = (process.env.CUIT ?? "1123456789") as string;
+      "homologacion.crt") as string;
+    this.nodeEnv = (process.env.NODE_ENV || "test") as string;
+    this.cuit = (process.env.TEST_CUIT ??
+      process.env.CUIT ??
+      "20111111112") as string;
+    // Allow enabling integration tests via environment variable
+    this.enableIntegrationTests =
+      process.env.ENABLE_INTEGRATION_TESTS === "true";
   }
 
   checkEnv(): void {
-    super.checkEnv();
-    try {
-      if (!this.cuit) throw new Error("CUIT");
-    } catch (error) {
-      throw new Error(
-        `Env parameter not defined on .env file: ${error.message}`
-      );
+    // Don't throw errors in test environment - use defaults instead
+    // This allows tests to run with or without real certificates
+    if (!this.cuit) {
+      console.warn("⚠️  CUIT not set, using default test CUIT: 20111111112");
     }
   }
 }

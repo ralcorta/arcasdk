@@ -1,6 +1,6 @@
 import { testCuit } from "../../mocks/data/voucher.mock";
 import { Arca } from "../../../src/arca";
-import { TestConfigUtils } from "../../utils/config.utils";
+import { ContextTest } from "../../utils/context-test.utils";
 import {
   scopeFourDummyAsyncReturnMocks,
   scopeFourGetPersonaAsyncReturnMocks,
@@ -24,11 +24,12 @@ describe("Register Scope Four Service", () => {
   });
 
   beforeEach(async () => {
-    registerScopeFourService = new Arca({
-      key: await TestConfigUtils.getKey(),
-      cert: await TestConfigUtils.getCert(),
+    // Use integration test context which ensures production: false (homologation servers)
+    const context = await ContextTest.getIntegrationTestContext({
       cuit: testCuit,
-    }).registerScopeFourService;
+    });
+
+    registerScopeFourService = new Arca(context).registerScopeFourService;
 
     registerScopeFourService.getWsAuth = jest.fn().mockReturnValue({
       Auth: {

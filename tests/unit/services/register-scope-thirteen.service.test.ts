@@ -1,6 +1,6 @@
 import { testCuit } from "../../mocks/data/voucher.mock";
 import { Arca } from "../../../src/arca";
-import { TestConfigUtils } from "../../utils/config.utils";
+import { ContextTest } from "../../utils/context-test.utils";
 import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
 import { RegisterScopeThirteenService } from "../../../src/services/register-scope-thirteen.service";
 import {
@@ -24,11 +24,13 @@ describe("Register Scope Thirteen Service", () => {
   });
 
   beforeEach(async () => {
-    registerScopeThirteenService = new Arca({
-      key: await TestConfigUtils.getKey(),
-      cert: await TestConfigUtils.getCert(),
+    // Use integration test context which ensures production: false (homologation servers)
+    const context = await ContextTest.getIntegrationTestContext({
       cuit: testCuit,
-    }).registerScopeThirteenService;
+    });
+
+    registerScopeThirteenService = new Arca(context)
+      .registerScopeThirteenService;
 
     registerScopeThirteenService.getWsAuth = jest.fn().mockReturnValue({
       Auth: {

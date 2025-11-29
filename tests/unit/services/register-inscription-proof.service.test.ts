@@ -1,6 +1,6 @@
 import { testCuit } from "../../mocks/data/voucher.mock";
 import { Arca } from "../../../src/arca";
-import { TestConfigUtils } from "../../utils/config.utils";
+import { ContextTest } from "../../utils/context-test.utils";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
@@ -25,11 +25,13 @@ describe("Register Inscription Proof Service", () => {
   });
 
   beforeEach(async () => {
-    registerInscriptionProofService = new Arca({
-      key: await TestConfigUtils.getKey(),
-      cert: await TestConfigUtils.getCert(),
+    // Use integration test context which ensures production: false (homologation servers)
+    const context = await ContextTest.getIntegrationTestContext({
       cuit: testCuit,
-    }).registerInscriptionProofService;
+    });
+
+    registerInscriptionProofService = new Arca(context)
+      .registerInscriptionProofService;
 
     registerInscriptionProofService.getWsAuth = jest.fn().mockReturnValue({
       Auth: {

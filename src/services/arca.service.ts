@@ -1,9 +1,11 @@
 import { Client } from "soap";
+import * as https from "https";
 import { AccessTicket } from "../auth/access-ticket";
 import { ArcaAuth } from "../auth/arca-auth";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
 import { SoapClientFacade } from "../soap/soap-client-facade";
 import { SoapServiceVersion } from "../enums";
+import { MIN_DH_SIZE_LEGACY } from "../constants/ssl.constants";
 import {
   Context,
   ArcaServiceSoapParam,
@@ -45,15 +47,26 @@ export class ArcaService<T extends Client> {
 
   async getClient(): Promise<T> {
     if (!this._soapCliente) this._soapCliente = await this.proxySoapClient();
-    return this._soapCliente;
+    return this._soapCliente!;
   }
 
   private async instanceSoapClient(): Promise<T> {
+    const legacyHttpsAgent = new https.Agent({
+      rejectUnauthorized: true,
+      minDHSize: MIN_DH_SIZE_LEGACY,
+    });
+
     const client = await SoapClientFacade.create<T>({
       wsdl: this._soapParams.wsdl,
       options: {
         disableCache: true,
-        forceSoap12Headers: this._soapParams.v12,
+        forceSoap12Headers: Boolean(this._soapParams.v12),
+        wsdl_options: {
+          httpsAgent: legacyHttpsAgent,
+        },
+        request: {
+          httpsAgent: legacyHttpsAgent,
+        } as any,
         ...this._soapParams.options,
       },
     });
@@ -72,7 +85,6 @@ export class ArcaService<T extends Client> {
             ? SoapServiceVersion.ServiceSoap12
             : SoapServiceVersion.ServiceSoap;
 
-          // Get tokens only if the method exist and require Auth.
           if (soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"]) {
             return async (req: Record<string, any>) => {
               const auth = await this.getWsAuth();

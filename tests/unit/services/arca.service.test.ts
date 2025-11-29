@@ -7,7 +7,7 @@ import { ServiceNamesEnum } from "../../../src/soap/service-names.enum";
 import { WsdlPathEnum } from "../../../src/soap/wsdl-path.enum";
 import { ArcaServiceSoapParam, Context } from "../../../src/types";
 import { testCuit } from "../../mocks/data/voucher.mock";
-import { TestConfigUtils } from "../../utils/config.utils";
+import { ContextTest } from "../../utils/context-test.utils";
 import { mockFn } from "../../utils/jest.utils";
 
 describe("ArcaService", () => {
@@ -16,11 +16,10 @@ describe("ArcaService", () => {
   let soapParams: ArcaServiceSoapParam;
 
   beforeAll(async () => {
-    context = {
-      key: await TestConfigUtils.getKey(),
-      cert: await TestConfigUtils.getCert(),
+    // Use integration test context which ensures production: false (homologation servers)
+    context = await ContextTest.getIntegrationTestContext({
       cuit: testCuit,
-    };
+    });
     soapParams = {
       url: EndpointsEnum.WSFEV1,
       url_test: EndpointsEnum.WSFEV1_TEST,

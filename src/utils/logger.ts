@@ -1,17 +1,22 @@
-import { createLogger, format, transports } from "winston";
-import Env from "./env";
+import { createLogger, format, transports, Logger } from "winston";
 
-const logger = createLogger({
-  format: format.json(),
-  exitOnError: true,
-});
+export function createArcaLogger(enableLogging: boolean = false): Logger {
+  const logger = createLogger({
+    format: format.json(),
+    exitOnError: true,
+    silent: !enableLogging,
+  });
 
-if (Env.nodeEnv !== "production") {
-  logger.add(
-    new transports.Console({
-      format: format.combine(format.colorize(), format.simple()),
-    })
-  );
+  if (enableLogging) {
+    logger.add(
+      new transports.Console({
+        format: format.combine(format.colorize(), format.simple()),
+      })
+    );
+  }
+
+  return logger;
 }
+const defaultLogger = createArcaLogger(false);
 
-export { logger };
+export { defaultLogger as logger };

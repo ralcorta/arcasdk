@@ -99,6 +99,13 @@ export type Context = {
    * The path of the auth obj if the package is auto managed
    */
   ticketPath?: string;
+
+  /**
+   * Enable console logging
+   *
+   * @default false
+   */
+  enableLogging?: boolean;
 };
 
 export interface IVoucher {

@@ -12,14 +12,17 @@ import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { Cryptography } from "../utils/crypt-data";
 import { Context, WSAuthParam } from "../types";
 import { EndpointsEnum } from "../enums";
-import { logger } from "../utils/logger";
+import { createArcaLogger } from "../utils/logger";
+import { Logger } from "winston";
 
 export class ArcaAuth {
   resolvedFolderPath: string;
+  private logger: Logger;
 
   constructor(private readonly context: Context) {
     this.resolvedFolderPath =
       context.ticketPath ?? resolve(__dirname, "tickets");
+    this.logger = createArcaLogger(context.enableLogging ?? false);
   }
 
   private async getAuthClient() {
@@ -162,7 +165,7 @@ export class ArcaAuth {
     try {
       fs.mkdir(this.resolvedFolderPath, { recursive: true });
     } catch (error) {
-      logger.error(error.message);
+      this.logger.error(error.message);
       throw error;
     }
 

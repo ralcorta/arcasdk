@@ -22,7 +22,7 @@ import {
   testPtoVta,
 } from "../../mocks/data/voucher.mock";
 import { Arca } from "../../../src/arca";
-import { TestConfigUtils } from "../../utils/config.utils";
+import { ContextTest } from "../../utils/context-test.utils";
 import { AccessTicket } from "../../../src/auth/access-ticket";
 import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
 
@@ -31,16 +31,15 @@ describe("Electronic Billings Service", () => {
   let arcaRemote: Arca;
 
   beforeEach(async () => {
-    arca = new Arca({
-      key: await TestConfigUtils.getKey(),
-      cert: await TestConfigUtils.getCert(),
+    // Use integration test context which ensures production: false (homologation servers)
+    const context = await ContextTest.getIntegrationTestContext({
       cuit: testCuit,
     });
 
+    arca = new Arca(context);
+
     arcaRemote = new Arca({
-      key: await TestConfigUtils.getKey(),
-      cert: await TestConfigUtils.getCert(),
-      cuit: testCuit,
+      ...context,
       handleTicket: true,
     });
 
@@ -165,12 +164,12 @@ describe("Electronic Billings Service", () => {
   });
 
   it("should get sales points with an authorized ticket after an initialization of afib with handleTicket true", async () => {
-    const { electronicBillingService } = new Arca({
-      key: await TestConfigUtils.getKey(),
-      cert: await TestConfigUtils.getCert(),
+    const context = await ContextTest.getIntegrationTestContext({
       cuit: testCuit,
       handleTicket: true,
     });
+
+    const { electronicBillingService } = new Arca(context);
 
     const afipAuthMock = {
       login: jest
