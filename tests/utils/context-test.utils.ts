@@ -3,7 +3,8 @@ import { readFileSync, existsSync } from "fs";
 import { config } from "dotenv";
 import { promises as fs } from "fs";
 import EnvTest from "../utils/env-test";
-import { Context } from "../../src/types";
+import { Context } from "../../src/application/types";
+import { ILoginCredentials } from "../../src/domain/entities/access-ticket.entity";
 config();
 
 export class ContextTest {
@@ -92,6 +93,9 @@ export class ContextTest {
     cuit?: number;
     handleTicket?: boolean;
     production?: boolean;
+    enableLogging?: boolean;
+    ticketPath?: string;
+    credentials?: ILoginCredentials;
   }): Promise<Context> {
     const key = await ContextTest.getKey();
     const cert = await ContextTest.getCert();
@@ -117,6 +121,9 @@ export class ContextTest {
       cuit: options?.cuit ?? parseInt(EnvTest.cuit),
       production: options?.production ?? false,
       handleTicket: options?.handleTicket ?? false,
+      enableLogging: options?.enableLogging ?? false,
+      ticketPath: options?.ticketPath,
+      credentials: options?.credentials,
     };
   }
 

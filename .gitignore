@@ -5,6 +5,12 @@ lib
 node_modules
 
 src/auth/tickets
+src/infrastructure/storage/auth/tickets
 */mocks/credentials
 
 docs/.vitepress/dist
+
+# Examples
+examples/
+
+examples

@@ -7,7 +7,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "postbuild": "rimraf lib/soap/wsdl && copyfiles -u 2 src/soap/wsdl/* lib/soap/",
+    "postbuild": "rimraf lib/infrastructure/outbound/adapters/soap/wsdl && copyfiles -u 4 src/infrastructure/outbound/adapters/soap/wsdl/* lib/infrastructure/outbound/adapters/soap/",
     "test": "jest",
     "test:unit": "jest tests/unit",
     "test:integration": "jest tests/integration",
@@ -36,6 +36,7 @@
     "rimraf": "^5.0.7",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4",
     "vitepress": "1.2.3",
     "wsdl-to-ts": "^0.2.3",

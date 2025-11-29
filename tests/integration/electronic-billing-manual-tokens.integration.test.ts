@@ -1,6 +1,6 @@
 import { Arca } from "../../src/arca";
-import { ArcaAuth } from "../../src/auth/arca-auth";
-import { ServiceNamesEnum } from "../../src/soap/service-names.enum";
+import { FileSystemTicketStorageAdapter } from "../../src/infrastructure/outbound/adapters/storage/file-system-ticket-storage.adapter";
+import { ServiceNamesEnum } from "../../src/infrastructure/outbound/ports/soap/enums/service-names.enum";
 import { ContextTest } from "../utils/context-test.utils";
 import EnvTest from "../utils/env-test";
 import { existsSync, mkdirSync } from "fs";
@@ -23,31 +23,50 @@ describeOrSkip(
   "Electronic Billing Service - Integration Tests (Homologation) - Manual Token Management",
   () => {
     let arca: Arca;
-    const ticketsPath = resolve(__dirname, "../../src/auth/tickets");
+    const ticketsPath = resolve(
+      __dirname,
+      "../../src/infrastructure/storage/auth/tickets"
+    );
 
     beforeAll(async () => {
       if (!existsSync(ticketsPath)) {
         mkdirSync(ticketsPath, { recursive: true });
       }
 
+      const cuit = parseInt(EnvTest.cuit);
+      const ticketStorage = new FileSystemTicketStorageAdapter({
+        ticketPath: ticketsPath,
+        cuit,
+        production: false,
+      });
+
+      // Try to get existing ticket from storage
+      let existingTicket = await ticketStorage.get(ServiceNamesEnum.WSFE);
+
+      // If no valid ticket exists, create one using auto mode first
+      if (!existingTicket || existingTicket.isExpired()) {
+        const autoContext = await ContextTest.getIntegrationTestContext({
+          cuit,
+          handleTicket: false,
+          ticketPath: ticketsPath,
+        });
+        const autoArca = new Arca(autoContext);
+        // Trigger login by calling a service method (this will save the ticket)
+        await autoArca.electronicBillingService.getServerStatus();
+        // Get the newly saved ticket
+        existingTicket = await ticketStorage.get(ServiceNamesEnum.WSFE);
+      }
+
+      // Create context with manual ticket management using the ticket we found/saved
       const context = await ContextTest.getIntegrationTestContext({
-        cuit: parseInt(EnvTest.cuit),
+        cuit,
         handleTicket: true,
+        credentials: existingTicket
+          ? existingTicket.getCredentials()
+          : undefined,
       });
 
       arca = new Arca(context);
-
-      const arcaAuth = new ArcaAuth(context);
-      const existingTicket = await arcaAuth.getLocalAccessTicket(
-        ServiceNamesEnum.WSFE
-      );
-
-      if (existingTicket && !existingTicket.isExpired()) {
-        arca.electronicBillingService.setCredentials(existingTicket);
-      } else {
-        const ticket = await arca.electronicBillingService.login();
-        arca.electronicBillingService.setCredentials(ticket);
-      }
     });
 
     describe("Server Status", () => {
@@ -55,10 +74,9 @@ describeOrSkip(
         const status = await arca.electronicBillingService.getServerStatus();
 
         expect(status).toBeDefined();
-        expect(status.FEDummyResult).toBeDefined();
-        expect(status.FEDummyResult.AppServer).toBeDefined();
-        expect(status.FEDummyResult.DbServer).toBeDefined();
-        expect(status.FEDummyResult.AuthServer).toBeDefined();
+        expect(status.appServer).toBeDefined();
+        expect(status.dbServer).toBeDefined();
+        expect(status.authServer).toBeDefined();
       });
     });
 
@@ -68,14 +86,14 @@ describeOrSkip(
           await arca.electronicBillingService.getSalesPoints();
 
         expect(salesPoints).toBeDefined();
-        expect(salesPoints.FEParamGetPtosVentaResult).toBeDefined();
+        expect(salesPoints.resultGet).toBeDefined();
 
-        const result = salesPoints.FEParamGetPtosVentaResult;
+        const result = salesPoints;
 
-        if (result.Errors?.Err?.length) {
+        if (result.errors?.err?.length) {
           expect(result).toBeDefined();
-        } else if (result.ResultGet) {
-          expect(result.ResultGet).toBeDefined();
+        } else if (result.resultGet) {
+          expect(result.resultGet).toBeDefined();
         } else {
           expect(result).toBeDefined();
         }
@@ -88,8 +106,8 @@ describeOrSkip(
           await arca.electronicBillingService.getVoucherTypes();
 
         expect(voucherTypes).toBeDefined();
-        if (voucherTypes.ResultGet) {
-          expect(voucherTypes.ResultGet).toBeDefined();
+        if (voucherTypes.resultGet) {
+          expect(voucherTypes.resultGet).toBeDefined();
         }
       });
     });
@@ -100,7 +118,7 @@ describeOrSkip(
           await arca.electronicBillingService.getDocumentTypes();
 
         expect(documentTypes).toBeDefined();
-        expect(documentTypes.ResultGet).toBeDefined();
+        expect(documentTypes.resultGet).toBeDefined();
       });
     });
 
@@ -110,7 +128,7 @@ describeOrSkip(
           await arca.electronicBillingService.getConceptTypes();
 
         expect(conceptTypes).toBeDefined();
-        expect(conceptTypes.ResultGet).toBeDefined();
+        expect(conceptTypes.resultGet).toBeDefined();
       });
     });
 
@@ -120,7 +138,7 @@ describeOrSkip(
           await arca.electronicBillingService.getAliquotTypes();
 
         expect(aliquotTypes).toBeDefined();
-        expect(aliquotTypes.ResultGet).toBeDefined();
+        expect(aliquotTypes.resultGet).toBeDefined();
       });
     });
 
@@ -130,7 +148,7 @@ describeOrSkip(
           await arca.electronicBillingService.getCurrenciesTypes();
 
         expect(currencyTypes).toBeDefined();
-        expect(currencyTypes.ResultGet).toBeDefined();
+        expect(currencyTypes.resultGet).toBeDefined();
       });
     });
 
@@ -139,7 +157,7 @@ describeOrSkip(
         const taxTypes = await arca.electronicBillingService.getTaxTypes();
 
         expect(taxTypes).toBeDefined();
-        expect(taxTypes.ResultGet).toBeDefined();
+        expect(taxTypes.resultGet).toBeDefined();
       });
     });
 
@@ -149,7 +167,7 @@ describeOrSkip(
           await arca.electronicBillingService.getOptionsTypes();
 
         expect(optionsTypes).toBeDefined();
-        expect(optionsTypes.ResultGet).toBeDefined();
+        expect(optionsTypes.resultGet).toBeDefined();
       });
     });
 
@@ -157,15 +175,14 @@ describeOrSkip(
       it("should get last voucher from homologation servers", async () => {
         const salesPoints =
           await arca.electronicBillingService.getSalesPoints();
-        const salesPointsList =
-          salesPoints.FEParamGetPtosVentaResult?.ResultGet?.PtoVenta || [];
+        const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
         if (salesPointsList.length === 0) {
           console.warn("No sales points available for testing");
           return;
         }
 
-        const firstSalesPoint = salesPointsList[0].Nro;
+        const firstSalesPoint = salesPointsList[0].nro;
         const voucherType = 1;
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
@@ -174,8 +191,8 @@ describeOrSkip(
         );
 
         expect(lastVoucher).toBeDefined();
-        expect(lastVoucher.CbteNro).toBeDefined();
-        expect(typeof lastVoucher.CbteNro).toBe("number");
+        expect(lastVoucher.cbteNro).toBeDefined();
+        expect(typeof lastVoucher.cbteNro).toBe("number");
       });
     });
 
@@ -183,14 +200,13 @@ describeOrSkip(
       it("should get voucher info from homologation servers", async () => {
         const salesPoints =
           await arca.electronicBillingService.getSalesPoints();
-        const salesPointsList =
-          salesPoints.FEParamGetPtosVentaResult?.ResultGet?.PtoVenta || [];
+        const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
         if (salesPointsList.length === 0) {
           return;
         }
 
-        const firstSalesPoint = salesPointsList[0].Nro;
+        const firstSalesPoint = salesPointsList[0].nro;
         const voucherType = 1;
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
@@ -198,19 +214,19 @@ describeOrSkip(
           voucherType
         );
 
-        if (lastVoucher.CbteNro === 0) {
+        if (lastVoucher.cbteNro === 0) {
           return;
         }
 
         const voucherInfo = await arca.electronicBillingService.getVoucherInfo(
-          lastVoucher.CbteNro,
+          lastVoucher.cbteNro,
           firstSalesPoint,
           voucherType
         );
 
         if (voucherInfo) {
           expect(voucherInfo).toBeDefined();
-          expect(voucherInfo.ResultGet).toBeDefined();
+          expect(voucherInfo.resultGet).toBeDefined();
         }
       });
     });
@@ -219,12 +235,11 @@ describeOrSkip(
       it("should create a voucher (Factura C) on homologation servers", async () => {
         const salesPoints =
           await arca.electronicBillingService.getSalesPoints();
-        const salesPointsList =
-          salesPoints.FEParamGetPtosVentaResult?.ResultGet?.PtoVenta || [];
+        const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
         let puntoVenta: number;
         if (salesPointsList.length > 0) {
-          puntoVenta = salesPointsList[0].Nro;
+          puntoVenta = salesPointsList[0].nro;
         } else {
           puntoVenta = 2;
         }
@@ -234,7 +249,7 @@ describeOrSkip(
           puntoVenta,
           tipoComprobante
         );
-        const siguienteNumero = (lastVoucher.CbteNro || 0) + 1;
+        const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
         const fecha = new Date(
           Date.now() - new Date().getTimezoneOffset() * 60000

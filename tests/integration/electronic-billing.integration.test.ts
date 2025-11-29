@@ -21,7 +21,10 @@ describeOrSkip(
   "Electronic Billing Service - Integration Tests (Homologation)",
   () => {
     let arca: Arca;
-    const ticketsPath = resolve(__dirname, "../../src/auth/tickets");
+    const ticketsPath = resolve(
+      __dirname,
+      "../../src/infrastructure/storage/auth/tickets"
+    );
 
     beforeAll(async () => {
       if (!existsSync(ticketsPath)) {
@@ -40,10 +43,9 @@ describeOrSkip(
         const status = await arca.electronicBillingService.getServerStatus();
 
         expect(status).toBeDefined();
-        expect(status.FEDummyResult).toBeDefined();
-        expect(status.FEDummyResult.AppServer).toBeDefined();
-        expect(status.FEDummyResult.DbServer).toBeDefined();
-        expect(status.FEDummyResult.AuthServer).toBeDefined();
+        expect(status.appServer).toBeDefined();
+        expect(status.dbServer).toBeDefined();
+        expect(status.authServer).toBeDefined();
       });
     });
 
@@ -53,17 +55,16 @@ describeOrSkip(
           await arca.electronicBillingService.getSalesPoints();
 
         expect(salesPoints).toBeDefined();
-        expect(salesPoints.FEParamGetPtosVentaResult).toBeDefined();
-
-        const result = salesPoints.FEParamGetPtosVentaResult;
+        // resultGet may be undefined if there are errors
+        const result = salesPoints;
 
         // Check for errors (e.g., error 602: "Sin Resultados")
-        if (result.Errors?.Err?.length) {
+        if (result.errors?.err?.length) {
           // The test should still pass if we get a valid response structure, even with errors
           expect(result).toBeDefined();
-        } else if (result.ResultGet) {
+        } else if (result.resultGet) {
           // If we have results, verify the structure
-          expect(result.ResultGet).toBeDefined();
+          expect(result.resultGet).toBeDefined();
         } else {
           // Still pass the test as the service responded correctly
           expect(result).toBeDefined();
@@ -77,8 +78,8 @@ describeOrSkip(
           await arca.electronicBillingService.getVoucherTypes();
 
         expect(voucherTypes).toBeDefined();
-        if (voucherTypes.ResultGet) {
-          expect(voucherTypes.ResultGet).toBeDefined();
+        if (voucherTypes.resultGet) {
+          expect(voucherTypes.resultGet).toBeDefined();
         }
       });
     });
@@ -89,7 +90,7 @@ describeOrSkip(
           await arca.electronicBillingService.getDocumentTypes();
 
         expect(documentTypes).toBeDefined();
-        expect(documentTypes.ResultGet).toBeDefined();
+        expect(documentTypes.resultGet).toBeDefined();
       });
     });
 
@@ -99,7 +100,7 @@ describeOrSkip(
           await arca.electronicBillingService.getConceptTypes();
 
         expect(conceptTypes).toBeDefined();
-        expect(conceptTypes.ResultGet).toBeDefined();
+        expect(conceptTypes.resultGet).toBeDefined();
       });
     });
 
@@ -109,7 +110,7 @@ describeOrSkip(
           await arca.electronicBillingService.getAliquotTypes();
 
         expect(aliquotTypes).toBeDefined();
-        expect(aliquotTypes.ResultGet).toBeDefined();
+        expect(aliquotTypes.resultGet).toBeDefined();
       });
     });
 
@@ -119,7 +120,7 @@ describeOrSkip(
           await arca.electronicBillingService.getCurrenciesTypes();
 
         expect(currencyTypes).toBeDefined();
-        expect(currencyTypes.ResultGet).toBeDefined();
+        expect(currencyTypes.resultGet).toBeDefined();
       });
     });
 
@@ -128,7 +129,7 @@ describeOrSkip(
         const taxTypes = await arca.electronicBillingService.getTaxTypes();
 
         expect(taxTypes).toBeDefined();
-        expect(taxTypes.ResultGet).toBeDefined();
+        expect(taxTypes.resultGet).toBeDefined();
       });
     });
 
@@ -138,7 +139,7 @@ describeOrSkip(
           await arca.electronicBillingService.getOptionsTypes();
 
         expect(optionsTypes).toBeDefined();
-        expect(optionsTypes.ResultGet).toBeDefined();
+        expect(optionsTypes.resultGet).toBeDefined();
       });
     });
 
@@ -146,14 +147,13 @@ describeOrSkip(
       it("should get last voucher from homologation servers", async () => {
         const salesPoints =
           await arca.electronicBillingService.getSalesPoints();
-        const salesPointsList =
-          salesPoints.FEParamGetPtosVentaResult?.ResultGet?.PtoVenta || [];
+        const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
         if (salesPointsList.length === 0) {
           return;
         }
 
-        const firstSalesPoint = salesPointsList[0].Nro;
+        const firstSalesPoint = salesPointsList[0].nro;
         const voucherType = 1;
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
@@ -162,8 +162,8 @@ describeOrSkip(
         );
 
         expect(lastVoucher).toBeDefined();
-        expect(lastVoucher.CbteNro).toBeDefined();
-        expect(typeof lastVoucher.CbteNro).toBe("number");
+        expect(lastVoucher.cbteNro).toBeDefined();
+        expect(typeof lastVoucher.cbteNro).toBe("number");
       });
     });
 
@@ -171,14 +171,13 @@ describeOrSkip(
       it("should get voucher info from homologation servers", async () => {
         const salesPoints =
           await arca.electronicBillingService.getSalesPoints();
-        const salesPointsList =
-          salesPoints.FEParamGetPtosVentaResult?.ResultGet?.PtoVenta || [];
+        const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
         if (salesPointsList.length === 0) {
           return;
         }
 
-        const firstSalesPoint = salesPointsList[0].Nro;
+        const firstSalesPoint = salesPointsList[0].nro;
         const voucherType = 1;
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
@@ -186,19 +185,19 @@ describeOrSkip(
           voucherType
         );
 
-        if (lastVoucher.CbteNro === 0) {
+        if (lastVoucher.cbteNro === 0) {
           return;
         }
 
         const voucherInfo = await arca.electronicBillingService.getVoucherInfo(
-          lastVoucher.CbteNro,
+          lastVoucher.cbteNro,
           firstSalesPoint,
           voucherType
         );
 
         if (voucherInfo) {
           expect(voucherInfo).toBeDefined();
-          expect(voucherInfo.ResultGet).toBeDefined();
+          expect(voucherInfo).toBeDefined();
         }
       });
     });
@@ -207,12 +206,11 @@ describeOrSkip(
       it("should create a voucher (Factura C) on homologation servers", async () => {
         const salesPoints =
           await arca.electronicBillingService.getSalesPoints();
-        const salesPointsList =
-          salesPoints.FEParamGetPtosVentaResult?.ResultGet?.PtoVenta || [];
+        const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
         let puntoVenta: number;
         if (salesPointsList.length > 0) {
-          puntoVenta = salesPointsList[0].Nro;
+          puntoVenta = salesPointsList[0].nro;
         } else {
           puntoVenta = 2;
         }
@@ -222,7 +220,7 @@ describeOrSkip(
           puntoVenta,
           tipoComprobante
         );
-        const siguienteNumero = (lastVoucher.CbteNro || 0) + 1;
+        const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
         const fecha = new Date(
           Date.now() - new Date().getTimezoneOffset() * 60000
