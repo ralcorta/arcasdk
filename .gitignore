@@ -1,16 +1,25 @@
 lib
 .env
 .DS_Store
+.vscode
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
 
 node_modules
 
 src/auth/tickets
 src/infrastructure/storage/auth/tickets
+packages/*/src/infrastructure/storage/auth/tickets
 */mocks/credentials
 
 docs/.vitepress/dist
 
 # Examples
 examples/
+
+# Monorepo
+packages/*/lib
 
 examples

@@ -1,0 +1,342 @@
+/**
+ * Electronic Billing Repository
+ * Implements IElectronicBillingRepositoryPort for AFIP/ARCA Electronic Billing
+ */
+import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
+import { BaseSoapRepository } from "../soap/base-soap-repository";
+import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
+import { Voucher } from "@domain/entities/voucher.entity";
+import { ICreateVoucherResult } from "@application/types/result.types";
+import {
+  ServerStatusDto,
+  SalesPointsResultDto,
+  LastVoucherResultDto,
+  VoucherInfoResultDto,
+  VoucherTypesResultDto,
+  ConceptTypesResultDto,
+  DocumentTypesResultDto,
+  AliquotTypesResultDto,
+  CurrencyTypesResultDto,
+  OptionalTypesResultDto,
+  TaxTypesResultDto,
+} from "@application/dto/electronic-billing.dto";
+import {
+  IServiceSoap12Soap,
+  ServiceSoap12Types,
+} from "@infrastructure/outbound/ports/soap/interfaces/Service/ServiceSoap12";
+import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
+import {
+  EndpointsEnum,
+  SoapServiceVersion,
+} from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
+import {
+  VoucherType,
+  ConceptType,
+  DocumentType,
+  CurrencyType,
+  OptionalType,
+  TaxType,
+} from "@domain/types/electronic-billing.types";
+import {
+  mapServerStatus,
+  mapSalesPoints,
+  mapLastVoucher,
+  mapVoucherInfo,
+  mapParameterTypes,
+  mapAliquotTypes,
+  mapSoapErrors,
+} from "@infrastructure/utils/soap-to-dto.mapper";
+
+export class ElectronicBillingRepository
+  extends BaseSoapRepository
+  implements IElectronicBillingRepositoryPort
+{
+  private soapClient?: IServiceSoap12Soap;
+
+  constructor(config: BaseSoapRepositoryConstructorConfig) {
+    super(config);
+  }
+
+  /**
+   * Get or create SOAP client with authentication proxy
+   */
+  private async getClient(): Promise<IServiceSoap12Soap> {
+    if (this.soapClient) {
+      return this.soapClient!;
+    }
+
+    const wsdlPath = this.production
+      ? WsdlPathEnum.WSFE
+      : WsdlPathEnum.WSFE_TEST;
+    const endpoint = this.production
+      ? EndpointsEnum.WSFEV1
+      : EndpointsEnum.WSFEV1_TEST;
+
+    // Create SOAP client
+    const client = await this.soapClientPort.createClient<IServiceSoap12Soap>(
+      this.getWsdlFullPath(wsdlPath),
+      {
+        forceSoap12Headers: true,
+      }
+    );
+
+    // Set endpoint
+    this.soapClientPort.setEndpoint(client, endpoint);
+
+    // Create proxy to inject Auth automatically
+    this.soapClient = this.createAuthenticatedProxy(client, {
+      serviceName: ServiceNamesEnum.WSFE,
+      injectAuthProperty: false,
+      soapVersion: SoapServiceVersion.ServiceSoap12,
+    });
+
+    return this.soapClient;
+  }
+
+  async getServerStatus(): Promise<ServerStatusDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEDummyAsync({});
+    return mapServerStatus(output.FEDummyResult);
+  }
+
+  async getSalesPoints(): Promise<SalesPointsResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetPtosVentaAsync({});
+    const result = output.FEParamGetPtosVentaResult;
+    return {
+      resultGet: {
+        ptoVenta: mapSalesPoints(result),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getLastVoucher(
+    salesPoint: number,
+    voucherType: number
+  ): Promise<LastVoucherResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FECompUltimoAutorizadoAsync({
+      PtoVta: salesPoint,
+      CbteTipo: voucherType,
+    });
+    const result = output.FECompUltimoAutorizadoResult;
+    return {
+      ...mapLastVoucher(result),
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async createVoucher(voucher: Voucher): Promise<ICreateVoucherResult> {
+    const client = await this.getClient();
+    const voucherData = voucher.toDTO();
+
+    const [output] = await client.FECAESolicitarAsync({
+      FeCAEReq: {
+        FeCabReq: {
+          CantReg: voucherData.CbteHasta - voucherData.CbteDesde + 1,
+          PtoVta: voucherData.PtoVta,
+          CbteTipo: voucherData.CbteTipo,
+        },
+        FeDetReq: {
+          FECAEDetRequest: [
+            {
+              Concepto: voucherData.Concepto,
+              DocTipo: voucherData.DocTipo,
+              DocNro: voucherData.DocNro,
+              CbteDesde: voucherData.CbteDesde,
+              CbteHasta: voucherData.CbteHasta,
+              CbteFch: voucherData.CbteFch,
+              ImpTotal: voucherData.ImpTotal,
+              ImpTotConc: voucherData.ImpTotConc,
+              ImpNeto: voucherData.ImpNeto,
+              ImpOpEx: voucherData.ImpOpEx,
+              ImpIVA: voucherData.ImpIVA,
+              ImpTrib: voucherData.ImpTrib,
+              FchServDesde: voucherData.FchServDesde,
+              FchServHasta: voucherData.FchServHasta,
+              FchVtoPago: voucherData.FchVtoPago,
+              MonId: voucherData.MonId,
+              MonCotiz: voucherData.MonCotiz,
+              CondicionIVAReceptorId: voucherData.CondicionIVAReceptorId,
+              Tributos: voucherData.Tributos
+                ? { Tributo: voucherData.Tributos }
+                : undefined,
+              Iva: voucherData.Iva ? { AlicIva: voucherData.Iva } : undefined,
+              CbtesAsoc: voucherData.CbtesAsoc
+                ? { CbteAsoc: voucherData.CbtesAsoc }
+                : undefined,
+              Compradores: voucherData.Compradores
+                ? { Comprador: voucherData.Compradores }
+                : undefined,
+              Opcionales: voucherData.Opcionales
+                ? { Opcional: voucherData.Opcionales }
+                : undefined,
+            } as ServiceSoap12Types.IFECAEDetRequest,
+          ],
+        },
+      },
+    });
+
+    const { FECAESolicitarResult } = output;
+    const detResponse = FECAESolicitarResult.FeDetResp?.FECAEDetResponse?.[0];
+
+    // Log errors if present
+    if (FECAESolicitarResult.Errors?.Err?.length && this.logger) {
+      const errorMessages = FECAESolicitarResult.Errors.Err.map(
+        (e) => `${e.Code}: ${e.Msg}`
+      ).join(", ");
+      this.logger.error(`Error creating voucher: ${errorMessages}`);
+    }
+
+    // Extract CAE only if voucher was approved (Resultado === "A")
+    const cae = detResponse?.Resultado === "A" ? detResponse.CAE || "" : "";
+    const caeFchVto =
+      detResponse?.Resultado === "A" ? detResponse.CAEFchVto || "" : "";
+
+    return {
+      response: FECAESolicitarResult,
+      cae,
+      caeFchVto,
+    };
+  }
+
+  async getVoucherInfo(
+    number: number,
+    salesPoint: number,
+    type: number
+  ): Promise<VoucherInfoResultDto | null> {
+    const client = await this.getClient();
+
+    try {
+      const [output] = await client.FECompConsultarAsync({
+        FeCompConsReq: {
+          CbteNro: number,
+          PtoVta: salesPoint,
+          CbteTipo: type,
+        },
+      });
+
+      const result = output.FECompConsultarResult;
+      const voucherInfo = mapVoucherInfo(result);
+      if (!voucherInfo) {
+        return null;
+      }
+      return {
+        ...voucherInfo,
+        errors: mapSoapErrors(result.Errors)
+          ? { err: mapSoapErrors(result.Errors)! }
+          : undefined,
+      };
+    } catch (error: any) {
+      // Error 602 means voucher not found
+      if (error?.code === 602) {
+        return null;
+      }
+      throw error;
+    }
+  }
+
+  async getVoucherTypes(): Promise<VoucherTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposCbteAsync({});
+    const result = output.FEParamGetTiposCbteResult;
+    return {
+      resultGet: {
+        cbteTipo: mapParameterTypes<VoucherType>(result, "CbteTipo"),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getConceptTypes(): Promise<ConceptTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposConceptoAsync({});
+    const result = output.FEParamGetTiposConceptoResult;
+    return {
+      resultGet: {
+        conceptoTipo: mapParameterTypes<ConceptType>(result, "ConceptoTipo"),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getDocumentTypes(): Promise<DocumentTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposDocAsync({});
+    const result = output.FEParamGetTiposDocResult;
+    return {
+      resultGet: {
+        docTipo: mapParameterTypes<DocumentType>(result, "DocTipo"),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getAliquotTypes(): Promise<AliquotTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposIvaAsync({});
+    const result = output.FEParamGetTiposIvaResult;
+    return {
+      resultGet: {
+        ivaTipo: mapAliquotTypes(result),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getCurrencyTypes(): Promise<CurrencyTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposMonedasAsync({});
+    const result = output.FEParamGetTiposMonedasResult;
+    return {
+      resultGet: {
+        moneda: mapParameterTypes<CurrencyType>(result, "Moneda"),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getOptionalTypes(): Promise<OptionalTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposOpcionalAsync({});
+    const result = output.FEParamGetTiposOpcionalResult;
+    return {
+      resultGet: {
+        opcionalTipo: mapParameterTypes<OptionalType>(result, "OpcionalTipo"),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getTaxTypes(): Promise<TaxTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposTributosAsync({});
+    const result = output.FEParamGetTiposTributosResult;
+    return {
+      resultGet: {
+        tributoTipo: mapParameterTypes<TaxType>(result, "TributoTipo"),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@domain/*": ["src/domain/*"],
+      "@application/*": ["src/application/*"],
+      "@infrastructure/*": ["src/infrastructure/*"]
+    },
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "useUnknownInCatchVariables": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./lib",
+    "incremental": true,
+    "composite": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/*", "tests"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
