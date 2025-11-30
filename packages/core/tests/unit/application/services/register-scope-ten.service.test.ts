@@ -1,4 +1,4 @@
-import { testCuit } from "../../mocks/data/voucher.mock";
+import { testCuit } from "../../../mocks/data/voucher.mock";
 import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
 import {
   IRegisterRepositoryPort,
@@ -7,7 +7,7 @@ import {
 import {
   scopeTenDummyAsyncReturnMocks,
   scopeTenGetPersonaAsyncReturnMocks,
-} from "../../mocks/data/soapClient.mock";
+} from "../../../mocks/data/soapClient.mock";
 import {
   RegisterServerStatusDto,
   TaxpayerDetailsDto,

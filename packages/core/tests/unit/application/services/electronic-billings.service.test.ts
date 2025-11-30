@@ -5,7 +5,6 @@ import {
   FECompConsultarAsyncReturnMocks,
   FECompUltimoAutorizadoAsyncReturnMocks,
   FEDummyAsyncReturnMocks,
-  FEParamGetPtosVentaAsyncReturnMocks,
   FEParamGetTiposCbteAsyncReturnMocks,
   FEParamGetTiposConceptoAsyncReturnMocks,
   FEParamGetTiposDocAsyncReturnMocks,
@@ -13,14 +12,13 @@ import {
   FEParamGetTiposMonedasAsyncReturnMocks,
   FEParamGetTiposOpcionalAsyncReturnMocks,
   FEParamGetTiposTributosAsyncReturnMocks,
-} from "../../mocks/data/soapClient.mock";
+} from "../../../mocks/data/soapClient.mock";
 import {
   data,
   testCbteNro,
   testCbteTipo,
-  testCuit,
   testPtoVta,
-} from "../../mocks/data/voucher.mock";
+} from "../../../mocks/data/voucher.mock";
 import { ElectronicBillingService } from "@arcasdk/core/src/application/services/electronic-billing.service";
 import { IElectronicBillingRepositoryPort } from "@arcasdk/core/src/application/ports/electronic-billing/electronic-billing-repository.port";
 import {
@@ -95,7 +93,7 @@ describe("Electronic Billings Service", () => {
       ptoVta:
         FECompUltimoAutorizadoAsyncReturnMocks[0].FECompUltimoAutorizadoResult
           .PtoVta,
-    };
+    } as LastVoucherResultDto;
     mockRepository.getLastVoucher.mockResolvedValue(lastVoucher);
 
     const resultGet =
@@ -120,7 +118,7 @@ describe("Electronic Billings Service", () => {
       monId: resultGet.MonId,
       monCotiz: resultGet.MonCotiz,
       fchVto: resultGet.FchVto,
-    };
+    } as VoucherInfoResultDto;
     mockRepository.getVoucherInfo.mockResolvedValue(voucherInfo);
 
     const createVoucherResult: ICreateVoucherResult = {

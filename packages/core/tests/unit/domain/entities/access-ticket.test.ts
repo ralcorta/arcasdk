@@ -1,10 +1,10 @@
-import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
+import { mockLoginCredentials } from "../../../mocks/data/credential-json.mock";
 import moment from "moment";
 import {
   AccessTicket,
   ILoginCredentials,
 } from "@arcasdk/core/src/domain/entities/access-ticket.entity";
-import EnvTest from "../../utils/env-test";
+import EnvTest from "../../../utils/env-test";
 
 describe("Access Ticket", () => {
   describe("getSign", () => {

@@ -1,4 +1,4 @@
-import { testCuit } from "../../mocks/data/voucher.mock";
+import { testCuit } from "../../../mocks/data/voucher.mock";
 import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
 import {
   IRegisterRepositoryPort,
@@ -8,7 +8,7 @@ import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
   getPersona_v2AsyncReturnMocks,
-} from "../../mocks/data/soapClient.mock";
+} from "../../../mocks/data/soapClient.mock";
 import {
   RegisterServerStatusDto,
   TaxpayerDetailsDto,

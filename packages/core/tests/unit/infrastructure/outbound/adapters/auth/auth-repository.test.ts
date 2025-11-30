@@ -5,7 +5,7 @@ import {
   ILoginCredentials,
 } from "@arcasdk/core/src/domain/entities/access-ticket.entity";
 import { ServiceNamesEnum } from "@arcasdk/core/src/infrastructure/outbound/ports/soap/enums/service-names.enum";
-import { mockLoginCredentials } from "../../mocks/data/credential-json.mock";
+import { mockLoginCredentials } from "../../../../../mocks/data/credential-json.mock";
 import moment from "moment";
 import { Parser } from "@arcasdk/core/src/infrastructure/utils/parser";
 import { Cryptography } from "@arcasdk/core/src/infrastructure/utils/crypt-data";
