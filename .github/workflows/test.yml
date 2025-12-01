@@ -40,12 +40,23 @@ jobs:
           restore-keys: |
             nx-${{ runner.os }}-
 
+      - name: Check for affected projects
+        id: check-affected
+        run: |
+          OUTPUT=$(npx nx affected --target=test:unit --base=main --head=HEAD --dry-run 2>&1 || true)
+          if echo "$OUTPUT" | grep -qE "(No projects|No affected projects|0 projects)"; then
+            echo "has_affected=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_affected=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run affected tests
+        if: steps.check-affected.outputs.has_affected == 'true'
         run: |
           npx nx affected --target=test:unit --base=main --head=HEAD --parallel=3
 
       - name: Run all tests if no affected projects
-        if: failure()
+        if: steps.check-affected.outputs.has_affected == 'false'
         run: |
           echo "No affected projects found, running all tests"
           npm run test
