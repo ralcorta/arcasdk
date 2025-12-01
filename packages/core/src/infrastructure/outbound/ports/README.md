@@ -8,10 +8,11 @@ Los ports son **interfaces** que definen **qué** necesita la aplicación, sin e
 
 ## Ports Disponibles
 
-1. **IAuthRepositoryPort** - Autenticación con AFIP/ARCA
-2. **ISoapClientPort** - Cliente SOAP
-3. **ITicketStoragePort** - Almacenamiento de tickets
-4. **ILoggerPort** - Logging
+1. **ISoapClientPort** - Cliente SOAP
+2. **ITicketStoragePort** - Almacenamiento de tickets
+3. **ILoggerPort** - Logging
+
+> **Nota**: La autenticación se maneja a través del puerto de aplicación `IAuthenticationRepositoryPort` definido en `@application/ports/authentication/authentication-repository.port.ts`, siguiendo el principio de inversión de dependencias.
 
 ## Implementaciones
 

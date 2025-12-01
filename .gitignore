@@ -23,3 +23,7 @@ examples/
 packages/*/lib
 
 examples
+
+# NX
+.nx
+nx-graph.json
