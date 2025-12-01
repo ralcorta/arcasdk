@@ -11,6 +11,7 @@ import {
   VoucherInfo,
   AliquotType,
   ParameterType,
+  IvaReceptorType,
   ErrorInfo,
 } from "@domain/types/electronic-billing.types";
 
@@ -188,6 +189,29 @@ export function mapAliquotTypes(soapResult: {
         desc: t.Desc,
         fchDesde: t.FchDesde,
         fchHasta: t.FchHasta,
+      })
+    ) || []
+  );
+}
+
+/**
+ * Map SOAP IVA receptor types to Domain IvaReceptorType array
+ */
+export function mapIvaReceptorTypes(soapResult: {
+  ResultGet?: {
+    CondicionIvaReceptor?: Array<{
+      Id: number;
+      Desc: string;
+      Cmp_Clase: string;
+    }>;
+  };
+}): IvaReceptorType[] {
+  return (
+    soapResult.ResultGet?.CondicionIvaReceptor?.map(
+      (t): IvaReceptorType => ({
+        id: t.Id,
+        desc: t.Desc,
+        cmp_Clase: t.Cmp_Clase,
       })
     ) || []
   );

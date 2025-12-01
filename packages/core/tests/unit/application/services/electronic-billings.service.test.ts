@@ -33,6 +33,7 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
+  IvaReceptorTypesResultDto,
 } from "@arcasdk/core/src/application/dto/electronic-billing.dto";
 import { ICreateVoucherResult } from "@arcasdk/core/src/application/types/result.types";
 
@@ -55,6 +56,7 @@ describe("Electronic Billings Service", () => {
       getCurrencyTypes: jest.fn(),
       getOptionalTypes: jest.fn(),
       getTaxTypes: jest.fn(),
+      getIvaReceptorTypes: jest.fn(),
     } as any;
 
     // Create service with mocked repository
@@ -233,6 +235,18 @@ describe("Electronic Billings Service", () => {
           ),
       },
     } as TaxTypesResultDto);
+
+    mockRepository.getIvaReceptorTypes.mockResolvedValue({
+      resultGet: {
+        condicionIvaReceptor: [
+          {
+            id: 1,
+            desc: "IVA Responsable Inscripto",
+            cmp_Clase: "A",
+          },
+        ],
+      },
+    } as IvaReceptorTypesResultDto);
   });
 
   afterEach(() => {
@@ -363,5 +377,12 @@ describe("Electronic Billings Service", () => {
     const taxTypes = await electronicBillingService.getTaxTypes();
     expect(taxTypes).toBeDefined();
     expect(mockRepository.getTaxTypes).toHaveBeenCalledTimes(1);
+  });
+
+  it("should get IVA receptor types", async () => {
+    const ivaReceptorTypes =
+      await electronicBillingService.getIvaReceptorTypes();
+    expect(ivaReceptorTypes).toBeDefined();
+    expect(mockRepository.getIvaReceptorTypes).toHaveBeenCalledTimes(1);
   });
 });

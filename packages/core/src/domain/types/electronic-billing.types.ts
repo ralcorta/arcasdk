@@ -118,6 +118,15 @@ export interface TaxType extends ParameterType {
 }
 
 /**
+ * IVA Receptor Type
+ */
+export interface IvaReceptorType {
+  id: number;
+  desc: string;
+  cmp_Clase: string;
+}
+
+/**
  * Error Information
  */
 export interface ErrorInfo {

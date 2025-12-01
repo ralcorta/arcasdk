@@ -3703,6 +3703,40 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
           <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
         </s:sequence>
       </s:complexType>
+      <s:element name="FEParamGetCondicionIvaReceptor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="ClaseCmp" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEParamGetCondicionIvaReceptorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCondicionIvaReceptorResult" type="tns:CondicionIvaReceptorResponse"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CondicionIvaReceptorResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCondicionIvaReceptor"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CondicionIvaReceptor" nillable="true" type="tns:CondicionIvaReceptor"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Cmp_Clase" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
       <s:element name="FEParamGetTiposPaises">
         <s:complexType>
           <s:sequence>
@@ -3851,6 +3885,12 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
   <wsdl:message name="FEParamGetTiposDocSoapOut">
     <wsdl:part name="parameters" element="tns:FEParamGetTiposDocResponse"/>
   </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapIn">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptor"/>
+  </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapOut">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptorResponse"/>
+  </wsdl:message>
   <wsdl:message name="FEParamGetTiposPaisesSoapIn">
     <wsdl:part name="parameters" element="tns:FEParamGetTiposPaises"/>
   </wsdl:message>
@@ -3952,6 +3992,11 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Documentos utilizables en servicio de autorización.</wsdl:documentation>
       <wsdl:input message="tns:FEParamGetTiposDocSoapIn"/>
       <wsdl:output message="tns:FEParamGetTiposDocSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las condiciones de Iva Receptor.</wsdl:documentation>
+      <wsdl:input message="tns:FEParamGetCondicionIvaReceptorSoapIn"/>
+      <wsdl:output message="tns:FEParamGetCondicionIvaReceptorSoapOut"/>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los diferente paises que pueden ser utilizados  en el servicio de autorizacion</wsdl:documentation>
@@ -4125,6 +4170,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
       <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -4308,6 +4362,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
       <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document"/>
       <wsdl:input>
         <soap12:body use="literal"/>
       </wsdl:input>
@@ -5162,6 +5225,40 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
           <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
         </s:sequence>
       </s:complexType>
+      <s:element name="FEParamGetCondicionIvaReceptor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="ClaseCmp" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEParamGetCondicionIvaReceptorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCondicionIvaReceptorResult" type="tns:CondicionIvaReceptorResponse"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CondicionIvaReceptorResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCondicionIvaReceptor"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CondicionIvaReceptor" nillable="true" type="tns:CondicionIvaReceptor"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Cmp_Clase" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
       <s:element name="FEParamGetTiposPaises">
         <s:complexType>
           <s:sequence>
@@ -5310,6 +5407,12 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
   <wsdl:message name="FEParamGetTiposDocSoapOut">
     <wsdl:part name="parameters" element="tns:FEParamGetTiposDocResponse"/>
   </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapIn">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptor"/>
+  </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapOut">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptorResponse"/>
+  </wsdl:message>
   <wsdl:message name="FEParamGetTiposPaisesSoapIn">
     <wsdl:part name="parameters" element="tns:FEParamGetTiposPaises"/>
   </wsdl:message>
@@ -5411,6 +5514,11 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Documentos utilizables en servicio de autorización.</wsdl:documentation>
       <wsdl:input message="tns:FEParamGetTiposDocSoapIn"/>
       <wsdl:output message="tns:FEParamGetTiposDocSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las condiciones de Iva Receptor.</wsdl:documentation>
+      <wsdl:input message="tns:FEParamGetCondicionIvaReceptorSoapIn"/>
+      <wsdl:output message="tns:FEParamGetCondicionIvaReceptorSoapOut"/>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los diferente paises que pueden ser utilizados  en el servicio de autorizacion</wsdl:documentation>
@@ -5584,6 +5692,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
       <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -5767,6 +5884,15 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
       <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document"/>
       <wsdl:input>
         <soap12:body use="literal"/>
       </wsdl:input>

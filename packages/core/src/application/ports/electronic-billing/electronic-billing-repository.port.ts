@@ -18,6 +18,7 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
+  IvaReceptorTypesResultDto,
 } from "@application/dto/electronic-billing.dto";
 
 export interface IElectronicBillingRepositoryPort {
@@ -105,4 +106,11 @@ export interface IElectronicBillingRepositoryPort {
    * @returns Tax types information
    */
   getTaxTypes(): Promise<TaxTypesResultDto>;
+
+  /**
+   * Get available IVA receptor types
+   * @param claseCmp Voucher class (optional)
+   * @returns IVA receptor types information
+   */
+  getIvaReceptorTypes(claseCmp?: string): Promise<IvaReceptorTypesResultDto>;
 }

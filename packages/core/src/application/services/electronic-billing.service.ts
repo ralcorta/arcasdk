@@ -18,6 +18,7 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
+  IvaReceptorTypesResultDto,
 } from "@application/dto/electronic-billing.dto";
 
 // Use cases
@@ -34,6 +35,7 @@ import { GetAliquotTypesUseCase } from "@application/use-cases/electronic-billin
 import { GetCurrencyTypesUseCase } from "@application/use-cases/electronic-billing/get-currency-types.use-case";
 import { GetOptionalTypesUseCase } from "@application/use-cases/electronic-billing/get-optional-types.use-case";
 import { GetTaxTypesUseCase } from "@application/use-cases/electronic-billing/get-tax-types.use-case";
+import { GetIvaReceptorTypesUseCase } from "@application/use-cases/electronic-billing/get-iva-receptor-types.use-case";
 
 export class ElectronicBillingService {
   // Use cases
@@ -50,6 +52,7 @@ export class ElectronicBillingService {
   private readonly getCurrencyTypesUseCase: GetCurrencyTypesUseCase;
   private readonly getOptionalTypesUseCase: GetOptionalTypesUseCase;
   private readonly getTaxTypesUseCase: GetTaxTypesUseCase;
+  private readonly getIvaReceptorTypesUseCase: GetIvaReceptorTypesUseCase;
 
   constructor(
     private readonly electronicBillingRepository: IElectronicBillingRepositoryPort
@@ -92,6 +95,9 @@ export class ElectronicBillingService {
       this.electronicBillingRepository
     );
     this.getTaxTypesUseCase = new GetTaxTypesUseCase(
+      this.electronicBillingRepository
+    );
+    this.getIvaReceptorTypesUseCase = new GetIvaReceptorTypesUseCase(
       this.electronicBillingRepository
     );
   }
@@ -242,6 +248,18 @@ export class ElectronicBillingService {
    **/
   async getTaxTypes(): Promise<TaxTypesResultDto> {
     return this.getTaxTypesUseCase.execute();
+  }
+
+  /**
+   * Asks to ARCA Servers for IVA receptor types availables
+   *
+   * @param claseCmp Voucher class (optional)
+   * @return data with array of all IVA receptor types availables
+   **/
+  async getIvaReceptorTypes(
+    claseCmp?: string
+  ): Promise<IvaReceptorTypesResultDto> {
+    return this.getIvaReceptorTypesUseCase.execute(claseCmp);
   }
 
   /**

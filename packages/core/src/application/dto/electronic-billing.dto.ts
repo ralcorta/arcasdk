@@ -15,6 +15,7 @@ import {
   CurrencyType,
   OptionalType,
   TaxType,
+  IvaReceptorType,
   ErrorInfo,
 } from "@domain/types/electronic-billing.types";
 
@@ -131,6 +132,18 @@ export interface OptionalTypesResultDto {
 export interface TaxTypesResultDto {
   resultGet?: {
     tributoTipo?: TaxType[];
+  };
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * IVA Receptor Types Result DTO
+ */
+export interface IvaReceptorTypesResultDto {
+  resultGet?: {
+    condicionIvaReceptor?: IvaReceptorType[];
   };
   errors?: {
     err?: ErrorInfo[];

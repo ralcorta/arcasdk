@@ -19,6 +19,7 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
+  IvaReceptorTypesResultDto,
 } from "@application/dto/electronic-billing.dto";
 import {
   IServiceSoap12Soap,
@@ -41,6 +42,7 @@ import {
   CurrencyType,
   OptionalType,
   TaxType,
+  IvaReceptorType,
 } from "@domain/types/electronic-billing.types";
 import {
   mapServerStatus,
@@ -49,6 +51,7 @@ import {
   mapVoucherInfo,
   mapParameterTypes,
   mapAliquotTypes,
+  mapIvaReceptorTypes,
   mapSoapErrors,
 } from "@infrastructure/utils/soap-to-dto.mapper";
 
@@ -348,6 +351,24 @@ export class ElectronicBillingRepository
     return {
       resultGet: {
         tributoTipo: mapParameterTypes<TaxType>(result, "TributoTipo"),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getIvaReceptorTypes(
+    claseCmp?: string
+  ): Promise<IvaReceptorTypesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetCondicionIvaReceptorAsync({
+      ClaseCmp: claseCmp,
+    });
+    const result = output.FEParamGetCondicionIvaReceptorResult;
+    return {
+      resultGet: {
+        condicionIvaReceptor: mapIvaReceptorTypes(result),
       },
       errors: mapSoapErrors(result.Errors)
         ? { err: mapSoapErrors(result.Errors)! }
