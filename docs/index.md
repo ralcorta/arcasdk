@@ -144,19 +144,37 @@ Domina la integración con nuestros recursos detallados.
   --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
 }
 
+/* Animated Background */
+.VPHome {
+  background: radial-gradient(circle at 50% 0%, rgba(189, 52, 254, 0.1) 0%, transparent 60%),
+              radial-gradient(circle at 80% 10%, rgba(65, 209, 255, 0.1) 0%, transparent 50%);
+  animation: bg-pulse 10s ease-in-out infinite alternate;
+}
+
+@keyframes bg-pulse {
+  0% { background-size: 100% 100%; }
+  100% { background-size: 120% 120%; }
+}
+
 .home-content {
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 /* IDE Window Styling */
 .ide-window {
   background: #1e1e1e;
   border-radius: 8px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
   overflow: hidden;
   margin: 0 auto 4rem auto;
   border: 1px solid #333;
   max-width: 900px;
+  animation: slide-up 0.8s ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .window-header {
@@ -212,20 +230,41 @@ Domina la integración con nuestros recursos detallados.
 }
 
 .feature-item {
-  background-color: var(--vp-c-bg-soft);
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 1.5rem;
   border-radius: 12px;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fade-in-up 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.feature-item:nth-child(1) { animation-delay: 0.1s; }
+.feature-item:nth-child(2) { animation-delay: 0.2s; }
+.feature-item:nth-child(3) { animation-delay: 0.3s; }
+.feature-item:nth-child(4) { animation-delay: 0.4s; }
+.feature-item:nth-child(5) { animation-delay: 0.5s; }
+.feature-item:nth-child(6) { animation-delay: 0.6s; }
+.feature-item:nth-child(7) { animation-delay: 0.7s; }
+.feature-item:nth-child(8) { animation-delay: 0.8s; }
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 0 20px rgba(189, 52, 254, 0.2);
 }
 
 .feature-icon {
   font-size: 2rem;
   margin-bottom: 1rem;
-  background-color: var(--vp-c-bg-alt);
+  background-color: rgba(255, 255, 255, 0.1);
   width: 50px;
   height: 50px;
   display: flex;
@@ -260,8 +299,9 @@ Domina la integración con nuestros recursos detallados.
   flex-direction: column;
   padding: 2rem;
   border-radius: 12px;
-  background-color: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-bg-soft);
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   text-decoration: none !important;
   height: 100%;
@@ -270,8 +310,8 @@ Domina la integración con nuestros recursos detallados.
 .service-card:hover {
   transform: translateY(-5px);
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  background-color: var(--vp-c-bg-soft-up);
+  box-shadow: 0 0 30px rgba(65, 209, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .card-icon {
@@ -303,15 +343,16 @@ Domina la integración con nuestros recursos detallados.
 .resource-card {
   padding: 1.5rem;
   border-radius: 8px;
-  background-color: var(--vp-c-bg-alt);
-  border: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.2s ease;
   text-decoration: none !important;
 }
 
 .resource-card:hover {
   border-color: var(--vp-c-brand-2);
-  background-color: var(--vp-c-bg-soft);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(189, 52, 254, 0.15);
 }
 
 .resource-card h3 {
@@ -334,5 +375,19 @@ Domina la integración con nuestros recursos detallados.
   margin-bottom: 2rem !important;
   font-size: 2rem;
   font-weight: 700;
+  background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
