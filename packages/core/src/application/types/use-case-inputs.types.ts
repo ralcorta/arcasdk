@@ -2,7 +2,6 @@
  * Use Case Input Types
  * Input interfaces for all use cases in the application layer
  */
-import { RegisterScope } from "@application/ports/register/register-repository.port";
 
 /**
  * Authentication Use Cases Inputs
@@ -25,26 +24,3 @@ export interface GetVoucherInfoInput {
   salesPoint: number;
   type: number;
 }
-
-/**
- * Register Use Cases Inputs
- */
-export interface GetRegisterServerStatusInput {
-  scope: RegisterScope;
-}
-
-export interface GetTaxpayerDetailsInput {
-  scope: RegisterScope;
-  identifier: number;
-}
-
-export interface GetTaxpayersDetailsInput {
-  scope: RegisterScope;
-  identifiers: number[];
-}
-
-export interface GetTaxIDByDocumentInput {
-  scope: RegisterScope;
-  documentNumber: string;
-}
-

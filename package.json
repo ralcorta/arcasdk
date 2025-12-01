@@ -9,7 +9,7 @@
   "scripts": {
     "build": "nx run-many --target=build --all",
     "build:core": "nx build core",
-    "test": "nx run-many --target=test --all",
+    "test": "nx run-many --target=test --all --skip-nx-cache",
     "test:core": "nx test core",
     "test:core:unit": "nx test:unit core",
     "test:core:integration": "nx test:integration core",
@@ -32,6 +32,7 @@
     "@nx/js": "^22.1.3",
     "mermaid": "^11.12.1",
     "nx": "^22.1.3",
+    "tsconfig-paths": "^4.2.0",
     "vitepress": "^1.6.4",
     "vitepress-plugin-mermaid": "^2.0.17"
   },

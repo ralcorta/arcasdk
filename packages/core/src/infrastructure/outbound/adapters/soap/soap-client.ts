@@ -32,13 +32,18 @@ export class SoapClient implements ISoapClientPort {
       ...options,
     };
 
-    const wsdlXml = getWsdlString(wsdlName);
-    if (!wsdlXml) {
-      throw new Error(`WSDL ${wsdlName} not found`);
+    let wsdlXml: string | undefined;
+    if (options?.wsdlContent) {
+      wsdlXml = options.wsdlContent;
+    } else {
+      wsdlXml = getWsdlString(wsdlName);
+      if (!wsdlXml) {
+        throw new Error(`WSDL ${wsdlName} not found`);
+      }
     }
 
     return SoapClientFacade.create<T>({
-      wsdl: wsdlXml,
+      wsdl: wsdlXml!,
       options: finalOptions,
     });
   }

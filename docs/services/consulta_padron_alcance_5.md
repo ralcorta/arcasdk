@@ -1,45 +1,118 @@
-# Padrón de ARCA alcance 5
+# 5️⃣ Padrón Alcance 5
 
-Los métodos de este Web Service se encuentran disponibles en `arca.registerScopeFiveService`
+El servicio `registerScopeFiveService` permite consultar los datos completos de un contribuyente en el Padrón de ARCA (Alcance 5). Este alcance incluye datos de Monotributo y Régimen General.
 
-La especificación de este Web Service se encuentra disponible [aquí](http://www.arca.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf)
-
-<h2> Índice </h2>
+::: info Documentación Oficial
+[Manual del Desarrollador (PDF)](http://www.arca.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf)
+:::
 
 [[toc]]
 
-## Obtener datos del contribuyente
+## Obtener Datos del Contribuyente
 
-Debemos utilizar el metodo `getTaxpayerDetails` pasando como parámetro el documento identificador del contribuyente, por ej. el CUIT. Nos devolvera un objeto con los detalles o `null` en caso de no existir en el padrón
+Consulta los detalles completos de una persona física o jurídica mediante su CUIT.
 
-```js
+```ts
+// Consultar datos del CUIT 20111111111
 const taxpayerDetails = await arca.registerScopeFiveService.getTaxpayerDetails(
   20111111111
-); //Devuelve los datos del contribuyente correspondiente al identificador 20111111111
+);
+
+if (taxpayerDetails) {
+  console.log("Datos del contribuyente:", taxpayerDetails);
+} else {
+  console.log("Contribuyente no encontrado.");
+}
 ```
 
-Para mas información acerca de este método ver el item 3.2 de la [especificación del Web service](http://www.arca.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf)
+::: details Ver respuesta completa
 
-## Obtener datos de múltiples contribuyentes
-
-Debemos utilizar el método `getTaxpayersDetails` pasando como parámetro un array con los documentos identificadores de los contribuyentes. Nos devolverá un array con los detalles de cada contribuyente.
-
-```js
-const taxpayersDetails =
-  await arca.registerScopeFiveService.getTaxpayersDetails([
-    20111111111, 20111111112,
-  ]); //Devuelve los datos de los contribuyentes correspondientes a los identificadores 20111111111y 20111111112
+```json
+{
+  "metadata": {
+    "fechaHora": "2024-01-01T12:00:00.000-03:00",
+    "servidor": "server1"
+  },
+  "datosGenerales": {
+    "idPersona": 20111111111,
+    "tipoPersona": "FISICA",
+    "estadoClave": "ACTIVO",
+    "domicilioFiscal": {
+      "direccion": "CALLE FALSA 123",
+      "codPostal": "1000",
+      "provincia": 0
+    }
+  },
+  "datosMonotributo": {
+    "categoria": "A",
+    "actividad": "SERVICIOS"
+  },
+  "datosRegimenGeneral": {
+    "impuestos": [10, 30],
+    "actividad": "VENTA AL POR MENOR"
+  }
+}
 ```
 
-## Obtener estado del servidor
+:::
 
-Para esto utilizaremos el método `getServerStatus`
+## Obtener Datos de Múltiples Contribuyentes
 
-```js
-const serverStatus = await arca.registerScopeFiveService.getServerStatus();
+Permite consultar hasta 250 CUITs en una sola petición.
 
-console.log("Este es el estado del servidor:");
-console.log(serverStatus);
+```ts
+const taxpayers = await arca.registerScopeFiveService.getTaxpayersDetails([
+  20111111111, 20222222222,
+]);
+
+console.log(`Se encontraron ${taxpayers.cantidadRegistros} contribuyentes.`);
 ```
 
-Para mas información acerca de este método ver el item 3.1 de la [especificación del Web service](http://www.arca.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf)
+::: details Ver respuesta completa
+
+```json
+{
+  "metadata": {
+    "fechaHora": "2024-01-01T12:00:00.000-03:00",
+    "servidor": "server1"
+  },
+  "cantidadRegistros": 2,
+  "persona": [
+    {
+      "datosGenerales": {
+        "idPersona": 20111111111
+        // ... más datos
+      }
+    },
+    {
+      "datosGenerales": {
+        "idPersona": 20222222222
+        // ... más datos
+      }
+    }
+  ]
+}
+```
+
+:::
+
+## Estado del Servidor
+
+Verifica si el servicio de Padrón A5 está operativo.
+
+```ts
+const status = await arca.registerScopeFiveService.getServerStatus();
+console.log(status);
+```
+
+::: details Ver respuesta completa
+
+```json
+{
+  "appserver": "OK",
+  "dbserver": "OK",
+  "authserver": "OK"
+}
+```
+
+:::
