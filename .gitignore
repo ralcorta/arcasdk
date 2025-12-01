@@ -15,6 +15,7 @@ packages/*/src/infrastructure/storage/auth/tickets
 */mocks/credentials
 
 docs/.vitepress/dist
+docs/.vitepress/cache
 
 # Examples
 examples/
