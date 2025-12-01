@@ -28,3 +28,6 @@ examples
 # NX
 .nx
 nx-graph.json
+
+# TypeScript
+*.tsbuildinfo

@@ -13,8 +13,7 @@
                 "commands": [
                     "npx tsc",
                     "rimraf lib/infrastructure/outbound/adapters/soap/wsdl",
-                    "mkdir -p lib/infrastructure/outbound/adapters/soap/wsdl",
-                    "cp -r src/infrastructure/outbound/adapters/soap/wsdl/* lib/infrastructure/outbound/adapters/soap/wsdl/"
+                    "copyfiles -u 5 src/infrastructure/outbound/adapters/soap/wsdl/* lib/infrastructure/outbound/adapters/soap/"
                 ],
                 "parallel": false,
                 "cwd": "packages/core"

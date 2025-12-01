@@ -40,14 +40,32 @@ jobs:
           restore-keys: |
             nx-${{ runner.os }}-
 
+      - name: Determine base branch
+        id: base-branch
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            # For PRs, use the base branch of the PR
+            BASE="${{ github.base_ref }}"
+          else
+            # For pushes, compare with the remote state of the same branch
+            # If branch doesn't exist remotely, fallback to main
+            if git ls-remote --heads origin "${{ github.ref_name }}" | grep -q .; then
+              BASE="origin/${{ github.ref_name }}"
+            else
+              BASE="origin/main"
+            fi
+          fi
+          echo "base=$BASE" >> $GITHUB_OUTPUT
+          echo "Using base branch: $BASE"
+
       - name: Run affected lint
         run: |
-          npx nx affected --target=lint --base=main --head=HEAD --parallel=3 || echo "No lint target configured"
+          npx nx affected --target=lint --base=${{ steps.base-branch.outputs.base }} --head=HEAD --parallel=3 || echo "No lint target configured"
 
       - name: Check for affected projects
         id: check-affected
         run: |
-          OUTPUT=$(npx nx affected --target=test:unit --base=main --head=HEAD --dry-run 2>&1 || true)
+          OUTPUT=$(npx nx affected --target=test:unit --base=${{ steps.base-branch.outputs.base }} --head=HEAD --dry-run 2>&1 || true)
           if echo "$OUTPUT" | grep -qE "(No projects|No affected projects|0 projects)"; then
             echo "has_affected=false" >> $GITHUB_OUTPUT
           else
@@ -57,7 +75,7 @@ jobs:
       - name: Run affected tests
         if: steps.check-affected.outputs.has_affected == 'true'
         run: |
-          npx nx affected --target=test:unit --base=main --head=HEAD --parallel=3
+          npx nx affected --target=test:unit --base=${{ steps.base-branch.outputs.base }} --head=HEAD --parallel=3
 
       - name: Run all tests if no affected projects
         if: steps.check-affected.outputs.has_affected == 'false'
@@ -71,6 +89,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -92,10 +112,28 @@ jobs:
           restore-keys: |
             nx-${{ runner.os }}-
 
+      - name: Determine base branch
+        id: base-branch
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            # For PRs, use the base branch of the PR
+            BASE="${{ github.base_ref }}"
+          else
+            # For pushes, compare with the remote state of the same branch
+            # If branch doesn't exist remotely, fallback to main
+            if git ls-remote --heads origin "${{ github.ref_name }}" | grep -q .; then
+              BASE="origin/${{ github.ref_name }}"
+            else
+              BASE="origin/main"
+            fi
+          fi
+          echo "base=$BASE" >> $GITHUB_OUTPUT
+          echo "Using base branch: $BASE"
+
       - name: Check for affected projects
         id: check-affected
         run: |
-          OUTPUT=$(npx nx affected --target=build --base=main --head=HEAD --dry-run 2>&1 || true)
+          OUTPUT=$(npx nx affected --target=build --base=${{ steps.base-branch.outputs.base }} --head=HEAD --dry-run 2>&1 || true)
           if echo "$OUTPUT" | grep -qE "(No projects|No affected projects|0 projects)"; then
             echo "has_affected=false" >> $GITHUB_OUTPUT
           else
@@ -105,7 +143,7 @@ jobs:
       - name: Run affected build
         if: steps.check-affected.outputs.has_affected == 'true'
         run: |
-          npx nx affected --target=build --base=main --head=HEAD --parallel=3
+          npx nx affected --target=build --base=${{ steps.base-branch.outputs.base }} --head=HEAD --parallel=3
 
       - name: Run all builds if no affected projects
         if: steps.check-affected.outputs.has_affected == 'false'

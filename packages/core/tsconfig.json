@@ -17,6 +17,7 @@
     "declaration": true,
     "sourceMap": true,
     "outDir": "./lib",
+    "rootDir": "./src",
     "incremental": true,
     "composite": true
   },
