@@ -1,29 +1,84 @@
 # 🚀 Uso Básico
 
-### Ejemplo Básico
+A continuación, veremos cómo instanciar la SDK y realizar una operación básica: crear una factura electrónica.
 
-Para utilizar la SDK, debes instanciar la clase `Arca` proporcionando los siguientes datos mínimos:
+## Inicialización
 
-- [`key`](https://www.arca.gob.ar/ws/documentacion/certificados.asp): Contenido de la clave privada generada para ARCA.
-- [`cert`](https://www.arca.gob.ar/ws/documentacion/certificados.asp): Contenido del certificado generado en ARCA.
-- `cuit`: CUIT del usuario.
+Para comenzar, necesitas instanciar la clase principal `Arca`. Esta clase actúa como el punto de entrada a todos los servicios.
 
-Esto resultará en la creación de un objeto con los servicios disponibles para su uso, como por ejemplo `electronicBillingService`:
+::: info Requisitos
+Asegúrate de tener a mano tu **clave privada** (`key`) y tu **certificado** (`cert`) generados en el portal de ARCA.
+:::
 
-```ts:line-numbers
+```ts
 import { Arca } from "@arcasdk/core";
 
-const arca: Arca = new Arca({
-  key: "contenido_de_la_clave_privada",
-  cert: "contenido_del_certificado",
-  cuit: 20111111112,
+// Instancia la SDK con tus credenciales
+const arca = new Arca({
+  cuit: 20111111112, // Tu CUIT (sin guiones)
+  cert: "contenido_del_certificado", // O path al archivo .crt
+  key: "contenido_de_la_clave_privada", // O path al archivo .key
 });
-
-const factura = await arca.electronicBillingService.createVoucher({
-  // datos de la factura
-});
-
-// Nota: createInvoice() es un alias de createVoucher() y sigue disponible para compatibilidad
 ```
 
-La clase `Arca` acepta un parámetro adicional en el constructor llamado "contexto" (ver tipo). Aquí se explican todos los comportamientos que puede tomar Arca.
+## Ejemplo: Crear Factura (CAE)
+
+El siguiente ejemplo muestra cómo generar un comprobante (Factura B) para un consumidor final.
+
+::: tip Tip
+La SDK maneja automáticamente la obtención del ticket de acceso (TA) si este ha expirado. ¡No necesitas preocuparte por la autenticación manual!
+:::
+
+```ts
+try {
+  // 1. Acceder al servicio de facturación
+  const invoice = await arca.electronicBillingService.createVoucher({
+    CantReg: 1, // Cantidad de registros
+    PtoVta: 1, // Punto de venta configurado en ARCA
+    CbteTipo: 6, // 6 = Factura B
+    Concepto: 1, // 1 = Productos
+    DocTipo: 99, // 99 = Consumidor Final
+    DocNro: 0, // 0 para Consumidor Final
+    CbteDesde: 1, // Número de comprobante (debe ser el próximo libre)
+    CbteHasta: 1,
+    CbteFch: 20240101, // Fecha del comprobante (YYYYMMDD)
+    ImpTotal: 121, // Importe Total
+    ImpTotConc: 0, // Importe Neto no Gravado
+    ImpNeto: 100, // Importe Neto Gravado
+    ImpOpEx: 0, // Importe Exento
+    ImpIVA: 21, // Importe IVA
+    ImpTrib: 0, // Importe Tributos
+    MonId: "PES", // Moneda
+    MonCotiz: 1, // Cotización
+
+    // Detalle de IVA (21%)
+    Iva: [
+      {
+        Id: 5, // 5 = 21%
+        BaseImp: 100,
+        Importe: 21,
+      },
+    ],
+  });
+
+  console.log("✅ CAE Asignado:", invoice.CAE);
+  console.log("📅 Vencimiento CAE:", invoice.CAEFchVto);
+} catch (error) {
+  console.error("❌ Error al facturar:", error.message);
+}
+```
+
+::: details Ver respuesta completa de ARCA
+
+```json
+{
+  "CAE": "74154876254185",
+  "CAEFchVto": "20240111",
+  "Resultado": "A",
+  "Reproceso": "N",
+  "PtoVta": 1,
+  "CbteTipo": 6
+}
+```
+
+:::

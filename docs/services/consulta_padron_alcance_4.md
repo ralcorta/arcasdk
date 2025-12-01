@@ -1,34 +1,35 @@
-# Padrón de ARCA alcance 4
+# 4️⃣ Padrón Alcance 4
 
-Los métodos de este Web Service se encuentran disponibles en `arca.registerScopeFourService`
+El servicio `registerScopeFourService` permite consultar los datos de un contribuyente en el Padrón de ARCA (Alcance 4).
 
-La especificación de este Web Service se encuentra disponible [aquí](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
-
-<h2> Índice </h2>
+::: info Documentación Oficial
+[Manual del Desarrollador (PDF)](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
+:::
 
 [[toc]]
 
-## Obtener datos del contribuyente
+## Obtener Datos del Contribuyente
 
-Debemos utilizar el metodo `getTaxpayerDetails` pasando como parámetro el documento identificador del contribuyente, por ej. el CUIT. Nos devolvera un objeto con los detalles o `null` en caso de no existir en el padrón
+Consulta los detalles de una persona física o jurídica mediante su CUIT.
 
-```js
+```ts
+// Consultar datos del CUIT 20111111111
 const taxpayerDetails = await arca.registerScopeFourService.getTaxpayerDetails(
   20111111111
-); //Devuelve los datos del contribuyente correspondiente al identificador 20111111111
+);
+
+if (taxpayerDetails) {
+  console.log("Datos del contribuyente:", taxpayerDetails);
+} else {
+  console.log("Contribuyente no encontrado.");
+}
 ```
 
-Para mas información acerca de este método ver el item 3.2 de la [especificación del Web service](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
+## Estado del Servidor
 
-## Obtener estado del servidor
+Verifica si el servicio de Padrón A4 está operativo.
 
-Para esto utilizaremos el método `getServerStatus`
-
-```js
-const serverStatus = await arca.registerScopeFourService.getServerStatus();
-
-console.log("Este es el estado del servidor:");
-console.log(serverStatus);
+```ts
+const status = await arca.registerScopeFourService.getServerStatus();
+console.log(status);
 ```
-
-Para mas información acerca de este método ver el item 3.1 de la [especificación del Web service](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
