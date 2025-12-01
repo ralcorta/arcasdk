@@ -1,8 +1,5 @@
 import { RegisterInscriptionProofService } from "@arcasdk/core/src/application/services/register-inscription-proof.service";
-import {
-  IRegisterRepositoryPort,
-  RegisterScope,
-} from "@arcasdk/core/src/application/ports/register/register-repository.port";
+import { IRegisterInscriptionProofRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
@@ -16,7 +13,7 @@ import {
 
 describe("Register Inscription Proof Service", () => {
   let registerInscriptionProofService: RegisterInscriptionProofService;
-  let mockRepository: jest.Mocked<IRegisterRepositoryPort>;
+  let mockRepository: jest.Mocked<IRegisterInscriptionProofRepositoryPort>;
   const cuitPayload = 20111111111;
 
   beforeEach(() => {
@@ -25,7 +22,6 @@ describe("Register Inscription Proof Service", () => {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
       getTaxpayersDetails: jest.fn(),
-      getTaxIDByDocument: jest.fn(),
     } as any;
 
     // Create service with mocked repository
@@ -70,9 +66,7 @@ describe("Register Inscription Proof Service", () => {
       dbserver: dummyAsyncReturnMocks[0].return.dbserver,
       authserver: dummyAsyncReturnMocks[0].return.authserver,
     });
-    expect(mockRepository.getServerStatus).toHaveBeenCalledWith(
-      RegisterScope.INSCRIPTION_PROOF
-    );
+    expect(mockRepository.getServerStatus).toHaveBeenCalled();
   });
 
   it("should get taxpayer details", async () => {
@@ -81,10 +75,7 @@ describe("Register Inscription Proof Service", () => {
     );
     expect(details).not.toBeNull();
     expect(details?.datosGenerales).toBeDefined();
-    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(
-      RegisterScope.INSCRIPTION_PROOF,
-      cuitPayload
-    );
+    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
   });
 
   it("should get taxpayers details", async () => {
@@ -94,9 +85,9 @@ describe("Register Inscription Proof Service", () => {
     ]);
     expect(details).not.toBeNull();
     expect(details.persona).toBeDefined();
-    expect(mockRepository.getTaxpayersDetails).toHaveBeenCalledWith(
-      RegisterScope.INSCRIPTION_PROOF,
-      [cuitPayload, cuitPayload]
-    );
+    expect(mockRepository.getTaxpayersDetails).toHaveBeenCalledWith([
+      cuitPayload,
+      cuitPayload,
+    ]);
   });
 });

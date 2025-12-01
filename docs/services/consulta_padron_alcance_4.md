@@ -1,34 +1,73 @@
-# Padrón de ARCA alcance 4
+# 4️⃣ Padrón Alcance 4
 
-Los métodos de este Web Service se encuentran disponibles en `arca.registerScopeFourService`
+El servicio `registerScopeFourService` permite consultar los datos de un contribuyente en el Padrón de ARCA (Alcance 4). Este alcance proporciona información básica sobre personas físicas y jurídicas.
 
-La especificación de este Web Service se encuentra disponible [aquí](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
-
-<h2> Índice </h2>
+::: info Documentación Oficial
+[Manual del Desarrollador (PDF)](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
+:::
 
 [[toc]]
 
-## Obtener datos del contribuyente
+## Obtener Datos del Contribuyente
 
-Debemos utilizar el metodo `getTaxpayerDetails` pasando como parámetro el documento identificador del contribuyente, por ej. el CUIT. Nos devolvera un objeto con los detalles o `null` en caso de no existir en el padrón
+Consulta los detalles de una persona física o jurídica mediante su CUIT.
 
-```js
+```ts
+// Consultar datos del CUIT 20111111111
 const taxpayerDetails = await arca.registerScopeFourService.getTaxpayerDetails(
   20111111111
-); //Devuelve los datos del contribuyente correspondiente al identificador 20111111111
+);
+
+if (taxpayerDetails) {
+  console.log("Datos del contribuyente:", taxpayerDetails);
+} else {
+  console.log("Contribuyente no encontrado.");
+}
 ```
 
-Para mas información acerca de este método ver el item 3.2 de la [especificación del Web service](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
+::: details Ver respuesta completa
 
-## Obtener estado del servidor
-
-Para esto utilizaremos el método `getServerStatus`
-
-```js
-const serverStatus = await arca.registerScopeFourService.getServerStatus();
-
-console.log("Este es el estado del servidor:");
-console.log(serverStatus);
+```json
+{
+  "metadata": {
+    "fechaHora": "2024-01-01T12:00:00.000-03:00",
+    "servidor": "server1"
+  },
+  "persona": {
+    "idPersona": 20111111111,
+    "tipoPersona": "FISICA",
+    "estadoClave": "ACTIVO",
+    "datosGenerales": {
+      "piso": "1",
+      "departamento": "A",
+      "numeroCalle": 123,
+      "codPostal": "1000",
+      "tipoDomicilio": "FISCAL",
+      "domicilio": "CALLE FALSA 123"
+    }
+  }
+}
 ```
 
-Para mas información acerca de este método ver el item 3.1 de la [especificación del Web service](http://www.arca.gob.ar/ws/ws_sr_padron_a4/manual_ws_sr_padron_a4_v1.1.pdf)
+:::
+
+## Estado del Servidor
+
+Verifica si el servicio de Padrón A4 está operativo.
+
+```ts
+const status = await arca.registerScopeFourService.getServerStatus();
+console.log(status);
+```
+
+::: details Ver respuesta completa
+
+```json
+{
+  "appserver": "OK",
+  "dbserver": "OK",
+  "authserver": "OK"
+}
+```
+
+:::

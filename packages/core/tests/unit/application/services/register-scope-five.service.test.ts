@@ -1,8 +1,5 @@
 import { RegisterScopeFiveService } from "@arcasdk/core/src/application/services/register-scope-five.service";
-import {
-  IRegisterRepositoryPort,
-  RegisterScope,
-} from "@arcasdk/core/src/application/ports/register/register-repository.port";
+import { IRegisterScopeFiveRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
@@ -16,7 +13,7 @@ import {
 
 describe("Register Scope Five Service", () => {
   let registerScopeFiveService: RegisterScopeFiveService;
-  let mockRepository: jest.Mocked<IRegisterRepositoryPort>;
+  let mockRepository: jest.Mocked<IRegisterScopeFiveRepositoryPort>;
   const cuitPayload = 20111111111;
 
   beforeEach(() => {
@@ -25,7 +22,6 @@ describe("Register Scope Five Service", () => {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
       getTaxpayersDetails: jest.fn(),
-      getTaxIDByDocument: jest.fn(),
     } as any;
 
     // Create service with mocked repository
@@ -68,9 +64,7 @@ describe("Register Scope Five Service", () => {
       dbserver: dummyAsyncReturnMocks[0].return.dbserver,
       authserver: dummyAsyncReturnMocks[0].return.authserver,
     });
-    expect(mockRepository.getServerStatus).toHaveBeenCalledWith(
-      RegisterScope.FIVE
-    );
+    expect(mockRepository.getServerStatus).toHaveBeenCalled();
   });
 
   it("should get taxpayer details", async () => {
@@ -79,10 +73,7 @@ describe("Register Scope Five Service", () => {
     );
     expect(details).not.toBeNull();
     expect(details?.datosGenerales).toBeDefined();
-    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(
-      RegisterScope.FIVE,
-      cuitPayload
-    );
+    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
   });
 
   it("should get taxpayers details", async () => {
@@ -92,9 +83,9 @@ describe("Register Scope Five Service", () => {
     ]);
     expect(details).not.toBeNull();
     expect(details.persona).toBeDefined();
-    expect(mockRepository.getTaxpayersDetails).toHaveBeenCalledWith(
-      RegisterScope.FIVE,
-      [cuitPayload, cuitPayload]
-    );
+    expect(mockRepository.getTaxpayersDetails).toHaveBeenCalledWith([
+      cuitPayload,
+      cuitPayload,
+    ]);
   });
 });

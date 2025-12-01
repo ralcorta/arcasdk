@@ -10,6 +10,27 @@ Necesitarás obtener las credenciales manualmente usando `AuthRepository` y guar
 
 Una vez que las credenciales se han configurado correctamente, puedes ejecutar cualquier método desde tu servicio de ARCA. El paquete automáticamente adjuntará las credenciales necesarias a la solicitud correspondiente.
 
+### Flujo de Autenticación
+
+```mermaid
+sequenceDiagram
+    participant App as Tu Aplicación
+    participant SDK as Arca SDK
+    participant WSAA as ARCA (WSAA)
+    participant Service as ARCA (WSFE/Padron)
+
+    App->>SDK: Instancia Arca(cert, key)
+    SDK->>SDK: ¿Tiene Ticket válido?
+    alt Ticket Expirado o Inexistente
+        SDK->>WSAA: Solicitar LoginTicketResponse (CMS)
+        WSAA-->>SDK: Ticket de Acceso (Token + Sign)
+        SDK->>SDK: Guardar Ticket (Cache/FS)
+    end
+    SDK->>Service: Request (con Token + Sign)
+    Service-->>SDK: Response
+    SDK-->>App: Resultado
+```
+
 #### Ejemplo
 
 ```ts:line-numbers

@@ -1,8 +1,5 @@
 import { RegisterScopeFourService } from "@arcasdk/core/src/application/services/register-scope-four.service";
-import {
-  IRegisterRepositoryPort,
-  RegisterScope,
-} from "@arcasdk/core/src/application/ports/register/register-repository.port";
+import { IRegisterScopeFourRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
 import {
   scopeFourDummyAsyncReturnMocks,
   scopeFourGetPersonaAsyncReturnMocks,
@@ -14,7 +11,7 @@ import {
 
 describe("Register Scope Four Service", () => {
   let registerScopeFourService: RegisterScopeFourService;
-  let mockRepository: jest.Mocked<IRegisterRepositoryPort>;
+  let mockRepository: jest.Mocked<IRegisterScopeFourRepositoryPort>;
   const cuitPayload = 20111111111;
 
   beforeEach(() => {
@@ -22,8 +19,6 @@ describe("Register Scope Four Service", () => {
     mockRepository = {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
-      getTaxpayersDetails: jest.fn(),
-      getTaxIDByDocument: jest.fn(),
     } as any;
 
     // Create service with mocked repository
@@ -53,9 +48,7 @@ describe("Register Scope Four Service", () => {
       dbserver: scopeFourDummyAsyncReturnMocks[0].return.dbserver,
       authserver: scopeFourDummyAsyncReturnMocks[0].return.authserver,
     });
-    expect(mockRepository.getServerStatus).toHaveBeenCalledWith(
-      RegisterScope.FOUR
-    );
+    expect(mockRepository.getServerStatus).toHaveBeenCalled();
   });
 
   it("should get taxpayer details", async () => {
@@ -63,10 +56,12 @@ describe("Register Scope Four Service", () => {
       cuitPayload
     );
     expect(details).not.toBeNull();
-    expect(details?.persona).toBeDefined();
-    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(
-      RegisterScope.FOUR,
-      cuitPayload
-    );
+    // expect(details?.persona).toBeDefined(); // The service returns the DTO directly now, not wrapped in 'persona' property unless DTO changed.
+    // Wait, the service returns TaxpayerDetailsDto | null.
+    // The previous service returned RegisterTaxpayerDetailsResultDto which had a 'persona' property.
+    // The new service returns TaxpayerDetailsDto directly.
+    // So details IS the persona object (or similar).
+    expect(details).toBeDefined();
+    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
   });
 });

@@ -10,7 +10,7 @@ import { AuthRepository } from "@infrastructure/outbound/adapters/auth/auth.repo
 import { WinstonLogger } from "@infrastructure/outbound/adapters/logger/winston-logger";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { IRegisterRepositoryPort } from "@application/ports/register/register-repository.port";
+
 import { ElectronicBillingService } from "@application/services/electronic-billing.service";
 import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
 import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
@@ -18,7 +18,14 @@ import { RegisterScopeTenService } from "@application/services/register-scope-te
 import { RegisterScopeThirteenService } from "@application/services/register-scope-thirteen.service";
 import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
 import { ElectronicBillingRepository } from "@infrastructure/outbound/adapters/electronic-billing/electronic-billing-repository";
-import { RegisterRepository } from "@infrastructure/outbound/adapters/register/register-repository";
+import { RegisterScopeFourRepository } from "@infrastructure/outbound/adapters/register/register-scope-four.repository";
+import { RegisterScopeFiveRepository } from "@infrastructure/outbound/adapters/register/register-scope-five.repository";
+import { RegisterScopeTenRepository } from "@infrastructure/outbound/adapters/register/register-scope-ten.repository";
+import { RegisterScopeThirteenRepository } from "@infrastructure/outbound/adapters/register/register-scope-thirteen.repository";
+import { RegisterInscriptionProofRepository } from "@infrastructure/outbound/adapters/register/register-inscription-proof.repository";
+import { GenericService } from "@application/services/generic.service";
+import { IGenericRepositoryPort } from "@application/ports/generic/generic-repository.port";
+import { GenericRepository } from "@infrastructure/outbound/adapters/generic/generic-repository";
 
 export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;
@@ -27,6 +34,7 @@ export class Arca {
   private readonly _registerScopeFiveService: RegisterScopeFiveService;
   private readonly _registerScopeTenService: RegisterScopeTenService;
   private readonly _registerScopeThirteenService: RegisterScopeThirteenService;
+  private readonly _genericService: GenericService;
   private readonly context: Context;
 
   constructor(context: Context) {
@@ -65,31 +73,71 @@ export class Arca {
         useSoap12: this.context.useSoap12 ?? true, // Default to SOAP 1.2
       });
 
-    const registerRepository: IRegisterRepositoryPort = new RegisterRepository({
+    const registerScopeFourRepository = new RegisterScopeFourRepository({
       authRepository,
       logger,
       cuit: this.context.cuit,
       production: this.context.production ?? false,
     });
 
+    const registerScopeFiveRepository = new RegisterScopeFiveRepository({
+      authRepository,
+      logger,
+      cuit: this.context.cuit,
+      production: this.context.production ?? false,
+    });
+
+    const registerScopeTenRepository = new RegisterScopeTenRepository({
+      authRepository,
+      logger,
+      cuit: this.context.cuit,
+      production: this.context.production ?? false,
+    });
+
+    const registerScopeThirteenRepository = new RegisterScopeThirteenRepository(
+      {
+        authRepository,
+        logger,
+        cuit: this.context.cuit,
+        production: this.context.production ?? false,
+      }
+    );
+
+    const registerInscriptionProofRepository =
+      new RegisterInscriptionProofRepository({
+        authRepository,
+        logger,
+        cuit: this.context.cuit,
+        production: this.context.production ?? false,
+      });
+
+    const genericRepository: IGenericRepositoryPort = new GenericRepository({
+      authRepository,
+      logger,
+      cuit: this.context.cuit,
+      production: this.context.production ?? false,
+      useSoap12: this.context.useSoap12 ?? true,
+    });
+
     this._electronicBillingService = new ElectronicBillingService(
       electronicBillingRepository
     );
     this._registerInscriptionProofService = new RegisterInscriptionProofService(
-      registerRepository
+      registerInscriptionProofRepository
     );
     this._registerScopeFourService = new RegisterScopeFourService(
-      registerRepository
+      registerScopeFourRepository
     );
     this._registerScopeFiveService = new RegisterScopeFiveService(
-      registerRepository
+      registerScopeFiveRepository
     );
     this._registerScopeTenService = new RegisterScopeTenService(
-      registerRepository
+      registerScopeTenRepository
     );
     this._registerScopeThirteenService = new RegisterScopeThirteenService(
-      registerRepository
+      registerScopeThirteenRepository
     );
+    this._genericService = new GenericService(genericRepository);
   }
 
   get electronicBillingService(): ElectronicBillingService {
@@ -114,5 +162,9 @@ export class Arca {
 
   get registerScopeThirteenService(): RegisterScopeThirteenService {
     return this._registerScopeThirteenService;
+  }
+
+  get genericService(): GenericService {
+    return this._genericService;
   }
 }

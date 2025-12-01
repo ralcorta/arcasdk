@@ -3,29 +3,15 @@
  * Application service for Register Scope Four (Padrón A4)
  * Orchestrates register use cases for scope FOUR
  */
+
+import { IRegisterScopeFourRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
-  IRegisterRepositoryPort,
-  RegisterScope,
-} from "@application/ports/register/register-repository.port";
-import { GetRegisterServerStatusUseCase } from "@application/use-cases/register/get-server-status.use-case";
-import { GetTaxpayerDetailsUseCase } from "@application/use-cases/register/get-taxpayer-details.use-case";
-import {
-  RegisterServerStatusResultDto,
-  RegisterTaxpayerDetailsResultDto,
+  RegisterServerStatusDto,
+  TaxpayerDetailsDto,
 } from "@application/dto/register.dto";
 
 export class RegisterScopeFourService {
-  private readonly getServerStatusUseCase: GetRegisterServerStatusUseCase;
-  private readonly getTaxpayerDetailsUseCase: GetTaxpayerDetailsUseCase;
-
-  constructor(private readonly registerRepository: IRegisterRepositoryPort) {
-    this.getServerStatusUseCase = new GetRegisterServerStatusUseCase(
-      this.registerRepository
-    );
-    this.getTaxpayerDetailsUseCase = new GetTaxpayerDetailsUseCase(
-      this.registerRepository
-    );
-  }
+  constructor(private readonly repository: IRegisterScopeFourRepositoryPort) {}
 
   /**
    * Asks to web service for servers status
@@ -34,15 +20,8 @@ export class RegisterScopeFourService {
    * dbserver : Database status, authserver : Autentication
    * server status}
    **/
-  async getServerStatus(): Promise<RegisterServerStatusResultDto> {
-    const status = await this.getServerStatusUseCase.execute({
-      scope: RegisterScope.FOUR,
-    });
-    return {
-      appserver: status.appserver,
-      dbserver: status.dbserver,
-      authserver: status.authserver,
-    };
+  async getServerStatus(): Promise<RegisterServerStatusDto> {
+    return this.repository.getServerStatus();
   }
 
   /**
@@ -53,22 +32,7 @@ export class RegisterScopeFourService {
    **/
   async getTaxpayerDetails(
     identifier: number
-  ): Promise<RegisterTaxpayerDetailsResultDto | null> {
-    const result = await this.getTaxpayerDetailsUseCase.execute({
-      scope: RegisterScope.FOUR,
-      identifier,
-    });
-
-    if (!result) {
-      return null;
-    }
-
-    return {
-      metadata: {
-        fechaHora: "",
-        servidor: "",
-      },
-      persona: result,
-    };
+  ): Promise<TaxpayerDetailsDto | null> {
+    return this.repository.getTaxpayerDetails(identifier);
   }
 }

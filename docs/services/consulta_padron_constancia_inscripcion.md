@@ -1,45 +1,118 @@
-# Padrón de ARCA constancia inscripción
+# 📜 Constancia de Inscripción
 
-Los métodos de este Web Service se encuentran disponibles en `arca.registerInscriptionProofService`
+El servicio `registerInscriptionProofService` permite consultar la constancia de inscripción de un contribuyente en el Padrón de ARCA. Este servicio devuelve información detallada sobre el estado fiscal, impuestos y actividades.
 
-La especificación de este Web Service se encuentra disponible [aquí](https://www.arca.gob.ar/ws/WSCI/manual-ws-sr-ws-constancia-inscripcion.pdf)
-
-<h2> Índice </h2>
+::: info Documentación Oficial
+[Manual del Desarrollador (PDF)](https://www.arca.gob.ar/ws/WSCI/manual-ws-sr-ws-constancia-inscripcion.pdf)
+:::
 
 [[toc]]
 
-## Obtener datos del contribuyente
+## Obtener Datos del Contribuyente
 
-Debemos utilizar el metodo `getTaxpayerDetails` pasando como parámetro el documento identificador del contribuyente, por ej. el CUIT. Nos devolvera un objeto con los detalles o `null` en caso de no existir en el padrón
+Consulta los detalles completos de una persona física o jurídica mediante su CUIT.
 
-```js
+```ts
+// Consultar datos del CUIT 20111111111
 const taxpayerDetails =
-  await arca.registerInscriptionProofService.getTaxpayerDetails(20111111111); //Devuelve los datos del contribuyente correspondiente al identificador 20111111111
+  await arca.registerInscriptionProofService.getTaxpayerDetails(20111111111);
+
+if (taxpayerDetails) {
+  console.log("Datos del contribuyente:", taxpayerDetails);
+} else {
+  console.log("Contribuyente no encontrado.");
+}
 ```
 
-Para mas información acerca de este método ver el item 3.2 de la [especificación del Web service](https://www.arca.gob.ar/ws/WSCI/manual-ws-sr-ws-constancia-inscripcion.pdf)
+::: details Ver respuesta completa
 
-## Obtener datos de múltiples contribuyentes
+```json
+{
+  "metadata": {
+    "fechaHora": "2024-01-01T12:00:00.000-03:00",
+    "servidor": "server1"
+  },
+  "datosGenerales": {
+    "idPersona": 20111111111,
+    "tipoPersona": "FISICA",
+    "estadoClave": "ACTIVO",
+    "domicilioFiscal": {
+      "direccion": "CALLE FALSA 123",
+      "codPostal": "1000",
+      "provincia": 0
+    }
+  },
+  "datosMonotributo": {
+    "categoria": "A",
+    "actividad": "SERVICIOS"
+  },
+  "datosRegimenGeneral": {
+    "impuestos": [10, 30],
+    "actividad": "VENTA AL POR MENOR"
+  }
+}
+```
 
-Debemos utilizar el método `getTaxpayersDetails` pasando como parámetro un array con los documentos identificadores de los contribuyentes. Nos devolverá un array con los detalles de cada contribuyente.
+:::
 
-```js
-const taxpayersDetails =
+## Obtener Datos de Múltiples Contribuyentes
+
+Permite consultar hasta 250 CUITs en una sola petición.
+
+```ts
+const taxpayers =
   await arca.registerInscriptionProofService.getTaxpayersDetails([
-    20111111111, 20111111112,
-  ]); //Devuelve los datos de los contribuyentes correspondientes a los identificadores 20111111111y 20111111112
+    20111111111, 20222222222,
+  ]);
+
+console.log(`Se encontraron ${taxpayers.cantidadRegistros} contribuyentes.`);
 ```
 
-## Obtener estado del servidor
+::: details Ver respuesta completa
 
-Para esto utilizaremos el método `getServerStatus`
-
-```js
-const serverStatus =
-  await arca.registerInscriptionProofService.getServerStatus();
-
-console.log("Este es el estado del servidor:");
-console.log(serverStatus);
+```json
+{
+  "metadata": {
+    "fechaHora": "2024-01-01T12:00:00.000-03:00",
+    "servidor": "server1"
+  },
+  "cantidadRegistros": 2,
+  "persona": [
+    {
+      "datosGenerales": {
+        "idPersona": 20111111111
+        // ... más datos
+      }
+    },
+    {
+      "datosGenerales": {
+        "idPersona": 20222222222
+        // ... más datos
+      }
+    }
+  ]
+}
 ```
 
-Para mas información acerca de este método ver el item 3.1 de la [especificación del Web service](https://www.arca.gob.ar/ws/WSCI/manual-ws-sr-ws-constancia-inscripcion.pdf)
+:::
+
+## Estado del Servidor
+
+Verifica si el servicio de Constancia de Inscripción está operativo.
+
+```ts
+const status = await arca.registerInscriptionProofService.getServerStatus();
+console.log(status);
+```
+
+::: details Ver respuesta completa
+
+```json
+{
+  "appserver": "OK",
+  "dbserver": "OK",
+  "authserver": "OK"
+}
+```
+
+:::

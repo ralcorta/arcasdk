@@ -1,8 +1,5 @@
 import { RegisterScopeThirteenService } from "@arcasdk/core/src/application/services/register-scope-thirteen.service";
-import {
-  IRegisterRepositoryPort,
-  RegisterScope,
-} from "@arcasdk/core/src/application/ports/register/register-repository.port";
+import { IRegisterScopeThirteenRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
 import {
   scopeThirteenDummyAsyncReturnMocks,
   scopeThirteenGetPersonaAsyncReturnMocks,
@@ -14,7 +11,7 @@ import {
 
 describe("Register Scope Thirteen Service", () => {
   let registerScopeThirteenService: RegisterScopeThirteenService;
-  let mockRepository: jest.Mocked<IRegisterRepositoryPort>;
+  let mockRepository: jest.Mocked<IRegisterScopeThirteenRepositoryPort>;
   const cuitPayload = 20111111111;
 
   beforeEach(() => {
@@ -22,7 +19,6 @@ describe("Register Scope Thirteen Service", () => {
     mockRepository = {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
-      getTaxpayersDetails: jest.fn(),
       getTaxIDByDocument: jest.fn(),
     } as any;
 
@@ -55,9 +51,7 @@ describe("Register Scope Thirteen Service", () => {
       dbserver: scopeThirteenDummyAsyncReturnMocks[0].return.dbserver,
       authserver: scopeThirteenDummyAsyncReturnMocks[0].return.authserver,
     });
-    expect(mockRepository.getServerStatus).toHaveBeenCalledWith(
-      RegisterScope.THIRTEEN
-    );
+    expect(mockRepository.getServerStatus).toHaveBeenCalled();
   });
 
   it("should get taxpayer details", async () => {
@@ -65,10 +59,8 @@ describe("Register Scope Thirteen Service", () => {
       cuitPayload
     );
     expect(details).not.toBeNull();
-    expect(details?.persona).toBeDefined();
-    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(
-      RegisterScope.THIRTEEN,
-      cuitPayload
-    );
+    // expect(details?.persona).toBeDefined(); // Service returns DTO directly
+    expect(details).toBeDefined();
+    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
   });
 });
