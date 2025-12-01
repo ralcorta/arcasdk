@@ -24,6 +24,10 @@ import {
   IServiceSoap12Soap,
   ServiceSoap12Types,
 } from "@infrastructure/outbound/ports/soap/interfaces/Service/ServiceSoap12";
+import {
+  IServiceSoapSoap,
+  ServiceSoapTypes,
+} from "@infrastructure/outbound/ports/soap/interfaces/Service/ServiceSoap";
 import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
 import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
 import {
@@ -52,7 +56,7 @@ export class ElectronicBillingRepository
   extends BaseSoapRepository
   implements IElectronicBillingRepositoryPort
 {
-  private soapClient?: IServiceSoap12Soap;
+  private serviceClient?: IServiceSoapSoap | IServiceSoap12Soap;
 
   constructor(config: BaseSoapRepositoryConstructorConfig) {
     super(config);
@@ -60,38 +64,47 @@ export class ElectronicBillingRepository
 
   /**
    * Get or create SOAP client with authentication proxy
+   * Creates SOAP 1.1 or 1.2 client based on useSoap12 configuration
    */
-  private async getClient(): Promise<IServiceSoap12Soap> {
-    if (this.soapClient) {
-      return this.soapClient!;
+  private async getClient(): Promise<IServiceSoapSoap | IServiceSoap12Soap> {
+    if (this.serviceClient) {
+      return this.serviceClient;
     }
 
-    const wsdlPath = this.production
+    const wsdlName = this.production
       ? WsdlPathEnum.WSFE
       : WsdlPathEnum.WSFE_TEST;
     const endpoint = this.production
       ? EndpointsEnum.WSFEV1
       : EndpointsEnum.WSFEV1_TEST;
 
-    // Create SOAP client
-    const client = await this.soapClientPort.createClient<IServiceSoap12Soap>(
-      this.getWsdlFullPath(wsdlPath),
-      {
-        forceSoap12Headers: true,
-      }
-    );
+    let client: IServiceSoapSoap | IServiceSoap12Soap;
+    let soapVersion: SoapServiceVersion;
 
-    // Set endpoint
-    this.soapClientPort.setEndpoint(client, endpoint);
+    if (this.useSoap12) {
+      client = await this.soapClient.createClient<IServiceSoap12Soap>(
+        wsdlName,
+        {
+          forceSoap12Headers: true,
+        }
+      );
+      soapVersion = SoapServiceVersion.ServiceSoap12;
+    } else {
+      client = await this.soapClient.createClient<IServiceSoapSoap>(wsdlName, {
+        forceSoap12Headers: false,
+      });
+      soapVersion = SoapServiceVersion.ServiceSoap;
+    }
 
-    // Create proxy to inject Auth automatically
-    this.soapClient = this.createAuthenticatedProxy(client, {
+    this.soapClient.setEndpoint(client, endpoint);
+
+    this.serviceClient = this.createAuthenticatedProxy(client, {
       serviceName: ServiceNamesEnum.WSFE,
       injectAuthProperty: false,
-      soapVersion: SoapServiceVersion.ServiceSoap12,
-    });
+      soapVersion,
+    }) as IServiceSoapSoap | IServiceSoap12Soap;
 
-    return this.soapClient;
+    return this.serviceClient;
   }
 
   async getServerStatus(): Promise<ServerStatusDto> {
@@ -136,6 +149,44 @@ export class ElectronicBillingRepository
     const client = await this.getClient();
     const voucherData = voucher.toDTO();
 
+    const detRequest = {
+      Concepto: voucherData.Concepto,
+      DocTipo: voucherData.DocTipo,
+      DocNro: voucherData.DocNro,
+      CbteDesde: voucherData.CbteDesde,
+      CbteHasta: voucherData.CbteHasta,
+      CbteFch: voucherData.CbteFch,
+      ImpTotal: voucherData.ImpTotal,
+      ImpTotConc: voucherData.ImpTotConc,
+      ImpNeto: voucherData.ImpNeto,
+      ImpOpEx: voucherData.ImpOpEx,
+      ImpIVA: voucherData.ImpIVA,
+      ImpTrib: voucherData.ImpTrib,
+      FchServDesde: voucherData.FchServDesde,
+      FchServHasta: voucherData.FchServHasta,
+      FchVtoPago: voucherData.FchVtoPago,
+      MonId: voucherData.MonId,
+      MonCotiz: voucherData.MonCotiz,
+      CondicionIVAReceptorId: voucherData.CondicionIVAReceptorId,
+      Tributos: voucherData.Tributos
+        ? { Tributo: voucherData.Tributos }
+        : undefined,
+      Iva: voucherData.Iva ? { AlicIva: voucherData.Iva } : undefined,
+      CbtesAsoc: voucherData.CbtesAsoc
+        ? { CbteAsoc: voucherData.CbtesAsoc }
+        : undefined,
+      Compradores: voucherData.Compradores
+        ? { Comprador: voucherData.Compradores }
+        : undefined,
+      Opcionales: voucherData.Opcionales
+        ? { Opcional: voucherData.Opcionales }
+        : undefined,
+    };
+
+    const typedDetRequest = this.useSoap12
+      ? (detRequest as ServiceSoap12Types.IFECAEDetRequest)
+      : (detRequest as ServiceSoapTypes.IFECAEDetRequest);
+
     const [output] = await client.FECAESolicitarAsync({
       FeCAEReq: {
         FeCabReq: {
@@ -144,41 +195,7 @@ export class ElectronicBillingRepository
           CbteTipo: voucherData.CbteTipo,
         },
         FeDetReq: {
-          FECAEDetRequest: [
-            {
-              Concepto: voucherData.Concepto,
-              DocTipo: voucherData.DocTipo,
-              DocNro: voucherData.DocNro,
-              CbteDesde: voucherData.CbteDesde,
-              CbteHasta: voucherData.CbteHasta,
-              CbteFch: voucherData.CbteFch,
-              ImpTotal: voucherData.ImpTotal,
-              ImpTotConc: voucherData.ImpTotConc,
-              ImpNeto: voucherData.ImpNeto,
-              ImpOpEx: voucherData.ImpOpEx,
-              ImpIVA: voucherData.ImpIVA,
-              ImpTrib: voucherData.ImpTrib,
-              FchServDesde: voucherData.FchServDesde,
-              FchServHasta: voucherData.FchServHasta,
-              FchVtoPago: voucherData.FchVtoPago,
-              MonId: voucherData.MonId,
-              MonCotiz: voucherData.MonCotiz,
-              CondicionIVAReceptorId: voucherData.CondicionIVAReceptorId,
-              Tributos: voucherData.Tributos
-                ? { Tributo: voucherData.Tributos }
-                : undefined,
-              Iva: voucherData.Iva ? { AlicIva: voucherData.Iva } : undefined,
-              CbtesAsoc: voucherData.CbtesAsoc
-                ? { CbteAsoc: voucherData.CbtesAsoc }
-                : undefined,
-              Compradores: voucherData.Compradores
-                ? { Comprador: voucherData.Compradores }
-                : undefined,
-              Opcionales: voucherData.Opcionales
-                ? { Opcional: voucherData.Opcionales }
-                : undefined,
-            } as ServiceSoap12Types.IFECAEDetRequest,
-          ],
+          FECAEDetRequest: [typedDetRequest],
         },
       },
     });
@@ -186,7 +203,6 @@ export class ElectronicBillingRepository
     const { FECAESolicitarResult } = output;
     const detResponse = FECAESolicitarResult.FeDetResp?.FECAEDetResponse?.[0];
 
-    // Log errors if present
     if (FECAESolicitarResult.Errors?.Err?.length && this.logger) {
       const errorMessages = FECAESolicitarResult.Errors.Err.map(
         (e) => `${e.Code}: ${e.Msg}`
@@ -194,7 +210,6 @@ export class ElectronicBillingRepository
       this.logger.error(`Error creating voucher: ${errorMessages}`);
     }
 
-    // Extract CAE only if voucher was approved (Resultado === "A")
     const cae = detResponse?.Resultado === "A" ? detResponse.CAE || "" : "";
     const caeFchVto =
       detResponse?.Resultado === "A" ? detResponse.CAEFchVto || "" : "";
