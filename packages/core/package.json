@@ -7,7 +7,6 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "npx tsc",
-    "postbuild": "rimraf lib/infrastructure/outbound/adapters/soap/wsdl && copyfiles -u 5 src/infrastructure/outbound/adapters/soap/wsdl/* lib/infrastructure/outbound/adapters/soap/",
     "test": "jest",
     "test:unit": "jest ./tests/unit",
     "test:integration": "jest ./tests/integration",

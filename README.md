@@ -22,7 +22,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ralcorta/arcasdk">
-    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="arcasdk" width="230">
+    <img src="docs/public/logo.png" alt="arcasdk" width="230">
   </a>
 
   <h3 align="center">Arca SDK</h3>

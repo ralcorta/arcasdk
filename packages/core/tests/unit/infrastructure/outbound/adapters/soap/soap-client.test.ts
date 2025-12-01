@@ -2,11 +2,27 @@ import { SoapClient } from "@arcasdk/core/src/infrastructure/outbound/adapters/s
 import { SoapClientFacade } from "@arcasdk/core/src/infrastructure/outbound/adapters/soap/soap-client-facade";
 import { Client } from "soap";
 
+// Mock the wsdl-strings module - must match the path used in soap-client.ts
+jest.mock(
+  "@arcasdk/core/src/infrastructure/outbound/adapters/soap/wsdl-strings",
+  () => ({
+    getWsdlString: jest.fn(),
+  })
+);
+
 jest.mock("@infrastructure/outbound/adapters/soap/soap-client-facade");
+
+// Import after mocking - use the same path as the mock
+const {
+  getWsdlString,
+} = require("@arcasdk/core/src/infrastructure/outbound/adapters/soap/wsdl-strings");
 
 describe("SoapClient", () => {
   let soapClient: SoapClient;
   let mockClient: jest.Mocked<Client>;
+  const mockGetWsdlString = getWsdlString as jest.MockedFunction<
+    typeof getWsdlString
+  >;
 
   beforeEach(() => {
     soapClient = new SoapClient();
@@ -15,6 +31,11 @@ describe("SoapClient", () => {
       someMethod: jest.fn(),
       someMethodAsync: jest.fn().mockResolvedValue(["result", "", {}, ""]),
     } as any;
+
+    // Mock getWsdlString to return a valid WSDL XML string
+    mockGetWsdlString.mockReturnValue(
+      '<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions></wsdl:definitions>'
+    );
   });
 
   afterEach(() => {
@@ -28,12 +49,13 @@ describe("SoapClient", () => {
       >;
       mockCreate.mockResolvedValue(mockClient as any);
 
-      const wsdlPath = "/path/to/wsdl.wsdl";
-      const client = await soapClient.createClient<Client>(wsdlPath);
+      const wsdlName = "wsfe.wsdl";
+      const client = await soapClient.createClient<Client>(wsdlName);
 
       expect(client).toBe(mockClient);
+      expect(mockGetWsdlString).toHaveBeenCalledWith(wsdlName);
       expect(mockCreate).toHaveBeenCalledWith({
-        wsdl: wsdlPath,
+        wsdl: '<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions></wsdl:definitions>',
         options: expect.objectContaining({
           disableCache: true,
           forceSoap12Headers: false,
@@ -53,20 +75,21 @@ describe("SoapClient", () => {
       >;
       mockCreate.mockResolvedValue(mockClient as any);
 
-      const wsdlPath = "/path/to/wsdl.wsdl";
+      const wsdlName = "wsaa.wsdl";
       const customOptions = {
         forceSoap12Headers: true,
         customOption: "value",
       };
 
       const client = await soapClient.createClient<Client>(
-        wsdlPath,
+        wsdlName,
         customOptions
       );
 
       expect(client).toBe(mockClient);
+      expect(mockGetWsdlString).toHaveBeenCalledWith(wsdlName);
       expect(mockCreate).toHaveBeenCalledWith({
-        wsdl: wsdlPath,
+        wsdl: '<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions></wsdl:definitions>',
         options: expect.objectContaining({
           disableCache: true,
           forceSoap12Headers: true,
@@ -87,21 +110,34 @@ describe("SoapClient", () => {
       >;
       mockCreate.mockResolvedValue(mockClient as any);
 
-      const wsdlPath = "/path/to/wsdl.wsdl";
+      const wsdlName = "ws_sr_padron_a5.wsdl";
       const customOptions = {
         disableCache: false, // Should be overridden by default
         forceSoap12Headers: true,
       };
 
-      await soapClient.createClient<Client>(wsdlPath, customOptions);
+      await soapClient.createClient<Client>(wsdlName, customOptions);
 
+      expect(mockGetWsdlString).toHaveBeenCalledWith(wsdlName);
       expect(mockCreate).toHaveBeenCalledWith({
-        wsdl: wsdlPath,
+        wsdl: '<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions></wsdl:definitions>',
         options: expect.objectContaining({
           disableCache: false, // Custom option takes precedence
           forceSoap12Headers: true,
         }),
       });
+    });
+
+    it("should throw error if WSDL not found", async () => {
+      const wsdlName = "non-existent.wsdl";
+      mockGetWsdlString.mockReturnValue(undefined);
+
+      await expect(soapClient.createClient<Client>(wsdlName)).rejects.toThrow(
+        `WSDL ${wsdlName} not found`
+      );
+
+      expect(mockGetWsdlString).toHaveBeenCalledWith(wsdlName);
+      expect(SoapClientFacade.create).not.toHaveBeenCalled();
     });
   });
 

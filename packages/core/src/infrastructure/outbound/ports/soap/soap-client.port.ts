@@ -11,7 +11,7 @@ export interface ISoapClientPort {
    * @param options SOAP client options
    * @returns The SOAP client
    */
-  createClient<T extends Client>(wsdlPath: string, options?: any): Promise<T>;
+  createClient<T extends Client>(wsdlName: string, options?: any): Promise<T>;
 
   /**
    * Set the endpoint URL for the client
@@ -33,4 +33,3 @@ export interface ISoapClientPort {
     params: any
   ): Promise<T>;
 }
-

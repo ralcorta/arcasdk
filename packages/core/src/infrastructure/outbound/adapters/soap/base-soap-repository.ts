@@ -16,34 +16,23 @@ import {
 
 /**
  * Base class for SOAP repositories
- * Provides common functionality for authentication proxy and WSDL path resolution
+ * Provides common functionality for authentication proxy
  */
 export abstract class BaseSoapRepository {
   protected readonly cuit: number;
   protected readonly production: boolean;
-  protected readonly soapClientPort: ISoapClientPort;
+  protected readonly soapClient: ISoapClientPort;
   protected readonly authRepository: IAuthenticationRepositoryPort;
   protected readonly logger: ILoggerPort;
+  protected readonly useSoap12: boolean;
 
   constructor(config: BaseSoapRepositoryConstructorConfig) {
-    this.soapClientPort = config.soapClient ?? new SoapClient();
+    this.soapClient = config.soapClient ?? new SoapClient();
     this.authRepository = config.authRepository;
     this.logger = config.logger;
     this.cuit = config.cuit;
     this.production = config.production ?? false;
-  }
-
-  /**
-   * Get full path to WSDL file
-   * @param wsdlPath WSDL file name or path
-   * @returns Full path to WSDL file
-   */
-  protected getWsdlFullPath(wsdlPath: string): string {
-    // WSDL files are in infrastructure/outbound/adapters/soap/wsdl/
-    // At runtime, they're copied to lib/infrastructure/outbound/adapters/soap/wsdl/
-    // Since this file is now in soap/, __dirname points to lib/infrastructure/outbound/adapters/soap/
-    const path = require("path");
-    return path.resolve(__dirname, "wsdl", wsdlPath);
+    this.useSoap12 = config.useSoap12 ?? true; // Default to SOAP 1.2
   }
 
   /**

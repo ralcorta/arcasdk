@@ -52,44 +52,40 @@ export class RegisterRepository
       return this.clients.get(scope)!;
     }
 
-    const { wsdlPath, endpoint, serviceName } = this.getScopeConfig(scope);
+    const { wsdlName, endpoint, serviceName } = this.getScopeConfig(scope);
 
     // Create SOAP client based on scope
     let client: PersonaServiceClient;
 
     switch (scope) {
       case RegisterScope.FOUR:
-        client =
-          await this.soapClientPort.createClient<IPersonaServiceA4PortSoap>(
-            this.getWsdlFullPath(wsdlPath),
-            { forceSoap12Headers: false }
-          );
+        client = await this.soapClient.createClient<IPersonaServiceA4PortSoap>(
+          wsdlName,
+          { forceSoap12Headers: false }
+        );
         break;
       case RegisterScope.FIVE:
-        client =
-          await this.soapClientPort.createClient<IPersonaServiceA5PortSoap>(
-            this.getWsdlFullPath(wsdlPath),
-            { forceSoap12Headers: false }
-          );
+        client = await this.soapClient.createClient<IPersonaServiceA5PortSoap>(
+          wsdlName,
+          { forceSoap12Headers: false }
+        );
         break;
       case RegisterScope.TEN:
-        client =
-          await this.soapClientPort.createClient<IPersonaServiceA10PortSoap>(
-            this.getWsdlFullPath(wsdlPath),
-            { forceSoap12Headers: false }
-          );
+        client = await this.soapClient.createClient<IPersonaServiceA10PortSoap>(
+          wsdlName,
+          { forceSoap12Headers: false }
+        );
         break;
       case RegisterScope.THIRTEEN:
-        client =
-          await this.soapClientPort.createClient<IPersonaServiceA13PortSoap>(
-            this.getWsdlFullPath(wsdlPath),
-            { forceSoap12Headers: false }
-          );
+        client = await this.soapClient.createClient<IPersonaServiceA13PortSoap>(
+          wsdlName,
+          { forceSoap12Headers: false }
+        );
         break;
       case RegisterScope.INSCRIPTION_PROOF:
         client =
-          await this.soapClientPort.createClient<IPersonaServiceInscriptionProofPortSoap>(
-            this.getWsdlFullPath(wsdlPath),
+          await this.soapClient.createClient<IPersonaServiceInscriptionProofPortSoap>(
+            wsdlName,
             { forceSoap12Headers: false }
           );
         break;
@@ -98,7 +94,7 @@ export class RegisterRepository
     }
 
     // Set endpoint
-    this.soapClientPort.setEndpoint(client, endpoint);
+    this.soapClient.setEndpoint(client, endpoint);
 
     // Create proxy to inject Auth automatically
     const proxiedClient = this.createAuthenticatedProxy(client, {
@@ -115,14 +111,14 @@ export class RegisterRepository
    * Get configuration for a specific scope
    */
   private getScopeConfig(scope: RegisterScope): {
-    wsdlPath: string;
+    wsdlName: string;
     endpoint: string;
     serviceName: ServiceNamesEnum;
   } {
     switch (scope) {
       case RegisterScope.FOUR:
         return {
-          wsdlPath: this.production
+          wsdlName: this.production
             ? WsdlPathEnum.WSSR_PADRON_FOUR
             : WsdlPathEnum.WSSR_PADRON_FOUR_TEST,
           endpoint: this.production
@@ -132,7 +128,7 @@ export class RegisterRepository
         };
       case RegisterScope.FIVE:
         return {
-          wsdlPath: this.production
+          wsdlName: this.production
             ? WsdlPathEnum.WSSR_PADRON_FIVE
             : WsdlPathEnum.WSSR_PADRON_FIVE_TEST,
           endpoint: this.production
@@ -142,7 +138,7 @@ export class RegisterRepository
         };
       case RegisterScope.TEN:
         return {
-          wsdlPath: this.production
+          wsdlName: this.production
             ? WsdlPathEnum.WSSR_PADRON_TEN
             : WsdlPathEnum.WSSR_PADRON_TEN_TEST,
           endpoint: this.production
@@ -152,7 +148,7 @@ export class RegisterRepository
         };
       case RegisterScope.THIRTEEN:
         return {
-          wsdlPath: this.production
+          wsdlName: this.production
             ? WsdlPathEnum.WSSR_PADRON_THIRTEEN
             : WsdlPathEnum.WSSR_PADRON_THIRTEEN_TEST,
           endpoint: this.production
@@ -162,7 +158,7 @@ export class RegisterRepository
         };
       case RegisterScope.INSCRIPTION_PROOF:
         return {
-          wsdlPath: this.production
+          wsdlName: this.production
             ? WsdlPathEnum.WSSR_INSCRIPTION_PROOF
             : WsdlPathEnum.WSSR_INSCRIPTION_PROOF_TEST,
           endpoint: this.production

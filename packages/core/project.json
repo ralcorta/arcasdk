@@ -11,9 +11,7 @@
             ],
             "options": {
                 "commands": [
-                    "npx tsc",
-                    "rimraf lib/infrastructure/outbound/adapters/soap/wsdl",
-                    "copyfiles -u 5 src/infrastructure/outbound/adapters/soap/wsdl/* lib/infrastructure/outbound/adapters/soap/"
+                    "npx tsc"
                 ],
                 "parallel": false,
                 "cwd": "packages/core"

@@ -62,6 +62,7 @@ export class Arca {
         logger,
         cuit: this.context.cuit,
         production: this.context.production ?? false,
+        useSoap12: this.context.useSoap12 ?? true, // Default to SOAP 1.2
       });
 
     const registerRepository: IRegisterRepositoryPort = new RegisterRepository({

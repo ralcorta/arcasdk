@@ -7,10 +7,11 @@ import { SoapClientFacade } from "./soap-client-facade";
 import { Client } from "soap";
 import * as https from "https";
 import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants/ssl.constants";
+import { getWsdlString } from "./wsdl-strings";
 
 export class SoapClient implements ISoapClientPort {
   async createClient<T extends Client>(
-    wsdlPath: string,
+    wsdlName: string,
     options?: any
   ): Promise<T> {
     // Create HTTPS agent for legacy servers (ARCA uses weak DH parameters)
@@ -31,8 +32,13 @@ export class SoapClient implements ISoapClientPort {
       ...options,
     };
 
+    const wsdlXml = getWsdlString(wsdlName);
+    if (!wsdlXml) {
+      throw new Error(`WSDL ${wsdlName} not found`);
+    }
+
     return SoapClientFacade.create<T>({
-      wsdl: wsdlPath,
+      wsdl: wsdlXml,
       options: finalOptions,
     });
   }

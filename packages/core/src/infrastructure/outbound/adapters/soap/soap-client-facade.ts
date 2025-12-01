@@ -2,10 +2,8 @@
  * SOAP Client Facade
  * Internal utility for creating SOAP clients
  */
-import { resolve } from "path";
 import { Client, createClientAsync, IHttpClient, HttpClient } from "soap";
 import * as https from "https";
-import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants/ssl.constants";
 
 export interface SoapClientParams {
   wsdl: string;
@@ -14,16 +12,6 @@ export interface SoapClientParams {
 
 export class SoapClientFacade {
   private constructor() {}
-
-  /**
-   * Get the path for the WSDL file stored on the WSDL folder
-   */
-  private static getWsdlPath(
-    wsdlFile: string,
-    forceFolderPath?: string
-  ): string {
-    return resolve(forceFolderPath ?? resolve(__dirname, "./wsdl/"), wsdlFile);
-  }
 
   /**
    * Create HTTP client with custom HTTPS agent for legacy servers
@@ -76,10 +64,7 @@ export class SoapClientFacade {
       };
     }
 
-    const client = (await createClientAsync(
-      SoapClientFacade.getWsdlPath(wsdl),
-      finalOptions
-    )) as T;
+    const client = (await createClientAsync(wsdl, finalOptions)) as T;
 
     return client;
   }
