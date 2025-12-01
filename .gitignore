@@ -1,12 +1,33 @@
 lib
 .env
 .DS_Store
+.vscode
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
 
 node_modules
-package-lock.json
-pnpm-lock.yaml
 
 src/auth/tickets
+src/infrastructure/storage/auth/tickets
+packages/*/src/infrastructure/storage/auth/tickets
 */mocks/credentials
 
 docs/.vitepress/dist
+docs/.vitepress/cache
+
+# Examples
+examples/
+
+# Monorepo
+packages/*/lib
+
+examples
+
+# NX
+.nx
+nx-graph.json
+
+# TypeScript
+*.tsbuildinfo

@@ -1,41 +1,52 @@
 # Obtención de Certificado de Testing
 
 ### Paso 1 - Instalación de OpenSSL
+
 Para generar el certificado, vamos a utilizar OpenSSL, que ya está incluido en sistemas Linux/Unix. Para Windows, puedes descargarlo desde https://sourceforge.net/projects/openssl y, una vez descargado, copiar la carpeta `bin` en `C:\` con el nombre `OpenSSL`. Luego, abre una consola. En Windows, asegúrate de abrirla en modo administrador y navegar hasta `C:\OpenSSL`.
 
 ### Paso 2 - Generación de la Clave de Cifrado (Key)
+
 Dentro de la consola, el primer comando que debemos ejecutar es el siguiente para generar el archivo key.
+
 ```
 openssl genrsa -out [nombre de archivo] 2048
 ```
 
 Reemplaza:
- - `[nombre de archivo]` con el nombre que deseas para el archivo key. Este archivo key es crucial, ya que representa la "contraseña" con la que funcionará el certificado, así que no lo pierdas. Por ejemplo:
+
+- `[nombre de archivo]` con el nombre que deseas para el archivo key. Este archivo key es crucial, ya que representa la "contraseña" con la que funcionará el certificado, así que no lo pierdas. Por ejemplo:
+
 ```
 openssl genrsa -out keytest 2048
 ```
+
 De esta forma, el nombre de mi archivo key sería "keytest".
 
 ### Paso 3 - Generación del Certificate Signing Request (CSR)
+
 Una vez generada la key, estamos listos para generar el CSR. Ejecuta el siguiente comando:
+
 ```
 openssl req -new -key [nombre de archivo key] -subj "/C=AR/O=[nombre de la empresa]/CN=[nombre del certificado]/serialNumber=CUIT [CUIT]" -out [nombre de archivo para el CSR]
 ```
 
 Reemplaza:
- - `[nombre de archivo key]` con el nombre del archivo key generado en el paso anterior
- - `[nombre de la empresa]` con el nombre de la empresa para la que es el certificado (en pruebas, se recomienda utilizar tu propio nombre para evitar confusiones)
- - `[nombre del certificado]` con el nombre que deseas para el certificado (solo se permiten letras y números)
- - `[CUIT]` con el CUIT de la empresa a la que pertenece el certificado (en pruebas, se recomienda usar tu propio CUIT para evitar confusiones).
- - `[nombre de archivo para el CSR]` con el nombre que deseas para el archivo CSR. Por ejemplo:
+
+- `[nombre de archivo key]` con el nombre del archivo key generado en el paso anterior
+- `[nombre de la empresa]` con el nombre de la empresa para la que es el certificado (en pruebas, se recomienda utilizar tu propio nombre para evitar confusiones)
+- `[nombre del certificado]` con el nombre que deseas para el certificado (solo se permiten letras y números)
+- `[CUIT]` con el CUIT de la empresa a la que pertenece el certificado (en pruebas, se recomienda usar tu propio CUIT para evitar confusiones).
+- `[nombre de archivo para el CSR]` con el nombre que deseas para el archivo CSR. Por ejemplo:
+
 ```
 openssl req -new -key keytest -subj "/C=AR/O=IvanM/CN=Test1/serialNumber=CUIT 11111111111" -out csr-test1
 ```
 
-Ahora, el archivo CSR está listo, y podemos proceder a la página de AFIP para generar el certificado.
+Ahora, el archivo CSR está listo, y podemos proceder a la página de ARCA para generar el certificado.
 
 ### Paso 4 - Generación del Certificado (Cert)
-Dentro de tu escritorio de AFIP, accede a **«WSASS - Autogestión Certificados Homologación»**.
+
+Dentro de tu escritorio de ARCA, accede a **«WSASS - Autogestión Certificados Homologación»**.
 
 ![Paso 1](/tutorial/tutorial_2_1.png)
 

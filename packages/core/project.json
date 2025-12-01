@@ -1,0 +1,108 @@
+{
+    "name": "core",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "packages/core/src",
+    "projectType": "library",
+    "targets": {
+        "build": {
+            "executor": "nx:run-commands",
+            "outputs": [
+                "{projectRoot}/lib"
+            ],
+            "options": {
+                "commands": [
+                    "npx tsc",
+                    "rimraf lib/infrastructure/outbound/adapters/soap/wsdl",
+                    "copyfiles -u 5 src/infrastructure/outbound/adapters/soap/wsdl/* lib/infrastructure/outbound/adapters/soap/"
+                ],
+                "parallel": false,
+                "cwd": "packages/core"
+            },
+            "dependsOn": [
+                {
+                    "target": "build",
+                    "projects": "dependencies"
+                }
+            ]
+        },
+        "test": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "jest",
+                "cwd": "packages/core"
+            },
+            "configurations": {
+                "unit": {
+                    "command": "jest ./tests/unit",
+                    "cwd": "packages/core"
+                },
+                "integration": {
+                    "command": "jest ./tests/integration",
+                    "cwd": "packages/core"
+                }
+            }
+        },
+        "test:unit": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "jest ./tests/unit",
+                "cwd": "packages/core"
+            }
+        },
+        "test:integration": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "jest ./tests/integration",
+                "cwd": "packages/core"
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "outputs": [
+                "{options.outputFile}"
+            ]
+        },
+        "publish": {
+            "executor": "@nx/js:release-publish",
+            "options": {
+                "packageRoot": "packages/core",
+                "registry": "https://registry.npmjs.org/"
+            },
+            "dependsOn": [
+                "build"
+            ]
+        },
+        "version": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version ${args.versionType} --no-git-tag-version",
+                "cwd": "packages/core"
+            }
+        },
+        "version:patch": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version patch --no-git-tag-version",
+                "cwd": "packages/core"
+            }
+        },
+        "version:minor": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version minor --no-git-tag-version",
+                "cwd": "packages/core"
+            }
+        },
+        "version:major": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version major --no-git-tag-version",
+                "cwd": "packages/core"
+            }
+        }
+    },
+    "tags": [
+        "scope:core",
+        "type:lib"
+    ]
+}

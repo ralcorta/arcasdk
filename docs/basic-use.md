@@ -2,26 +2,28 @@
 
 ### Ejemplo Básico
 
-Para utilizar la SDK, debes instanciar la clase `Afip` proporcionando los siguientes datos mínimos:
+Para utilizar la SDK, debes instanciar la clase `Arca` proporcionando los siguientes datos mínimos:
 
-- [`key`](https://www.afip.gob.ar/ws/documentacion/certificados.asp): Contenido de la clave privada generada para AFIP.
-- [`cert`](https://www.afip.gob.ar/ws/documentacion/certificados.asp): Contenido del certificado generado en AFIP.
+- [`key`](https://www.arca.gob.ar/ws/documentacion/certificados.asp): Contenido de la clave privada generada para ARCA.
+- [`cert`](https://www.arca.gob.ar/ws/documentacion/certificados.asp): Contenido del certificado generado en ARCA.
 - `cuit`: CUIT del usuario.
 
 Esto resultará en la creación de un objeto con los servicios disponibles para su uso, como por ejemplo `electronicBillingService`:
 
 ```ts:line-numbers
-import { Afip } from "afip.ts";
+import { Arca } from "@arcasdk/core";
 
-const afip: Afip = new Afip({
+const arca: Arca = new Arca({
   key: "contenido_de_la_clave_privada",
   cert: "contenido_del_certificado",
   cuit: 20111111112,
 });
 
-const factura = await afip.electronicBillingService.createInvoice({
+const factura = await arca.electronicBillingService.createVoucher({
   // datos de la factura
 });
+
+// Nota: createInvoice() es un alias de createVoucher() y sigue disponible para compatibilidad
 ```
 
-La clase `Afip` acepta un parámetro adicional en el constructor llamado "contexto" (ver tipo). Aquí se explican todos los comportamientos que puede tomar Afip.
+La clase `Arca` acepta un parámetro adicional en el constructor llamado "contexto" (ver tipo). Aquí se explican todos los comportamientos que puede tomar Arca.

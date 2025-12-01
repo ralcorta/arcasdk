@@ -1,6 +1,6 @@
 # Habilitar Administrador de Certificados de Producción
 
-Para agregar la aplicación **WSASS "Administración de Certificados Digitales"** a tu escritorio de AFIP, primero debes ingresar en **"Administrador de Relaciones de Clave Fiscal"**.
+Para agregar la aplicación **WSASS "Administración de Certificados Digitales"** a tu escritorio de ARCA, primero debes ingresar en **"Administrador de Relaciones de Clave Fiscal"**.
 
 ![Paso 1](/tutorial/tutorial_5_1.png)
 
@@ -12,12 +12,12 @@ Luego, selecciona **"Adherir servicio"**.
 
 ![Paso 3](/tutorial/tutorial_5_3.png)
 
-Dentro de la lista de servicios, elige **"AFIP > Servicios Interactivos > Administración de Certificados Digitales"**.
+Dentro de la lista de servicios, elige **"ARCA > Servicios Interactivos > Administración de Certificados Digitales"**.
 
 ![Paso 4](/tutorial/tutorial_5_4.png)
 
-Confirma tu elección y así tendrás acceso a la aplicación desde tu escritorio de AFIP.
+Confirma tu elección y así tendrás acceso a la aplicación desde tu escritorio de ARCA.
 
 ![Paso 5](/tutorial/tutorial_5_5.png)
 
-Este tutorial te guía a través de los pasos necesarios para habilitar el Administrador de Certificados de Producción en tu dashboard de AFIP.
+Este tutorial te guía a través de los pasos necesarios para habilitar el Administrador de Certificados de Producción en tu dashboard de ARCA.

@@ -1,9 +1,8 @@
 # Facturación Electrónica
 
+Los métodos de este Web Service se encuentran disponibles en `arca.electronicBillingService`
 
-Los métodos de este Web Service se encuentran disponibles en `afip.electronicBillingService`
-
-La especificación de este Web Service se encuentra disponible [aquí](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+La especificación de este Web Service se encuentra disponible [aquí](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 <strong> 
 </strong>
@@ -20,10 +19,10 @@ Hablaremos de `comprobante` indistintamente si es una `factura`, nota de crédit
 Debemos utilizar el método `getLastVoucher` con los parámetros punto de venta y tipo de comprobante que queremos consultar.
 
 ```js
-const lastVoucher = await afip.electronicBillingService.getLastVoucher(1, 6); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+const lastVoucher = await arca.electronicBillingService.getLastVoucher(1, 6); //Devuelve el número del último comprobante creado para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
 ```
 
-Para mas información acerca de este método ver el item 4.15 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.15 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Crear y asignar CAE a un comprobante
 
@@ -64,19 +63,19 @@ let data = {
 };
 
 // Tip: .createInvoice() es un alias de .createVoucher()
-const res = await afip.electronicBillingService.createVoucher(data);
+const res = await arca.electronicBillingService.createVoucher(data);
 ```
 
-Este método acepta mas parámetros, pueden ver todos los parámetros disponibles [Aqui](https://github.com/valiulab/afip.ts/blob/main/src/interfaces/index.ts#L5)
+Este método acepta mas parámetros, pueden ver todos los parámetros disponibles en el tipo `IVoucher` exportado desde `@arcasdk/core`.
 
-Para mas información acerca de este método ver el item 4.1 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.1 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Crear y asignar CAE a siguiente comprobante
 
 Debemos utilizar el método `createNextVoucher` pasándole como parámetro un Objeto con los detalles del comprobante al igual que el método `createVoucher`, nos devolverá como respuesta `{ CAE : CAE asignado al comprobante, CAEFchVto : Fecha de vencimiento del CAE (yyyy-mm-dd), voucher_number : Número asignado al comprobante }`.
 
 ```js
-const res = await afip.electronicBillingService.createNextVoucher(data);
+const res = await arca.electronicBillingService.createNextVoucher(data);
 ```
 
 ## Obtener información de un comprobante
@@ -84,7 +83,7 @@ const res = await afip.electronicBillingService.createNextVoucher(data);
 Con este método podemos obtener toda la información relacionada a un comprobante o simplemente saber si el comprobante existe, debemos ejecutar el método `getVoucherInfo` pasándole como parámetros el número de comprobante, el punto de venta y el tipo de comprobante, nos devolverá un Objeto con toda la información del comprobante o `null` si el comprobante no existe.
 
 ```js
-const voucherInfo = await afip.electronicBillingService.getVoucherInfo(1, 1, 6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+const voucherInfo = await arca.electronicBillingService.getVoucherInfo(1, 1, 6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
 
 if (voucherInfo === null) {
   console.log("El comprobante no existe");
@@ -94,77 +93,77 @@ if (voucherInfo === null) {
 }
 ```
 
-Para mas información acerca de este método ver el item 4.19 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.19 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener puntos de venta disponibles
 
 ```js
-const salesPoints = await afip.electronicBillingService.getSalesPoints();
+const salesPoints = await arca.electronicBillingService.getSalesPoints();
 ```
 
 ## Obtener tipos de comprobantes disponibles
 
 ```js
-const voucherTypes = await afip.electronicBillingService.getVoucherTypes();
+const voucherTypes = await arca.electronicBillingService.getVoucherTypes();
 ```
 
-Para mas información acerca de este método ver el item 4.4 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.4 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener tipos de conceptos disponibles
 
 ```js
-const conceptTypes = await afip.electronicBillingService.getConceptTypes();
+const conceptTypes = await arca.electronicBillingService.getConceptTypes();
 ```
 
-Para mas información acerca de este método ver el item 4.5 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.5 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener tipos de documentos disponibles
 
 ```js
-const documentTypes = await afip.electronicBillingService.getDocumentTypes();
+const documentTypes = await arca.electronicBillingService.getDocumentTypes();
 ```
 
-Para mas información acerca de este método ver el item 4.6 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.6 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener tipos de alícuotas disponibles
 
 ```js
-const aloquotTypes = await afip.electronicBillingService.getAliquotTypes();
+const aloquotTypes = await arca.electronicBillingService.getAliquotTypes();
 ```
 
-Para mas información acerca de este método ver el item 4.7 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.7 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener tipos de monedas disponibles
 
 ```js
 const currenciesTypes =
-  await afip.electronicBillingService.getCurrenciesTypes();
+  await arca.electronicBillingService.getCurrenciesTypes();
 ```
 
-Para mas información acerca de este método ver el item 4.8 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.8 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener tipos de opciones disponibles para el comprobante
 
 ```js
-const optionTypes = await afip.electronicBillingService.getOptionsTypes();
+const optionTypes = await arca.electronicBillingService.getOptionsTypes();
 ```
 
-Para mas información acerca de este método ver el item 4.9 de la [especificacion del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.9 de la [especificacion del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener tipos de tributos disponibles
 
 ```js
-const taxTypes = await afip.electronicBillingService.getTaxTypes();
+const taxTypes = await arca.electronicBillingService.getTaxTypes();
 ```
 
-Para mas información acerca de este método ver el item 4.10 de la [especificación del Web service](http://www.afip.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+Para mas información acerca de este método ver el item 4.10 de la [especificación del Web service](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 
 ## Obtener estado del servidor
 
 Para esto utilizaremos el método `getServerStatus`
 
 ```js
-const serverStatus = await afip.electronicBillingService.getServerStatus();
+const serverStatus = await arca.electronicBillingService.getServerStatus();
 
 console.log("Este es el estado del servidor:");
 console.log(serverStatus);
