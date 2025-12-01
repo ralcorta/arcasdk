@@ -18,12 +18,13 @@ if [ -z "$SELECTED_PACKAGE" ] || [ "$SELECTED_PACKAGE" = "(all packages)" ]; the
       pkg_name=$(basename "$pkg_dir")
       pkg_json="${pkg_dir}package.json"
       # Check if it's a publishable package (has name starting with @arcasdk/)
-      pkg_npm_name=$(node -p "require('$pkg_json').name" 2>/dev/null || echo "")
+      # Use absolute path for require to avoid issues
+      pkg_npm_name=$(node -p "require('$(pwd)/$pkg_json').name" 2>/dev/null || echo "")
       if [[ "$pkg_npm_name" == @arcasdk/* ]]; then
         echo "$pkg_name" >> packages_to_publish.txt
         echo "  ✅ Found: $pkg_name ($pkg_npm_name)"
       else
-        echo "  ⏭️  Skipped: $pkg_name (not @arcasdk scope)"
+        echo "  ⏭️  Skipped: $pkg_name (not @arcasdk scope, found: $pkg_npm_name)"
       fi
     fi
   done
