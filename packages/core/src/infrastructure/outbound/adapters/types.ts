@@ -1,13 +1,13 @@
 import { IOptions } from "soap";
-import { ILoginCmsReturn } from "./soap/interfaces/LoginCMSService/LoginCms";
-import { ServiceSoapTypes } from "./soap/interfaces/Service/ServiceSoap";
+import { ILoginCmsReturn } from "@infrastructure/outbound/ports/soap/interfaces/LoginCMSService/LoginCms";
+import { ServiceSoapTypes } from "@infrastructure/outbound/ports/soap/interfaces/Service/ServiceSoap";
 import {
   IFEParamGetPtosVentaOutput,
   ServiceSoap12Types,
-} from "./soap/interfaces/Service/ServiceSoap12";
+} from "@infrastructure/outbound/ports/soap/interfaces/Service/ServiceSoap12";
 import { EndpointsEnum, SoapServiceVersion } from "./enums";
-import { WsdlPathEnum } from "./soap/wsdl-path.enum";
-import { ServiceNamesEnum } from "./soap/service-names.enum";
+import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
+import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
 
 export type SoapAsyncFunc<I, O> = (
   input: I,
@@ -29,7 +29,7 @@ export type SoapClientParams = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ILoginCredentials extends ILoginCmsReturn { }
+export interface ILoginCredentials extends ILoginCmsReturn {}
 
 export interface IAccessTicket extends ILoginCredentials {
   getSign(): string;
@@ -177,4 +177,4 @@ export interface ICreateVoucherResult {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput { }
+export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput {}
