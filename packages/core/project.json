@@ -62,6 +62,44 @@
             "outputs": [
                 "{options.outputFile}"
             ]
+        },
+        "publish": {
+            "executor": "@nx/js:release-publish",
+            "options": {
+                "packageRoot": "packages/core",
+                "registry": "https://registry.npmjs.org/"
+            },
+            "dependsOn": [
+                "build"
+            ]
+        },
+        "version": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version ${args.versionType} --no-git-tag-version",
+                "cwd": "packages/core"
+            }
+        },
+        "version:patch": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version patch --no-git-tag-version",
+                "cwd": "packages/core"
+            }
+        },
+        "version:minor": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version minor --no-git-tag-version",
+                "cwd": "packages/core"
+            }
+        },
+        "version:major": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm version major --no-git-tag-version",
+                "cwd": "packages/core"
+            }
         }
     },
     "tags": [

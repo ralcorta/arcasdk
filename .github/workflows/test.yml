@@ -1,14 +1,51 @@
 name: Tests
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
 jobs:
   test:
-    name: Run Jest Tests
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: npm install
-      - name: Run Jest Tests
-        run: npm test
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup NX
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Cache NX
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('**/nx.json', '**/package-lock.json') }}
+          restore-keys: |
+            nx-${{ runner.os }}-
+
+      - name: Run affected tests
+        run: |
+          npx nx affected --target=test:unit --base=main --head=HEAD --parallel=3
+
+      - name: Run all tests if no affected projects
+        if: failure()
+        run: |
+          echo "No affected projects found, running all tests"
+          npm run test

@@ -1,25 +1,20 @@
-name: Release package
+name: Publish Packages to NPM
+
 on:
   workflow_dispatch:
     inputs:
-      release-type:
-        description: "Release type"
+      package:
+        description: "Package to publish"
         required: true
         type: choice
         options:
-          - "patch (0.0.x)"
-          - "minor (0.x.0)"
-          - "major (x.0.0)"
-          - "prepatch (0.0.x-beta)"
-          - "preminor (0.x.0-beta)"
-          - "premajor (x.0.0-beta)"
-          - "prerelease (beta)"
+          - "(all packages)"
+          - "core"
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
       packages: write
     steps:
       - name: Checkout
@@ -31,68 +26,35 @@ jobs:
           registry-url: https://registry.npmjs.org/
           node-version: "22"
           cache: "npm"
+          scope: "@arcasdk"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      - name: Setup NX
+        uses: nrwl/nx-set-shas@v4
 
-      - name: Run tests
-        run: npm run test
-
-      - name: Git configuration
-        run: |
-          git config --global user.email "rodrigo@ralcorta.com"
-          git config --global user.name "Rodrigo Alcorta - GitHub Actions"
-
-      - name: Determine Release Version
-        id: version
-        run: |
-          # Extract the first word from the input (e.g., "patch" from "patch (0.0.x)")
-          RELEASE_TYPE=$(echo "${{ github.event.inputs.release-type }}" | awk '{print $1}')
-
-          if [[ "$RELEASE_TYPE" == "pre"* ]]; then
-            NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)
-            echo "RELEASE_TAG=beta" >> $GITHUB_ENV
-          else
-            NEW_VERSION=$(npm --no-git-tag-version version $RELEASE_TYPE)
-            echo "RELEASE_TAG=latest" >> $GITHUB_ENV
-          fi
-          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
-
-      - name: Update changelog
-        uses: superfaceai/release-changelog-action@v3
+      - name: Cache NX
+        uses: actions/cache@v4
         with:
-          path-to-changelog: CHANGELOG.md
-          version: ${{ env.NEW_VERSION }}
-          operation: release
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('**/nx.json', '**/package-lock.json') }}
+          restore-keys: |
+            nx-${{ runner.os }}-
 
-      - name: Commit & Tag
+      - name: Discover Packages
+        id: discover-packages
         run: |
-          git add package.json CHANGELOG.md
-          git commit -m "chore: release ${{ env.NEW_VERSION }}"
-          git tag ${{ env.NEW_VERSION }}
+          bash .github/scripts/discover-packages.sh "${{ github.event.inputs.package }}"
 
-      - name: Publish to NPM
-        run: npm publish --verbose --access public --tag ${{ env.RELEASE_TAG }}
+      - name: Check and Publish Packages
+        id: publish-packages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          bash .github/scripts/check-and-publish-packages.sh
 
-      - name: Push changes
-        run: git push origin && git push --tags
-
-      - name: Get Changelog Entry
-        id: get-changelog
-        uses: superfaceai/release-changelog-action@v3
-        with:
-          path-to-changelog: CHANGELOG.md
-          version: ${{ env.NEW_VERSION }}
-          operation: read
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ env.NEW_VERSION }}
-          body: ${{ steps.get-changelog.outputs.changelog }}
-          prerelease: ${{ startsWith(github.event.inputs.release-type, 'pre') }}
+      - name: Publish Summary
+        if: always()
+        run: |
+          bash .github/scripts/publish-summary.sh

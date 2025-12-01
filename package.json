@@ -20,6 +20,11 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
+    "publish:core": "nx publish core",
+    "version:core": "nx version core --versionType=${VERSION:-patch}",
+    "version:core:patch": "nx version:patch core",
+    "version:core:minor": "nx version:minor core",
+    "version:core:major": "nx version:major core",
     "nx": "nx"
   },
   "author": "valiuLab",
