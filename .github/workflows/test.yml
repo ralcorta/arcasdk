@@ -44,8 +44,8 @@ jobs:
         id: base-branch
         run: |
           if [ "${{ github.event_name }}" == "pull_request" ]; then
-            # For PRs, use the base branch of the PR
-            BASE="${{ github.base_ref }}"
+            # For PRs, use the base branch of the PR (use origin/ prefix for remote reference)
+            BASE="origin/${{ github.base_ref }}"
           else
             # For pushes, compare with the remote state of the same branch
             # If branch doesn't exist remotely, fallback to main
