@@ -1,9 +1,8 @@
-import { testCuit } from "../../../mocks/data/voucher.mock";
-import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
+import { RegisterScopeFiveService } from "@arcasdk/core/src/application/services/register-scope-five.service";
 import {
   IRegisterRepositoryPort,
   RegisterScope,
-} from "@application/ports/register/register-repository.port";
+} from "@arcasdk/core/src/application/ports/register/register-repository.port";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
@@ -13,7 +12,7 @@ import {
   RegisterServerStatusDto,
   TaxpayerDetailsDto,
   TaxpayersDetailsDto,
-} from "@application/dto/register.dto";
+} from "@arcasdk/core/src/application/dto/register.dto";
 
 describe("Register Scope Five Service", () => {
   let registerScopeFiveService: RegisterScopeFiveService;

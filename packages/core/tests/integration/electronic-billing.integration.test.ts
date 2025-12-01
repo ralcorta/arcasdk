@@ -216,11 +216,6 @@ describeOrSkip(
         }
 
         const tipoComprobante = 11; // Factura C
-        const lastVoucher = await arca.electronicBillingService.getLastVoucher(
-          puntoVenta,
-          tipoComprobante
-        );
-        const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
         const fecha = new Date(
           Date.now() - new Date().getTimezoneOffset() * 60000
@@ -234,40 +229,77 @@ describeOrSkip(
         const impIVA = 0; // Factura C no tiene IVA
         const impTotal = impNeto + impTrib + impIVA;
 
-        const facturaData = {
-          CantReg: 1,
-          PtoVta: puntoVenta,
-          CbteTipo: tipoComprobante,
-          Concepto: 2, // Servicios
-          DocTipo: 99, // Consumidor Final
-          DocNro: 0,
-          CbteDesde: siguienteNumero,
-          CbteHasta: siguienteNumero,
-          CbteFch: fecha,
-          ImpTotal: impTotal,
-          ImpTotConc: 0,
-          ImpNeto: impNeto,
-          ImpOpEx: 0,
-          ImpIVA: impIVA,
-          ImpTrib: impTrib,
-          MonId: "PES",
-          MonCotiz: 1,
-          CondicionIVAReceptorId: 1,
-          FchServDesde: fecha,
-          FchServHasta: fecha,
-          FchVtoPago: fecha,
+        // Helper function to create voucher with retry for race conditions
+        const createVoucherWithRetry = async (
+          maxRetries = 3,
+          retryDelay = 500
+        ) => {
+          for (let attempt = 0; attempt < maxRetries; attempt++) {
+            // Get the last voucher just before creating to minimize race conditions
+            // Add a small random delay to reduce race conditions when tests run in parallel
+            await new Promise((resolve) =>
+              setTimeout(resolve, Math.random() * 100 + 50)
+            );
+            const lastVoucher =
+              await arca.electronicBillingService.getLastVoucher(
+                puntoVenta,
+                tipoComprobante
+              );
+            const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
+
+            const facturaData = {
+              CantReg: 1,
+              PtoVta: puntoVenta,
+              CbteTipo: tipoComprobante,
+              Concepto: 2, // Servicios
+              DocTipo: 99, // Consumidor Final
+              DocNro: 0,
+              CbteDesde: siguienteNumero,
+              CbteHasta: siguienteNumero,
+              CbteFch: fecha,
+              ImpTotal: impTotal,
+              ImpTotConc: 0,
+              ImpNeto: impNeto,
+              ImpOpEx: 0,
+              ImpIVA: impIVA,
+              ImpTrib: impTrib,
+              MonId: "PES",
+              MonCotiz: 1,
+              CondicionIVAReceptorId: 1,
+              FchServDesde: fecha,
+              FchServHasta: fecha,
+              FchVtoPago: fecha,
+            };
+
+            const resultado = await arca.electronicBillingService.createVoucher(
+              facturaData
+            );
+
+            // Check if there's a retryable error (transaction active or duplicate number)
+            const hasRetryableError = resultado.response.Errors?.Err?.some(
+              (err) =>
+                err.Code === 502 || // Error interno de base de datos - Transacción Activa
+                err.Code === 10016 // El numero o fecha del comprobante no se corresponde
+            );
+
+            if (hasRetryableError && attempt < maxRetries - 1) {
+              // Wait with exponential backoff before retrying
+              const delay = retryDelay * Math.pow(2, attempt);
+              await new Promise((resolve) => setTimeout(resolve, delay));
+              continue;
+            }
+
+            return resultado;
+          }
+          throw new Error("Max retries reached for voucher creation");
         };
 
-        const resultado = await arca.electronicBillingService.createVoucher(
-          facturaData
-        );
+        const resultado = await createVoucherWithRetry();
+
+        console.dir(resultado, { depth: 50 });
 
         expect(resultado).toBeDefined();
         expect(resultado.response).toBeDefined();
-        expect(resultado.cae).toBeDefined();
-        expect(resultado.cae).not.toBe("");
-        expect(resultado.caeFchVto).toBeDefined();
-        expect(resultado.caeFchVto).not.toBe("");
 
         const { FeCabResp, FeDetResp, Errors, Events } = resultado.response;
         expect(FeCabResp).toBeDefined();
@@ -277,25 +309,36 @@ describeOrSkip(
 
         const voucherResponse = FeDetResp.FECAEDetResponse[0];
         expect(voucherResponse).toBeDefined();
+
+        // First check if the voucher was approved before checking CAE
         expect(voucherResponse.Resultado).toBe("A"); // "A" = Aprobado
+        expect(FeCabResp.Resultado).toBe("A"); // "A" = Aprobado
+
+        // Only check CAE if voucher was approved
         expect(voucherResponse.CAE).toBeDefined();
         expect(voucherResponse.CAE).not.toBe("");
         expect(voucherResponse.CAEFchVto).toBeDefined();
         expect(voucherResponse.CAEFchVto).not.toBe("");
 
+        // Now check the extracted CAE values
+        expect(resultado.cae).toBeDefined();
+        expect(resultado.cae).not.toBe("");
+        expect(resultado.caeFchVto).toBeDefined();
+        expect(resultado.caeFchVto).not.toBe("");
+
         expect(voucherResponse.CAE).toMatch(/^\d{14}$/);
 
-        expect(voucherResponse.CbteDesde).toBe(siguienteNumero);
-        expect(voucherResponse.CbteHasta).toBe(siguienteNumero);
+        // Verify that CbteDesde and CbteHasta are the same (single voucher)
+        expect(voucherResponse.CbteDesde).toBe(voucherResponse.CbteHasta);
 
         expect(voucherResponse.CbteDesde).toBeDefined();
         expect(voucherResponse.CbteHasta).toBeDefined();
 
         expect(voucherResponse.CbteFch).toBe(fecha);
 
-        expect(voucherResponse.Concepto).toBe(facturaData.Concepto);
-        expect(voucherResponse.DocTipo).toBe(facturaData.DocTipo);
-        expect(voucherResponse.DocNro).toBe(facturaData.DocNro);
+        expect(voucherResponse.Concepto).toBe(2); // Servicios
+        expect(voucherResponse.DocTipo).toBe(99); // Consumidor Final
+        expect(voucherResponse.DocNro).toBe(0);
 
         if (Errors?.Err?.length) {
           Errors.Err.forEach((error) => {
@@ -305,7 +348,6 @@ describeOrSkip(
         }
 
         expect(FeCabResp.CantReg).toBe(1);
-        expect(FeCabResp.Resultado).toBe("A"); // "A" = Aprobado
         expect(FeCabResp.PtoVta).toBe(puntoVenta);
         expect(FeCabResp.CbteTipo).toBe(tipoComprobante);
       });

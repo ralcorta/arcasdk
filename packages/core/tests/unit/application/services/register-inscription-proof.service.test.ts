@@ -1,9 +1,8 @@
-import { testCuit } from "../../../mocks/data/voucher.mock";
-import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
+import { RegisterInscriptionProofService } from "@arcasdk/core/src/application/services/register-inscription-proof.service";
 import {
   IRegisterRepositoryPort,
   RegisterScope,
-} from "@application/ports/register/register-repository.port";
+} from "@arcasdk/core/src/application/ports/register/register-repository.port";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,
@@ -13,7 +12,7 @@ import {
   RegisterServerStatusDto,
   TaxpayerDetailsDto,
   TaxpayersDetailsDto,
-} from "@application/dto/register.dto";
+} from "@arcasdk/core/src/application/dto/register.dto";
 
 describe("Register Inscription Proof Service", () => {
   let registerInscriptionProofService: RegisterInscriptionProofService;
