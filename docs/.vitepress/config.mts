@@ -5,6 +5,7 @@ export default defineConfig({
   title: "Arca SDK",
   description: "Arca typescript SDK",
   lang: "es",
+  appearance: "dark",
   head: [["link", { rel: "icon", href: "/logo.ico" }]],
   themeConfig: {
     logo: "/logo.png",
