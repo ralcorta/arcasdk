@@ -247,33 +247,33 @@ describeOrSkip(
               );
             const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
-            const facturaData = {
-              CantReg: 1,
-              PtoVta: puntoVenta,
-              CbteTipo: tipoComprobante,
-              Concepto: 2, // Servicios
-              DocTipo: 99, // Consumidor Final
-              DocNro: 0,
-              CbteDesde: siguienteNumero,
-              CbteHasta: siguienteNumero,
-              CbteFch: fecha,
-              ImpTotal: impTotal,
-              ImpTotConc: 0,
-              ImpNeto: impNeto,
-              ImpOpEx: 0,
-              ImpIVA: impIVA,
-              ImpTrib: impTrib,
-              MonId: "PES",
-              MonCotiz: 1,
-              CondicionIVAReceptorId: 1,
-              FchServDesde: fecha,
-              FchServHasta: fecha,
-              FchVtoPago: fecha,
-            };
+        const facturaData = {
+          CantReg: 1,
+          PtoVta: puntoVenta,
+          CbteTipo: tipoComprobante,
+          Concepto: 2, // Servicios
+          DocTipo: 99, // Consumidor Final
+          DocNro: 0,
+          CbteDesde: siguienteNumero,
+          CbteHasta: siguienteNumero,
+          CbteFch: fecha,
+          ImpTotal: impTotal,
+          ImpTotConc: 0,
+          ImpNeto: impNeto,
+          ImpOpEx: 0,
+          ImpIVA: impIVA,
+          ImpTrib: impTrib,
+          MonId: "PES",
+          MonCotiz: 1,
+          CondicionIVAReceptorId: 1,
+          FchServDesde: fecha,
+          FchServHasta: fecha,
+          FchVtoPago: fecha,
+        };
 
-            const resultado = await arca.electronicBillingService.createVoucher(
-              facturaData
-            );
+        const resultado = await arca.electronicBillingService.createVoucher(
+          facturaData
+        );
 
             // Check if there's a retryable error (transaction active or duplicate number)
             const hasRetryableError = resultado.response.Errors?.Err?.some(
