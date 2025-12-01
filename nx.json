@@ -46,9 +46,6 @@
             ]
         }
     },
-    "affected": {
-        "defaultBase": "main"
-    },
     "tasksRunnerOptions": {
         "default": {
             "runner": "nx/tasks-runners/default",
@@ -58,6 +55,19 @@
                     "test",
                     "lint"
                 ]
+            }
+        }
+    },
+    "release": {
+        "projects": [
+            "core"
+        ],
+        "version": {
+            "conventionalCommits": true
+        },
+        "changelog": {
+            "workspaceChangelog": {
+                "createRelease": "github"
             }
         }
     }
