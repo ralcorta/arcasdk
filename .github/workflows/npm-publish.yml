@@ -2,23 +2,18 @@ name: Publish Packages to NPM
 
 on:
   workflow_dispatch:
-    inputs:
-      package:
-        description: "Package to publish"
-        required: true
-        type: choice
-        options:
-          - "(all packages)"
-          - "core"
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
       packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,30 +26,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Setup NX
-        uses: nrwl/nx-set-shas@v4
-
-      - name: Cache NX
-        uses: actions/cache@v4
-        with:
-          path: .nx/cache
-          key: nx-${{ runner.os }}-${{ hashFiles('**/nx.json', '**/package-lock.json') }}
-          restore-keys: |
-            nx-${{ runner.os }}-
-
-      - name: Discover Packages
-        id: discover-packages
+      - name: Git Identity
         run: |
-          bash .github/scripts/discover-packages.sh "${{ github.event.inputs.package }}"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
 
-      - name: Check and Publish Packages
-        id: publish-packages
+      - name: Nx Release
         env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          bash .github/scripts/check-and-publish-packages.sh
-
-      - name: Publish Summary
-        if: always()
-        run: |
-          bash .github/scripts/publish-summary.sh
+        run: npx nx release --yes
