@@ -6,6 +6,9 @@ set -e
 
 SUMMARY_FILE=$(mktemp)
 
+# Cleanup temporary file on exit
+trap "rm -f '$SUMMARY_FILE'" EXIT
+
 while IFS= read -r PACKAGE; do
   if [ -z "$PACKAGE" ]; then
     continue
