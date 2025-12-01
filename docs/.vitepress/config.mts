@@ -115,7 +115,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/ralcorta/afip.ts" },
+      { icon: "github", link: "https://github.com/ralcorta/arcasdk" },
     ],
 
     footer: {

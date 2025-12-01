@@ -2,7 +2,7 @@
 
 ### Commit
 
-Usamos ["semantic release library"](https://www.npmjs.com/package/semantic-release) (https://www.npmjs.com/package/semantic-release) para generar nuestras nuevas versiones, tags y changelogs. Para esto necesitamos specificar un mensaje en los commits con un formato que permita determinar que version es aumentada, y tambien ayudar a mejorar el CHANGELOG.md
+El proyecto utiliza convenciones de commits semánticos para mantener un historial claro. Aunque ya no se usa semantic-release automático, recomendamos seguir el formato de commits semánticos para facilitar la lectura del historial y la generación manual de changelogs.
 
 | Commit message                                                                                                                                                                                   | Release type               |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |

@@ -6,7 +6,7 @@ Este proyecto soporta tests de integración usando certificados reales de homolo
 
 ### 1. Obtener Certificados de Homologación
 
-Primero necesitas obtener los certificados de homologación desde el sitio de AFIP:
+Primero necesitas obtener los certificados de homologación desde el sitio de ARCA:
 
 - [Habilitar Certificados de Homologación](https://www.afip.gob.ar/fe/ayuda/documentos/manual-desarrollador-v.2.21.pdf)
 

@@ -13,7 +13,7 @@ export class SoapClient implements ISoapClientPort {
     wsdlPath: string,
     options?: any
   ): Promise<T> {
-    // Create HTTPS agent for legacy servers (AFIP uses weak DH parameters)
+    // Create HTTPS agent for legacy servers (ARCA uses weak DH parameters)
     const legacyHttpsAgent = new https.Agent({
       rejectUnauthorized: true,
       minDHSize: MIN_DH_SIZE_LEGACY,

@@ -2,7 +2,7 @@
 
 Para autorizar el acceso a un servicio web de producción utilizando un certificado previamente creado, sigue estos pasos:
 
-Ingresa a **«Administrador de Relaciones de Clave Fiscal»** desde tu escritorio de AFIP.
+Ingresa a **«Administrador de Relaciones de Clave Fiscal»** desde tu escritorio de ARCA.
 
 ![Paso 1](/tutorial/tutorial_7_1.png)
 
@@ -18,7 +18,7 @@ Dentro de esta sección, presiona **«Buscar»**.
 
 ![Paso 4](/tutorial/tutorial_7_4.png)
 
-Abre la categoría **«AFIP > Web Services»** y elige el servicio web que deseas autorizar.
+Abre la categoría **«ARCA > Web Services»** y elige el servicio web que deseas autorizar.
 
 ![Paso 5](/tutorial/tutorial_7_5.png)
 

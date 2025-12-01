@@ -20,6 +20,9 @@
     "version:core:patch": "nx version:patch core",
     "version:core:minor": "nx version:minor core",
     "version:core:major": "nx version:major core",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "nx": "nx"
   },
   "author": "valiuLab",
@@ -27,7 +30,8 @@
   "devDependencies": {
     "@nx/jest": "^22.1.3",
     "@nx/js": "^22.1.3",
-    "nx": "^22.1.3"
+    "nx": "^22.1.3",
+    "vitepress": "^1.6.4"
   },
   "repository": {
     "type": "git",
@@ -36,5 +40,17 @@
   "bugs": {
     "url": "https://github.com/ralcorta/arcasdk/issues"
   },
-  "homepage": "https://github.com/ralcorta/arcasdk#readme"
+  "homepage": "https://github.com/ralcorta/arcasdk#readme",
+  "keywords": [
+    "monorepo",
+    "web-service",
+    "factura-electronica",
+    "padron",
+    "arca",
+    "afip",
+    "sdk",
+    "typescript",
+    "soap",
+    "wsaa"
+  ]
 }

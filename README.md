@@ -14,15 +14,15 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
 [![npm](https://img.shields.io/npm/v/@arcasdk/core.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/core)
-![GitHub Repo stars](https://img.shields.io/github/stars/ralcorta/arca-sdk)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ralcorta/arca-sdk)
-![GitHub](https://img.shields.io/github/license/ralcorta/arca-sdk)
+![GitHub Repo stars](https://img.shields.io/github/stars/ralcorta/arcasdk)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ralcorta/arcasdk)
+![GitHub](https://img.shields.io/github/license/ralcorta/arcasdk)
 ![npm](https://img.shields.io/npm/dt/@arcasdk/core)
 
 <br />
 <p align="center">
-  <a href="https://github.com/ralcorta/arca-sdk">
-    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="arca-sdk" width="230">
+  <a href="https://github.com/ralcorta/arcasdk">
+    <img src="https://user-images.githubusercontent.com/19806540/198080937-468e851b-2ae4-40a7-b2c5-cb929ff7749a.png" alt="arcasdk" width="230">
   </a>
 
   <h3 align="center">Arca SDK</h3>
@@ -30,13 +30,13 @@
   <p align="center">
     SDK para consumir y usar los Web Services de ARCA (ex AFIP)
     <br />
-    <a href="https://ralcorta.github.io/arca-sdk">Ver documentacion completa</a>
+    <a href="https://ralcorta.github.io/arcasdk">Ver documentacion completa</a>
     <br />
     <br />
     <small> 
         Inspirado en <a href="https://github.com/AfipSDK/afip.js">afip.js</a> 
       <br />
-      <a href="https://github.com/ralcorta/arca-sdk/issues">Reportar un bug</a>
+      <a href="https://github.com/ralcorta/arcasdk/issues">Reportar un bug</a>
     </small>
   </p>
 </p>
@@ -68,7 +68,7 @@ yarn add @arcasdk/core
 
 Se debe tener los certificados emitidos por ARCA/AFIP, ya sean para los servidores de homologacion (test) o produccion, para poder pasarselos como parametro al paquete y que este haga uso de ellos para comunicarse con los web services.
 
-- [Guia de como obtenerlos](https://ralcorta.github.io/arca-sdk/tutorial/enable_testing_certificates.html)
+- [Guia de como obtenerlos](https://ralcorta.github.io/arcasdk/tutorial/enable_testing_certificates.html)
 - [Documentacion oficial de certificados](https://www.afip.gob.ar/ws/documentacion/certificados.asp)
 
 ##### Ejemplo basico
@@ -135,19 +135,19 @@ Caracteristicas:
 - Escrito enteramente con `Typescript`
 - Soporte para `Serverless`. El package permite manejar los token de autenticacion de manera aislada.
 
-Para mas <strong>documentacion</strong>, ir al [sitio oficial](https://ralcorta.github.io/arca-sdk).
+Para mas <strong>documentacion</strong>, ir al [sitio oficial](https://ralcorta.github.io/arcasdk).
 
 ## Desarrollo y contribuciones
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/arca-sdk/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/arca-sdk/issues/new).
+Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/arcasdk/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/arcasdk/issues/new).
 
 ### Desarrollo
 
-Seria genial si puedes ayudarnos mejorando `arca-sdk`. ¿Como hacer?
+Seria genial si puedes ayudarnos mejorando `arcasdk`. ¿Como hacer?
 
-1. [Clonar](https://github.com/ralcorta/arca-sdk).
+1. [Clonar](https://github.com/ralcorta/arcasdk).
 
 2. `npm install`.
 
@@ -155,7 +155,7 @@ Seria genial si puedes ayudarnos mejorando `arca-sdk`. ¿Como hacer?
 
 4. Correr los test: `npm test`.
 
-5. Cear un [Pull Request](https://github.com/ralcorta/arca-sdk/compare).
+5. Cear un [Pull Request](https://github.com/ralcorta/arcasdk/compare).
 
 ## Licencia
 
