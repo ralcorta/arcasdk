@@ -12,7 +12,7 @@ SELECTED_PACKAGE="$1"
 if [ -z "$SELECTED_PACKAGE" ] || [ "$SELECTED_PACKAGE" = "(all packages)" ]; then
   # Discover all packages in packages/ directory that have package.json with @arcasdk scope
   echo "🔍 Discovering all packages..."
-  touch packages_to_publish.txt
+  > packages_to_publish.txt  # Truncate file to ensure it's empty
   for pkg_dir in packages/*/; do
     if [ -f "${pkg_dir}package.json" ]; then
       pkg_name=$(basename "$pkg_dir")
