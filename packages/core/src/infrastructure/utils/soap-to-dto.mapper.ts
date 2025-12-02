@@ -13,6 +13,7 @@ import {
   ParameterType,
   IvaReceptorType,
   CaeaResponse,
+  CaeaUsageResponse,
   CaeaNoMovement,
   PaisType,
   ActividadType,
@@ -242,6 +243,33 @@ export function mapCaea(soapResult: {
     fchVigHasta: soapResult.FchVigHasta,
     fchTopeInf: soapResult.FchTopeInf,
     fchProceso: soapResult.FchProceso,
+    observaciones: soapResult.Observaciones?.Obs?.[0]?.Msg,
+  };
+}
+
+/**
+ * Map SOAP CAEA Usage to Domain CaeaUsageResponse
+ */
+export function mapCaeaUsage(soapResult: {
+  CAEA: string;
+  Concepto: number;
+  DocTipo: number;
+  DocNro: number;
+  CbteDesde: number;
+  CbteHasta: number;
+  CbteFch: string;
+  Resultado: string;
+  Observaciones?: { Obs?: Array<{ Msg: string }> };
+}): CaeaUsageResponse {
+  return {
+    caea: soapResult.CAEA,
+    concepto: soapResult.Concepto,
+    docTipo: soapResult.DocTipo,
+    docNro: soapResult.DocNro,
+    cbteDesde: soapResult.CbteDesde,
+    cbteHasta: soapResult.CbteHasta,
+    cbteFch: soapResult.CbteFch,
+    resultado: soapResult.Resultado,
     observaciones: soapResult.Observaciones?.Obs?.[0]?.Msg,
   };
 }

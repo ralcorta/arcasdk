@@ -20,6 +20,7 @@ import {
   TaxTypesResultDto,
   IvaReceptorTypesResultDto,
   CaeaResultDto,
+  CaeaUsageResultDto,
   CaeaNoMovementResultDto,
   CountriesResultDto,
   ActivitiesResultDto,
@@ -366,7 +367,7 @@ export class ElectronicBillingService {
   async informCaeaUsage(
     voucher: IVoucher,
     caea: string
-  ): Promise<CaeaResultDto> {
+  ): Promise<CaeaUsageResultDto> {
     return this.informCaeaUsageUseCase.execute(voucher, caea);
   }
 

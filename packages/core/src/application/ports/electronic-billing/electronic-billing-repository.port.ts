@@ -20,6 +20,7 @@ import {
   TaxTypesResultDto,
   IvaReceptorTypesResultDto,
   CaeaResultDto,
+  CaeaUsageResultDto,
   CaeaNoMovementResultDto,
   CountriesResultDto,
   ActivitiesResultDto,
@@ -164,7 +165,7 @@ export interface IElectronicBillingRepositoryPort {
    * @param salesPoint Sales point number
    * @returns CAEA Usage information
    */
-  informCaeaUsage(voucher: Voucher, caea: string): Promise<CaeaResultDto>;
+  informCaeaUsage(voucher: Voucher, caea: string): Promise<CaeaUsageResultDto>;
 
   /**
    * Get Quotation

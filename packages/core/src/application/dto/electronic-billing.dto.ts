@@ -17,6 +17,7 @@ import {
   TaxType,
   IvaReceptorType,
   CaeaResponse,
+  CaeaUsageResponse,
   CaeaNoMovement,
   PaisType,
   ActividadType,
@@ -160,6 +161,16 @@ export interface IvaReceptorTypesResultDto {
  */
 export interface CaeaResultDto {
   resultGet?: CaeaResponse;
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * CAEA Usage Result DTO
+ */
+export interface CaeaUsageResultDto {
+  resultGet?: CaeaUsageResponse;
   errors?: {
     err?: ErrorInfo[];
   };

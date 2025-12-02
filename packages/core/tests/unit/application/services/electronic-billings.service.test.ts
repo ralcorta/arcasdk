@@ -415,9 +415,12 @@ describe("Electronic Billings Service", () => {
     const mockResult = {
       resultGet: {
         caea: "12345678901234",
-        periodo: 202310,
-        orden: 1,
-        fchProceso: "20231101",
+        concepto: 1,
+        docTipo: 80,
+        docNro: 20111111112,
+        cbteDesde: 1,
+        cbteHasta: 1,
+        cbteFch: "20231001",
         resultado: "A",
       },
     };
