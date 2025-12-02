@@ -165,6 +165,21 @@ export interface CaeaResponse {
 }
 
 /**
+ * CAEA Usage Response
+ */
+export interface CaeaUsageResponse {
+  caea: string;
+  concepto: number;
+  docTipo: number;
+  docNro: number;
+  cbteDesde: number;
+  cbteHasta: number;
+  cbteFch: string;
+  resultado: string;
+  observaciones?: string;
+}
+
+/**
  * CAEA No Movement Information
  */
 export interface CaeaNoMovement {

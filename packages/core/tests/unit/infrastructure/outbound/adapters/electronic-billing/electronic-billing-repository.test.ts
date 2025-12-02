@@ -220,12 +220,13 @@ describe("ElectronicBillingRepository", () => {
             FECAEADetResponse: [
               {
                 CAEA: "12345678901234",
-                Periodo: 202310,
-                Orden: 1,
-                FchVigDesde: "20231001",
-                FchVigHasta: "20231015",
-                FchTopeInf: "20231020",
-                FchProceso: "20231001100000",
+                Concepto: 1,
+                DocTipo: 80,
+                DocNro: 20111111112,
+                CbteDesde: 1,
+                CbteHasta: 1,
+                CbteFch: "20231001",
+                Resultado: "A",
                 Observaciones: { Obs: [{ Msg: "Observation" }] },
               },
             ],
@@ -269,12 +270,13 @@ describe("ElectronicBillingRepository", () => {
 
       expect(result.resultGet).toEqual({
         caea: "12345678901234",
-        periodo: 202310,
-        orden: 1,
-        fchVigDesde: "20231001",
-        fchVigHasta: "20231015",
-        fchTopeInf: "20231020",
-        fchProceso: "20231001100000",
+        concepto: 1,
+        docTipo: 80,
+        docNro: 20111111112,
+        cbteDesde: 1,
+        cbteHasta: 1,
+        cbteFch: "20231001",
+        resultado: "A",
         observaciones: "Observation",
       });
 

@@ -21,6 +21,7 @@ import {
   TaxTypesResultDto,
   IvaReceptorTypesResultDto,
   CaeaResultDto,
+  CaeaUsageResultDto,
   CaeaNoMovementResultDto,
   CountriesResultDto,
   ActivitiesResultDto,
@@ -48,12 +49,6 @@ import {
   CurrencyType,
   OptionalType,
   TaxType,
-  IvaReceptorType,
-  CaeaResponse,
-  CaeaNoMovement,
-  PaisType,
-  ActividadType,
-  CotizacionType,
 } from "@domain/types/electronic-billing.types";
 import {
   mapServerStatus,
@@ -65,6 +60,7 @@ import {
   mapIvaReceptorTypes,
   mapSoapErrors,
   mapCaea,
+  mapCaeaUsage,
   mapCaeaNoMovement,
   mapCountries,
   mapActivities,
@@ -470,7 +466,7 @@ export class ElectronicBillingRepository
   async informCaeaUsage(
     voucher: Voucher,
     caea: string
-  ): Promise<CaeaResultDto> {
+  ): Promise<CaeaUsageResultDto> {
     const client = await this.getClient();
     const voucherData = voucher.toDTO();
 
@@ -531,7 +527,7 @@ export class ElectronicBillingRepository
     const result = output.FECAEARegInformativoResult;
     return {
       resultGet: result.FeDetResp?.FECAEADetResponse?.[0]
-        ? mapCaea(result.FeDetResp.FECAEADetResponse[0] as any)
+        ? mapCaeaUsage(result.FeDetResp.FECAEADetResponse[0] as any)
         : undefined,
       errors: mapSoapErrors(result.Errors)
         ? { err: mapSoapErrors(result.Errors)! }
