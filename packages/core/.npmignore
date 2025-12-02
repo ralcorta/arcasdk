@@ -1,8 +1,6 @@
 node_modules
 src
 tests
-tsconfig.json
-tsconfig.*.json
 jest.config.js
 jest.setup.js
 .DS_Store
