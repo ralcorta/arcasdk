@@ -91,8 +91,6 @@ export class RegisterScopeFourRepository
 
       return this.mapPersonaReturnToDto(personaReturn);
     } catch (error: any) {
-      console.log("Error message:", error?.message);
-      console.log("Error keys:", Object.keys(error));
       if (error?.code === 602 || error?.message?.includes("no existe")) {
         return null;
       }
