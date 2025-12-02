@@ -2,6 +2,7 @@
  * Register Scope Thirteen Repository
  * Implements IRegisterScopeThirteenRepositoryPort
  */
+import { Client } from "soap";
 import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { BaseSoapRepository } from "../soap/base-soap-repository";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
@@ -51,6 +52,12 @@ export class RegisterScopeThirteenRepository
       serviceName: ServiceNamesEnum.WSSR_PADRON_THIRTEEN,
       injectAuthProperty: true,
       soapVersion: SoapServiceVersion.ServiceSoap,
+      authMapper: (auth: any) => ({
+        token: auth.Auth.Token,
+        sign: auth.Auth.Sign,
+        cuitRepresentada: auth.Auth.Cuit,
+      }),
+      excludeMethods: ["dummy"],
     });
 
     return this.client;
@@ -96,22 +103,33 @@ export class RegisterScopeThirteenRepository
     documentNumber: string
   ): Promise<TaxIDByDocumentResultDto> {
     const client = await this.getClient();
-    const [output] = await client.getIdPersonaListByDocumentoAsync({
-      documento: documentNumber,
-    } as any);
 
-    const idPersonaListReturn = output.idPersonaListReturn;
+    try {
+      const [output] = await client.getIdPersonaListByDocumentoAsync({
+        documento: documentNumber,
+      } as any);
 
-    const idPersona = Array.isArray(idPersonaListReturn.idPersona)
-      ? idPersonaListReturn.idPersona
-      : typeof idPersonaListReturn.idPersona === "number"
-      ? [idPersonaListReturn.idPersona]
-      : [];
+      const idPersonaListReturn = output.idPersonaListReturn;
 
-    return {
-      idPersona,
-      errorConstancia: undefined,
-    };
+      const idPersona = Array.isArray(idPersonaListReturn.idPersona)
+        ? idPersonaListReturn.idPersona
+        : typeof idPersonaListReturn.idPersona === "number"
+        ? [idPersonaListReturn.idPersona]
+        : [];
+
+      return {
+        idPersona,
+        errorConstancia: undefined,
+      };
+    } catch (error: any) {
+      if (error?.code === 602 || error?.message?.includes("no existe")) {
+        return {
+          idPersona: [],
+          errorConstancia: undefined,
+        };
+      }
+      throw error;
+    }
   }
 
   private mapPersonaReturnToDto(personaReturn: any): TaxpayerDetailsDto {

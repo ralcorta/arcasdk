@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="dummy" type="tns:dummy"/>
@@ -42,6 +41,7 @@
       <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
       <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
       <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
       <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
       <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
@@ -123,7 +123,9 @@
   <xs:complexType name="impuesto">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
       <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>

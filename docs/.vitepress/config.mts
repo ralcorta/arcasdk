@@ -8,6 +8,9 @@ export default withMermaid(
     description: "Arca typescript SDK",
     lang: "es",
     appearance: "dark",
+    sitemap: {
+      hostname: "https://afipts.com",
+    },
     head: [["link", { rel: "icon", href: "/logo.ico" }]],
     themeConfig: {
       logo: "/logo.png",

@@ -2,6 +2,7 @@
  * Register Scope Five Repository
  * Implements IRegisterScopeFiveRepositoryPort
  */
+import { Client } from "soap";
 import { IRegisterScopeFiveRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { BaseSoapRepository } from "../soap/base-soap-repository";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
@@ -51,6 +52,12 @@ export class RegisterScopeFiveRepository
       serviceName: ServiceNamesEnum.WSSR_PADRON_FIVE,
       injectAuthProperty: true,
       soapVersion: SoapServiceVersion.ServiceSoap,
+      authMapper: (auth: any) => ({
+        token: auth.Auth.Token,
+        sign: auth.Auth.Sign,
+        cuitRepresentada: auth.Auth.Cuit,
+      }),
+      excludeMethods: ["dummy"],
     });
 
     return this.client;

@@ -118,6 +118,15 @@ export interface TaxType extends ParameterType {
 }
 
 /**
+ * IVA Receptor Type
+ */
+export interface IvaReceptorType {
+  id: number;
+  desc: string;
+  cmp_Clase: string;
+}
+
+/**
  * Error Information
  */
 export interface ErrorInfo {
@@ -131,4 +140,61 @@ export interface ErrorInfo {
 export interface ResultWithErrors<T> {
   result?: T;
   errors?: ErrorInfo[];
+}
+
+/**
+ * CAEA Request
+ */
+export interface CaeaRequest {
+  periodo: number;
+  orden: number;
+}
+
+/**
+ * CAEA Response
+ */
+export interface CaeaResponse {
+  caea: string;
+  periodo: number;
+  orden: number;
+  fchVigDesde: string;
+  fchVigHasta: string;
+  fchTopeInf: string;
+  fchProceso: string;
+  observaciones?: string;
+}
+
+/**
+ * CAEA No Movement Information
+ */
+export interface CaeaNoMovement {
+  caea: string;
+  fchProceso: string;
+  ptoVta: number;
+}
+
+/**
+ * Country Type
+ */
+export interface PaisType {
+  id: number;
+  desc: string;
+}
+
+/**
+ * Activity Type
+ */
+export interface ActividadType {
+  id: number;
+  orden: number;
+  desc: string;
+}
+
+/**
+ * Quotation Type
+ */
+export interface CotizacionType {
+  monId: string;
+  monCotiz: number;
+  fchCotiz: string;
 }

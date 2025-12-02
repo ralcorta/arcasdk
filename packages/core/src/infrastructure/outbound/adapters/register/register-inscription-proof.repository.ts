@@ -52,6 +52,12 @@ export class RegisterInscriptionProofRepository
       serviceName: ServiceNamesEnum.WSSR_INSCRIPTION_PROOF,
       injectAuthProperty: true,
       soapVersion: SoapServiceVersion.ServiceSoap,
+      authMapper: (auth: any) => ({
+        token: auth.Auth.Token,
+        sign: auth.Auth.Sign,
+        cuitRepresentada: auth.Auth.Cuit,
+      }),
+      excludeMethods: ["dummy"],
     });
 
     return this.client;
@@ -89,7 +95,16 @@ export class RegisterInscriptionProofRepository
       if (error?.code === 602 || error?.message?.includes("no existe")) {
         return null;
       }
-      throw error;
+      // Create a new error with only serializable properties to avoid circular structure issues
+      const sanitizedError = new Error(error?.message || "Unknown error");
+      sanitizedError.name = error?.name || "Error";
+      if (error?.code) {
+        (sanitizedError as any).code = error.code;
+      }
+      if (error?.stack) {
+        sanitizedError.stack = error.stack;
+      }
+      throw sanitizedError;
     }
   }
 

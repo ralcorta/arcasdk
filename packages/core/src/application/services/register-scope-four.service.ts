@@ -9,9 +9,21 @@ import {
   RegisterServerStatusDto,
   TaxpayerDetailsDto,
 } from "@application/dto/register.dto";
+import { GetRegisterServerStatusUseCase } from "@application/use-cases/register/get-register-server-status.use-case";
+import { GetTaxpayerDetailsUseCase } from "@application/use-cases/register/get-taxpayer-details.use-case";
 
 export class RegisterScopeFourService {
-  constructor(private readonly repository: IRegisterScopeFourRepositoryPort) {}
+  private readonly getRegisterServerStatusUseCase: GetRegisterServerStatusUseCase;
+  private readonly getTaxpayerDetailsUseCase: GetTaxpayerDetailsUseCase;
+
+  constructor(private readonly repository: IRegisterScopeFourRepositoryPort) {
+    this.getRegisterServerStatusUseCase = new GetRegisterServerStatusUseCase(
+      this.repository
+    );
+    this.getTaxpayerDetailsUseCase = new GetTaxpayerDetailsUseCase(
+      this.repository
+    );
+  }
 
   /**
    * Asks to web service for servers status
@@ -21,7 +33,7 @@ export class RegisterScopeFourService {
    * server status}
    **/
   async getServerStatus(): Promise<RegisterServerStatusDto> {
-    return this.repository.getServerStatus();
+    return this.getRegisterServerStatusUseCase.execute();
   }
 
   /**
@@ -33,6 +45,6 @@ export class RegisterScopeFourService {
   async getTaxpayerDetails(
     identifier: number
   ): Promise<TaxpayerDetailsDto | null> {
-    return this.repository.getTaxpayerDetails(identifier);
+    return this.getTaxpayerDetailsUseCase.execute(identifier);
   }
 }

@@ -8,8 +8,7 @@
  */
 
 export const WSDL_STRINGS: Record<string, string> = {
-  'ws_sr_inscription_proof-production.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_inscription_proof-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="dummy" type="tns:dummy"/>
@@ -134,7 +133,9 @@ export const WSDL_STRINGS: Record<string, string> = {
   <xs:complexType name="impuesto">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
       <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
@@ -407,8 +408,7 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_inscription_proof.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_inscription_proof.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="dummy" type="tns:dummy"/>
@@ -533,7 +533,9 @@ export const WSDL_STRINGS: Record<string, string> = {
   <xs:complexType name="impuesto">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
       <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
@@ -806,15 +808,14 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a10-production.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a10-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
-<xs:schema elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" version="1.0" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="dummy" type="tns:dummy"/>
-<xs:element name="dummyResponse" type="tns:dummyResponse"/>
-<xs:element name="getPersona" type="tns:getPersona"/>
-<xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-<xs:complexType name="getPersona">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="getPersona">
     <xs:sequence>
       <xs:element name="token" type="xs:string"/>
       <xs:element name="sign" type="xs:string"/>
@@ -822,24 +823,24 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element name="idPersona" type="xs:long"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="getPersonaResponse">
+  <xs:complexType name="getPersonaResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="personaReturn">
+  <xs:complexType name="personaReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
       <xs:element minOccurs="0" name="persona" type="tns:persona"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="metadata">
+  <xs:complexType name="metadata">
     <xs:sequence>
       <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="servidor" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="persona">
+  <xs:complexType name="persona">
     <xs:sequence>
       <xs:element minOccurs="0" name="apellido" type="xs:string"/>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
@@ -857,13 +858,13 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dependencia">
+  <xs:complexType name="dependencia">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
       <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="domicilio">
+  <xs:complexType name="domicilio">
     <xs:sequence>
       <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
       <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
@@ -875,20 +876,24 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dummy">
+  <xs:complexType name="dummy">
     <xs:sequence/>
   </xs:complexType>
-<xs:complexType name="dummyResponse">
+  <xs:complexType name="dummyResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dummyReturn">
+  <xs:complexType name="dummyReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="appserver" type="xs:string"/>
       <xs:element minOccurs="0" name="authserver" type="xs:string"/>
       <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
     </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
   </xs:complexType>
 </xs:schema>
   </wsdl:types>
@@ -908,12 +913,18 @@ export const WSDL_STRINGS: Record<string, string> = {
     <wsdl:part element="tns:dummy" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="PersonaServiceA10">
     <wsdl:operation name="getPersona">
       <wsdl:input message="tns:getPersona" name="getPersona">
     </wsdl:input>
       <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
     </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="dummy">
       <wsdl:input message="tns:dummy" name="dummy">
@@ -932,6 +943,9 @@ export const WSDL_STRINGS: Record<string, string> = {
       <wsdl:output name="getPersonaResponse">
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="dummy">
       <soap:operation soapAction="" style="document"/>
@@ -945,19 +959,18 @@ export const WSDL_STRINGS: Record<string, string> = {
   </wsdl:binding>
   <wsdl:service name="PersonaServiceA10">
     <wsdl:port binding="tns:PersonaServiceA10SoapBinding" name="PersonaServiceA10Port">
-      <soap:address location="http://aws.afip.gov.ar/sr-padron/webservices/personaServiceA10"/>
+      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA10"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a10.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a10.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
-<xs:schema elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" version="1.0" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="dummy" type="tns:dummy"/>
-<xs:element name="dummyResponse" type="tns:dummyResponse"/>
-<xs:element name="getPersona" type="tns:getPersona"/>
-<xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-<xs:complexType name="getPersona">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="getPersona">
     <xs:sequence>
       <xs:element name="token" type="xs:string"/>
       <xs:element name="sign" type="xs:string"/>
@@ -965,24 +978,24 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element name="idPersona" type="xs:long"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="getPersonaResponse">
+  <xs:complexType name="getPersonaResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="personaReturn">
+  <xs:complexType name="personaReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
       <xs:element minOccurs="0" name="persona" type="tns:persona"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="metadata">
+  <xs:complexType name="metadata">
     <xs:sequence>
       <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="servidor" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="persona">
+  <xs:complexType name="persona">
     <xs:sequence>
       <xs:element minOccurs="0" name="apellido" type="xs:string"/>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
@@ -1000,13 +1013,13 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dependencia">
+  <xs:complexType name="dependencia">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
       <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="domicilio">
+  <xs:complexType name="domicilio">
     <xs:sequence>
       <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
       <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
@@ -1018,20 +1031,24 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dummy">
+  <xs:complexType name="dummy">
     <xs:sequence/>
   </xs:complexType>
-<xs:complexType name="dummyResponse">
+  <xs:complexType name="dummyResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dummyReturn">
+  <xs:complexType name="dummyReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="appserver" type="xs:string"/>
       <xs:element minOccurs="0" name="authserver" type="xs:string"/>
       <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
     </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
   </xs:complexType>
 </xs:schema>
   </wsdl:types>
@@ -1051,12 +1068,18 @@ export const WSDL_STRINGS: Record<string, string> = {
     <wsdl:part element="tns:dummy" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="PersonaServiceA10">
     <wsdl:operation name="getPersona">
       <wsdl:input message="tns:getPersona" name="getPersona">
     </wsdl:input>
       <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
     </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="dummy">
       <wsdl:input message="tns:dummy" name="dummy">
@@ -1075,6 +1098,9 @@ export const WSDL_STRINGS: Record<string, string> = {
       <wsdl:output name="getPersonaResponse">
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="dummy">
       <soap:operation soapAction="" style="document"/>
@@ -1092,8 +1118,7 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a13-production.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a13-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="dummy" type="tns:dummy"/>
@@ -1304,8 +1329,7 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a13.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a13.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="dummy" type="tns:dummy"/>
@@ -1516,30 +1540,29 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a4-production.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a4-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
-<xs:schema elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" version="1.0" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="dummy" type="tns:dummy"/>
-<xs:element name="dummyResponse" type="tns:dummyResponse"/>
-<xs:element name="getPersona" type="tns:getPersona"/>
-<xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-<xs:complexType name="dummy">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="dummy">
     <xs:sequence/>
   </xs:complexType>
-<xs:complexType name="dummyResponse">
+  <xs:complexType name="dummyResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dummyReturn">
+  <xs:complexType name="dummyReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="appserver" type="xs:string"/>
       <xs:element minOccurs="0" name="authserver" type="xs:string"/>
       <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="getPersona">
+  <xs:complexType name="getPersona">
     <xs:sequence>
       <xs:element name="token" type="xs:string"/>
       <xs:element name="sign" type="xs:string"/>
@@ -1547,24 +1570,24 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element name="idPersona" type="xs:long"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="getPersonaResponse">
+  <xs:complexType name="getPersonaResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="personaReturn">
+  <xs:complexType name="personaReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
       <xs:element minOccurs="0" name="persona" type="tns:persona"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="metadata">
+  <xs:complexType name="metadata">
     <xs:sequence>
       <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="servidor" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="persona">
+  <xs:complexType name="persona">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
       <xs:element minOccurs="0" name="apellido" type="xs:string"/>
@@ -1589,7 +1612,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
       <xs:element minOccurs="0" name="nombre" type="xs:string"/>
       <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:long"/>
+      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:string"/>
       <xs:element minOccurs="0" name="organismoInscripcion" type="xs:string"/>
       <xs:element minOccurs="0" name="organismoOriginante" type="xs:string"/>
       <xs:element minOccurs="0" name="porcentajeCapitalNacional" type="xs:double"/>
@@ -1606,7 +1629,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoResidencia" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="actividad">
+  <xs:complexType name="actividad">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
       <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
@@ -1615,7 +1638,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="categoria">
+  <xs:complexType name="categoria">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
       <xs:element minOccurs="0" name="estado" type="xs:string"/>
@@ -1624,13 +1647,13 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dependencia">
+  <xs:complexType name="dependencia">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
       <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="domicilio">
+  <xs:complexType name="domicilio">
     <xs:sequence>
       <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
       <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
@@ -1638,18 +1661,19 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="direccion" type="xs:string"/>
       <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
       <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
       <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
       <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="email">
+  <xs:complexType name="email">
     <xs:sequence>
       <xs:element minOccurs="0" name="direccion" type="xs:string"/>
       <xs:element minOccurs="0" name="estado" type="xs:string"/>
       <xs:element minOccurs="0" name="tipoEmail" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="impuesto">
+  <xs:complexType name="impuesto">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
       <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
@@ -1659,7 +1683,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="regimen">
+  <xs:complexType name="regimen">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
       <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
@@ -1670,7 +1694,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="relacion">
+  <xs:complexType name="relacion">
     <xs:sequence>
       <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
@@ -1680,12 +1704,16 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoRelacion" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="telefono">
+  <xs:complexType name="telefono">
     <xs:sequence>
       <xs:element minOccurs="0" name="numero" type="xs:long"/>
       <xs:element minOccurs="0" name="tipoLinea" type="xs:string"/>
       <xs:element minOccurs="0" name="tipoTelefono" type="xs:string"/>
     </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
   </xs:complexType>
 </xs:schema>
   </wsdl:types>
@@ -1705,6 +1733,10 @@ export const WSDL_STRINGS: Record<string, string> = {
     <wsdl:part element="tns:dummy" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="PersonaServiceA4">
     <wsdl:operation name="dummy">
       <wsdl:input message="tns:dummy" name="dummy">
@@ -1717,6 +1749,8 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:input>
       <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
     </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PersonaServiceA4SoapBinding" type="tns:PersonaServiceA4">
@@ -1738,38 +1772,40 @@ export const WSDL_STRINGS: Record<string, string> = {
       <wsdl:output name="getPersonaResponse">
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PersonaServiceA4">
     <wsdl:port binding="tns:PersonaServiceA4SoapBinding" name="PersonaServiceA4Port">
-      <soap:address location="http://aws.afip.gov.ar/sr-padron/webservices/personaServiceA4"/>
+      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA4"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a4.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a4.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
-<xs:schema elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" version="1.0" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="dummy" type="tns:dummy"/>
-<xs:element name="dummyResponse" type="tns:dummyResponse"/>
-<xs:element name="getPersona" type="tns:getPersona"/>
-<xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-<xs:complexType name="dummy">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="dummy">
     <xs:sequence/>
   </xs:complexType>
-<xs:complexType name="dummyResponse">
+  <xs:complexType name="dummyResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dummyReturn">
+  <xs:complexType name="dummyReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="appserver" type="xs:string"/>
       <xs:element minOccurs="0" name="authserver" type="xs:string"/>
       <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="getPersona">
+  <xs:complexType name="getPersona">
     <xs:sequence>
       <xs:element name="token" type="xs:string"/>
       <xs:element name="sign" type="xs:string"/>
@@ -1777,24 +1813,24 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element name="idPersona" type="xs:long"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="getPersonaResponse">
+  <xs:complexType name="getPersonaResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="personaReturn">
+  <xs:complexType name="personaReturn">
     <xs:sequence>
       <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
       <xs:element minOccurs="0" name="persona" type="tns:persona"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="metadata">
+  <xs:complexType name="metadata">
     <xs:sequence>
       <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="servidor" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="persona">
+  <xs:complexType name="persona">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
       <xs:element minOccurs="0" name="apellido" type="xs:string"/>
@@ -1819,7 +1855,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
       <xs:element minOccurs="0" name="nombre" type="xs:string"/>
       <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:long"/>
+      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:string"/>
       <xs:element minOccurs="0" name="organismoInscripcion" type="xs:string"/>
       <xs:element minOccurs="0" name="organismoOriginante" type="xs:string"/>
       <xs:element minOccurs="0" name="porcentajeCapitalNacional" type="xs:double"/>
@@ -1836,7 +1872,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoResidencia" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="actividad">
+  <xs:complexType name="actividad">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
       <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
@@ -1845,7 +1881,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="categoria">
+  <xs:complexType name="categoria">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
       <xs:element minOccurs="0" name="estado" type="xs:string"/>
@@ -1854,13 +1890,13 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="dependencia">
+  <xs:complexType name="dependencia">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
       <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="domicilio">
+  <xs:complexType name="domicilio">
     <xs:sequence>
       <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
       <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
@@ -1868,18 +1904,19 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="direccion" type="xs:string"/>
       <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
       <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
       <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
       <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="email">
+  <xs:complexType name="email">
     <xs:sequence>
       <xs:element minOccurs="0" name="direccion" type="xs:string"/>
       <xs:element minOccurs="0" name="estado" type="xs:string"/>
       <xs:element minOccurs="0" name="tipoEmail" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="impuesto">
+  <xs:complexType name="impuesto">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
       <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
@@ -1889,7 +1926,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="regimen">
+  <xs:complexType name="regimen">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
       <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
@@ -1900,7 +1937,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="relacion">
+  <xs:complexType name="relacion">
     <xs:sequence>
       <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
@@ -1910,12 +1947,16 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element minOccurs="0" name="tipoRelacion" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-<xs:complexType name="telefono">
+  <xs:complexType name="telefono">
     <xs:sequence>
       <xs:element minOccurs="0" name="numero" type="xs:long"/>
       <xs:element minOccurs="0" name="tipoLinea" type="xs:string"/>
       <xs:element minOccurs="0" name="tipoTelefono" type="xs:string"/>
     </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
   </xs:complexType>
 </xs:schema>
   </wsdl:types>
@@ -1935,6 +1976,10 @@ export const WSDL_STRINGS: Record<string, string> = {
     <wsdl:part element="tns:dummy" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="PersonaServiceA4">
     <wsdl:operation name="dummy">
       <wsdl:input message="tns:dummy" name="dummy">
@@ -1947,6 +1992,8 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:input>
       <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
     </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="PersonaServiceA4SoapBinding" type="tns:PersonaServiceA4">
@@ -1968,6 +2015,9 @@ export const WSDL_STRINGS: Record<string, string> = {
       <wsdl:output name="getPersonaResponse">
         <soap:body use="literal"/>
       </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PersonaServiceA4">
@@ -1976,8 +2026,7 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a5-production.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a5-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="dummy" type="tns:dummy"/>
@@ -2020,6 +2069,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
       <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
       <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
       <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
       <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
@@ -2101,7 +2151,9 @@ export const WSDL_STRINGS: Record<string, string> = {
   <xs:complexType name="impuesto">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
       <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
@@ -2374,8 +2426,7 @@ export const WSDL_STRINGS: Record<string, string> = {
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'ws_sr_padron_a5.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  'ws_sr_padron_a5.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="dummy" type="tns:dummy"/>
@@ -2418,6 +2469,7 @@ export const WSDL_STRINGS: Record<string, string> = {
       <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
       <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
       <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
       <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
       <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
       <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
@@ -2499,7 +2551,9 @@ export const WSDL_STRINGS: Record<string, string> = {
   <xs:complexType name="impuesto">
     <xs:sequence>
       <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
       <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
       <xs:element minOccurs="0" name="periodo" type="xs:int"/>
     </xs:sequence>
   </xs:complexType>
@@ -2804,19 +2858,25 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:message name="loginCmsRequest">
 
-      <wsdl:part element="tns1:loginCms" name="parameters"/>
+      <wsdl:part element="tns1:loginCms" name="parameters">
+
+      </wsdl:part>
 
    </wsdl:message>
 
    <wsdl:message name="LoginFault">
 
-      <wsdl:part element="impl:fault" name="fault"/>
+      <wsdl:part element="impl:fault" name="fault">
+
+      </wsdl:part>
 
    </wsdl:message>
 
    <wsdl:message name="loginCmsResponse">
 
-      <wsdl:part element="tns1:loginCmsResponse" name="parameters"/>
+      <wsdl:part element="tns1:loginCmsResponse" name="parameters">
+
+      </wsdl:part>
 
    </wsdl:message>
 
@@ -2824,11 +2884,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       <wsdl:operation name="loginCms">
 
-         <wsdl:input message="impl:loginCmsRequest" name="loginCmsRequest"/>
+         <wsdl:input message="impl:loginCmsRequest" name="loginCmsRequest">
 
-         <wsdl:output message="impl:loginCmsResponse" name="loginCmsResponse"/>
+       </wsdl:input>
 
-         <wsdl:fault message="impl:LoginFault" name="LoginFault"/>
+         <wsdl:output message="impl:loginCmsResponse" name="loginCmsResponse">
+
+       </wsdl:output>
+
+         <wsdl:fault message="impl:LoginFault" name="LoginFault">
+
+       </wsdl:fault>
 
       </wsdl:operation>
 
@@ -2876,7 +2942,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
 </wsdl:definitions>
 `,
-  'wsfe-production.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
+  'wsfe-production.wsdl': `<?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ar.gov.afip.dif.FEV1/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://ar.gov.afip.dif.FEV1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de Facturacion electronica RG2485 V1</wsdl:documentation>
   <wsdl:types>
@@ -2884,339 +2950,350 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAESolicitar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="FeCAEReq" type="tns:FECAERequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="FeCAEReq" type="tns:FECAERequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FEAuthRequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAERequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAECabRequest"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEDetRequest"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAECabRequest" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEDetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAECabRequest">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabRequest"/>
+          <s:extension base="tns:FECabRequest" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FECabRequest">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEDetRequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetRequest" nillable="true" type="tns:FECAEDetRequest"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetRequest" nillable="true" type="tns:FECAEDetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEDetRequest">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FEDetRequest"/>
+          <s:extension base="tns:FEDetRequest" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FEDetRequest">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpTotal" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpTotConc" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpNeto" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpOpEx" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpTrib" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpIVA" type="s:double"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchServDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchServHasta" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchVtoPago" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="MonCotiz" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CanMisMonExt" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CondicionIVAReceptorId" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbtesAsoc" type="tns:ArrayOfCbteAsoc"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Tributos" type="tns:ArrayOfTributo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Iva" type="tns:ArrayOfAlicIva"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Compradores" type="tns:ArrayOfComprador"/>
-          <s:element minOccurs="0" maxOccurs="1" name="PeriodoAsoc" type="tns:Periodo"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpTotal" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpTotConc" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpNeto" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpOpEx" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpTrib" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpIVA" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchServDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchServHasta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchVtoPago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MonCotiz" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CondicionIVAReceptorId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbtesAsoc" type="tns:ArrayOfCbteAsoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tributos" type="tns:ArrayOfTributo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Iva" type="tns:ArrayOfAlicIva" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Compradores" type="tns:ArrayOfComprador" />
+          <s:element minOccurs="0" maxOccurs="1" name="PeriodoAsoc" type="tns:Periodo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfCbteAsoc">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteAsoc" nillable="true" type="tns:CbteAsoc"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteAsoc" nillable="true" type="tns:CbteAsoc" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="CbteAsoc">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:long"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Cuit" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfTributo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Tributo" nillable="true" type="tns:Tributo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Tributo" nillable="true" type="tns:Tributo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Tributo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Alic" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Alic" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfAlicIva">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="AlicIva" nillable="true" type="tns:AlicIva"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AlicIva" nillable="true" type="tns:AlicIva" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="AlicIva">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfOpcional">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcional" nillable="true" type="tns:Opcional"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcional" nillable="true" type="tns:Opcional" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Opcional">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfComprador">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Comprador" nillable="true" type="tns:Comprador"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Comprador" nillable="true" type="tns:Comprador" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Comprador">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Porcentaje" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Porcentaje" type="s:double" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Periodo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Actividad" nillable="true" type="tns:Actividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Actividad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECAESolicitarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAESolicitarResult" type="tns:FECAEResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAESolicitarResult" type="tns:FECAEResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAECabResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEDetResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAECabResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEDetResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAECabResponse">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabResponse"/>
+          <s:extension base="tns:FECabResponse" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FECabResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Reproceso" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reproceso" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEDetResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetResponse" nillable="true" type="tns:FECAEDetResponse"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetResponse" nillable="true" type="tns:FECAEDetResponse" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEDetResponse">
         <s:complexContent mixed="false">
           <s:extension base="tns:FEDetResponse">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="CAE" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="CAEFchVto" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="CAE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CAEFchVto" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FEDetResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfObs">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Obs" nillable="true" type="tns:Obs"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Obs" nillable="true" type="tns:Obs" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Obs">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfEvt">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Evt" nillable="true" type="tns:Evt"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Evt" nillable="true" type="tns:Evt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Evt">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfErr">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Err" nillable="true" type="tns:Err"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Err" nillable="true" type="tns:Err" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Err">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompTotXRequest">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECompTotXRequestResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECompTotXRequestResult" type="tns:FERegXReqResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECompTotXRequestResult" type="tns:FERegXReqResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FERegXReqResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="RegXReq" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RegXReq" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEDummy">
-        <s:complexType/>
+        <s:complexType />
       </s:element>
       <s:element name="FEDummyResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEDummyResult" type="tns:DummyResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEDummyResult" type="tns:DummyResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="DummyResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompUltimoAutorizado">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-            <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECompUltimoAutorizadoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECompUltimoAutorizadoResult" type="tns:FERecuperaLastCbteResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECompUltimoAutorizadoResult" type="tns:FERecuperaLastCbteResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FERecuperaLastCbteResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompConsultar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="FeCompConsReq" type="tns:FECompConsultaReq"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="FeCompConsReq" type="tns:FECompConsultaReq" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECompConsultaReq">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompConsultarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECompConsultarResult" type="tns:FECompConsultaResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECompConsultarResult" type="tns:FECompConsultaResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECompConsultaResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECompConsResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECompConsResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECompConsResponse">
         <s:complexContent mixed="false">
           <s:extension base="tns:FECAEDetRequest">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="CodAutorizacion" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="FchVto" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs"/>
-              <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-              <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodAutorizacion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FchVto" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs" />
+              <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -3224,33 +3301,33 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEARegInformativo">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="FeCAEARegInfReq" type="tns:FECAEARequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="FeCAEARegInfReq" type="tns:FECAEARequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEARequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAEACabRequest"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEADetRequest"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAEACabRequest" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEADetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEACabRequest">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabRequest"/>
+          <s:extension base="tns:FECabRequest" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEADetRequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetRequest" nillable="true" type="tns:FECAEADetRequest"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetRequest" nillable="true" type="tns:FECAEADetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEADetRequest">
         <s:complexContent mixed="false">
           <s:extension base="tns:FEDetRequest">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="CbteFchHsGen" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CbteFchHsGen" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -3258,33 +3335,33 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEARegInformativoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEARegInformativoResult" type="tns:FECAEAResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEARegInformativoResult" type="tns:FECAEAResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEAResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAEACabResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEADetResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAEACabResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEADetResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEACabResponse">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabResponse"/>
+          <s:extension base="tns:FECabResponse" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEADetResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetResponse" nillable="true" type="tns:FECAEADetResponse"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetResponse" nillable="true" type="tns:FECAEADetResponse" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEADetResponse">
         <s:complexContent mixed="false">
           <s:extension base="tns:FEDetResponse">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -3292,86 +3369,86 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEASolicitar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEASolicitarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEASolicitarResult" type="tns:FECAEAGetResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEASolicitarResult" type="tns:FECAEAGetResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEAGetResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECAEAGet"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECAEAGet" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEAGet">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchVigDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchVigHasta" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchTopeInf" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchVigDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchVigHasta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchTopeInf" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECAEASinMovimientoConsultar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEASinMovimientoConsultarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoConsultarResult" type="tns:FECAEASinMovConsResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoConsultarResult" type="tns:FECAEASinMovConsResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEASinMovConsResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfFECAEASinMov"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfFECAEASinMov" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEASinMov">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEASinMov" nillable="true" type="tns:FECAEASinMov"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEASinMov" nillable="true" type="tns:FECAEASinMov" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEASinMov">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECAEASinMovimientoInformar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEASinMovimientoInformarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoInformarResult" type="tns:FECAEASinMovResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoInformarResult" type="tns:FECAEASinMovResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3379,9 +3456,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
         <s:complexContent mixed="false">
           <s:extension base="tns:FECAEASinMov">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+              <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -3389,1293 +3466,1430 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEAConsultar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEAConsultarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEAConsultarResult" type="tns:FECAEAGetResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEAConsultarResult" type="tns:FECAEAGetResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetCotizacion">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetCotizacionResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCotizacionResult" type="tns:FECotizacionResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCotizacionResult" type="tns:FECotizacionResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECotizacionResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:Cotizacion"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:Cotizacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Cotizacion">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="MonCotiz" type="s:double"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MonCotiz" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposTributos">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposTributosResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposTributosResult" type="tns:FETributoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposTributosResult" type="tns:FETributoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FETributoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfTributoTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfTributoTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfTributoTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="TributoTipo" nillable="true" type="tns:TributoTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TributoTipo" nillable="true" type="tns:TributoTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="TributoTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposMonedas">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposMonedasResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposMonedasResult" type="tns:MonedaResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposMonedasResult" type="tns:MonedaResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="MonedaResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfMoneda"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfMoneda" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfMoneda">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Moneda" nillable="true" type="tns:Moneda"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Moneda" nillable="true" type="tns:Moneda" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Moneda">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposIva">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposIvaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposIvaResult" type="tns:IvaTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposIvaResult" type="tns:IvaTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="IvaTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfIvaTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfIvaTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfIvaTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="IvaTipo" nillable="true" type="tns:IvaTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IvaTipo" nillable="true" type="tns:IvaTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="IvaTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposOpcional">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposOpcionalResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposOpcionalResult" type="tns:OpcionalTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposOpcionalResult" type="tns:OpcionalTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="OpcionalTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfOpcionalTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfOpcionalTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfOpcionalTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="OpcionalTipo" nillable="true" type="tns:OpcionalTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OpcionalTipo" nillable="true" type="tns:OpcionalTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="OpcionalTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposConcepto">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposConceptoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposConceptoResult" type="tns:ConceptoTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposConceptoResult" type="tns:ConceptoTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="ConceptoTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfConceptoTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfConceptoTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfConceptoTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ConceptoTipo" nillable="true" type="tns:ConceptoTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConceptoTipo" nillable="true" type="tns:ConceptoTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ConceptoTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetPtosVenta">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetPtosVentaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetPtosVentaResult" type="tns:FEPtoVentaResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetPtosVentaResult" type="tns:FEPtoVentaResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FEPtoVentaResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPtoVenta"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPtoVenta" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfPtoVenta">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PtoVenta" nillable="true" type="tns:PtoVenta"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PtoVenta" nillable="true" type="tns:PtoVenta" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="PtoVenta">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Bloqueado" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchBaja" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bloqueado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchBaja" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposCbte">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposCbteResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposCbteResult" type="tns:CbteTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposCbteResult" type="tns:CbteTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="CbteTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCbteTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCbteTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfCbteTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteTipo" nillable="true" type="tns:CbteTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteTipo" nillable="true" type="tns:CbteTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="CbteTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEParamGetCondicionIvaReceptor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClaseCmp" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEParamGetCondicionIvaReceptorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCondicionIvaReceptorResult" type="tns:CondicionIvaReceptorResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CondicionIvaReceptorResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCondicionIvaReceptor" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CondicionIvaReceptor" nillable="true" type="tns:CondicionIvaReceptor" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmp_Clase" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposDoc">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposDocResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposDocResult" type="tns:DocTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposDocResult" type="tns:DocTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="DocTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfDocTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfDocTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDocTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DocTipo" nillable="true" type="tns:DocTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocTipo" nillable="true" type="tns:DocTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="DocTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposPaises">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposPaisesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposPaisesResult" type="tns:FEPaisResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposPaisesResult" type="tns:FEPaisResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FEPaisResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPaisTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPaisTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfPaisTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PaisTipo" nillable="true" type="tns:PaisTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaisTipo" nillable="true" type="tns:PaisTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="PaisTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEParamGetActividades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEParamGetActividadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetActividadesResult" type="tns:FEActividadesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEActividadesResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfActividadesTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividadesTipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActividadesTipo" nillable="true" type="tns:ActividadesTipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActividadesTipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
         </s:sequence>
       </s:complexType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="FECAESolicitarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAESolicitar"/>
+    <wsdl:part name="parameters" element="tns:FECAESolicitar" />
   </wsdl:message>
   <wsdl:message name="FECAESolicitarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAESolicitarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAESolicitarResponse" />
   </wsdl:message>
   <wsdl:message name="FECompTotXRequestSoapIn">
-    <wsdl:part name="parameters" element="tns:FECompTotXRequest"/>
+    <wsdl:part name="parameters" element="tns:FECompTotXRequest" />
   </wsdl:message>
   <wsdl:message name="FECompTotXRequestSoapOut">
-    <wsdl:part name="parameters" element="tns:FECompTotXRequestResponse"/>
+    <wsdl:part name="parameters" element="tns:FECompTotXRequestResponse" />
   </wsdl:message>
   <wsdl:message name="FEDummySoapIn">
-    <wsdl:part name="parameters" element="tns:FEDummy"/>
+    <wsdl:part name="parameters" element="tns:FEDummy" />
   </wsdl:message>
   <wsdl:message name="FEDummySoapOut">
-    <wsdl:part name="parameters" element="tns:FEDummyResponse"/>
+    <wsdl:part name="parameters" element="tns:FEDummyResponse" />
   </wsdl:message>
   <wsdl:message name="FECompUltimoAutorizadoSoapIn">
-    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizado"/>
+    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizado" />
   </wsdl:message>
   <wsdl:message name="FECompUltimoAutorizadoSoapOut">
-    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizadoResponse"/>
+    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizadoResponse" />
   </wsdl:message>
   <wsdl:message name="FECompConsultarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECompConsultar"/>
+    <wsdl:part name="parameters" element="tns:FECompConsultar" />
   </wsdl:message>
   <wsdl:message name="FECompConsultarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECompConsultarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECompConsultarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEARegInformativoSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEARegInformativo"/>
+    <wsdl:part name="parameters" element="tns:FECAEARegInformativo" />
   </wsdl:message>
   <wsdl:message name="FECAEARegInformativoSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEARegInformativoResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEARegInformativoResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEASolicitarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEASolicitar"/>
+    <wsdl:part name="parameters" element="tns:FECAEASolicitar" />
   </wsdl:message>
   <wsdl:message name="FECAEASolicitarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEASolicitarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEASolicitarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoConsultarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultar"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultar" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoConsultarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoInformarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformar"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformar" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoInformarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEAConsultarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEAConsultar"/>
+    <wsdl:part name="parameters" element="tns:FECAEAConsultar" />
   </wsdl:message>
   <wsdl:message name="FECAEAConsultarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEAConsultarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEAConsultarResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetCotizacionSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetCotizacion"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetCotizacion" />
   </wsdl:message>
   <wsdl:message name="FEParamGetCotizacionSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetCotizacionResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetCotizacionResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposTributosSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributos"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributos" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposTributosSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributosResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributosResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposMonedasSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedas"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedas" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposMonedasSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedasResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedasResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposIvaSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposIva"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposIva" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposIvaSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposIvaResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposIvaResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposOpcionalSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcional"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcional" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposOpcionalSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcionalResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcionalResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposConceptoSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposConcepto"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposConcepto" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposConceptoSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposConceptoResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposConceptoResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetPtosVentaSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetPtosVenta"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetPtosVenta" />
   </wsdl:message>
   <wsdl:message name="FEParamGetPtosVentaSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetPtosVentaResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetPtosVentaResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposCbteSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbte"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbte" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposCbteSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbteResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbteResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapIn">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptor" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapOut">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptorResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposDocSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposDoc"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposDoc" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposDocSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposDocResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposDocResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposPaisesSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaises"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaises" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposPaisesSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaisesResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaisesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetActividadesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEParamGetActividades" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetActividadesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEParamGetActividadesResponse" />
   </wsdl:message>
   <wsdl:portType name="ServiceSoap">
     <wsdl:operation name="FECAESolicitar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitud de Código de Autorización Electrónico (CAE)</wsdl:documentation>
-      <wsdl:input message="tns:FECAESolicitarSoapIn"/>
-      <wsdl:output message="tns:FECAESolicitarSoapOut"/>
+      <wsdl:input message="tns:FECAESolicitarSoapIn" />
+      <wsdl:output message="tns:FECAESolicitarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECompTotXRequest">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna la cantidad maxima de registros que puede tener una invocacion al metodo FECAESolicitar / FECAEARegInformativo </wsdl:documentation>
-      <wsdl:input message="tns:FECompTotXRequestSoapIn"/>
-      <wsdl:output message="tns:FECompTotXRequestSoapOut"/>
+      <wsdl:input message="tns:FECompTotXRequestSoapIn" />
+      <wsdl:output message="tns:FECompTotXRequestSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEDummy">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo dummy para verificacion de funcionamiento</wsdl:documentation>
-      <wsdl:input message="tns:FEDummySoapIn"/>
-      <wsdl:output message="tns:FEDummySoapOut"/>
+      <wsdl:input message="tns:FEDummySoapIn" />
+      <wsdl:output message="tns:FEDummySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECompUltimoAutorizado">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna el ultimo comprobante autorizado para el tipo de comprobante / cuit / punto de venta ingresado / Tipo de Emisión</wsdl:documentation>
-      <wsdl:input message="tns:FECompUltimoAutorizadoSoapIn"/>
-      <wsdl:output message="tns:FECompUltimoAutorizadoSoapOut"/>
+      <wsdl:input message="tns:FECompUltimoAutorizadoSoapIn" />
+      <wsdl:output message="tns:FECompUltimoAutorizadoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECompConsultar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consulta Comprobante emitido y su código.</wsdl:documentation>
-      <wsdl:input message="tns:FECompConsultarSoapIn"/>
-      <wsdl:output message="tns:FECompConsultarSoapOut"/>
+      <wsdl:input message="tns:FECompConsultarSoapIn" />
+      <wsdl:output message="tns:FECompConsultarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEARegInformativo">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Rendición de comprobantes asociados a un CAEA.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEARegInformativoSoapIn"/>
-      <wsdl:output message="tns:FECAEARegInformativoSoapOut"/>
+      <wsdl:input message="tns:FECAEARegInformativoSoapIn" />
+      <wsdl:output message="tns:FECAEARegInformativoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEASolicitar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitud de Código de Autorización Electrónico Anticipado (CAEA)</wsdl:documentation>
-      <wsdl:input message="tns:FECAEASolicitarSoapIn"/>
-      <wsdl:output message="tns:FECAEASolicitarSoapOut"/>
+      <wsdl:input message="tns:FECAEASolicitarSoapIn" />
+      <wsdl:output message="tns:FECAEASolicitarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoConsultar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consulta CAEA informado como sin movimientos.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEASinMovimientoConsultarSoapIn"/>
-      <wsdl:output message="tns:FECAEASinMovimientoConsultarSoapOut"/>
+      <wsdl:input message="tns:FECAEASinMovimientoConsultarSoapIn" />
+      <wsdl:output message="tns:FECAEASinMovimientoConsultarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoInformar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Informa CAEA sin movimientos.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEASinMovimientoInformarSoapIn"/>
-      <wsdl:output message="tns:FECAEASinMovimientoInformarSoapOut"/>
+      <wsdl:input message="tns:FECAEASinMovimientoInformarSoapIn" />
+      <wsdl:output message="tns:FECAEASinMovimientoInformarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEAConsultar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consultar CAEA emitidos.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEAConsultarSoapIn"/>
-      <wsdl:output message="tns:FECAEAConsultarSoapOut"/>
+      <wsdl:input message="tns:FECAEAConsultarSoapIn" />
+      <wsdl:output message="tns:FECAEAConsultarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetCotizacion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera la cotizacion de la moneda consultada y su  fecha </wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetCotizacionSoapIn"/>
-      <wsdl:output message="tns:FEParamGetCotizacionSoapOut"/>
+      <wsdl:input message="tns:FEParamGetCotizacionSoapIn" />
+      <wsdl:output message="tns:FEParamGetCotizacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposTributos">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los diferente tributos que pueden ser utilizados  en el servicio de autorizacion</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposTributosSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposTributosSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposTributosSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposTributosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposMonedas">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de monedas utilizables en servicio de autorización</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposMonedasSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposMonedasSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposMonedasSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposMonedasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposIva">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Iva utilizables en servicio de autorización.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposIvaSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposIvaSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposIvaSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposIvaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposOpcional">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de identificadores para los campos Opcionales</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposOpcionalSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposOpcionalSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposOpcionalSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposOpcionalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposConcepto">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de identificadores para el campo Concepto.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposConceptoSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposConceptoSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposConceptoSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposConceptoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetPtosVenta">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de puntos de venta registrados y su estado</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetPtosVentaSoapIn"/>
-      <wsdl:output message="tns:FEParamGetPtosVentaSoapOut"/>
+      <wsdl:input message="tns:FEParamGetPtosVentaSoapIn" />
+      <wsdl:output message="tns:FEParamGetPtosVentaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposCbte">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Comprobantes utilizables en servicio de autorización.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposCbteSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposCbteSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposCbteSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposCbteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera la condicion frente al IVA del receptor (para una clase de comprobante determinada o para todos si no se especifica).</wsdl:documentation>
+      <wsdl:input message="tns:FEParamGetCondicionIvaReceptorSoapIn" />
+      <wsdl:output message="tns:FEParamGetCondicionIvaReceptorSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Documentos utilizables en servicio de autorización.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposDocSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposDocSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposDocSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposDocSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los diferente paises que pueden ser utilizados  en el servicio de autorizacion</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposPaisesSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposPaisesSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposPaisesSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposPaisesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las diferentes actividades habilitadas para el emisor</wsdl:documentation>
+      <wsdl:input message="tns:FEParamGetActividadesSoapIn" />
+      <wsdl:output message="tns:FEParamGetActividadesSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="FECAESolicitar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompTotXRequest">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEDummy">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompUltimoAutorizado">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompConsultar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEARegInformativo">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASolicitar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoConsultar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoInformar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEAConsultar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetCotizacion">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposTributos">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposMonedas">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposIva">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposOpcional">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposConcepto">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetPtosVenta">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposCbte">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetActividades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
-    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="FECAESolicitar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompTotXRequest">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEDummy">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompUltimoAutorizado">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompConsultar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEARegInformativo">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASolicitar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoConsultar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoInformar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEAConsultar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetCotizacion">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposTributos">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposMonedas">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposIva">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposOpcional">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposConcepto">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetPtosVenta">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposCbte">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetActividades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Service">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de Facturacion electronica RG2485 V1</wsdl:documentation>
     <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
-      <soap:address location="https://servicios1.afip.gov.ar/wsfev1/service.asmx"/>
+      <soap:address location="https://servicios1.afip.gov.ar/wsfev1/service.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
-      <soap12:address location="https://servicios1.afip.gov.ar/wsfev1/service.asmx"/>
+      <soap12:address location="https://servicios1.afip.gov.ar/wsfev1/service.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`,
-  'wsfe.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ar.gov.afip.dif.FEV1/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://ar.gov.afip.dif.FEV1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  'wsfe.wsdl': `<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ar.gov.afip.dif.FEV1/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://ar.gov.afip.dif.FEV1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de Facturacion electronica RG2485 V1</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://ar.gov.afip.dif.FEV1/">
       <s:element name="FECAESolicitar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="FeCAEReq" type="tns:FECAERequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="FeCAEReq" type="tns:FECAERequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FEAuthRequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAERequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAECabRequest"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEDetRequest"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAECabRequest" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEDetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAECabRequest">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabRequest"/>
+          <s:extension base="tns:FECabRequest" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FECabRequest">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEDetRequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetRequest" nillable="true" type="tns:FECAEDetRequest"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetRequest" nillable="true" type="tns:FECAEDetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEDetRequest">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FEDetRequest"/>
+          <s:extension base="tns:FEDetRequest" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FEDetRequest">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpTotal" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpTotConc" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpNeto" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpOpEx" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpTrib" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="ImpIVA" type="s:double"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchServDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchServHasta" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchVtoPago" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="MonCotiz" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CanMisMonExt" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CondicionIVAReceptorId" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbtesAsoc" type="tns:ArrayOfCbteAsoc"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Tributos" type="tns:ArrayOfTributo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Iva" type="tns:ArrayOfAlicIva"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Compradores" type="tns:ArrayOfComprador"/>
-          <s:element minOccurs="0" maxOccurs="1" name="PeriodoAsoc" type="tns:Periodo"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpTotal" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpTotConc" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpNeto" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpOpEx" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpTrib" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImpIVA" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchServDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchServHasta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchVtoPago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MonCotiz" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CondicionIVAReceptorId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbtesAsoc" type="tns:ArrayOfCbteAsoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tributos" type="tns:ArrayOfTributo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Iva" type="tns:ArrayOfAlicIva" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Compradores" type="tns:ArrayOfComprador" />
+          <s:element minOccurs="0" maxOccurs="1" name="PeriodoAsoc" type="tns:Periodo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfCbteAsoc">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteAsoc" nillable="true" type="tns:CbteAsoc"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteAsoc" nillable="true" type="tns:CbteAsoc" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="CbteAsoc">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:long"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Cuit" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cuit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfTributo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Tributo" nillable="true" type="tns:Tributo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Tributo" nillable="true" type="tns:Tributo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Tributo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Alic" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Alic" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfAlicIva">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="AlicIva" nillable="true" type="tns:AlicIva"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AlicIva" nillable="true" type="tns:AlicIva" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="AlicIva">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BaseImp" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Importe" type="s:double" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfOpcional">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcional" nillable="true" type="tns:Opcional"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcional" nillable="true" type="tns:Opcional" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Opcional">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfComprador">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Comprador" nillable="true" type="tns:Comprador"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Comprador" nillable="true" type="tns:Comprador" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Comprador">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Porcentaje" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Porcentaje" type="s:double" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Periodo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Actividad" nillable="true" type="tns:Actividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Actividad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECAESolicitarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAESolicitarResult" type="tns:FECAEResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAESolicitarResult" type="tns:FECAEResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAECabResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEDetResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAECabResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEDetResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAECabResponse">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabResponse"/>
+          <s:extension base="tns:FECabResponse" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FECabResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Reproceso" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CantReg" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reproceso" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEDetResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetResponse" nillable="true" type="tns:FECAEDetResponse"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEDetResponse" nillable="true" type="tns:FECAEDetResponse" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEDetResponse">
         <s:complexContent mixed="false">
           <s:extension base="tns:FEDetResponse">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="CAE" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="CAEFchVto" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="CAE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CAEFchVto" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
       <s:complexType name="FEDetResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long"/>
-          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Concepto" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteDesde" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteHasta" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CbteFch" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfObs">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Obs" nillable="true" type="tns:Obs"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Obs" nillable="true" type="tns:Obs" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Obs">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfEvt">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Evt" nillable="true" type="tns:Evt"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Evt" nillable="true" type="tns:Evt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Evt">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfErr">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Err" nillable="true" type="tns:Err"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Err" nillable="true" type="tns:Err" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Err">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Msg" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompTotXRequest">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECompTotXRequestResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECompTotXRequestResult" type="tns:FERegXReqResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECompTotXRequestResult" type="tns:FERegXReqResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FERegXReqResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="RegXReq" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="1" maxOccurs="1" name="RegXReq" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEDummy">
-        <s:complexType/>
+        <s:complexType />
       </s:element>
       <s:element name="FEDummyResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEDummyResult" type="tns:DummyResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEDummyResult" type="tns:DummyResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="DummyResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompUltimoAutorizado">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-            <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECompUltimoAutorizadoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECompUltimoAutorizadoResult" type="tns:FERecuperaLastCbteResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECompUltimoAutorizadoResult" type="tns:FERecuperaLastCbteResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FERecuperaLastCbteResponse">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompConsultar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="FeCompConsReq" type="tns:FECompConsultaReq"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="FeCompConsReq" type="tns:FECompConsultaReq" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECompConsultaReq">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:long"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CbteNro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECompConsultarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECompConsultarResult" type="tns:FECompConsultaResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECompConsultarResult" type="tns:FECompConsultaResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECompConsultaResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECompConsResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECompConsResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECompConsResponse">
         <s:complexContent mixed="false">
           <s:extension base="tns:FECAEDetRequest">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="CodAutorizacion" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="FchVto" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs"/>
-              <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-              <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CodAutorizacion" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FchVto" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs" />
+              <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CbteTipo" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -4683,33 +4897,33 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEARegInformativo">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="FeCAEARegInfReq" type="tns:FECAEARequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="FeCAEARegInfReq" type="tns:FECAEARequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEARequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAEACabRequest"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEADetRequest"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabReq" type="tns:FECAEACabRequest" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetReq" type="tns:ArrayOfFECAEADetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEACabRequest">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabRequest"/>
+          <s:extension base="tns:FECabRequest" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEADetRequest">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetRequest" nillable="true" type="tns:FECAEADetRequest"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetRequest" nillable="true" type="tns:FECAEADetRequest" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEADetRequest">
         <s:complexContent mixed="false">
           <s:extension base="tns:FEDetRequest">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="CbteFchHsGen" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CbteFchHsGen" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -4717,33 +4931,33 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEARegInformativoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEARegInformativoResult" type="tns:FECAEAResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEARegInformativoResult" type="tns:FECAEAResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEAResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAEACabResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEADetResponse"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FeCabResp" type="tns:FECAEACabResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="FeDetResp" type="tns:ArrayOfFECAEADetResponse" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEACabResponse">
         <s:complexContent mixed="false">
-          <s:extension base="tns:FECabResponse"/>
+          <s:extension base="tns:FECabResponse" />
         </s:complexContent>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEADetResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetResponse" nillable="true" type="tns:FECAEADetResponse"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEADetResponse" nillable="true" type="tns:FECAEADetResponse" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEADetResponse">
         <s:complexContent mixed="false">
           <s:extension base="tns:FEDetResponse">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -4751,86 +4965,86 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEASolicitar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEASolicitarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEASolicitarResult" type="tns:FECAEAGetResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEASolicitarResult" type="tns:FECAEAGetResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEAGetResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECAEAGet"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:FECAEAGet" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEAGet">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int"/>
-          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchVigDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchVigHasta" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchTopeInf" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchVigDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchVigHasta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchTopeInf" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Observaciones" type="tns:ArrayOfObs" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECAEASinMovimientoConsultar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEASinMovimientoConsultarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoConsultarResult" type="tns:FECAEASinMovConsResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoConsultarResult" type="tns:FECAEASinMovConsResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECAEASinMovConsResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfFECAEASinMov"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfFECAEASinMov" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfFECAEASinMov">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEASinMov" nillable="true" type="tns:FECAEASinMov"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FECAEASinMov" nillable="true" type="tns:FECAEASinMov" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="FECAEASinMov">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchProceso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECAEASinMovimientoInformar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int"/>
-            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="PtoVta" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="CAEA" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEASinMovimientoInformarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoInformarResult" type="tns:FECAEASinMovResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEASinMovimientoInformarResult" type="tns:FECAEASinMovResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4838,9 +5052,9 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
         <s:complexContent mixed="false">
           <s:extension base="tns:FECAEASinMov">
             <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-              <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+              <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -4848,954 +5062,1080 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
       <s:element name="FECAEAConsultar">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int"/>
-            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="1" maxOccurs="1" name="Periodo" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FECAEAConsultarResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FECAEAConsultarResult" type="tns:FECAEAGetResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FECAEAConsultarResult" type="tns:FECAEAGetResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetCotizacion">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
-            <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetCotizacionResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCotizacionResult" type="tns:FECotizacionResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCotizacionResult" type="tns:FECotizacionResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FECotizacionResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:Cotizacion"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:Cotizacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Cotizacion">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string"/>
-          <s:element minOccurs="1" maxOccurs="1" name="MonCotiz" type="s:double"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="MonId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MonCotiz" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposTributos">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposTributosResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposTributosResult" type="tns:FETributoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposTributosResult" type="tns:FETributoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FETributoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfTributoTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfTributoTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfTributoTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="TributoTipo" nillable="true" type="tns:TributoTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TributoTipo" nillable="true" type="tns:TributoTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="TributoTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposMonedas">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposMonedasResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposMonedasResult" type="tns:MonedaResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposMonedasResult" type="tns:MonedaResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="MonedaResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfMoneda"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfMoneda" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfMoneda">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Moneda" nillable="true" type="tns:Moneda"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Moneda" nillable="true" type="tns:Moneda" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Moneda">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposIva">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposIvaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposIvaResult" type="tns:IvaTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposIvaResult" type="tns:IvaTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="IvaTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfIvaTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfIvaTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfIvaTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="IvaTipo" nillable="true" type="tns:IvaTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IvaTipo" nillable="true" type="tns:IvaTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="IvaTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposOpcional">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposOpcionalResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposOpcionalResult" type="tns:OpcionalTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposOpcionalResult" type="tns:OpcionalTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="OpcionalTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfOpcionalTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfOpcionalTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfOpcionalTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="OpcionalTipo" nillable="true" type="tns:OpcionalTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OpcionalTipo" nillable="true" type="tns:OpcionalTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="OpcionalTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposConcepto">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposConceptoResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposConceptoResult" type="tns:ConceptoTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposConceptoResult" type="tns:ConceptoTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="ConceptoTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfConceptoTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfConceptoTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfConceptoTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ConceptoTipo" nillable="true" type="tns:ConceptoTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ConceptoTipo" nillable="true" type="tns:ConceptoTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ConceptoTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetPtosVenta">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetPtosVentaResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetPtosVentaResult" type="tns:FEPtoVentaResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetPtosVentaResult" type="tns:FEPtoVentaResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FEPtoVentaResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPtoVenta"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPtoVenta" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfPtoVenta">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PtoVenta" nillable="true" type="tns:PtoVenta"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PtoVenta" nillable="true" type="tns:PtoVenta" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="PtoVenta">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Bloqueado" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchBaja" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Nro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmisionTipo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bloqueado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchBaja" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposCbte">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposCbteResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposCbteResult" type="tns:CbteTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposCbteResult" type="tns:CbteTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="CbteTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCbteTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCbteTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfCbteTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteTipo" nillable="true" type="tns:CbteTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CbteTipo" nillable="true" type="tns:CbteTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="CbteTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEParamGetCondicionIvaReceptor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClaseCmp" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEParamGetCondicionIvaReceptorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetCondicionIvaReceptorResult" type="tns:CondicionIvaReceptorResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CondicionIvaReceptorResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfCondicionIvaReceptor" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CondicionIvaReceptor" nillable="true" type="tns:CondicionIvaReceptor" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CondicionIvaReceptor">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmp_Clase" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposDoc">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposDocResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposDocResult" type="tns:DocTipoResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposDocResult" type="tns:DocTipoResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="DocTipoResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfDocTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfDocTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDocTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="DocTipo" nillable="true" type="tns:DocTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocTipo" nillable="true" type="tns:DocTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="DocTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string"/>
-          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="FEParamGetTiposPaises">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="FEParamGetTiposPaisesResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposPaisesResult" type="tns:FEPaisResponse"/>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetTiposPaisesResult" type="tns:FEPaisResponse" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:complexType name="FEPaisResponse">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPaisTipo"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfPaisTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfPaisTipo">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="PaisTipo" nillable="true" type="tns:PaisTipo"/>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PaisTipo" nillable="true" type="tns:PaisTipo" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="PaisTipo">
         <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short"/>
-          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEParamGetActividades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEParamGetActividadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetActividadesResult" type="tns:FEActividadesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEActividadesResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfActividadesTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividadesTipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActividadesTipo" nillable="true" type="tns:ActividadesTipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActividadesTipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
         </s:sequence>
       </s:complexType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="FECAESolicitarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAESolicitar"/>
+    <wsdl:part name="parameters" element="tns:FECAESolicitar" />
   </wsdl:message>
   <wsdl:message name="FECAESolicitarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAESolicitarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAESolicitarResponse" />
   </wsdl:message>
   <wsdl:message name="FECompTotXRequestSoapIn">
-    <wsdl:part name="parameters" element="tns:FECompTotXRequest"/>
+    <wsdl:part name="parameters" element="tns:FECompTotXRequest" />
   </wsdl:message>
   <wsdl:message name="FECompTotXRequestSoapOut">
-    <wsdl:part name="parameters" element="tns:FECompTotXRequestResponse"/>
+    <wsdl:part name="parameters" element="tns:FECompTotXRequestResponse" />
   </wsdl:message>
   <wsdl:message name="FEDummySoapIn">
-    <wsdl:part name="parameters" element="tns:FEDummy"/>
+    <wsdl:part name="parameters" element="tns:FEDummy" />
   </wsdl:message>
   <wsdl:message name="FEDummySoapOut">
-    <wsdl:part name="parameters" element="tns:FEDummyResponse"/>
+    <wsdl:part name="parameters" element="tns:FEDummyResponse" />
   </wsdl:message>
   <wsdl:message name="FECompUltimoAutorizadoSoapIn">
-    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizado"/>
+    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizado" />
   </wsdl:message>
   <wsdl:message name="FECompUltimoAutorizadoSoapOut">
-    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizadoResponse"/>
+    <wsdl:part name="parameters" element="tns:FECompUltimoAutorizadoResponse" />
   </wsdl:message>
   <wsdl:message name="FECompConsultarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECompConsultar"/>
+    <wsdl:part name="parameters" element="tns:FECompConsultar" />
   </wsdl:message>
   <wsdl:message name="FECompConsultarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECompConsultarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECompConsultarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEARegInformativoSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEARegInformativo"/>
+    <wsdl:part name="parameters" element="tns:FECAEARegInformativo" />
   </wsdl:message>
   <wsdl:message name="FECAEARegInformativoSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEARegInformativoResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEARegInformativoResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEASolicitarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEASolicitar"/>
+    <wsdl:part name="parameters" element="tns:FECAEASolicitar" />
   </wsdl:message>
   <wsdl:message name="FECAEASolicitarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEASolicitarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEASolicitarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoConsultarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultar"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultar" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoConsultarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoConsultarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoInformarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformar"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformar" />
   </wsdl:message>
   <wsdl:message name="FECAEASinMovimientoInformarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEASinMovimientoInformarResponse" />
   </wsdl:message>
   <wsdl:message name="FECAEAConsultarSoapIn">
-    <wsdl:part name="parameters" element="tns:FECAEAConsultar"/>
+    <wsdl:part name="parameters" element="tns:FECAEAConsultar" />
   </wsdl:message>
   <wsdl:message name="FECAEAConsultarSoapOut">
-    <wsdl:part name="parameters" element="tns:FECAEAConsultarResponse"/>
+    <wsdl:part name="parameters" element="tns:FECAEAConsultarResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetCotizacionSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetCotizacion"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetCotizacion" />
   </wsdl:message>
   <wsdl:message name="FEParamGetCotizacionSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetCotizacionResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetCotizacionResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposTributosSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributos"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributos" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposTributosSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributosResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposTributosResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposMonedasSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedas"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedas" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposMonedasSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedasResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposMonedasResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposIvaSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposIva"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposIva" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposIvaSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposIvaResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposIvaResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposOpcionalSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcional"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcional" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposOpcionalSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcionalResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposOpcionalResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposConceptoSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposConcepto"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposConcepto" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposConceptoSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposConceptoResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposConceptoResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetPtosVentaSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetPtosVenta"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetPtosVenta" />
   </wsdl:message>
   <wsdl:message name="FEParamGetPtosVentaSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetPtosVentaResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetPtosVentaResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposCbteSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbte"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbte" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposCbteSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbteResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposCbteResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapIn">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptor" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetCondicionIvaReceptorSoapOut">
+    <wsdl:part name="parameters" element="tns:FEParamGetCondicionIvaReceptorResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposDocSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposDoc"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposDoc" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposDocSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposDocResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposDocResponse" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposPaisesSoapIn">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaises"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaises" />
   </wsdl:message>
   <wsdl:message name="FEParamGetTiposPaisesSoapOut">
-    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaisesResponse"/>
+    <wsdl:part name="parameters" element="tns:FEParamGetTiposPaisesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetActividadesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEParamGetActividades" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetActividadesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEParamGetActividadesResponse" />
   </wsdl:message>
   <wsdl:portType name="ServiceSoap">
     <wsdl:operation name="FECAESolicitar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitud de Código de Autorización Electrónico (CAE)</wsdl:documentation>
-      <wsdl:input message="tns:FECAESolicitarSoapIn"/>
-      <wsdl:output message="tns:FECAESolicitarSoapOut"/>
+      <wsdl:input message="tns:FECAESolicitarSoapIn" />
+      <wsdl:output message="tns:FECAESolicitarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECompTotXRequest">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna la cantidad maxima de registros que puede tener una invocacion al metodo FECAESolicitar / FECAEARegInformativo </wsdl:documentation>
-      <wsdl:input message="tns:FECompTotXRequestSoapIn"/>
-      <wsdl:output message="tns:FECompTotXRequestSoapOut"/>
+      <wsdl:input message="tns:FECompTotXRequestSoapIn" />
+      <wsdl:output message="tns:FECompTotXRequestSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEDummy">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo dummy para verificacion de funcionamiento</wsdl:documentation>
-      <wsdl:input message="tns:FEDummySoapIn"/>
-      <wsdl:output message="tns:FEDummySoapOut"/>
+      <wsdl:input message="tns:FEDummySoapIn" />
+      <wsdl:output message="tns:FEDummySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECompUltimoAutorizado">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retorna el ultimo comprobante autorizado para el tipo de comprobante / cuit / punto de venta ingresado / Tipo de Emisión</wsdl:documentation>
-      <wsdl:input message="tns:FECompUltimoAutorizadoSoapIn"/>
-      <wsdl:output message="tns:FECompUltimoAutorizadoSoapOut"/>
+      <wsdl:input message="tns:FECompUltimoAutorizadoSoapIn" />
+      <wsdl:output message="tns:FECompUltimoAutorizadoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECompConsultar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consulta Comprobante emitido y su código.</wsdl:documentation>
-      <wsdl:input message="tns:FECompConsultarSoapIn"/>
-      <wsdl:output message="tns:FECompConsultarSoapOut"/>
+      <wsdl:input message="tns:FECompConsultarSoapIn" />
+      <wsdl:output message="tns:FECompConsultarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEARegInformativo">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Rendición de comprobantes asociados a un CAEA.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEARegInformativoSoapIn"/>
-      <wsdl:output message="tns:FECAEARegInformativoSoapOut"/>
+      <wsdl:input message="tns:FECAEARegInformativoSoapIn" />
+      <wsdl:output message="tns:FECAEARegInformativoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEASolicitar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitud de Código de Autorización Electrónico Anticipado (CAEA)</wsdl:documentation>
-      <wsdl:input message="tns:FECAEASolicitarSoapIn"/>
-      <wsdl:output message="tns:FECAEASolicitarSoapOut"/>
+      <wsdl:input message="tns:FECAEASolicitarSoapIn" />
+      <wsdl:output message="tns:FECAEASolicitarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoConsultar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consulta CAEA informado como sin movimientos.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEASinMovimientoConsultarSoapIn"/>
-      <wsdl:output message="tns:FECAEASinMovimientoConsultarSoapOut"/>
+      <wsdl:input message="tns:FECAEASinMovimientoConsultarSoapIn" />
+      <wsdl:output message="tns:FECAEASinMovimientoConsultarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoInformar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Informa CAEA sin movimientos.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEASinMovimientoInformarSoapIn"/>
-      <wsdl:output message="tns:FECAEASinMovimientoInformarSoapOut"/>
+      <wsdl:input message="tns:FECAEASinMovimientoInformarSoapIn" />
+      <wsdl:output message="tns:FECAEASinMovimientoInformarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FECAEAConsultar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Consultar CAEA emitidos.</wsdl:documentation>
-      <wsdl:input message="tns:FECAEAConsultarSoapIn"/>
-      <wsdl:output message="tns:FECAEAConsultarSoapOut"/>
+      <wsdl:input message="tns:FECAEAConsultarSoapIn" />
+      <wsdl:output message="tns:FECAEAConsultarSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetCotizacion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera la cotizacion de la moneda consultada y su  fecha </wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetCotizacionSoapIn"/>
-      <wsdl:output message="tns:FEParamGetCotizacionSoapOut"/>
+      <wsdl:input message="tns:FEParamGetCotizacionSoapIn" />
+      <wsdl:output message="tns:FEParamGetCotizacionSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposTributos">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los diferente tributos que pueden ser utilizados  en el servicio de autorizacion</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposTributosSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposTributosSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposTributosSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposTributosSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposMonedas">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de monedas utilizables en servicio de autorización</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposMonedasSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposMonedasSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposMonedasSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposMonedasSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposIva">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Iva utilizables en servicio de autorización.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposIvaSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposIvaSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposIvaSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposIvaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposOpcional">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de identificadores para los campos Opcionales</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposOpcionalSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposOpcionalSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposOpcionalSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposOpcionalSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposConcepto">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de identificadores para el campo Concepto.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposConceptoSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposConceptoSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposConceptoSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposConceptoSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetPtosVenta">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de puntos de venta registrados y su estado</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetPtosVentaSoapIn"/>
-      <wsdl:output message="tns:FEParamGetPtosVentaSoapOut"/>
+      <wsdl:input message="tns:FEParamGetPtosVentaSoapIn" />
+      <wsdl:output message="tns:FEParamGetPtosVentaSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposCbte">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Comprobantes utilizables en servicio de autorización.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposCbteSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposCbteSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposCbteSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposCbteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera la condicion frente al IVA del receptor (para una clase de comprobante determinada o para todos si no se especifica).</wsdl:documentation>
+      <wsdl:input message="tns:FEParamGetCondicionIvaReceptorSoapIn" />
+      <wsdl:output message="tns:FEParamGetCondicionIvaReceptorSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de Tipos de Documentos utilizables en servicio de autorización.</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposDocSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposDocSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposDocSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposDocSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los diferente paises que pueden ser utilizados  en el servicio de autorizacion</wsdl:documentation>
-      <wsdl:input message="tns:FEParamGetTiposPaisesSoapIn"/>
-      <wsdl:output message="tns:FEParamGetTiposPaisesSoapOut"/>
+      <wsdl:input message="tns:FEParamGetTiposPaisesSoapIn" />
+      <wsdl:output message="tns:FEParamGetTiposPaisesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las diferentes actividades habilitadas para el emisor</wsdl:documentation>
+      <wsdl:input message="tns:FEParamGetActividadesSoapIn" />
+      <wsdl:output message="tns:FEParamGetActividadesSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="FECAESolicitar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompTotXRequest">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEDummy">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompUltimoAutorizado">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompConsultar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEARegInformativo">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASolicitar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoConsultar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoInformar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEAConsultar">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetCotizacion">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposTributos">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposMonedas">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposIva">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposOpcional">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposConcepto">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetPtosVenta">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposCbte">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
-      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document"/>
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document" />
       <wsdl:input>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap:body use="literal"/>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetActividades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
-    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="FECAESolicitar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAESolicitar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompTotXRequest">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompTotXRequest" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEDummy">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEDummy" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompUltimoAutorizado">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompUltimoAutorizado" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECompConsultar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECompConsultar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEARegInformativo">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEARegInformativo" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASolicitar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASolicitar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoConsultar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoConsultar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEASinMovimientoInformar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEASinMovimientoInformar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FECAEAConsultar">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FECAEAConsultar" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetCotizacion">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCotizacion" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposTributos">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposTributos" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposMonedas">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposMonedas" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposIva">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposIva" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposOpcional">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposOpcional" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposConcepto">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposConcepto" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetPtosVenta">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetPtosVenta" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposCbte">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposCbte" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetCondicionIvaReceptor">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetCondicionIvaReceptor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposDoc">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposDoc" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
-      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document"/>
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document" />
       <wsdl:input>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <soap12:body use="literal"/>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetActividades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Service">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de Facturacion electronica RG2485 V1</wsdl:documentation>
     <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
-      <soap:address location="https://wswhomo.afip.gov.ar/wsfev1/service.asmx"/>
+      <soap:address location="https://wswhomo.afip.gov.ar/wsfev1/service.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
-      <soap12:address location="https://wswhomo.afip.gov.ar/wsfev1/service.asmx"/>
+      <soap12:address location="https://wswhomo.afip.gov.ar/wsfev1/service.asmx" />
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>`,
+</wsdl:definitions>`
 };
 
-export function getWsdlString(filename: string): string | undefined {
-  return WSDL_STRINGS[filename];
+export function getWsdlString(wsdlName: string): string | undefined {
+  return WSDL_STRINGS[wsdlName];
 }

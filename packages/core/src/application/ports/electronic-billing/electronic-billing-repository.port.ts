@@ -18,6 +18,13 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
+  IvaReceptorTypesResultDto,
+  CaeaResultDto,
+  CaeaNoMovementResultDto,
+  CountriesResultDto,
+  ActivitiesResultDto,
+  QuotationResultDto,
+  MaxRecordsResultDto,
 } from "@application/dto/electronic-billing.dto";
 
 export interface IElectronicBillingRepositoryPort {
@@ -105,4 +112,82 @@ export interface IElectronicBillingRepositoryPort {
    * @returns Tax types information
    */
   getTaxTypes(): Promise<TaxTypesResultDto>;
+
+  /**
+   * Get available IVA receptor types
+   * @param claseCmp Voucher class (optional)
+   * @returns IVA receptor types information
+   */
+  getIvaReceptorTypes(claseCmp?: string): Promise<IvaReceptorTypesResultDto>;
+
+  /**
+   * Request CAEA (Anticipated Electronic Authorization Code)
+   * @param period Period (YYYYMM)
+   * @param order Fortnight (1 or 2)
+   * @returns CAEA information
+   */
+  getCaea(period: number, order: number): Promise<CaeaResultDto>;
+
+  /**
+   * Consult CAEA
+   * @param period Period (YYYYMM)
+   * @param order Fortnight (1 or 2)
+   * @returns CAEA information
+   */
+  consultCaea(period: number, order: number): Promise<CaeaResultDto>;
+
+  /**
+   * Inform CAEA No Movement
+   * @param caea CAEA number
+   * @param salesPoint Sales point number
+   * @returns CAEA No Movement information
+   */
+  informCaeaNoMovement(
+    caea: string,
+    salesPoint: number
+  ): Promise<CaeaNoMovementResultDto>;
+
+  /**
+   * Consult CAEA No Movement
+   * @param caea CAEA number
+   * @param salesPoint Sales point number
+   * @returns CAEA No Movement information
+   */
+  consultCaeaNoMovement(
+    caea: string,
+    salesPoint: number
+  ): Promise<CaeaNoMovementResultDto>;
+
+  /**
+   * Inform CAEA Usage (Regimen Informativo)
+   * @param caea CAEA number
+   * @param salesPoint Sales point number
+   * @returns CAEA Usage information
+   */
+  informCaeaUsage(voucher: Voucher, caea: string): Promise<CaeaResultDto>;
+
+  /**
+   * Get Quotation
+   * @param currencyId Currency ID
+   * @returns Quotation information
+   */
+  getQuotation(currencyId: string): Promise<QuotationResultDto>;
+
+  /**
+   * Get Countries
+   * @returns Countries information
+   */
+  getCountries(): Promise<CountriesResultDto>;
+
+  /**
+   * Get Activities
+   * @returns Activities information
+   */
+  getActivities(): Promise<ActivitiesResultDto>;
+
+  /**
+   * Get Max Records per Request
+   * @returns Max records number
+   */
+  getMaxRecordsPerRequest(): Promise<MaxRecordsResultDto>;
 }

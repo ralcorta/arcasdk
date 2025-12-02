@@ -11,6 +11,12 @@ import {
   VoucherInfo,
   AliquotType,
   ParameterType,
+  IvaReceptorType,
+  CaeaResponse,
+  CaeaNoMovement,
+  PaisType,
+  ActividadType,
+  CotizacionType,
   ErrorInfo,
 } from "@domain/types/electronic-billing.types";
 
@@ -191,4 +197,141 @@ export function mapAliquotTypes(soapResult: {
       })
     ) || []
   );
+}
+
+/**
+ * Map SOAP IVA receptor types to Domain IvaReceptorType array
+ */
+export function mapIvaReceptorTypes(soapResult: {
+  ResultGet?: {
+    CondicionIvaReceptor?: Array<{
+      Id: number;
+      Desc: string;
+      Cmp_Clase: string;
+    }>;
+  };
+}): IvaReceptorType[] {
+  return (
+    soapResult.ResultGet?.CondicionIvaReceptor?.map(
+      (t): IvaReceptorType => ({
+        id: t.Id,
+        desc: t.Desc,
+        cmp_Clase: t.Cmp_Clase,
+      })
+    ) || []
+  );
+}
+/**
+ * Map SOAP CAEA to Domain CaeaResponse
+ */
+export function mapCaea(soapResult: {
+  CAEA: string;
+  Periodo: number;
+  Orden: number;
+  FchVigDesde: string;
+  FchVigHasta: string;
+  FchTopeInf: string;
+  FchProceso: string;
+  Observaciones?: { Obs?: Array<{ Msg: string }> };
+}): CaeaResponse {
+  return {
+    caea: soapResult.CAEA,
+    periodo: soapResult.Periodo,
+    orden: soapResult.Orden,
+    fchVigDesde: soapResult.FchVigDesde,
+    fchVigHasta: soapResult.FchVigHasta,
+    fchTopeInf: soapResult.FchTopeInf,
+    fchProceso: soapResult.FchProceso,
+    observaciones: soapResult.Observaciones?.Obs?.[0]?.Msg,
+  };
+}
+
+/**
+ * Map SOAP CAEA No Movement to Domain CaeaNoMovement array
+ */
+export function mapCaeaNoMovement(soapResult: {
+  ResultGet?: Array<{
+    CAEA: string;
+    FchProceso: string;
+    PtoVta: number;
+  }>;
+}): CaeaNoMovement[] {
+  return (
+    soapResult.ResultGet?.map(
+      (c): CaeaNoMovement => ({
+        caea: c.CAEA,
+        fchProceso: c.FchProceso,
+        ptoVta: c.PtoVta,
+      })
+    ) || []
+  );
+}
+
+/**
+ * Map SOAP Countries to Domain PaisType array
+ */
+export function mapCountries(soapResult: {
+  ResultGet?: {
+    PaisTipo?: Array<{
+      Id: number;
+      Desc: string;
+    }>;
+  };
+}): PaisType[] {
+  return (
+    soapResult.ResultGet?.PaisTipo?.map(
+      (p): PaisType => ({
+        id: p.Id,
+        desc: p.Desc,
+      })
+    ) || []
+  );
+}
+
+/**
+ * Map SOAP Activities to Domain ActividadType array
+ */
+export function mapActivities(soapResult: {
+  ResultGet?: {
+    ActividadesTipo?: Array<{
+      Id: number;
+      Orden: number;
+      Desc: string;
+    }>;
+  };
+}): ActividadType[] {
+  return (
+    soapResult.ResultGet?.ActividadesTipo?.map(
+      (a): ActividadType => ({
+        id: a.Id,
+        orden: a.Orden,
+        desc: a.Desc,
+      })
+    ) || []
+  );
+}
+
+/**
+ * Map SOAP Quotation to Domain CotizacionType
+ */
+export function mapQuotation(soapResult: {
+  ResultGet?: {
+    MonId: string;
+    MonCotiz: number;
+    FchCotiz: string;
+  };
+}): CotizacionType | undefined {
+  if (!soapResult.ResultGet) return undefined;
+  return {
+    monId: soapResult.ResultGet.MonId,
+    monCotiz: soapResult.ResultGet.MonCotiz,
+    fchCotiz: soapResult.ResultGet.FchCotiz,
+  };
+}
+
+/**
+ * Map SOAP Max Records to number
+ */
+export function mapMaxRecords(soapResult: { RegXReq: number }): number {
+  return soapResult.RegXReq;
 }
