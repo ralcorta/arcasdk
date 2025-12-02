@@ -9,7 +9,7 @@ export default withMermaid(
     lang: "es",
     appearance: "dark",
     sitemap: {
-      hostname: "https://arcasdk.io",
+      hostname: "https://afipts.com",
     },
     head: [["link", { rel: "icon", href: "/logo.ico" }]],
     themeConfig: {
