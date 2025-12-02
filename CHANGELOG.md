@@ -1,3 +1,13 @@
+## 0.3.1 (2025-12-02)
+
+### 🩹 Fixes
+
+- caea ([ed264a6](https://github.com/ralcorta/arcasdk/commit/ed264a6))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 0.3.0 (2025-12-02)
 
 ### 🚀 Features
