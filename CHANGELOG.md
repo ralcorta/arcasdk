@@ -1,3 +1,20 @@
+## 0.3.0 (2025-12-02)
+
+### 🚀 Features
+
+- auth for register ([2f2aee6](https://github.com/ralcorta/arcasdk/commit/2f2aee6))
+- auth for register ([19411fa](https://github.com/ralcorta/arcasdk/commit/19411fa))
+
+### 🩹 Fixes
+
+- old cname ([f30bc2d](https://github.com/ralcorta/arcasdk/commit/f30bc2d))
+- logs removed ([5e50291](https://github.com/ralcorta/arcasdk/commit/5e50291))
+- unused code ([31989a2](https://github.com/ralcorta/arcasdk/commit/31989a2))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 0.2.0 (2025-12-01)
 
 ### 🚀 Features
