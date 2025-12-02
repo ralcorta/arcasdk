@@ -1,3 +1,13 @@
+## 0.3.2 (2025-12-02)
+
+### 🩹 Fixes
+
+- deploy ([9455ac1](https://github.com/ralcorta/arcasdk/commit/9455ac1))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 0.3.1 (2025-12-02)
 
 ### 🩹 Fixes
