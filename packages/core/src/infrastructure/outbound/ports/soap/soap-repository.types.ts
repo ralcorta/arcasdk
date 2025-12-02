@@ -36,4 +36,12 @@ export interface AuthenticatedProxyOptions {
    * @default ServiceSoap12
    */
   soapVersion?: SoapServiceVersion;
+  /**
+   * Optional function to map auth parameters before injection
+   */
+  authMapper?: (auth: any) => any;
+  /**
+   * List of methods to exclude from authentication injection
+   */
+  excludeMethods?: string[];
 }

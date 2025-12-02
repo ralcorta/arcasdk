@@ -16,6 +16,11 @@ import {
   OptionalType,
   TaxType,
   IvaReceptorType,
+  CaeaResponse,
+  CaeaNoMovement,
+  PaisType,
+  ActividadType,
+  CotizacionType,
   ErrorInfo,
 } from "@domain/types/electronic-billing.types";
 
@@ -145,6 +150,70 @@ export interface IvaReceptorTypesResultDto {
   resultGet?: {
     condicionIvaReceptor?: IvaReceptorType[];
   };
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * CAEA Result DTO
+ */
+export interface CaeaResultDto {
+  resultGet?: CaeaResponse;
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * CAEA No Movement Result DTO
+ */
+export interface CaeaNoMovementResultDto {
+  resultGet?: CaeaNoMovement[];
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * Countries Result DTO
+ */
+export interface CountriesResultDto {
+  resultGet?: {
+    paisTipo?: PaisType[];
+  };
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * Activities Result DTO
+ */
+export interface ActivitiesResultDto {
+  resultGet?: {
+    actividadesTipo?: ActividadType[];
+  };
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * Quotation Result DTO
+ */
+export interface QuotationResultDto {
+  resultGet?: CotizacionType;
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * Max Records Result DTO
+ */
+export interface MaxRecordsResultDto {
+  resultGet?: number;
   errors?: {
     err?: ErrorInfo[];
   };

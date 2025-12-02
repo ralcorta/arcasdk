@@ -9,30 +9,29 @@ import {
   TaxIDByDocumentResultDto,
 } from "@application/dto/register.dto";
 
-export interface IRegisterScopeFourRepositoryPort {
+export interface IRegisterBaseRepositoryPort {
   getServerStatus(): Promise<RegisterServerStatusDto>;
   getTaxpayerDetails(identifier: number): Promise<TaxpayerDetailsDto | null>;
 }
 
-export interface IRegisterScopeFiveRepositoryPort {
-  getServerStatus(): Promise<RegisterServerStatusDto>;
-  getTaxpayerDetails(identifier: number): Promise<TaxpayerDetailsDto | null>;
+export interface IRegisterBatchRepositoryPort
+  extends IRegisterBaseRepositoryPort {
   getTaxpayersDetails(identifiers: number[]): Promise<TaxpayersDetailsDto>;
 }
 
-export interface IRegisterScopeTenRepositoryPort {
-  getServerStatus(): Promise<RegisterServerStatusDto>;
-  getTaxpayerDetails(identifier: number): Promise<TaxpayerDetailsDto | null>;
-}
+export interface IRegisterScopeFourRepositoryPort
+  extends IRegisterBaseRepositoryPort {}
 
-export interface IRegisterScopeThirteenRepositoryPort {
-  getServerStatus(): Promise<RegisterServerStatusDto>;
-  getTaxpayerDetails(identifier: number): Promise<TaxpayerDetailsDto | null>;
+export interface IRegisterScopeFiveRepositoryPort
+  extends IRegisterBatchRepositoryPort {}
+
+export interface IRegisterScopeTenRepositoryPort
+  extends IRegisterBaseRepositoryPort {}
+
+export interface IRegisterScopeThirteenRepositoryPort
+  extends IRegisterBaseRepositoryPort {
   getTaxIDByDocument(documentNumber: string): Promise<TaxIDByDocumentResultDto>;
 }
 
-export interface IRegisterInscriptionProofRepositoryPort {
-  getServerStatus(): Promise<RegisterServerStatusDto>;
-  getTaxpayerDetails(identifier: number): Promise<TaxpayerDetailsDto | null>;
-  getTaxpayersDetails(identifiers: number[]): Promise<TaxpayersDetailsDto>;
-}
+export interface IRegisterInscriptionProofRepositoryPort
+  extends IRegisterBatchRepositoryPort {}

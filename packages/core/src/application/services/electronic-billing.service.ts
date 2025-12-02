@@ -19,6 +19,12 @@ import {
   OptionalTypesResultDto,
   TaxTypesResultDto,
   IvaReceptorTypesResultDto,
+  CaeaResultDto,
+  CaeaNoMovementResultDto,
+  CountriesResultDto,
+  ActivitiesResultDto,
+  QuotationResultDto,
+  MaxRecordsResultDto,
 } from "@application/dto/electronic-billing.dto";
 
 // Use cases
@@ -36,6 +42,15 @@ import { GetCurrencyTypesUseCase } from "@application/use-cases/electronic-billi
 import { GetOptionalTypesUseCase } from "@application/use-cases/electronic-billing/get-optional-types.use-case";
 import { GetTaxTypesUseCase } from "@application/use-cases/electronic-billing/get-tax-types.use-case";
 import { GetIvaReceptorTypesUseCase } from "@application/use-cases/electronic-billing/get-iva-receptor-types.use-case";
+import { GetCaeaUseCase } from "@application/use-cases/electronic-billing/get-caea.use-case";
+import { ConsultCaeaUseCase } from "@application/use-cases/electronic-billing/consult-caea.use-case";
+import { InformCaeaNoMovementUseCase } from "@application/use-cases/electronic-billing/inform-caea-no-movement.use-case";
+import { ConsultCaeaNoMovementUseCase } from "@application/use-cases/electronic-billing/consult-caea-no-movement.use-case";
+import { InformCaeaUsageUseCase } from "@application/use-cases/electronic-billing/inform-caea-usage.use-case";
+import { GetQuotationUseCase } from "@application/use-cases/electronic-billing/get-quotation.use-case";
+import { GetCountriesUseCase } from "@application/use-cases/electronic-billing/get-countries.use-case";
+import { GetActivitiesUseCase } from "@application/use-cases/electronic-billing/get-activities.use-case";
+import { GetMaxRecordsUseCase } from "@application/use-cases/electronic-billing/get-max-records.use-case";
 
 export class ElectronicBillingService {
   // Use cases
@@ -53,6 +68,15 @@ export class ElectronicBillingService {
   private readonly getOptionalTypesUseCase: GetOptionalTypesUseCase;
   private readonly getTaxTypesUseCase: GetTaxTypesUseCase;
   private readonly getIvaReceptorTypesUseCase: GetIvaReceptorTypesUseCase;
+  private readonly getCaeaUseCase: GetCaeaUseCase;
+  private readonly consultCaeaUseCase: ConsultCaeaUseCase;
+  private readonly informCaeaNoMovementUseCase: InformCaeaNoMovementUseCase;
+  private readonly consultCaeaNoMovementUseCase: ConsultCaeaNoMovementUseCase;
+  private readonly informCaeaUsageUseCase: InformCaeaUsageUseCase;
+  private readonly getQuotationUseCase: GetQuotationUseCase;
+  private readonly getCountriesUseCase: GetCountriesUseCase;
+  private readonly getActivitiesUseCase: GetActivitiesUseCase;
+  private readonly getMaxRecordsUseCase: GetMaxRecordsUseCase;
 
   constructor(
     private readonly electronicBillingRepository: IElectronicBillingRepositoryPort
@@ -98,6 +122,31 @@ export class ElectronicBillingService {
       this.electronicBillingRepository
     );
     this.getIvaReceptorTypesUseCase = new GetIvaReceptorTypesUseCase(
+      this.electronicBillingRepository
+    );
+    this.getCaeaUseCase = new GetCaeaUseCase(this.electronicBillingRepository);
+    this.consultCaeaUseCase = new ConsultCaeaUseCase(
+      this.electronicBillingRepository
+    );
+    this.informCaeaNoMovementUseCase = new InformCaeaNoMovementUseCase(
+      this.electronicBillingRepository
+    );
+    this.consultCaeaNoMovementUseCase = new ConsultCaeaNoMovementUseCase(
+      this.electronicBillingRepository
+    );
+    this.informCaeaUsageUseCase = new InformCaeaUsageUseCase(
+      this.electronicBillingRepository
+    );
+    this.getQuotationUseCase = new GetQuotationUseCase(
+      this.electronicBillingRepository
+    );
+    this.getCountriesUseCase = new GetCountriesUseCase(
+      this.electronicBillingRepository
+    );
+    this.getActivitiesUseCase = new GetActivitiesUseCase(
+      this.electronicBillingRepository
+    );
+    this.getMaxRecordsUseCase = new GetMaxRecordsUseCase(
       this.electronicBillingRepository
     );
   }
@@ -260,6 +309,98 @@ export class ElectronicBillingService {
     claseCmp?: string
   ): Promise<IvaReceptorTypesResultDto> {
     return this.getIvaReceptorTypesUseCase.execute(claseCmp);
+  }
+
+  /**
+   * Request CAEA (Anticipated Electronic Authorization Code)
+   * @param period Period (YYYYMM)
+   * @param order Fortnight (1 or 2)
+   * @returns CAEA information
+   */
+  async getCaea(period: number, order: number): Promise<CaeaResultDto> {
+    return this.getCaeaUseCase.execute(period, order);
+  }
+
+  /**
+   * Consult CAEA
+   * @param period Period (YYYYMM)
+   * @param order Fortnight (1 or 2)
+   * @returns CAEA information
+   */
+  async consultCaea(period: number, order: number): Promise<CaeaResultDto> {
+    return this.consultCaeaUseCase.execute(period, order);
+  }
+
+  /**
+   * Inform CAEA No Movement
+   * @param caea CAEA number
+   * @param salesPoint Sales point number
+   * @returns CAEA No Movement information
+   */
+  async informCaeaNoMovement(
+    caea: string,
+    salesPoint: number
+  ): Promise<CaeaNoMovementResultDto> {
+    return this.informCaeaNoMovementUseCase.execute(caea, salesPoint);
+  }
+
+  /**
+   * Consult CAEA No Movement
+   * @param caea CAEA number
+   * @param salesPoint Sales point number
+   * @returns CAEA No Movement information
+   */
+  async consultCaeaNoMovement(
+    caea: string,
+    salesPoint: number
+  ): Promise<CaeaNoMovementResultDto> {
+    return this.consultCaeaNoMovementUseCase.execute(caea, salesPoint);
+  }
+
+  /**
+   * Inform CAEA Usage (Regimen Informativo)
+   * @param caea CAEA number
+   * @param salesPoint Sales point number
+   * @returns CAEA Usage information
+   */
+  async informCaeaUsage(
+    voucher: IVoucher,
+    caea: string
+  ): Promise<CaeaResultDto> {
+    return this.informCaeaUsageUseCase.execute(voucher, caea);
+  }
+
+  /**
+   * Get Quotation
+   * @param currencyId Currency ID
+   * @returns Quotation information
+   */
+  async getQuotation(currencyId: string): Promise<QuotationResultDto> {
+    return this.getQuotationUseCase.execute(currencyId);
+  }
+
+  /**
+   * Get Countries
+   * @returns Countries information
+   */
+  async getCountries(): Promise<CountriesResultDto> {
+    return this.getCountriesUseCase.execute();
+  }
+
+  /**
+   * Get Activities
+   * @returns Activities information
+   */
+  async getActivities(): Promise<ActivitiesResultDto> {
+    return this.getActivitiesUseCase.execute();
+  }
+
+  /**
+   * Get Max Records per Request
+   * @returns Max records number
+   */
+  async getMaxRecordsPerRequest(): Promise<MaxRecordsResultDto> {
+    return this.getMaxRecordsUseCase.execute();
   }
 
   /**

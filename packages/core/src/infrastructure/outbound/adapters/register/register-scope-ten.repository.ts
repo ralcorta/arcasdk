@@ -2,6 +2,7 @@
  * Register Scope Ten Repository
  * Implements IRegisterScopeTenRepositoryPort
  */
+import { Client } from "soap";
 import { IRegisterScopeTenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { BaseSoapRepository } from "../soap/base-soap-repository";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
@@ -50,6 +51,12 @@ export class RegisterScopeTenRepository
       serviceName: ServiceNamesEnum.WSSR_PADRON_TEN,
       injectAuthProperty: true,
       soapVersion: SoapServiceVersion.ServiceSoap,
+      authMapper: (auth: any) => ({
+        token: auth.Auth.Token,
+        sign: auth.Auth.Sign,
+        cuitRepresentada: auth.Auth.Cuit,
+      }),
+      excludeMethods: ["dummy"],
     });
 
     return this.client;
@@ -87,7 +94,16 @@ export class RegisterScopeTenRepository
       if (error?.code === 602 || error?.message?.includes("no existe")) {
         return null;
       }
-      throw error;
+      // Create a new error with only serializable properties to avoid circular structure issues
+      const sanitizedError = new Error(error?.message || "Unknown error");
+      sanitizedError.name = error?.name || "Error";
+      if (error?.code) {
+        (sanitizedError as any).code = error.code;
+      }
+      if (error?.stack) {
+        sanitizedError.stack = error.stack;
+      }
+      throw sanitizedError;
     }
   }
 

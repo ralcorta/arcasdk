@@ -1,5 +1,5 @@
 /**
- * Get IVA Receptor Types Use Case
+ * Get Iva Receptor Types Use Case
  * Retrieves available IVA receptor types from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";

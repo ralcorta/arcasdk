@@ -58,16 +58,23 @@ export abstract class BaseSoapRepository {
           const func = prop.slice(0, -5);
           const soapServices: SoapServices<T> = (client as any).describe();
           const methodRequiresAuth =
-            soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"] !==
-            undefined;
+            !options.excludeMethods?.includes(func) &&
+            (!!options.authMapper ||
+              soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"] !==
+                undefined);
 
           if (methodRequiresAuth) {
             return async (params: any) => {
               const ticket = await this.authRepository.login(serviceName);
               const auth = this.authRepository.getAuthParams(ticket, this.cuit);
-              const paramsWithAuth = injectAuthProperty
-                ? { ...auth.Auth, ...params }
-                : { ...auth, ...params };
+
+              let authParams = injectAuthProperty ? auth.Auth : auth;
+
+              if (options.authMapper) {
+                authParams = options.authMapper(auth);
+              }
+
+              const paramsWithAuth = { ...authParams, ...params };
               return (original as any).call(target, paramsWithAuth);
             };
           }

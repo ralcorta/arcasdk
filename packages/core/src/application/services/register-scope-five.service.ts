@@ -9,15 +9,32 @@ import {
   TaxpayerDetailsDto,
   TaxpayersDetailsDto,
 } from "@application/dto/register.dto";
+import { GetRegisterServerStatusUseCase } from "@application/use-cases/register/get-register-server-status.use-case";
+import { GetTaxpayerDetailsUseCase } from "@application/use-cases/register/get-taxpayer-details.use-case";
+import { GetTaxpayersDetailsUseCase } from "@application/use-cases/register/get-taxpayers-details.use-case";
 
 export class RegisterScopeFiveService {
-  constructor(private readonly repository: IRegisterScopeFiveRepositoryPort) {}
+  private readonly getRegisterServerStatusUseCase: GetRegisterServerStatusUseCase;
+  private readonly getTaxpayerDetailsUseCase: GetTaxpayerDetailsUseCase;
+  private readonly getTaxpayersDetailsUseCase: GetTaxpayersDetailsUseCase;
+
+  constructor(private readonly repository: IRegisterScopeFiveRepositoryPort) {
+    this.getRegisterServerStatusUseCase = new GetRegisterServerStatusUseCase(
+      this.repository
+    );
+    this.getTaxpayerDetailsUseCase = new GetTaxpayerDetailsUseCase(
+      this.repository
+    );
+    this.getTaxpayersDetailsUseCase = new GetTaxpayersDetailsUseCase(
+      this.repository
+    );
+  }
 
   /**
    * Asks to web service for servers status
    **/
   async getServerStatus(): Promise<RegisterServerStatusDto> {
-    return this.repository.getServerStatus();
+    return this.getRegisterServerStatusUseCase.execute();
   }
 
   /**
@@ -26,7 +43,7 @@ export class RegisterScopeFiveService {
   async getTaxpayerDetails(
     identifier: number
   ): Promise<TaxpayerDetailsDto | null> {
-    return this.repository.getTaxpayerDetails(identifier);
+    return this.getTaxpayerDetailsUseCase.execute(identifier);
   }
 
   /**
@@ -35,6 +52,6 @@ export class RegisterScopeFiveService {
   async getTaxpayersDetails(
     identifiers: number[]
   ): Promise<TaxpayersDetailsDto> {
-    return this.repository.getTaxpayersDetails(identifiers);
+    return this.getTaxpayersDetailsUseCase.execute(identifiers);
   }
 }

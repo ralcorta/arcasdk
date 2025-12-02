@@ -63,4 +63,22 @@ describe("Register Scope Thirteen Service", () => {
     expect(details).toBeDefined();
     expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
   });
+
+  it("should get tax id by document", async () => {
+    const documentNumber = "11111111";
+    const mockResult = {
+      idPersona: [20111111111],
+      errorConstancia: undefined,
+    };
+    mockRepository.getTaxIDByDocument.mockResolvedValue(mockResult);
+
+    const result = await registerScopeThirteenService.getTaxIDByDocument(
+      documentNumber
+    );
+
+    expect(result).toEqual(mockResult);
+    expect(mockRepository.getTaxIDByDocument).toHaveBeenCalledWith(
+      documentNumber
+    );
+  });
 });

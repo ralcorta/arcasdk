@@ -21,6 +21,7 @@ import {
 } from "../../../mocks/data/voucher.mock";
 import { ElectronicBillingService } from "@arcasdk/core/src/application/services/electronic-billing.service";
 import { IElectronicBillingRepositoryPort } from "@arcasdk/core/src/application/ports/electronic-billing/electronic-billing-repository.port";
+import { Voucher } from "@arcasdk/core/src/domain/entities/voucher.entity";
 import {
   ServerStatusDto,
   SalesPointsResultDto,
@@ -384,5 +385,138 @@ describe("Electronic Billings Service", () => {
       await electronicBillingService.getIvaReceptorTypes();
     expect(ivaReceptorTypes).toBeDefined();
     expect(mockRepository.getIvaReceptorTypes).toHaveBeenCalledTimes(1);
+  });
+
+  it("should get CAEA", async () => {
+    const period = 202310;
+    const order = 1;
+    const mockResult = {
+      resultGet: {
+        caea: "12345678901234",
+        periodo: 202310,
+        orden: 1,
+        fchVigDesde: "20231001",
+        fchVigHasta: "20231031",
+        fchTopeInf: "20231110",
+        fchProceso: "20231001",
+      },
+    };
+    (mockRepository as any).getCaea = jest.fn().mockResolvedValue(mockResult);
+
+    const result = await electronicBillingService.getCaea(period, order);
+
+    expect(result).toEqual(mockResult);
+    expect((mockRepository as any).getCaea).toHaveBeenCalledWith(period, order);
+  });
+
+  it("should inform CAEA usage", async () => {
+    const caea = "12345678901234";
+    const voucherData = { ...data };
+    const mockResult = {
+      resultGet: {
+        caea: "12345678901234",
+        periodo: 202310,
+        orden: 1,
+        fchProceso: "20231101",
+        resultado: "A",
+      },
+    };
+    (mockRepository as any).informCaeaUsage = jest
+      .fn()
+      .mockResolvedValue(mockResult);
+
+    const result = await electronicBillingService.informCaeaUsage(
+      voucherData,
+      caea
+    );
+
+    expect(result).toEqual(mockResult);
+    expect((mockRepository as any).informCaeaUsage).toHaveBeenCalledWith(
+      expect.any(Voucher),
+      caea
+    );
+  });
+
+  it("should inform CAEA no movement", async () => {
+    const caea = "12345678901234";
+    const ptoVta = 1;
+    const mockResult = {
+      resultGet: {
+        caea: "12345678901234",
+        periodo: 202310,
+        ptoVta: 1,
+        fchProceso: "20231101",
+        resultado: "A",
+      },
+    };
+    (mockRepository as any).informCaeaNoMovement = jest
+      .fn()
+      .mockResolvedValue(mockResult);
+
+    const result = await electronicBillingService.informCaeaNoMovement(
+      caea,
+      ptoVta
+    );
+
+    expect(result).toEqual(mockResult);
+    expect((mockRepository as any).informCaeaNoMovement).toHaveBeenCalledWith(
+      caea,
+      ptoVta
+    );
+  });
+
+  it("should consult CAEA no movement", async () => {
+    const caea = "12345678901234";
+    const ptoVta = 1;
+    const mockResult = {
+      resultGet: {
+        caea: "12345678901234",
+        periodo: 202310,
+        ptoVta: 1,
+        fchProceso: "20231101",
+        resultado: "A",
+      },
+    };
+    (mockRepository as any).consultCaeaNoMovement = jest
+      .fn()
+      .mockResolvedValue(mockResult);
+
+    const result = await electronicBillingService.consultCaeaNoMovement(
+      caea,
+      ptoVta
+    );
+
+    expect(result).toEqual(mockResult);
+    expect((mockRepository as any).consultCaeaNoMovement).toHaveBeenCalledWith(
+      caea,
+      ptoVta
+    );
+  });
+
+  it("should consult CAEA", async () => {
+    const period = 202310;
+    const order = 1;
+    const mockResult = {
+      resultGet: {
+        caea: "12345678901234",
+        periodo: 202310,
+        orden: 1,
+        fchVigDesde: "20231001",
+        fchVigHasta: "20231031",
+        fchTopeInf: "20231110",
+        fchProceso: "20231001",
+      },
+    };
+    (mockRepository as any).consultCaea = jest
+      .fn()
+      .mockResolvedValue(mockResult);
+
+    const result = await electronicBillingService.consultCaea(period, order);
+
+    expect(result).toEqual(mockResult);
+    expect((mockRepository as any).consultCaea).toHaveBeenCalledWith(
+      period,
+      order
+    );
   });
 });

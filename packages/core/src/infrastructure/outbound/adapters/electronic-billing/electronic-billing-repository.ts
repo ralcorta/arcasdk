@@ -20,6 +20,12 @@ import {
   OptionalTypesResultDto,
   TaxTypesResultDto,
   IvaReceptorTypesResultDto,
+  CaeaResultDto,
+  CaeaNoMovementResultDto,
+  CountriesResultDto,
+  ActivitiesResultDto,
+  QuotationResultDto,
+  MaxRecordsResultDto,
 } from "@application/dto/electronic-billing.dto";
 import {
   IServiceSoap12Soap,
@@ -43,6 +49,11 @@ import {
   OptionalType,
   TaxType,
   IvaReceptorType,
+  CaeaResponse,
+  CaeaNoMovement,
+  PaisType,
+  ActividadType,
+  CotizacionType,
 } from "@domain/types/electronic-billing.types";
 import {
   mapServerStatus,
@@ -53,6 +64,12 @@ import {
   mapAliquotTypes,
   mapIvaReceptorTypes,
   mapSoapErrors,
+  mapCaea,
+  mapCaeaNoMovement,
+  mapCountries,
+  mapActivities,
+  mapQuotation,
+  mapMaxRecords,
 } from "@infrastructure/utils/soap-to-dto.mapper";
 
 export class ElectronicBillingRepository
@@ -370,6 +387,206 @@ export class ElectronicBillingRepository
       resultGet: {
         condicionIvaReceptor: mapIvaReceptorTypes(result),
       },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getCaea(period: number, order: number): Promise<CaeaResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FECAEASolicitarAsync({
+      Periodo: period,
+      Orden: order,
+    });
+    const result = output.FECAEASolicitarResult;
+    return {
+      resultGet: result.ResultGet ? mapCaea(result.ResultGet) : undefined,
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async consultCaea(period: number, order: number): Promise<CaeaResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FECAEAConsultarAsync({
+      Periodo: period,
+      Orden: order,
+    });
+    const result = output.FECAEAConsultarResult;
+    return {
+      resultGet: result.ResultGet ? mapCaea(result.ResultGet) : undefined,
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async informCaeaNoMovement(
+    caea: string,
+    salesPoint: number
+  ): Promise<CaeaNoMovementResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FECAEASinMovimientoInformarAsync({
+      CAEA: caea,
+      PtoVta: salesPoint,
+    });
+    const result = output.FECAEASinMovimientoInformarResult;
+    return {
+      resultGet: result.ResultGet
+        ? [
+            {
+              caea: result.ResultGet.CAEA,
+              fchProceso: result.ResultGet.FchProceso,
+              ptoVta: result.ResultGet.PtoVta,
+            },
+          ]
+        : undefined,
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async consultCaeaNoMovement(
+    caea: string,
+    salesPoint: number
+  ): Promise<CaeaNoMovementResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FECAEASinMovimientoConsultarAsync({
+      CAEA: caea,
+      PtoVta: salesPoint,
+    });
+    const result = output.FECAEASinMovimientoConsultarResult;
+    return {
+      resultGet: mapCaeaNoMovement(result),
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async informCaeaUsage(
+    voucher: Voucher,
+    caea: string
+  ): Promise<CaeaResultDto> {
+    const client = await this.getClient();
+    const voucherData = voucher.toDTO();
+
+    const detRequest = {
+      Concepto: voucherData.Concepto,
+      DocTipo: voucherData.DocTipo,
+      DocNro: voucherData.DocNro,
+      CbteDesde: voucherData.CbteDesde,
+      CbteHasta: voucherData.CbteHasta,
+      CbteFch: voucherData.CbteFch,
+      ImpTotal: voucherData.ImpTotal,
+      ImpTotConc: voucherData.ImpTotConc,
+      ImpNeto: voucherData.ImpNeto,
+      ImpOpEx: voucherData.ImpOpEx,
+      ImpIVA: voucherData.ImpIVA,
+      ImpTrib: voucherData.ImpTrib,
+      FchServDesde: voucherData.FchServDesde,
+      FchServHasta: voucherData.FchServHasta,
+      FchVtoPago: voucherData.FchVtoPago,
+      MonId: voucherData.MonId,
+      MonCotiz: voucherData.MonCotiz,
+      CondicionIVAReceptorId: voucherData.CondicionIVAReceptorId,
+      Tributos: voucherData.Tributos
+        ? { Tributo: voucherData.Tributos }
+        : undefined,
+      Iva: voucherData.Iva ? { AlicIva: voucherData.Iva } : undefined,
+      CbtesAsoc: voucherData.CbtesAsoc
+        ? { CbteAsoc: voucherData.CbtesAsoc }
+        : undefined,
+      Compradores: voucherData.Compradores
+        ? { Comprador: voucherData.Compradores }
+        : undefined,
+      Opcionales: voucherData.Opcionales
+        ? { Opcional: voucherData.Opcionales }
+        : undefined,
+      CAEA: caea,
+      PeriodoAsoc: undefined as any,
+      CbteFchHsGen: undefined as any,
+    };
+
+    const typedDetRequest = this.useSoap12
+      ? (detRequest as ServiceSoap12Types.IFECAEADetRequest)
+      : (detRequest as ServiceSoapTypes.IFECAEADetRequest);
+
+    const [output] = await client.FECAEARegInformativoAsync({
+      FeCAEARegInfReq: {
+        FeCabReq: {
+          CantReg: voucherData.CbteHasta - voucherData.CbteDesde + 1,
+          PtoVta: voucherData.PtoVta,
+          CbteTipo: voucherData.CbteTipo,
+        },
+        FeDetReq: {
+          FECAEADetRequest: [typedDetRequest],
+        },
+      },
+    });
+
+    const result = output.FECAEARegInformativoResult;
+    return {
+      resultGet: result.FeDetResp?.FECAEADetResponse?.[0]
+        ? mapCaea(result.FeDetResp.FECAEADetResponse[0] as any)
+        : undefined,
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getQuotation(currencyId: string): Promise<QuotationResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetCotizacionAsync({
+      MonId: currencyId,
+    });
+    const result = output.FEParamGetCotizacionResult;
+    return {
+      resultGet: mapQuotation(result),
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getCountries(): Promise<CountriesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetTiposPaisesAsync({});
+    const result = output.FEParamGetTiposPaisesResult;
+    return {
+      resultGet: {
+        paisTipo: mapCountries(result),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getActivities(): Promise<ActivitiesResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetActividadesAsync({});
+    const result = output.FEParamGetActividadesResult;
+    return {
+      resultGet: {
+        actividadesTipo: mapActivities(result),
+      },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async getMaxRecordsPerRequest(): Promise<MaxRecordsResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FECompTotXRequestAsync({});
+    const result = output.FECompTotXRequestResult;
+    return {
+      resultGet: mapMaxRecords(result),
       errors: mapSoapErrors(result.Errors)
         ? { err: mapSoapErrors(result.Errors)! }
         : undefined,
