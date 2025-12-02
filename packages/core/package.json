@@ -13,7 +13,8 @@
     "test:integration:watch": "jest ./tests/integration --watch",
     "test:integration:manual": "jest ./tests/integration/electronic-billing-manual-tokens.integration.test.ts",
     "test:integration:auto": "jest ./tests/integration/electronic-billing.integration.test.ts",
-    "generate:wsdl-strings": "node scripts/generate-wsdl-strings.js"
+    "generate:wsdl-strings": "node scripts/generate-wsdl-strings.js",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
