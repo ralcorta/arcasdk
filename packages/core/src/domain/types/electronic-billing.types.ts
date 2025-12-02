@@ -132,3 +132,32 @@ export interface ResultWithErrors<T> {
   result?: T;
   errors?: ErrorInfo[];
 }
+
+/**
+ * CAEA Information
+ */
+export interface CaeaInfo {
+  caea: string;
+  periodo: number;
+  orden: number;
+  fchVigDesde: string;
+  fchVigHasta: string;
+  fchTopeInf: string;
+  fchProceso: string;
+  observaciones?: string;
+}
+
+/**
+ * CAEA Usage Information
+ */
+export interface CaeaUsageInfo {
+  concepto: number;
+  docTipo: number;
+  docNro: number;
+  cbteDesde: number;
+  cbteHasta: number;
+  cbteFch: string;
+  resultado: string;
+  observaciones?: string;
+  caea: string;
+}

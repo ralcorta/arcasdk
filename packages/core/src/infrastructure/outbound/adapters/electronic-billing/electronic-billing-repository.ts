@@ -19,6 +19,7 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
+  CaeaUsageResultDto,
 } from "@application/dto/electronic-billing.dto";
 import {
   IServiceSoap12Soap,
@@ -50,6 +51,7 @@ import {
   mapParameterTypes,
   mapAliquotTypes,
   mapSoapErrors,
+  mapCaeaUsage,
 } from "@infrastructure/utils/soap-to-dto.mapper";
 
 export class ElectronicBillingRepository
@@ -349,6 +351,85 @@ export class ElectronicBillingRepository
       resultGet: {
         tributoTipo: mapParameterTypes<TaxType>(result, "TributoTipo"),
       },
+      errors: mapSoapErrors(result.Errors)
+        ? { err: mapSoapErrors(result.Errors)! }
+        : undefined,
+    };
+  }
+
+  async informCaeaUsage(
+    voucher: Voucher,
+    caea: string,
+    cbteFchHsGen: string
+  ): Promise<CaeaUsageResultDto> {
+    const client = await this.getClient();
+    const voucherData = voucher.toDTO();
+
+    const detRequest = {
+      Concepto: voucherData.Concepto,
+      DocTipo: voucherData.DocTipo,
+      DocNro: voucherData.DocNro,
+      CbteDesde: voucherData.CbteDesde,
+      CbteHasta: voucherData.CbteHasta,
+      CbteFch: voucherData.CbteFch,
+      ImpTotal: voucherData.ImpTotal,
+      ImpTotConc: voucherData.ImpTotConc,
+      ImpNeto: voucherData.ImpNeto,
+      ImpOpEx: voucherData.ImpOpEx,
+      ImpIVA: voucherData.ImpIVA,
+      ImpTrib: voucherData.ImpTrib,
+      FchServDesde: voucherData.FchServDesde,
+      FchServHasta: voucherData.FchServHasta,
+      FchVtoPago: voucherData.FchVtoPago,
+      MonId: voucherData.MonId,
+      MonCotiz: voucherData.MonCotiz,
+      CondicionIVAReceptorId: voucherData.CondicionIVAReceptorId,
+      Tributos: voucherData.Tributos
+        ? { Tributo: voucherData.Tributos }
+        : undefined,
+      Iva: voucherData.Iva ? { AlicIva: voucherData.Iva } : undefined,
+      CbtesAsoc: voucherData.CbtesAsoc
+        ? { CbteAsoc: voucherData.CbtesAsoc }
+        : undefined,
+      Compradores: voucherData.Compradores
+        ? { Comprador: voucherData.Compradores }
+        : undefined,
+      Opcionales: voucherData.Opcionales
+        ? { Opcional: voucherData.Opcionales }
+        : undefined,
+      PeriodoAsoc: voucherData.PeriodoAsoc
+        ? {
+            FchDesde: voucherData.PeriodoAsoc.FchDesde,
+            FchHasta: voucherData.PeriodoAsoc.FchHasta,
+          }
+        : undefined,
+      CAEA: caea,
+      CbteFchHsGen: cbteFchHsGen,
+    };
+
+    const typedDetRequest = this.useSoap12
+      ? (detRequest as ServiceSoap12Types.IFECAEADetRequest)
+      : (detRequest as any); // SOAP 1.1 might not support this or has different type
+
+    const [output] = await client.FECAEARegInformativoAsync({
+      FeCAEARegInfReq: {
+        FeCabReq: {
+          CantReg: voucherData.CbteHasta - voucherData.CbteDesde + 1,
+          PtoVta: voucherData.PtoVta,
+          CbteTipo: voucherData.CbteTipo,
+        },
+        FeDetReq: {
+          FECAEADetRequest: [typedDetRequest],
+        },
+      },
+    });
+
+    const result = output.FECAEARegInformativoResult;
+
+    return {
+      resultGet: result.FeDetResp?.FECAEADetResponse?.[0]
+        ? mapCaeaUsage(result.FeDetResp.FECAEADetResponse[0] as any)
+        : undefined,
       errors: mapSoapErrors(result.Errors)
         ? { err: mapSoapErrors(result.Errors)! }
         : undefined,

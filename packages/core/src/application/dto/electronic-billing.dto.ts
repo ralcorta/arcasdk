@@ -16,6 +16,8 @@ import {
   OptionalType,
   TaxType,
   ErrorInfo,
+  CaeaInfo,
+  CaeaUsageInfo,
 } from "@domain/types/electronic-billing.types";
 
 /**
@@ -132,6 +134,26 @@ export interface TaxTypesResultDto {
   resultGet?: {
     tributoTipo?: TaxType[];
   };
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * CAEA Result DTO
+ */
+export interface CaeaResultDto {
+  resultGet?: CaeaInfo;
+  errors?: {
+    err?: ErrorInfo[];
+  };
+}
+
+/**
+ * CAEA Usage Result DTO
+ */
+export interface CaeaUsageResultDto {
+  resultGet?: CaeaUsageInfo;
   errors?: {
     err?: ErrorInfo[];
   };

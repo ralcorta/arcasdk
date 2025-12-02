@@ -30,6 +30,12 @@ export interface IVoucher {
   Iva?: IIva[];
   Opcionales?: IOpcional[];
   Compradores?: IComprador[];
+  PeriodoAsoc?: IPeriodoAsoc;
+}
+
+export interface IPeriodoAsoc {
+  FchDesde: string;
+  FchHasta: string;
 }
 
 export interface INextVoucher
@@ -70,4 +76,3 @@ export interface ITributo {
   Alic: number;
   Importe: number;
 }
-

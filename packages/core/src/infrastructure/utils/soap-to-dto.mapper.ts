@@ -12,6 +12,8 @@ import {
   AliquotType,
   ParameterType,
   ErrorInfo,
+  CaeaInfo,
+  CaeaUsageInfo,
 } from "@domain/types/electronic-billing.types";
 
 /**
@@ -191,4 +193,56 @@ export function mapAliquotTypes(soapResult: {
       })
     ) || []
   );
+}
+
+/**
+ * Map SOAP CAEA to Domain CaeaInfo
+ */
+export function mapCaea(soapResult: {
+  CAEA: string;
+  Periodo: number;
+  Orden: number;
+  FchVigDesde: string;
+  FchVigHasta: string;
+  FchTopeInf: string;
+  FchProceso: string;
+  Observaciones?: { Obs?: Array<{ Msg: string }> };
+}): CaeaInfo {
+  return {
+    caea: soapResult.CAEA,
+    periodo: soapResult.Periodo,
+    orden: soapResult.Orden,
+    fchVigDesde: soapResult.FchVigDesde,
+    fchVigHasta: soapResult.FchVigHasta,
+    fchTopeInf: soapResult.FchTopeInf,
+    fchProceso: soapResult.FchProceso,
+    observaciones: soapResult.Observaciones?.Obs?.[0]?.Msg,
+  };
+}
+
+/**
+ * Map SOAP CAEA Usage to Domain CaeaUsageInfo
+ */
+export function mapCaeaUsage(soapResult: {
+  Concepto: number;
+  DocTipo: number;
+  DocNro: number;
+  CbteDesde: number;
+  CbteHasta: number;
+  CbteFch: string;
+  Resultado: string;
+  Observaciones?: { Obs?: Array<{ Msg: string }> };
+  CAEA: string;
+}): CaeaUsageInfo {
+  return {
+    concepto: soapResult.Concepto,
+    docTipo: soapResult.DocTipo,
+    docNro: soapResult.DocNro,
+    cbteDesde: soapResult.CbteDesde,
+    cbteHasta: soapResult.CbteHasta,
+    cbteFch: soapResult.CbteFch,
+    resultado: soapResult.Resultado,
+    observaciones: soapResult.Observaciones?.Obs?.[0]?.Msg,
+    caea: soapResult.CAEA,
+  };
 }
