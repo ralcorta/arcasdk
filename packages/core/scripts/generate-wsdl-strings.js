@@ -48,6 +48,7 @@ function generate() {
 
     // Escape backticks in the content if any (though unlikely in XML)
     const escapedContent = fileContent
+      .replace(/\\/g, "\\\\")
       .replace(/`/g, "\\`")
       .replace(/\${/g, "\\${");
 

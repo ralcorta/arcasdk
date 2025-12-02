@@ -128,22 +128,6 @@ export class RegisterScopeThirteenRepository
           errorConstancia: undefined,
         };
       }
-      // Sanitize error to avoid circular structure issues in logging/testing
-      if (error && typeof error === "object") {
-        for (const key in error) {
-          if (error.hasOwnProperty(key)) {
-            const value = error[key];
-            // Keep only primitive values and basic types
-            if (
-              value !== null &&
-              typeof value === "object" &&
-              key !== "stack"
-            ) {
-              delete error[key];
-            }
-          }
-        }
-      }
       throw error;
     }
   }
