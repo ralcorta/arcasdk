@@ -1,3 +1,13 @@
+## 0.3.4 (2025-12-02)
+
+### 🩹 Fixes
+
+- tsconfig paths ([3a1d8fd](https://github.com/ralcorta/arcasdk/commit/3a1d8fd))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 0.3.3 (2025-12-02)
 
 ### 🩹 Fixes
