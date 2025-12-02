@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "npx tsc -p tsconfig.build.json",
+    "build": "npx tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "test": "jest",
     "test:unit": "jest ./tests/unit",
     "test:integration": "jest ./tests/integration",
@@ -37,6 +37,7 @@
     "rimraf": "^5.0.7",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
