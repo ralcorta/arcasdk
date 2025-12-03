@@ -1,4 +1,4 @@
-import { Arca } from "../../src/arca";
+import { Arca } from "../../src/infrastructure/inbound/adapters/arca";
 import { ContextTest } from "../utils/context-test.utils";
 import EnvTest from "../utils/env-test";
 import { existsSync, mkdirSync } from "fs";

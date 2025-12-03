@@ -1,4 +1,4 @@
-import { Arca } from "../../src/arca";
+import { Arca } from "../../src/infrastructure/inbound/adapters/arca";
 import { AccessTicket } from "../../src/domain/entities/access-ticket.entity";
 import { ServiceNamesEnum } from "../../src/infrastructure/outbound/ports/soap/enums/service-names.enum";
 import { ContextTest } from "../utils/context-test.utils";
