@@ -1,6 +1,6 @@
 {
   "name": "@arcasdk/core",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Arca TypeScript SDK - Core package for AFIP/ARCA integration",
   "source": "src/index.ts",
   "main": "lib/index.js",

@@ -1,3 +1,15 @@
+## 0.3.6 (2025-12-03)
+
+### 🩹 Fixes
+
+- default agent false ([a423e7d](https://github.com/ralcorta/arcasdk/commit/a423e7d))
+- circular dep ([b3bd829](https://github.com/ralcorta/arcasdk/commit/b3bd829))
+- tests ([7843f49](https://github.com/ralcorta/arcasdk/commit/7843f49))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 0.3.5 (2025-12-03)
 
 ### 🩹 Fixes
