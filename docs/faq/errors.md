@@ -39,3 +39,35 @@ El problema radica en la falta de autorización para acceder al servicio web con
 ## Unable to verify the first certificate
 
 Este problema surge cuando tus certificados no tienen permisos para acceder al servicio solicitado, como por ejemplo, al consultar el padrón 5. Para solucionarlo, es necesario otorgar permisos de acceso, de manera similar a cómo lo hicimos al habilitar el servicio de facturación desde el sitio de ARCA.
+
+## Errores de conexión SSL/TLS (Diffie-Hellman, handshake, etc.)
+
+Si experimentas errores relacionados con SSL/TLS como:
+
+- `Error: error:0308010C:digital envelope routines::unsupported`
+- `Error: error:1408A0C1:SSL routines:ssl3_get_client_hello:no shared cipher`
+- `EPROTO` o errores de handshake SSL
+
+Estos errores pueden ocurrir cuando te conectas a servidores ARCA/AFIP legacy que utilizan parámetros Diffie-Hellman débiles.
+
+**Solución:**
+
+Si estás ejecutando en un entorno **Node.js** (no en Cloudflare Workers u otros edge runtimes), puedes habilitar el agente HTTPS legacy:
+
+```ts
+const arca = new Arca({
+  cuit: 20111111112,
+  cert: "contenido_del_certificado",
+  key: "contenido_de_la_clave_privada",
+  useHttpsAgent: true, // Habilita el agente HTTPS legacy
+});
+```
+
+::: warning Importante
+
+- Solo habilita `useHttpsAgent: true` si estás en **Node.js** y experimentas estos errores
+- En entornos edge (Cloudflare Workers, etc.), este parámetro se ignora automáticamente
+- Por defecto, `useHttpsAgent` es `false` para mejorar la compatibilidad con entornos modernos
+
+Ver más detalles en la [documentación de configuración](/config#usehttpsagent).
+:::
