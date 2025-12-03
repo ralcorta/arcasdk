@@ -38,12 +38,11 @@ export class Arca {
   private readonly context: Context;
 
   constructor(context: Context) {
-    // Normalize context
     this.context = {
       ...context,
       ticketPath:
         context.ticketPath ??
-        resolve(__dirname, "infrastructure", "storage", "auth", "tickets"),
+        resolve(__dirname, "..", "..", "storage", "auth", "tickets"),
     };
 
     const ticketStorage = new FileSystemTicketStorage({

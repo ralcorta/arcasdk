@@ -1,4 +1,4 @@
-import { Arca } from "@arcasdk/core/src/arca";
+import { Arca } from "@arcasdk/core/src/infrastructure/inbound/adapters/arca";
 import { Context } from "@arcasdk/core/src/application/types";
 import { ILoginCredentials } from "@arcasdk/core/src/domain/entities/access-ticket.entity";
 import { FileSystemTicketStorage } from "@arcasdk/core/src/infrastructure/outbound/adapters/storage/file-system-ticket-storage";
