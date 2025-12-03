@@ -26,6 +26,7 @@ import { RegisterInscriptionProofRepository } from "@infrastructure/outbound/ada
 import { GenericService } from "@application/services/generic.service";
 import { IGenericRepositoryPort } from "@application/ports/generic/generic-repository.port";
 import { GenericRepository } from "@infrastructure/outbound/adapters/generic/generic-repository";
+import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
 export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;
@@ -50,6 +51,7 @@ export class Arca {
       cuit: this.context.cuit,
       production: this.context.production ?? false,
     });
+    const useHttpsAgent = this.context.useHttpsAgent ?? DEFAULT_USE_HTTPS_AGENT;
     const authRepository: IAuthenticationRepositoryPort = new AuthRepository({
       cert: this.context.cert,
       key: this.context.key,
@@ -58,63 +60,48 @@ export class Arca {
       handleTicket: this.context.handleTicket ?? false,
       ticketStorage: this.context.handleTicket ? undefined : ticketStorage,
       credentials: this.context.credentials,
+      useHttpsAgent,
     });
     const logger = new WinstonLogger({
       enableLogging: this.context.enableLogging ?? false,
     });
 
+    // Base configuration shared by all repositories
+    const baseRepositoryConfig = {
+      authRepository,
+      logger,
+      cuit: this.context.cuit,
+      production: this.context.production ?? false,
+      useHttpsAgent,
+    };
+
     const electronicBillingRepository: IElectronicBillingRepositoryPort =
       new ElectronicBillingRepository({
-        authRepository,
-        logger,
-        cuit: this.context.cuit,
-        production: this.context.production ?? false,
+        ...baseRepositoryConfig,
         useSoap12: this.context.useSoap12 ?? true, // Default to SOAP 1.2
       });
 
-    const registerScopeFourRepository = new RegisterScopeFourRepository({
-      authRepository,
-      logger,
-      cuit: this.context.cuit,
-      production: this.context.production ?? false,
-    });
+    const registerScopeFourRepository = new RegisterScopeFourRepository(
+      baseRepositoryConfig
+    );
 
-    const registerScopeFiveRepository = new RegisterScopeFiveRepository({
-      authRepository,
-      logger,
-      cuit: this.context.cuit,
-      production: this.context.production ?? false,
-    });
+    const registerScopeFiveRepository = new RegisterScopeFiveRepository(
+      baseRepositoryConfig
+    );
 
-    const registerScopeTenRepository = new RegisterScopeTenRepository({
-      authRepository,
-      logger,
-      cuit: this.context.cuit,
-      production: this.context.production ?? false,
-    });
+    const registerScopeTenRepository = new RegisterScopeTenRepository(
+      baseRepositoryConfig
+    );
 
     const registerScopeThirteenRepository = new RegisterScopeThirteenRepository(
-      {
-        authRepository,
-        logger,
-        cuit: this.context.cuit,
-        production: this.context.production ?? false,
-      }
+      baseRepositoryConfig
     );
 
     const registerInscriptionProofRepository =
-      new RegisterInscriptionProofRepository({
-        authRepository,
-        logger,
-        cuit: this.context.cuit,
-        production: this.context.production ?? false,
-      });
+      new RegisterInscriptionProofRepository(baseRepositoryConfig);
 
     const genericRepository: IGenericRepositoryPort = new GenericRepository({
-      authRepository,
-      logger,
-      cuit: this.context.cuit,
-      production: this.context.production ?? false,
+      ...baseRepositoryConfig,
       useSoap12: this.context.useSoap12 ?? true,
     });
 

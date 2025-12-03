@@ -3,7 +3,6 @@
  * Internal utility for creating SOAP clients
  */
 import { Client, createClientAsync, IHttpClient, HttpClient } from "soap";
-import * as https from "https";
 
 export interface SoapClientParams {
   wsdl: string;
@@ -17,7 +16,7 @@ export class SoapClientFacade {
    * Create HTTP client with custom HTTPS agent for legacy servers
    */
   private static createHttpClientWithAgent(
-    httpsAgent: https.Agent
+    httpsAgent: any // Using any to avoid importing https types in non-Node environments
   ): IHttpClient {
     const originalHttpClient = new HttpClient();
 
