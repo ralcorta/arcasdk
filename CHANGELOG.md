@@ -1,3 +1,13 @@
+## 0.3.5 (2025-12-03)
+
+### 🩹 Fixes
+
+- arca as adapter ([96b2fc8](https://github.com/ralcorta/arcasdk/commit/96b2fc8))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 0.3.4 (2025-12-02)
 
 ### 🩹 Fixes
