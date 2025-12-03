@@ -13,6 +13,7 @@ import {
   BaseSoapRepositoryConstructorConfig,
   AuthenticatedProxyOptions,
 } from "@infrastructure/outbound/ports/soap/soap-repository.types";
+import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
 /**
  * Base class for SOAP repositories
@@ -27,7 +28,9 @@ export abstract class BaseSoapRepository {
   protected readonly useSoap12: boolean;
 
   constructor(config: BaseSoapRepositoryConstructorConfig) {
-    this.soapClient = config.soapClient ?? new SoapClient();
+    this.soapClient =
+      config.soapClient ??
+      new SoapClient(config.useHttpsAgent ?? DEFAULT_USE_HTTPS_AGENT);
     this.authRepository = config.authRepository;
     this.logger = config.logger;
     this.cuit = config.cuit;

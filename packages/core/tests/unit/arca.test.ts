@@ -148,6 +148,7 @@ describe("Arca", () => {
         handleTicket: false,
         ticketStorage: expect.anything(),
         credentials: undefined,
+        useHttpsAgent: false,
       });
     });
 
@@ -167,6 +168,7 @@ describe("Arca", () => {
         handleTicket: true,
         ticketStorage: undefined,
         credentials: undefined,
+        useHttpsAgent: false,
       });
     });
 
@@ -204,6 +206,7 @@ describe("Arca", () => {
         handleTicket: false,
         ticketStorage: expect.anything(),
         credentials: mockCredentials,
+        useHttpsAgent: false,
       });
     });
 
@@ -237,6 +240,7 @@ describe("Arca", () => {
         cuit: mockContext.cuit,
         production: false,
         useSoap12: true, // Default value
+        useHttpsAgent: false,
       });
     });
 
@@ -254,6 +258,7 @@ describe("Arca", () => {
         cuit: mockContext.cuit,
         production: false,
         useSoap12: false,
+        useHttpsAgent: false,
       });
     });
 
@@ -265,6 +270,7 @@ describe("Arca", () => {
         logger: expect.anything(),
         cuit: mockContext.cuit,
         production: false,
+        useHttpsAgent: false,
       };
 
       expect(RegisterScopeFourRepository).toHaveBeenCalledWith(

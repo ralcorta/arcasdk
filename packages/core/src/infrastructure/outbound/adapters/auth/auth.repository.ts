@@ -21,6 +21,7 @@ import { AuthRepositoryConfig } from "@infrastructure/outbound/ports/auth/auth-r
 import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
 import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 import { SoapClient } from "../soap/soap-client";
+import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
 export class AuthRepository implements IAuthenticationRepositoryPort {
   private cert: string;
@@ -33,7 +34,9 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
   private readonly soapClient: ISoapClientPort;
 
   constructor(config: AuthRepositoryConfig) {
-    this.soapClient = config.soapClient ?? new SoapClient();
+    this.soapClient =
+      config.soapClient ??
+      new SoapClient(config.useHttpsAgent ?? DEFAULT_USE_HTTPS_AGENT);
     this.cert = config.cert;
     this.key = config.key;
     this.production = config.production ?? false;

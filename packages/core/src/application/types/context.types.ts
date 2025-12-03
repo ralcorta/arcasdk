@@ -52,4 +52,12 @@ export interface Context {
    * @default true (uses SOAP 1.2 by default)
    */
   useSoap12?: boolean;
+
+  /**
+   * Enable HTTPS Agent for Node.js environments (required for legacy ARCA servers)
+   * Set to true when running in Node.js environments that require legacy HTTPS agent
+   * Set to false when running in Cloudflare Workers or other edge runtimes
+   * @default false (disabled by default)
+   */
+  useHttpsAgent?: boolean;
 }

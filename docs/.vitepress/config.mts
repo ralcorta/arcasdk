@@ -1,6 +1,9 @@
 import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
+// Google Analytics ID - Puedes usar una variable de entorno o poner el ID directamente
+const GA_ID = "G-B4XM660Y48"; // Reemplaza con tu ID de Google Analytics
+
 // https://vitepress.dev/reference/site-config
 export default withMermaid(
   defineConfig({
@@ -11,7 +14,24 @@ export default withMermaid(
     sitemap: {
       hostname: "https://afipts.com",
     },
-    head: [["link", { rel: "icon", href: "/logo.ico" }]],
+    head: [
+      ["link", { rel: "icon", href: "/logo.ico" }],
+      // Google Analytics
+      [
+        "script",
+        {
+          src: `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`,
+        },
+      ],
+      [
+        "script",
+        {},
+        `window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GA_ID}');`,
+      ],
+    ],
     themeConfig: {
       logo: "/logo.png",
       search: {
