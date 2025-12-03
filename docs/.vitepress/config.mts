@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
 // Google Analytics ID - Puedes usar una variable de entorno o poner el ID directamente
-const GA_ID = process.env.GA_ID || "G-XXXXXXXXXX"; // Reemplaza con tu ID de Google Analytics
+const GA_ID = "G-B4XM660Y48"; // Reemplaza con tu ID de Google Analytics
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid(

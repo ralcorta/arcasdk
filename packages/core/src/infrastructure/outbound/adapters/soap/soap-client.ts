@@ -52,6 +52,7 @@ export class SoapClient implements ISoapClientPort {
       } catch (error) {
         // If https module is not available (e.g., Cloudflare Workers), skip agent
         // The SOAP library will use the default fetch adapter
+        // Silently continue without the agent - this is expected in non-Node environments
       }
     }
 
