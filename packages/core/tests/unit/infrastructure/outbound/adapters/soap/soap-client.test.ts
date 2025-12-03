@@ -59,12 +59,6 @@ describe("SoapClient", () => {
         options: expect.objectContaining({
           disableCache: true,
           forceSoap12Headers: false,
-          wsdl_options: expect.objectContaining({
-            httpsAgent: expect.any(Object),
-          }),
-          request: expect.objectContaining({
-            httpsAgent: expect.any(Object),
-          }),
         }),
       });
     });
@@ -94,6 +88,27 @@ describe("SoapClient", () => {
           disableCache: true,
           forceSoap12Headers: true,
           customOption: "value",
+        }),
+      });
+    });
+
+    it("should create a SOAP client with httpsAgent when useHttpsAgent is true", async () => {
+      const soapClientWithAgent = new SoapClient(true);
+      const mockCreate = SoapClientFacade.create as jest.MockedFunction<
+        typeof SoapClientFacade.create
+      >;
+      mockCreate.mockResolvedValue(mockClient as any);
+
+      const wsdlName = "wsfe.wsdl";
+      const client = await soapClientWithAgent.createClient<Client>(wsdlName);
+
+      expect(client).toBe(mockClient);
+      expect(mockGetWsdlString).toHaveBeenCalledWith(wsdlName);
+      expect(mockCreate).toHaveBeenCalledWith({
+        wsdl: '<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions></wsdl:definitions>',
+        options: expect.objectContaining({
+          disableCache: true,
+          forceSoap12Headers: false,
           wsdl_options: expect.objectContaining({
             httpsAgent: expect.any(Object),
           }),
