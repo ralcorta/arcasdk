@@ -3,6 +3,8 @@
  * Exports all application services that orchestrate use cases
  */
 export * from "./electronic-billing.service";
+export * from "./wsfecred.service";
+export * from "./wsfex.service";
 export * from "./register-scope-four.service";
 export * from "./register-scope-five.service";
 export * from "./register-scope-ten.service";

@@ -5,12 +5,16 @@ import { FileSystemTicketStorage } from "@arcasdk/core/src/infrastructure/outbou
 import { AuthRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/auth/auth.repository";
 import { WinstonLogger } from "@arcasdk/core/src/infrastructure/outbound/adapters/logger/winston-logger";
 import { ElectronicBillingRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/electronic-billing/electronic-billing-repository";
+import { WsfecredRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/fecred/fecred-repository";
+import { WsfexRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/fex/fex-repository";
 import { RegisterScopeFourRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-four.repository";
 import { RegisterScopeFiveRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-five.repository";
 import { RegisterScopeTenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-ten.repository";
 import { RegisterScopeThirteenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-thirteen.repository";
 import { RegisterInscriptionProofRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-inscription-proof.repository";
 import { ElectronicBillingService } from "@arcasdk/core/src/application/services/electronic-billing.service";
+import { WsfecredService } from "@arcasdk/core/src/application/services/wsfecred.service";
+import { WsfexService } from "@arcasdk/core/src/application/services/wsfex.service";
 import { RegisterInscriptionProofService } from "@arcasdk/core/src/application/services/register-inscription-proof.service";
 import { RegisterScopeFourService } from "@arcasdk/core/src/application/services/register-scope-four.service";
 import { RegisterScopeFiveService } from "@arcasdk/core/src/application/services/register-scope-five.service";
@@ -30,6 +34,12 @@ jest.mock(
   "@arcasdk/core/src/infrastructure/outbound/adapters/electronic-billing/electronic-billing-repository"
 );
 jest.mock(
+  "@arcasdk/core/src/infrastructure/outbound/adapters/fecred/fecred-repository"
+);
+jest.mock(
+  "@arcasdk/core/src/infrastructure/outbound/adapters/fex/fex-repository"
+);
+jest.mock(
   "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-four.repository"
 );
 jest.mock(
@@ -45,6 +55,8 @@ jest.mock(
   "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-inscription-proof.repository"
 );
 jest.mock("@arcasdk/core/src/application/services/electronic-billing.service");
+jest.mock("@arcasdk/core/src/application/services/wsfecred.service");
+jest.mock("@arcasdk/core/src/application/services/wsfex.service");
 jest.mock(
   "@arcasdk/core/src/application/services/register-inscription-proof.service"
 );
@@ -70,6 +82,8 @@ describe("Arca", () => {
     (AuthRepository as jest.Mock).mockImplementation(() => ({}));
     (WinstonLogger as jest.Mock).mockImplementation(() => ({}));
     (ElectronicBillingRepository as jest.Mock).mockImplementation(() => ({}));
+    (WsfecredRepository as jest.Mock).mockImplementation(() => ({}));
+    (WsfexRepository as jest.Mock).mockImplementation(() => ({}));
     (RegisterScopeFourRepository as jest.Mock).mockImplementation(() => ({}));
     (RegisterScopeFiveRepository as jest.Mock).mockImplementation(() => ({}));
     (RegisterScopeTenRepository as jest.Mock).mockImplementation(() => ({}));
@@ -80,6 +94,8 @@ describe("Arca", () => {
       () => ({})
     );
     (ElectronicBillingService as jest.Mock).mockImplementation(() => ({}));
+    (WsfecredService as jest.Mock).mockImplementation(() => ({}));
+    (WsfexService as jest.Mock).mockImplementation(() => ({}));
     (RegisterInscriptionProofService as jest.Mock).mockImplementation(
       () => ({})
     );
@@ -98,12 +114,16 @@ describe("Arca", () => {
       expect(AuthRepository).toHaveBeenCalled();
       expect(WinstonLogger).toHaveBeenCalled();
       expect(ElectronicBillingRepository).toHaveBeenCalled();
+      expect(WsfecredRepository).toHaveBeenCalled();
+      expect(WsfexRepository).toHaveBeenCalled();
       expect(RegisterScopeFourRepository).toHaveBeenCalled();
       expect(RegisterScopeFiveRepository).toHaveBeenCalled();
       expect(RegisterScopeTenRepository).toHaveBeenCalled();
       expect(RegisterScopeThirteenRepository).toHaveBeenCalled();
       expect(RegisterInscriptionProofRepository).toHaveBeenCalled();
       expect(ElectronicBillingService).toHaveBeenCalled();
+      expect(WsfecredService).toHaveBeenCalled();
+      expect(WsfexService).toHaveBeenCalled();
       expect(RegisterInscriptionProofService).toHaveBeenCalled();
       expect(RegisterScopeFourService).toHaveBeenCalled();
       expect(RegisterScopeFiveService).toHaveBeenCalled();
@@ -260,6 +280,15 @@ describe("Arca", () => {
         useSoap12: false,
         useHttpsAgent: false,
       });
+
+      expect(WsfexRepository).toHaveBeenCalledWith({
+        authRepository: expect.anything(),
+        logger: expect.anything(),
+        cuit: mockContext.cuit,
+        production: false,
+        useSoap12: false,
+        useHttpsAgent: false,
+      });
     });
 
     it("should create Register Repositories with correct parameters", () => {
@@ -296,6 +325,7 @@ describe("Arca", () => {
       const mockRegisterScopeTenRepository = {} as any;
       const mockRegisterScopeThirteenRepository = {} as any;
       const mockRegisterInscriptionProofRepository = {} as any;
+      const mockWsfexRepository = {} as any;
 
       (RegisterScopeFourRepository as jest.Mock).mockReturnValue(
         mockRegisterScopeFourRepository
@@ -312,6 +342,7 @@ describe("Arca", () => {
       (RegisterInscriptionProofRepository as jest.Mock).mockReturnValue(
         mockRegisterInscriptionProofRepository
       );
+      (WsfexRepository as jest.Mock).mockReturnValue(mockWsfexRepository);
 
       new Arca(mockContext);
 
@@ -330,6 +361,7 @@ describe("Arca", () => {
       expect(RegisterInscriptionProofService).toHaveBeenCalledWith(
         mockRegisterInscriptionProofRepository
       );
+      expect(WsfexService).toHaveBeenCalledWith(mockWsfexRepository);
     });
 
     it("should create ElectronicBillingService with ElectronicBillingRepository", () => {
@@ -343,6 +375,15 @@ describe("Arca", () => {
       expect(ElectronicBillingService).toHaveBeenCalledWith(
         mockElectronicBillingRepository
       );
+    });
+
+    it("should create WsfexService with WsfexRepository", () => {
+      const mockWsfexRepository = {} as any;
+      (WsfexRepository as jest.Mock).mockReturnValue(mockWsfexRepository);
+
+      new Arca(mockContext);
+
+      expect(WsfexService).toHaveBeenCalledWith(mockWsfexRepository);
     });
 
     it("should create Arca instance with production true", () => {
@@ -369,6 +410,11 @@ describe("Arca", () => {
           production: true,
         })
       );
+      expect(WsfexRepository).toHaveBeenCalledWith(
+        expect.objectContaining({
+          production: true,
+        })
+      );
       expect(RegisterScopeFourRepository).toHaveBeenCalledWith(
         expect.objectContaining({
           production: true,
@@ -380,6 +426,7 @@ describe("Arca", () => {
   describe("getters", () => {
     let arca: Arca;
     let mockElectronicBillingService: jest.Mocked<ElectronicBillingService>;
+    let mockWsfexService: jest.Mocked<WsfexService>;
     let mockRegisterInscriptionProofService: jest.Mocked<RegisterInscriptionProofService>;
     let mockRegisterScopeFourService: jest.Mocked<RegisterScopeFourService>;
     let mockRegisterScopeFiveService: jest.Mocked<RegisterScopeFiveService>;
@@ -390,6 +437,7 @@ describe("Arca", () => {
       // Setup mock services
       mockElectronicBillingService =
         {} as jest.Mocked<ElectronicBillingService>;
+      mockWsfexService = {} as jest.Mocked<WsfexService>;
       mockRegisterInscriptionProofService =
         {} as jest.Mocked<RegisterInscriptionProofService>;
       mockRegisterScopeFourService =
@@ -403,6 +451,7 @@ describe("Arca", () => {
       (ElectronicBillingService as jest.Mock).mockReturnValue(
         mockElectronicBillingService
       );
+      (WsfexService as jest.Mock).mockReturnValue(mockWsfexService);
       (RegisterInscriptionProofService as jest.Mock).mockReturnValue(
         mockRegisterInscriptionProofService
       );
@@ -424,6 +473,10 @@ describe("Arca", () => {
 
     it("should return electronicBillingService", () => {
       expect(arca.electronicBillingService).toBe(mockElectronicBillingService);
+    });
+
+    it("should return wsfexService", () => {
+      expect(arca.wsfexService).toBe(mockWsfexService);
     });
 
     it("should return registerInscriptionProofService", () => {
@@ -456,8 +509,8 @@ describe("Arca", () => {
       new Arca(mockContext);
 
       expect(FileSystemTicketStorage).toHaveBeenCalledWith({
-        ticketPath: expect.stringContaining(
-          "infrastructure/storage/auth/tickets"
+        ticketPath: expect.stringMatching(
+          /infrastructure[\\/]+storage[\\/]+auth[\\/]+tickets/
         ),
         cuit: mockContext.cuit,
         production: false,

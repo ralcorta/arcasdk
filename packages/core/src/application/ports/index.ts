@@ -4,5 +4,7 @@
  */
 export * from "./authentication";
 export * from "./electronic-billing";
+export * from "./fecred";
+export * from "./fex";
 export * from "./register";
 

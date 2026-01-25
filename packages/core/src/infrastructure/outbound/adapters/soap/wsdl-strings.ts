@@ -8,2824 +8,6 @@
  */
 
 export const WSDL_STRINGS: Record<string, string> = {
-  'ws_sr_inscription_proof-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
-  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
-  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
-  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
-  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosGenerales">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="caracterizacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="actividad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
-      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="categoria">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="relacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="impuesto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="regimen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorConstancia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaListResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaListReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaListResponse">
-    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2Response">
-    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2Response">
-    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList">
-    <wsdl:part element="tns:getPersonaList" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2">
-    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2">
-    <wsdl:part element="tns:getPersona_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA5">
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaListResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersona_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaList_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA5">
-    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
-      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_inscription_proof.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
-  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
-  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
-  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
-  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosGenerales">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="caracterizacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="actividad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
-      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="categoria">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="relacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="impuesto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="regimen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorConstancia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaListResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaListReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaListResponse">
-    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2Response">
-    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2Response">
-    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList">
-    <wsdl:part element="tns:getPersonaList" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2">
-    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2">
-    <wsdl:part element="tns:getPersona_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA5">
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaListResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersona_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaList_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA5">
-    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
-      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a10-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA10">
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA10SoapBinding" type="tns:PersonaServiceA10">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA10">
-    <wsdl:port binding="tns:PersonaServiceA10SoapBinding" name="PersonaServiceA10Port">
-      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA10"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a10.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA10">
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA10SoapBinding" type="tns:PersonaServiceA10">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA10">
-    <wsdl:port binding="tns:PersonaServiceA10SoapBinding" name="PersonaServiceA10Port">
-      <soap:address location="http://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA10"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a13-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getIdPersonaListByDocumento" type="tns:getIdPersonaListByDocumento"/>
-  <xs:element name="getIdPersonaListByDocumentoResponse" type="tns:getIdPersonaListByDocumentoResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getIdPersonaListByDocumento">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="documento" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getIdPersonaListByDocumentoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idPersonaListReturn" type="tns:idPersonaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="idPersonaListReturn">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="idPersona" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="periodoActividadPrincipal" type="xs:int"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="calle" type="xs:string"/>
-      <xs:element minOccurs="0" name="codigoPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoDomicilio" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="manzana" type="xs:string"/>
-      <xs:element minOccurs="0" name="numero" type="xs:int"/>
-      <xs:element minOccurs="0" name="oficinaDptoLocal" type="xs:string"/>
-      <xs:element minOccurs="0" name="piso" type="xs:string"/>
-      <xs:element minOccurs="0" name="sector" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-      <xs:element minOccurs="0" name="torre" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getIdPersonaListByDocumento">
-    <wsdl:part element="tns:getIdPersonaListByDocumento" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getIdPersonaListByDocumentoResponse">
-    <wsdl:part element="tns:getIdPersonaListByDocumentoResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA13">
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getIdPersonaListByDocumento">
-      <wsdl:input message="tns:getIdPersonaListByDocumento" name="getIdPersonaListByDocumento">
-    </wsdl:input>
-      <wsdl:output message="tns:getIdPersonaListByDocumentoResponse" name="getIdPersonaListByDocumentoResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA13SoapBinding" type="tns:PersonaServiceA13">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getIdPersonaListByDocumento">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getIdPersonaListByDocumento">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getIdPersonaListByDocumentoResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA13">
-    <wsdl:port binding="tns:PersonaServiceA13SoapBinding" name="PersonaServiceA13Port">
-      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA13"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a13.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getIdPersonaListByDocumento" type="tns:getIdPersonaListByDocumento"/>
-  <xs:element name="getIdPersonaListByDocumentoResponse" type="tns:getIdPersonaListByDocumentoResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getIdPersonaListByDocumento">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="documento" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getIdPersonaListByDocumentoResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idPersonaListReturn" type="tns:idPersonaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="idPersonaListReturn">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="idPersona" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="periodoActividadPrincipal" type="xs:int"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="calle" type="xs:string"/>
-      <xs:element minOccurs="0" name="codigoPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoDomicilio" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="manzana" type="xs:string"/>
-      <xs:element minOccurs="0" name="numero" type="xs:int"/>
-      <xs:element minOccurs="0" name="oficinaDptoLocal" type="xs:string"/>
-      <xs:element minOccurs="0" name="piso" type="xs:string"/>
-      <xs:element minOccurs="0" name="sector" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-      <xs:element minOccurs="0" name="torre" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getIdPersonaListByDocumento">
-    <wsdl:part element="tns:getIdPersonaListByDocumento" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getIdPersonaListByDocumentoResponse">
-    <wsdl:part element="tns:getIdPersonaListByDocumentoResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA13">
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getIdPersonaListByDocumento">
-      <wsdl:input message="tns:getIdPersonaListByDocumento" name="getIdPersonaListByDocumento">
-    </wsdl:input>
-      <wsdl:output message="tns:getIdPersonaListByDocumentoResponse" name="getIdPersonaListByDocumentoResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA13SoapBinding" type="tns:PersonaServiceA13">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getIdPersonaListByDocumento">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getIdPersonaListByDocumento">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getIdPersonaListByDocumentoResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA13">
-    <wsdl:port binding="tns:PersonaServiceA13SoapBinding" name="PersonaServiceA13Port">
-      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA13"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a4-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element minOccurs="0" name="cantidadSociosEmpresaMono" type="xs:int"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="categoria" nillable="true" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="email" nillable="true" type="tns:email"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaInscripcion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaJubilado" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaVencimientoMigracion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-      <xs:element minOccurs="0" name="leyJubilacion" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidadInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="organismoInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="organismoOriginante" type="xs:string"/>
-      <xs:element minOccurs="0" name="porcentajeCapitalNacional" type="xs:double"/>
-      <xs:element minOccurs="0" name="provinciaInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="relacion" nillable="true" type="tns:relacion"/>
-      <xs:element minOccurs="0" name="sexo" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="telefono" nillable="true" type="tns:telefono"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoOrganismoOriginante" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoResidencia" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="actividad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
-      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="categoria">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="email">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoEmail" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="impuesto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="ffInscripcion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="regimen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
-      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="relacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
-      <xs:element minOccurs="0" name="subtipoRelacion" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoRelacion" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="telefono">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="numero" type="xs:long"/>
-      <xs:element minOccurs="0" name="tipoLinea" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoTelefono" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA4">
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA4SoapBinding" type="tns:PersonaServiceA4">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA4">
-    <wsdl:port binding="tns:PersonaServiceA4SoapBinding" name="PersonaServiceA4Port">
-      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA4"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a4.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element minOccurs="0" name="cantidadSociosEmpresaMono" type="xs:int"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="categoria" nillable="true" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="email" nillable="true" type="tns:email"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaInscripcion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaJubilado" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaVencimientoMigracion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-      <xs:element minOccurs="0" name="leyJubilacion" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidadInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="organismoInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="organismoOriginante" type="xs:string"/>
-      <xs:element minOccurs="0" name="porcentajeCapitalNacional" type="xs:double"/>
-      <xs:element minOccurs="0" name="provinciaInscripcion" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="relacion" nillable="true" type="tns:relacion"/>
-      <xs:element minOccurs="0" name="sexo" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="telefono" nillable="true" type="tns:telefono"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoOrganismoOriginante" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoResidencia" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="actividad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
-      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="categoria">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="email">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoEmail" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="impuesto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="ffInscripcion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="regimen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
-      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="estado" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="relacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
-      <xs:element minOccurs="0" name="subtipoRelacion" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoRelacion" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="telefono">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="numero" type="xs:long"/>
-      <xs:element minOccurs="0" name="tipoLinea" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoTelefono" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA4">
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA4SoapBinding" type="tns:PersonaServiceA4">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA4">
-    <wsdl:port binding="tns:PersonaServiceA4SoapBinding" name="PersonaServiceA4Port">
-      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a5-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
-  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
-  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
-  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
-  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosGenerales">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="caracterizacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="actividad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
-      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="categoria">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="relacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="impuesto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="regimen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorConstancia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaListResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaListReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaListResponse">
-    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2Response">
-    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2Response">
-    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList">
-    <wsdl:part element="tns:getPersonaList" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2">
-    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2">
-    <wsdl:part element="tns:getPersona_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA5">
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaListResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersona_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaList_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA5">
-    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
-      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
-  'ws_sr_padron_a5.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <wsdl:types>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="dummy" type="tns:dummy"/>
-  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
-  <xs:element name="getPersona" type="tns:getPersona"/>
-  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
-  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
-  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
-  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
-  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
-  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
-  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
-  <xs:complexType name="getPersona">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosGenerales">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
-      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
-      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
-      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="caracterizacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dependencia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="domicilio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
-      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
-      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="actividad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
-      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
-      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
-      <xs:element minOccurs="0" name="orden" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="categoria">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
-      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="relacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
-      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="impuesto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="datosRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
-      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="regimen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
-      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
-      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
-      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
-      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorConstancia">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorMonotributo">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="errorRegimenGeneral">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
-      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="metadata">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaListResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="personaListReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="persona">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
-      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
-      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
-      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
-      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
-      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersona_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummy">
-    <xs:sequence/>
-  </xs:complexType>
-  <xs:complexType name="dummyResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="dummyReturn">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
-      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2">
-    <xs:sequence>
-      <xs:element name="token" type="xs:string"/>
-      <xs:element name="sign" type="xs:string"/>
-      <xs:element name="cuitRepresentada" type="xs:long"/>
-      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="getPersonaList_v2Response">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
-  <xs:complexType name="SRValidationException">
-    <xs:sequence/>
-  </xs:complexType>
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="getPersonaListResponse">
-    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummyResponse">
-    <wsdl:part element="tns:dummyResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona">
-    <wsdl:part element="tns:getPersona" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2Response">
-    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2Response">
-    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList">
-    <wsdl:part element="tns:getPersonaList" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaResponse">
-    <wsdl:part element="tns:getPersonaResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dummy">
-    <wsdl:part element="tns:dummy" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersonaList_v2">
-    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="SRValidationException">
-    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getPersona_v2">
-    <wsdl:part element="tns:getPersona_v2" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="PersonaServiceA5">
-    <wsdl:operation name="getPersona">
-      <wsdl:input message="tns:getPersona" name="getPersona">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <wsdl:input message="tns:dummy" name="dummy">
-    </wsdl:input>
-      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
-    </wsdl:input>
-      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
-    </wsdl:output>
-      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
-    </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getPersona">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaListResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="getPersona_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersona_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersona_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-    <wsdl:operation name="dummy">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="dummy">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dummyResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getPersonaList_v2">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getPersonaList_v2">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getPersonaList_v2Response">
-        <soap:body use="literal"/>
-      </wsdl:output>
-      <wsdl:fault name="SRValidationException">
-        <soap:fault name="SRValidationException" use="literal"/>
-      </wsdl:fault>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="PersonaServiceA5">
-    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
-      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>`,
   'wsaa.wsdl': `<?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions targetNamespace="https://wsaahomo.afip.gov.ar/ws/services/LoginCms" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="https://wsaahomo.afip.gov.ar/ws/services/LoginCms" xmlns:intf="https://wsaahomo.afip.gov.ar/ws/services/LoginCms" xmlns:tns1="http://wsaa.view.sua.dvadac.desein.afip.gov" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <!--WSDL created by Apache Axis version: 1.4
@@ -6131,6 +3313,9088 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     </wsdl:port>
     <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
       <soap12:address location="https://wswhomo.afip.gov.ar/wsfev1/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'wsfecred-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ar.gob.afip.wsfecred/FECredService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FECredService" targetNamespace="http://ar.gob.afip.wsfecred/FECredService/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ar.gob.afip.wsfecred/FECredService/">
+			<xsd:element name="dummyResponse" type="tns:DummyResponseType" />
+			<xsd:complexType name="DummyResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="dummyReturn" type="tns:DummyReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DummyReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="appserver" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="authserver" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="dbserver" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="AuthRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="token" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="sign" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitRepresentada" type="tns:CuitSimpleType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="CuitSimpleType">
+				<xsd:restriction base="xsd:long">
+					<xsd:minExclusive value="9999999999" />
+					<xsd:maxInclusive value="99999999999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ArrayCodigosDescripcionesType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="codigoDescripcion" type="tns:CodigoDescripcionType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayCodigosDescripcionesStringType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="codigoDescripcionString" type="tns:CodigoDescripcionStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CodigoDescripcionType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CodigoDescripcionStringType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+
+
+			<xsd:element name="consultarComprobantesRequest" type="tns:ConsultarComprobanteRequestType" />
+			<xsd:element name="consultarComprobantesResponse" type="tns:ConsultarComprobantesResponseType" />
+			<xsd:complexType name="ConsultarComprobanteRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rolCUITRepresentada" type="tns:RolSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="CUITContraparte" type="tns:CuitSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="codTipoCmp" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCmp" type="tns:EstadoCmpSimpleType" />
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="fecha" type="tns:FiltroFechaType" />
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="codCtaCte" type="xsd:long" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCtaCte" type="tns:EstadoCtaCteSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ConsultarComprobantesResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="consultarCmpReturn" type="tns:ConsultarCmpReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ConsultarCmpReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayComprobantes" type="tns:ArrayComprobantesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short">
+	            	</xsd:element>
+	            	<xsd:element maxOccurs="1" minOccurs="0" name="hayMas" type="tns:SiNoSimpleType" />
+	            	<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="ResultadoSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A" />
+					<xsd:enumeration value="O" />
+					<xsd:enumeration value="R" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="NumeroComprobanteSimpleType">
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="99999999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="PuntoVentaSimpleType">
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="99999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:element name="rechazarFECredRequest" type="tns:RechazarFECredRequestType" />
+			<xsd:element name="rechazarFECredResponse" type="tns:OperacionFECredResponseType" />
+			<xsd:complexType name="RechazarFECredRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="consultarCtaCteRequest" type="tns:ConsultarCtaCteRequestType" />
+			<xsd:element name="consultarCtaCteResponse" type="tns:ConsultarCtaCteResponseType" />
+			<xsd:complexType name="ConsultarCtaCteRequestType">
+				<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="rechazarNotaDCRequest" type="tns:RechazarNotaDCRequestType">
+			</xsd:element>
+			<xsd:element name="rechazarNotaDCResponse" type="tns:RechazarNotaDCResponseType" />
+			<xsd:complexType name="RechazarNotaDCRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="informarFacturaAgtDptoCltvRequest" type="tns:InformarFacturaAgtDptoCltvRequestType" />
+			<xsd:element name="informarFacturaAgtDptoCltvResponse" type="tns:OperacionFECredResponseType" />
+			
+			<xsd:element name="consultarCuentasEnAgtDptoCltvRequest" type="tns:ConsultarCuentasEnAgtDptoCltvRequestType" />
+			<xsd:element name="consultarCuentasEnAgtDptoCltvResponse" type="tns:consultarCuentasEnAgtDptoCltvResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCuentasEnAgtDptoCltvRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="Texto250SimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="3" />
+					<xsd:maxLength value="250" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+
+
+			<xsd:element name="consultarTiposRetencionesRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposRetencionesResponse" type="tns:ConsultarTiposRetencionesResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCtasCtesRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rolCUITRepresentada" type="tns:RolSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CUITContraparte" type="tns:CuitSimpleType">
+					</xsd:element>
+
+
+
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="fecha" type="tns:FiltroFechaType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCtaCte" type="tns:EstadoCtaCteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short" />
+					<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="consultarObligadoRecepcionRequest" type="tns:consultarObligadoRecepcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarObligadoRecepcionResponse" type="tns:consultarObligadoRecepcionResponseType">
+			</xsd:element>
+			
+			<xsd:element name="consultarFacturasAgtDptoCltvRequest" type="tns:ConsultarFacturasAgtDptoCltvRequestType">
+			</xsd:element>
+			<xsd:element name="consultarFacturasAgtDptoCltvResponse" type="tns:ConsultarFacturasAgtDptoCltvResponseType">
+			</xsd:element>
+			<xsd:element name="informarCancelacionTotalFECredResponse" type="tns:OperacionFECredResponseType">
+			</xsd:element>
+			<xsd:element name="informarCancelacionTotalFECredRequest" type="tns:InformarCancelacionTotalFECredRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposMotivosRechazoRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposMotivosRechazoResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCodigoDescripcionReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayCodigoDescripcion" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="consultarTiposFormasCancelacionRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposFormasCancelacionResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+			</xsd:element>
+
+			<xsd:element name="aceptarFECredRequest" type="tns:AceptarFECredRequestType">
+			</xsd:element>
+			<xsd:element name="aceptarFECredResponse" type="tns:OperacionFECredResponseType" />
+			<xsd:complexType name="AceptarFECredRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayConfirmarNotasDC" type="tns:ArrayConfirmarNotasType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayRetenciones" type="tns:ArrayRetencionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayAjustesOperacion" type="tns:ArrayAjustesOperacionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipoCancelacion" type="tns:TipoCancelacionSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeCancelado" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalRetPesos" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeEmbargoPesos" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="saldoAceptado" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMonedaUlt" type="xsd:decimal">
+					</xsd:element>
+
+					<xsd:element name="informaCBU" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="CBUComprador" type="tns:CBUSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+            <xsd:complexType name="IdCtaCteType">
+                <xsd:sequence>
+                    <xsd:choice maxOccurs="1" minOccurs="1">
+                        <xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long" />
+                        <xsd:element maxOccurs="1" minOccurs="1" name="idFactura" type="tns:IdComprobanteType" />
+                    </xsd:choice>
+                </xsd:sequence>
+            </xsd:complexType>
+			
+            <xsd:group name="NewGroupDefinition">
+				<xsd:sequence />
+			</xsd:group>
+			<xsd:simpleType name="SiNoSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:length value="1" />
+					<xsd:enumeration value="S" />
+					<xsd:enumeration value="N" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ComprobanteType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitEmisor" type="tns:CuitSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="razonSocialEmi" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codTipoCmp" type="xsd:short">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="ptovta" type="tns:PuntoVentaSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="nroCmp" type="tns:NumeroComprobanteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitReceptor" type="tns:CuitSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="razonSocialRecep" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="tipoCodAuto" type="tns:TipoCodAutorizacionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codAutorizacion" type="xsd:long">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="fechaEmision" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaPuestaDispo" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaVenPago" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaVenAcep" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="importeTotal" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMoneda" type="xsd:decimal">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CBUEmisor" type="tns:CBUSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="AliasEmisor" type="tns:Texto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="esAnulacion" type="tns:SiNoSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="esPostAceptacion" type="tns:SiNoSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="idComprobanteAsociado" type="tns:IdComprobanteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="referenciasComerciales" type="tns:ArrayTexto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arraySubtotalesIVA" type="tns:ArraySubtotalesIVAType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayOtrosTributos" type="tns:ArrayOtrosTributosType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayItems" type="tns:ArrayItemsType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="datosGenerales" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="datosComerciales" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="leyendaComercial" type="tns:Texto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCmpType">
+					</xsd:element>
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipoAcep" type="tns:TipoAceptacionSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaHoraAcep" type="xsd:dateTime">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+
+					<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="infoTransferencia" type="tns:InfoTransferenciaType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="ImporteSimpleType">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:minInclusive value="-9999999999999.99" />
+					<xsd:maxInclusive value="9999999999999.99" />
+					<xsd:totalDigits value="15" />
+					<xsd:fractionDigits value="2" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="DecimalSimpleType">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:minInclusive value="0" />
+					<xsd:maxInclusive value="999999999999.999999" />
+					<xsd:totalDigits value="18" />
+					<xsd:fractionDigits value="6" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+			<xsd:complexType name="ConsultarCodigoDescripcionRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="InformarCancelacionTotalFECredRequestType">
+				<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+				    <xsd:element maxOccurs="1" minOccurs="1" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="importeCancelacion" type="tns:ImporteSimpleType">
+				    </xsd:element>
+
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:complexType name="ConsultarCodigoDescripcionResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigoDescripcionReturn" type="tns:ConsultarCodigoDescripcionReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+				
+			
+			<xsd:element name="consultarCtasCtesRequest" type="tns:ConsultarCtasCtesRequestType">
+			</xsd:element>
+			<xsd:element name="consultarCtasCtesResponse" type="tns:ConsultarCtasCtesResponseType" />
+
+
+
+
+
+			<xsd:complexType name="ConsultarCodigoDescripcionStringResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigoDescripcionReturn" type="tns:ConsultarCodigoDescripcionStringReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ConsultarCodigoDescripcionStringReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayCodigoDescripcion" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+		
+			<xsd:simpleType name="TipoCodAutorizacionType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A" />
+					<xsd:enumeration value="E" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="ConsultarTiposRetencionesResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarTiposRetencionesReturn" type="tns:ConsultarTiposRetencionesReturnType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarTiposRetencionesReturnType">
+			    <xsd:sequence>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayTiposRetenciones" type="tns:ArrayTiposRetencionesType">
+			    	</xsd:element>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ArrayTiposRetencionesType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="unbounded" minOccurs="1" name="tipoRetencion" type="tns:TipoRetencionType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="TipoRetencionType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="codigoJurisdiccion" type="xsd:short">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="descripcionJurisdiccion" type="xsd:string" />
+			        <xsd:element maxOccurs="1" minOccurs="1" name="porcentajeRetencion" type="tns:PorcentajeSimpleType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="PorcentajeSimpleType">
+			    <xsd:restriction base="xsd:decimal">
+			        <xsd:maxInclusive value="100.00" />
+			        <xsd:minInclusive value="0.0" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionRequestType">
+			    <xsd:sequence>
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+			    	</xsd:element>
+
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="cuitConsultada" type="tns:CuitSimpleType" />
+
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarObligadoRecepcionReturn" type="tns:consultarObligadoRecepcionReturnType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionReturnType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="respuesta" type="tns:SiNoSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="desde" type="xsd:date" />
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+
+		
+			<xsd:complexType name="consultarCuentasEnAgtDptoCltvResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarCuentasEnAgtDptoCltvReturn" type="tns:ConsultarCuentasEnAgtDptoCltvReturnType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarCuentasEnAgtDptoCltvReturnType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayCuentasEnAgente" type="tns:ArrayCuentasEnAgenteType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType" />
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			    	</xsd:element>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			    	</xsd:element>
+			        
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ArrayCuentasEnAgenteType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="unbounded" minOccurs="1" name="cuentaEnAgente" type="tns:CuentaEnAgenteType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="CuentaEnAgenteType">
+			    <xsd:sequence>
+			    	<xsd:element name="cuitAgente" type="tns:CuitSimpleType" maxOccurs="1" minOccurs="1">
+			    	</xsd:element>
+			    	<xsd:element name="razonSocialAgente" type="xsd:string" maxOccurs="1" minOccurs="0" />
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="idCuenta" type="tns:IdCuentaAgenteSimpleType">
+			    	</xsd:element>
+
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="denominacion" type="tns:Texto250SimpleType">
+			    	</xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="CBUSimpleType">
+			    <xsd:restriction base="xsd:string">
+			        <xsd:length value="22" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+			
+			<xsd:simpleType name="IdCuentaAgenteSimpleType">
+			    <xsd:restriction base="xsd:string">
+			        <xsd:minLength value="3" />
+					<xsd:maxLength value="20" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="FiltroFechaType">
+				<xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="tipo" type="tns:TipoFechaSimpleType" />
+                    <xsd:element maxOccurs="1" minOccurs="1" name="desde" type="xsd:date" />
+                    <xsd:element maxOccurs="1" minOccurs="1" name="hasta" type="xsd:date" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="TipoFechaSimpleType">
+				<xsd:annotation>
+					<xsd:documentation>
+						Campo que determina sobre que columna vamos a
+						hacer el filtro de fechas. Fechas posibles a
+						filtrar - fechaEmision - fechaPuestaDispo -
+						fechaVenPago - fechaVenAcep - fechaAcep -
+						fechaInfoAgDptoCltv
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:string">
+
+
+
+					<xsd:enumeration value="Emision" />
+					<xsd:enumeration value="PuestaDispo" />
+					<xsd:enumeration value="VenPago" />
+					<xsd:enumeration value="VenAcep" />
+					<xsd:enumeration value="Acep" />
+					<xsd:enumeration value="InfoAgDptoCltv" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="RolSimpleType">
+				<xsd:restriction base="xsd:string">
+
+
+					<xsd:enumeration value="Emisor" />
+					<xsd:enumeration value="Receptor" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="EstadoCmpSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="PendienteRecepcion" />
+					<xsd:enumeration value="Recepcionado" />
+					<xsd:enumeration value="Aceptado" />
+					<xsd:enumeration value="Rechazado" />
+					<xsd:enumeration value="InformadaAgDpto" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="EstadoCtaCteSimpleType">
+				<xsd:restriction base="xsd:string">
+
+					<xsd:enumeration value="Modificable" />
+					<xsd:enumeration value="Aceptada" />
+					<xsd:enumeration value="Rechazada" />
+					<xsd:enumeration value="CanceladaTotal" />
+					<xsd:enumeration value="InformadaAgDpto" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="ArrayComprobantesType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="comprobante" type="tns:ComprobanteType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="TipoAceptacionSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Tacita" />
+					<xsd:enumeration value="Expresa" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="IdComprobanteType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="CUITEmisor" type="tns:CuitSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="codTipoCmp" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="ptoVta" type="tns:PuntoVentaSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="nroCmp" type="tns:NumeroComprobanteSimpleType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="RechazarNotaDCResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rechazarNotaDCReturn" type="tns:RechazarNotaDCReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="RechazarNotaDCReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="resultado" type="tns:ResultadoSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarCtasCtesResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="consultarCtasCtesReturn" type="tns:ConsultarCtasCtesReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtasCtesReturnType">
+            <xsd:sequence>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayInfosCtaCte" type="tns:ArrayInfosCtaCteType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="hayMas" type="tns:SiNoSimpleType" />
+            	<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+            	</xsd:element>
+            </xsd:sequence>
+
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayInfosCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="infoCtaCte" type="tns:InfoCtaCteType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="InfoCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estadoCtaCte" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idFacturaCredito" type="tns:IdComprobanteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importeTotalFC" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="saldo" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="saldoAceptado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string" />
+            		<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtaCteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarCtaCteReturn" type="tns:ConsultarCtaCteReturnType">
+            		</xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtaCteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="ctaCte" type="tns:CuentaCorrienteType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayConfirmarNotasType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="confirmarNota" type="tns:ConfirmarNotaDCType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConfirmarNotaDCType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="acepta" type="tns:SiNoSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idNota" type="tns:IdComprobanteType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="CuentaCorrienteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estadoCtaCte" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="factura" type="tns:ComprobanteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayNotasDCAsociadas" type="tns:ArrayComprobantesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayRetenciones" type="tns:ArrayRetencionesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayAjustesOperacion" type="tns:ArrayAjustesOperacionType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importeInicial" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalNotasDC" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeCancelado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalRetPesos" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeEmbargoPesos" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="saldoAceptado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="saldo" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMonedaUlt" type="xsd:decimal">
+            		</xsd:element>
+
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayRetencionesType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="retencion" type="tns:RetencionType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="RetencionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codTipo" type="xsd:short" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="porcentaje" type="tns:PorcentajeSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="descMotivo" type="tns:Texto250SimpleType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OperacionFECredResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="operacionFECredReturn" type="tns:OperacionFECredReturnType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OperacionFECredReturnType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="resultado" type="tns:ResultadoSimpleType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+            	    </xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+        
+            <xsd:simpleType name="TipoCancelacionSimpleType">
+            	<xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="PAR" />
+            		<xsd:enumeration value="TOT" />
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="InformarFacturaAgtDptoCltvRequestType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="ctaAgente" type="tns:CuentaEnAgenteType">
+            	    </xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvRequestType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="idCtaCte" type="tns:IdCtaCteType" />
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="filtroFecha" type="tns:FiltroFechaType">
+            	    </xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarFacturasAgtDptoCltvReturn" type="tns:ConsultarFacturasAgtDptoCltvReturnType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayFacturasAgtDptoCltv" type="tns:ArrayFacturasAgtDptoCltvType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayFacturasAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="facturaInformada" type="tns:FacturaInformadaAgtDptoCltvType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="FacturaInformadaAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idFactura" type="tns:IdComprobanteType">
+            		</xsd:element>
+            		<xsd:element name="infoAgtDptoCltv" type="tns:InfoAgtDptoCltvType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+	           	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="obtenerRemitosRequest" type="tns:ObtenerRemitosRequestType" />
+            <xsd:element name="obtenerRemitosResponse" type="tns:ObtenerRemitosResponseType">
+            </xsd:element>
+            <xsd:complexType name="ObtenerRemitosRequestType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ObtenerRemitosResponseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="obtenerRemitosReturn" type="tns:ObtenerRemitosReturnType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ObtenerRemitosReturnType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayIdsRemitos" type="tns:ArrayIdsComprobantesType">
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayIdsComprobantesType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="1" name="idsComprobantes" type="tns:IdComprobanteType">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArraySubtotalesIVAType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="subtotalIVA" type="tns:SubtotalIVAType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="ArrayOtrosTributosType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="otroTributo" type="tns:OtroTributoType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="SubtotalIVAType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="baseImponible" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OtroTributoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="detalle" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="baseImponible" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayMotivosRechazoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="motivoRechazo" type="tns:MotivoRechazoType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="MotivoRechazoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMotivo" type="xsd:short">
+					</xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="descMotivo" type="tns:Texto250SimpleType">
+					</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="justificacion" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="EstadoCmpType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCmpSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaHoraEstado" type="xsd:dateTime">
+            		</xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarHistorialEstadosComprobanteRequest" type="tns:ConsultarHistorialEstadosComprobanteRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarHistorialEstadosComprobanteResponse" type="tns:ConsultarHistorialEstadosComprobanteResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteRequestType">
+            	<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType">
+					</xsd:element>
+				    
+				</xsd:sequence>            
+            </xsd:complexType>
+        
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarHistorialEstadosComprobanteReturn" type="tns:ConsultarHistorialEstadosComprobanteReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="arrayHistorialEstados" type="tns:ArrayHistorialEstadosComprobanteType">
+            		</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayHistorialEstadosComprobanteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="estadoHistorico" type="tns:EstadoCmpType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarHistorialEstadosCtaCteRequest" type="tns:ConsultarHistorialEstadosCtaCteRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarHistorialEstadosCtaCteResponse" type="tns:consultarHistorialEstadosCtaCteResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarHistorialEstadosCtaCteRequestType">
+            	<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+				    
+				</xsd:sequence>  
+            </xsd:complexType>
+        
+            <xsd:complexType name="consultarHistorialEstadosCtaCteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarHistorialEstadosCtaCteReturn" type="tns:consultarHistorialEstadosCtaCteReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="consultarHistorialEstadosCtaCteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="arrayHistorialEstados" type="tns:ArrayHistorialEstadosCtaCteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayHistorialEstadosCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="estadoHistorico" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="EstadoCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCtaCteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaHoraEstado" type="xsd:dateTime">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayItemsType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="item" type="tns:ItemType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ItemType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="orden" type="xsd:int">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="unidadesMtx" type="xsd:int" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigoMtx" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigo" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codNomMercosur" type="xsd:string" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="cantidad" type="tns:DecimalSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigoUnidadMedida" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="precioUnitario" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeBonificacion" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigoCondicionIVA" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeIVA" type="tns:ImporteSimpleType">
+            		</xsd:element>
+
+                    <xsd:element maxOccurs="1" minOccurs="1" name="importeItem" type="tns:ImporteSimpleType">
+            		</xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayTexto250SimpleType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="texto" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarTiposAjustesOperacionRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarTiposAjustesOperacionResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+
+            </xsd:element>
+		
+            <xsd:complexType name="ArrayAjustesOperacionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="ajuste" type="tns:AjusteOperacionType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="AjusteOperacionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarMontoObligadoRecepcionRequest" type="tns:ConsultarMontoObligadoRecepcionRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarMontoObligadoRecepcionResponse" type="tns:ConsultarMontoObligadoRecepcionResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionRequestType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            		</xsd:element>
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="cuitConsultada" type="tns:CuitSimpleType">
+            		</xsd:element>
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaEmision" type="xsd:date">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarMontoObligadoRecepcionReturn" type="tns:ConsultarMontoObligadoRecepcionReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionReturnType">
+            	<xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="obligado" type="tns:SiNoSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="montoDesde" type="tns:ImporteSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			        </xsd:element>
+			    </xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:simpleType name="OpcionTransferenciaSimpleType">
+                <xsd:annotation>
+                	<xsd:documentation>SCA - Sistema de Circulación Abierta
+ADC - Agente de Depósito Colectivo</xsd:documentation>
+                </xsd:annotation>
+                <xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="SCA" />
+            		<xsd:enumeration value="ADC" />
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="InfoTransferenciaType">
+            	<xsd:sequence>
+            		<xsd:choice maxOccurs="1" minOccurs="1">
+            			<xsd:element name="infoAgtDptoCltv" type="tns:InfoAgtDptoCltvType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="infoSCA" type="tns:InfoSCAType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            		</xsd:choice>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="InfoAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaInfo" type="xsd:date" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="ctaAgente" type="tns:CuentaEnAgenteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="recibida" type="tns:SiNoSimpleType">
+            		</xsd:element>
+            		<xsd:element name="fechaLectura" type="xsd:date" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="fechaRecep" type="xsd:date" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="aceptada" type="tns:SiNoSimpleType" />
+            		<xsd:element name="motivoRechazo" type="xsd:string" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="idPagoAgtDptoCltv" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CBUAgtDptoCltv" type="tns:CBUSimpleType">
+					</xsd:element>
+            		
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="InfoSCAType">
+            	<xsd:sequence>
+            		<xsd:element name="fechaAceptacionFactura" type="xsd:date" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="informaCBUReceptor" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="CBUReceptor" type="tns:CBUSimpleType" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="CBUValidada" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="fechaLecturaSCA" type="xsd:dateTime" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modificarOpcionTransferenciaResponse" type="tns:OperacionFECredResponseType">
+
+            </xsd:element>
+
+            <xsd:complexType name="ModificarOpcionTransferenciaRequestType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+            		</xsd:element>
+
+            		<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modificarOpcionTransferenciaRequest" type="tns:ModificarOpcionTransferenciaRequestType">
+            </xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="dummyRequest" />
+
+	<wsdl:message name="dummyResponse">
+		<wsdl:part element="tns:dummyResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarComprobantesRequest">
+		<wsdl:part element="tns:consultarComprobantesRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarComprobantesResponse">
+		<wsdl:part element="tns:consultarComprobantesResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarFECredRequest">
+		<wsdl:part element="tns:rechazarFECredRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="rechazarFECredResponse">
+		<wsdl:part element="tns:rechazarFECredResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaCteRequest">
+		<wsdl:part element="tns:consultarCtaCteRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaCteResponse">
+		<wsdl:part element="tns:consultarCtaCteResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarNotaDCRequest">
+		<wsdl:part element="tns:rechazarNotaDCRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarNotaDCResponse">
+		<wsdl:part element="tns:rechazarNotaDCResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarFacturaAgtDptoCltvRequest">
+		<wsdl:part element="tns:informarFacturaAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarFacturaAgtDptoCltvResponse">
+		<wsdl:part element="tns:informarFacturaAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaAgenteRequest">
+		<wsdl:part element="tns:consultarCuentasEnAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaAgenteResponse">
+		<wsdl:part element="tns:consultarCuentasEnAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposRetencionesRequest">
+		<wsdl:part element="tns:consultarTiposRetencionesRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposRetencionesResponse">
+		<wsdl:part element="tns:consultarTiposRetencionesResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarObligadoRecepcionRequest">
+		<wsdl:part element="tns:consultarObligadoRecepcionRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarObligadoRecepcionResponse">
+		<wsdl:part element="tns:consultarObligadoRecepcionResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarFacturasAgtDptoCltvRequest">
+		<wsdl:part element="tns:consultarFacturasAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarFacturasAgtDptoCltvResponse">
+		<wsdl:part element="tns:consultarFacturasAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarCancelacionTotalFECredRequest">
+		<wsdl:part element="tns:informarCancelacionTotalFECredRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="informarCancelacionTotalFECredResponse">
+		<wsdl:part element="tns:informarCancelacionTotalFECredResponse" name="parameters" />
+	</wsdl:message>
+
+
+	<wsdl:message name="consultarTiposMotivosRechazoRequest">
+		<wsdl:part element="tns:consultarTiposMotivosRechazoRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposMotivosRechazoResponse">
+		<wsdl:part element="tns:consultarTiposMotivosRechazoResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposFormasCancelacionRequest">
+		<wsdl:part element="tns:consultarTiposFormasCancelacionRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposFormasCancelacionResponse">
+		<wsdl:part element="tns:consultarTiposFormasCancelacionResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="aceptarFECredRequest">
+		<wsdl:part element="tns:aceptarFECredRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="aceptarFECredResponse">
+		<wsdl:part element="tns:aceptarFECredResponse" name="parameters" />
+	</wsdl:message>
+
+
+
+	<wsdl:message name="consultarCtasCtesRequest">
+		<wsdl:part element="tns:consultarCtasCtesRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarCtasCtesResponse">
+		<wsdl:part element="tns:consultarCtasCtesResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="obtenerRemitosRequest">
+	    <wsdl:part element="tns:obtenerRemitosRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="obtenerRemitosResponse">
+	    <wsdl:part element="tns:obtenerRemitosResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosComprobanteRequest">
+		<wsdl:part element="tns:consultarHistorialEstadosComprobanteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosComprobanteResponse">
+		<wsdl:part element="tns:consultarHistorialEstadosComprobanteResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosCtaCteRequest">
+		<wsdl:part element="tns:consultarHistorialEstadosCtaCteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosCtaCteResponse">
+		<wsdl:part element="tns:consultarHistorialEstadosCtaCteResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarTiposAjustesOperacionRequest">
+		<wsdl:part element="tns:consultarTiposAjustesOperacionRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarTiposAjustesOperacionResponse">
+		<wsdl:part element="tns:consultarTiposAjustesOperacionResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarMontoObligadoRecepcionRequest">
+		<wsdl:part element="tns:consultarMontoObligadoRecepcionRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarMontoObligadoRecepcionResponse">
+		<wsdl:part element="tns:consultarMontoObligadoRecepcionResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="modificarOpcionTransferenciaRequest">
+		<wsdl:part name="parameters" element="tns:modificarOpcionTransferenciaRequest" />
+	</wsdl:message>
+	<wsdl:message name="modificarOpcionTransferenciaResponse">
+		<wsdl:part name="parameters" element="tns:modificarOpcionTransferenciaResponse" />
+	</wsdl:message>
+	<wsdl:portType name="FECredServicePortType">
+
+		<wsdl:operation name="dummy">
+			<wsdl:documentation>Metodo dummy.</wsdl:documentation>
+			<wsdl:input message="tns:dummyRequest" />
+			<wsdl:output message="tns:dummyResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarComprobantes">
+			<wsdl:documentation>Método que permite obtener información sobre los comprobates Emitidos y Recibidos.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarComprobantesRequest" />
+			<wsdl:output message="tns:consultarComprobantesResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="rechazarNotaDC">
+			<wsdl:documentation>Método que permite al Comprador rechazar Notas de Débito / Crédito individualmente para
+				desafectarlas del cálculo del saldo de la Cta. Cte. vinculada.
+			</wsdl:documentation>
+			<wsdl:input message="tns:rechazarNotaDCRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:rechazarNotaDCResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCtasCtes">
+			<wsdl:documentation>Método que permite obtener las cuentas corrientes que fueron generadas a partir de la
+				facturación, que coinciden con los parámetros de búsqueda.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtasCtesRequest" />
+			<wsdl:output message="tns:consultarCtasCtesResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCtaCte">
+			<wsdl:documentation>Método que permite obtener el detalle y composición de una cuenta corriente.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtaCteRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarCtaCteResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="informarCancelacionTotalFECred">
+			<wsdl:documentation>Método por el cual el Comprador informa que le ha cancelado (pagado) totalmente la deuda al
+				vendedor, debiendo indicar la forma de pago.Solo puede cancelar las aceptadas dentros de los plazos establecidos
+			</wsdl:documentation>
+			<wsdl:input message="tns:informarCancelacionTotalFECredRequest" />
+			<wsdl:output message="tns:informarCancelacionTotalFECredResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="aceptarFECred">
+			<wsdl:documentation>Método que permite al Comprador Aceptar el saldo actual de la Cta. Cte. de una Factura de Crédito
+				pudiendo indicar: pagos parciales, retenciones y/o embargos.
+			</wsdl:documentation>
+			<wsdl:input message="tns:aceptarFECredRequest" />
+			<wsdl:output message="tns:aceptarFECredResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="rechazarFECred">
+			<wsdl:documentation>Método que permite al Comprador Rechazar la Cta. Cte. de una Factura de Crédito debiendo indicar
+				el motivo del rechazo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:rechazarFECredRequest" />
+			<wsdl:output message="tns:rechazarFECredResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="informarFacturaAgtDptoCltv">
+			<wsdl:documentation>Método que permite al Vendedor solicitar la transeferencia (al Agente de Depósito Colectivo) de
+				la factura de crédito con el saldo resultante de la cuenta corriente vinculada aceptada por el comprador, debiendo
+				indicar la Cuenta del Agente de Deposito Colectivo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:informarFacturaAgtDptoCltvRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:informarFacturaAgtDptoCltvResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarFacturasAgtDptoCltv">
+			<wsdl:documentation>Método que permite obtener información sobre las transeferencias realizadas al Agente de Depósito
+				Colectivo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarFacturasAgtDptoCltvRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarFacturasAgtDptoCltvResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCuentasEnAgtDptoCltv">
+			<wsdl:documentation>Método que permite al Vendedor consultar sus cuentas en sus Agentes de Deposito Colectivo
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtaAgenteRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarCtaAgenteResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarObligadoRecepcion">
+			<wsdl:documentation>Método que permite a partir de una CUIT conocer su obligación respecto a la emisión o recepción
+				de facturas de créditos
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarObligadoRecepcionRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarObligadoRecepcionResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposRetenciones">
+			<wsdl:documentation>Método que permite consultar los tipos de retenciones habilitadas con sus respectivos porcentajes.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposRetencionesRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposRetencionesResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposMotivosRechazo">
+			<wsdl:documentation>Método que permite listar los tipos de  motivos de rechazo habilitados para una cta. cte.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposMotivosRechazoRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposMotivosRechazoResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposFormasCancelacion">
+			<wsdl:documentation>Método que permite listar los tipos de formas de pago habilitados para una factura de crédito.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposFormasCancelacionRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposFormasCancelacionResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="obtenerRemitos">
+		    <wsdl:input message="tns:obtenerRemitosRequest" />
+		    <wsdl:output message="tns:obtenerRemitosResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosComprobante">
+			<wsdl:input message="tns:consultarHistorialEstadosComprobanteRequest" />
+			<wsdl:output message="tns:consultarHistorialEstadosComprobanteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosCtaCte">
+			<wsdl:input message="tns:consultarHistorialEstadosCtaCteRequest" />
+			<wsdl:output message="tns:consultarHistorialEstadosCtaCteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposAjustesOperacion">
+			<wsdl:input message="tns:consultarTiposAjustesOperacionRequest" />
+			<wsdl:output message="tns:consultarTiposAjustesOperacionResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarMontoObligadoRecepcion">
+			<wsdl:input message="tns:consultarMontoObligadoRecepcionRequest" />
+			<wsdl:output message="tns:consultarMontoObligadoRecepcionResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="modificarOpcionTransferencia">
+			<wsdl:input message="tns:modificarOpcionTransferenciaRequest" />
+			<wsdl:output message="tns:modificarOpcionTransferenciaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<wsdl:binding name="FECredServiceSOAP" type="tns:FECredServicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="dummy">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/dummy" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarComprobantes">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarComprobantes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/rechazarFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCtasCtes">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCtasCtes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarNotaDC">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/rechazarNotaDC" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="informarFacturaAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/informarFacturaAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposRetenciones">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposRetenciones" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarObligadoRecepcion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarObligadoRecepcion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarFacturasAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarFacturasAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="informarCancelacionTotalFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/informarCancelacionTotalFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposMotivosRechazo">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposMotivosRechazo" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposFormasCancelacion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposFormasCancelacion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="aceptarFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/aceptarFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCtaCte">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCtaCte" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCuentasEnAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCuentasEnAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="obtenerRemitos">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/obtenerRemitos" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosComprobante">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarHistorialEstadosComprobante" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosCtaCte">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarHistorialEstadosCtaCte" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposAjustesOperacion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposAjustesOperacion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarMontoObligadoRecepcion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarMontoObligadoRecepcion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modificarOpcionTransferencia">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/modificarOpcionTransferencia" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="FECredService">
+		<wsdl:port binding="tns:FECredServiceSOAP" name="FECredServiceSOAP">
+			<soap:address location="https://serviciosjava.afip.gob.ar:443/wsfecred/FECredService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>`,
+  'wsfecred.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ar.gob.afip.wsfecred/FECredService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FECredService" targetNamespace="http://ar.gob.afip.wsfecred/FECredService/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ar.gob.afip.wsfecred/FECredService/">
+			<xsd:element name="dummyResponse" type="tns:DummyResponseType" />
+			<xsd:complexType name="DummyResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="dummyReturn" type="tns:DummyReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DummyReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="appserver" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="authserver" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="dbserver" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="AuthRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="token" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="sign" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitRepresentada" type="tns:CuitSimpleType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="CuitSimpleType">
+				<xsd:restriction base="xsd:long">
+					<xsd:minExclusive value="9999999999" />
+					<xsd:maxInclusive value="99999999999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ArrayCodigosDescripcionesType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="codigoDescripcion" type="tns:CodigoDescripcionType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayCodigosDescripcionesStringType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="codigoDescripcionString" type="tns:CodigoDescripcionStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CodigoDescripcionType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CodigoDescripcionStringType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+
+
+			<xsd:element name="consultarComprobantesRequest" type="tns:ConsultarComprobanteRequestType" />
+			<xsd:element name="consultarComprobantesResponse" type="tns:ConsultarComprobantesResponseType" />
+			<xsd:complexType name="ConsultarComprobanteRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rolCUITRepresentada" type="tns:RolSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="CUITContraparte" type="tns:CuitSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="codTipoCmp" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCmp" type="tns:EstadoCmpSimpleType" />
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="fecha" type="tns:FiltroFechaType" />
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="codCtaCte" type="xsd:long" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCtaCte" type="tns:EstadoCtaCteSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ConsultarComprobantesResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="consultarCmpReturn" type="tns:ConsultarCmpReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ConsultarCmpReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayComprobantes" type="tns:ArrayComprobantesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short">
+	            	</xsd:element>
+	            	<xsd:element maxOccurs="1" minOccurs="0" name="hayMas" type="tns:SiNoSimpleType" />
+	            	<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="ResultadoSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A" />
+					<xsd:enumeration value="O" />
+					<xsd:enumeration value="R" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="NumeroComprobanteSimpleType">
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="99999999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="PuntoVentaSimpleType">
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="99999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:element name="rechazarFECredRequest" type="tns:RechazarFECredRequestType" />
+			<xsd:element name="rechazarFECredResponse" type="tns:OperacionFECredResponseType" />
+			<xsd:complexType name="RechazarFECredRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="consultarCtaCteRequest" type="tns:ConsultarCtaCteRequestType" />
+			<xsd:element name="consultarCtaCteResponse" type="tns:ConsultarCtaCteResponseType" />
+			<xsd:complexType name="ConsultarCtaCteRequestType">
+				<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="rechazarNotaDCRequest" type="tns:RechazarNotaDCRequestType">
+			</xsd:element>
+			<xsd:element name="rechazarNotaDCResponse" type="tns:RechazarNotaDCResponseType" />
+			<xsd:complexType name="RechazarNotaDCRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="informarFacturaAgtDptoCltvRequest" type="tns:InformarFacturaAgtDptoCltvRequestType" />
+			<xsd:element name="informarFacturaAgtDptoCltvResponse" type="tns:OperacionFECredResponseType" />
+			
+			<xsd:element name="consultarCuentasEnAgtDptoCltvRequest" type="tns:ConsultarCuentasEnAgtDptoCltvRequestType" />
+			<xsd:element name="consultarCuentasEnAgtDptoCltvResponse" type="tns:consultarCuentasEnAgtDptoCltvResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCuentasEnAgtDptoCltvRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="Texto250SimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="3" />
+					<xsd:maxLength value="250" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+
+
+			<xsd:element name="consultarTiposRetencionesRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposRetencionesResponse" type="tns:ConsultarTiposRetencionesResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCtasCtesRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rolCUITRepresentada" type="tns:RolSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CUITContraparte" type="tns:CuitSimpleType">
+					</xsd:element>
+
+
+
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="fecha" type="tns:FiltroFechaType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCtaCte" type="tns:EstadoCtaCteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short" />
+					<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="consultarObligadoRecepcionRequest" type="tns:consultarObligadoRecepcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarObligadoRecepcionResponse" type="tns:consultarObligadoRecepcionResponseType">
+			</xsd:element>
+			
+			<xsd:element name="consultarFacturasAgtDptoCltvRequest" type="tns:ConsultarFacturasAgtDptoCltvRequestType">
+			</xsd:element>
+			<xsd:element name="consultarFacturasAgtDptoCltvResponse" type="tns:ConsultarFacturasAgtDptoCltvResponseType">
+			</xsd:element>
+			<xsd:element name="informarCancelacionTotalFECredResponse" type="tns:OperacionFECredResponseType">
+			</xsd:element>
+			<xsd:element name="informarCancelacionTotalFECredRequest" type="tns:InformarCancelacionTotalFECredRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposMotivosRechazoRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposMotivosRechazoResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCodigoDescripcionReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayCodigoDescripcion" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="consultarTiposFormasCancelacionRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposFormasCancelacionResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+			</xsd:element>
+
+			<xsd:element name="aceptarFECredRequest" type="tns:AceptarFECredRequestType">
+			</xsd:element>
+			<xsd:element name="aceptarFECredResponse" type="tns:OperacionFECredResponseType" />
+			<xsd:complexType name="AceptarFECredRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayConfirmarNotasDC" type="tns:ArrayConfirmarNotasType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayRetenciones" type="tns:ArrayRetencionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayAjustesOperacion" type="tns:ArrayAjustesOperacionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipoCancelacion" type="tns:TipoCancelacionSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeCancelado" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalRetPesos" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeEmbargoPesos" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="saldoAceptado" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMonedaUlt" type="xsd:decimal">
+					</xsd:element>
+
+					<xsd:element name="informaCBU" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="CBUComprador" type="tns:CBUSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+            <xsd:complexType name="IdCtaCteType">
+                <xsd:sequence>
+                    <xsd:choice maxOccurs="1" minOccurs="1">
+                        <xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long" />
+                        <xsd:element maxOccurs="1" minOccurs="1" name="idFactura" type="tns:IdComprobanteType" />
+                    </xsd:choice>
+                </xsd:sequence>
+            </xsd:complexType>
+			
+            <xsd:group name="NewGroupDefinition">
+				<xsd:sequence />
+			</xsd:group>
+			<xsd:simpleType name="SiNoSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:length value="1" />
+					<xsd:enumeration value="S" />
+					<xsd:enumeration value="N" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ComprobanteType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitEmisor" type="tns:CuitSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="razonSocialEmi" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codTipoCmp" type="xsd:short">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="ptovta" type="tns:PuntoVentaSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="nroCmp" type="tns:NumeroComprobanteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitReceptor" type="tns:CuitSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="razonSocialRecep" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="tipoCodAuto" type="tns:TipoCodAutorizacionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codAutorizacion" type="xsd:long">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="fechaEmision" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaPuestaDispo" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaVenPago" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaVenAcep" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="importeTotal" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMoneda" type="xsd:decimal">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CBUEmisor" type="tns:CBUSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="AliasEmisor" type="tns:Texto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="esAnulacion" type="tns:SiNoSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="esPostAceptacion" type="tns:SiNoSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="idComprobanteAsociado" type="tns:IdComprobanteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="referenciasComerciales" type="tns:ArrayTexto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arraySubtotalesIVA" type="tns:ArraySubtotalesIVAType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayOtrosTributos" type="tns:ArrayOtrosTributosType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayItems" type="tns:ArrayItemsType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="datosGenerales" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="datosComerciales" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="leyendaComercial" type="tns:Texto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCmpType">
+					</xsd:element>
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipoAcep" type="tns:TipoAceptacionSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaHoraAcep" type="xsd:dateTime">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+
+					<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="infoTransferencia" type="tns:InfoTransferenciaType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="ImporteSimpleType">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:minInclusive value="-9999999999999.99" />
+					<xsd:maxInclusive value="9999999999999.99" />
+					<xsd:totalDigits value="15" />
+					<xsd:fractionDigits value="2" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="DecimalSimpleType">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:minInclusive value="0" />
+					<xsd:maxInclusive value="999999999999.999999" />
+					<xsd:totalDigits value="18" />
+					<xsd:fractionDigits value="6" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+			<xsd:complexType name="ConsultarCodigoDescripcionRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="InformarCancelacionTotalFECredRequestType">
+				<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+				    <xsd:element maxOccurs="1" minOccurs="1" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="importeCancelacion" type="tns:ImporteSimpleType">
+				    </xsd:element>
+
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:complexType name="ConsultarCodigoDescripcionResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigoDescripcionReturn" type="tns:ConsultarCodigoDescripcionReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+				
+			
+			<xsd:element name="consultarCtasCtesRequest" type="tns:ConsultarCtasCtesRequestType">
+			</xsd:element>
+			<xsd:element name="consultarCtasCtesResponse" type="tns:ConsultarCtasCtesResponseType" />
+
+
+
+
+
+			<xsd:complexType name="ConsultarCodigoDescripcionStringResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigoDescripcionReturn" type="tns:ConsultarCodigoDescripcionStringReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ConsultarCodigoDescripcionStringReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayCodigoDescripcion" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+		
+			<xsd:simpleType name="TipoCodAutorizacionType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A" />
+					<xsd:enumeration value="E" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="ConsultarTiposRetencionesResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarTiposRetencionesReturn" type="tns:ConsultarTiposRetencionesReturnType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarTiposRetencionesReturnType">
+			    <xsd:sequence>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayTiposRetenciones" type="tns:ArrayTiposRetencionesType">
+			    	</xsd:element>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ArrayTiposRetencionesType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="unbounded" minOccurs="1" name="tipoRetencion" type="tns:TipoRetencionType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="TipoRetencionType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="codigoJurisdiccion" type="xsd:short">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="descripcionJurisdiccion" type="xsd:string" />
+			        <xsd:element maxOccurs="1" minOccurs="1" name="porcentajeRetencion" type="tns:PorcentajeSimpleType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="PorcentajeSimpleType">
+			    <xsd:restriction base="xsd:decimal">
+			        <xsd:maxInclusive value="100.00" />
+			        <xsd:minInclusive value="0.0" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionRequestType">
+			    <xsd:sequence>
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+			    	</xsd:element>
+
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="cuitConsultada" type="tns:CuitSimpleType" />
+
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarObligadoRecepcionReturn" type="tns:consultarObligadoRecepcionReturnType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionReturnType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="respuesta" type="tns:SiNoSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="desde" type="xsd:date" />
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+
+		
+			<xsd:complexType name="consultarCuentasEnAgtDptoCltvResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarCuentasEnAgtDptoCltvReturn" type="tns:ConsultarCuentasEnAgtDptoCltvReturnType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarCuentasEnAgtDptoCltvReturnType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayCuentasEnAgente" type="tns:ArrayCuentasEnAgenteType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType" />
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			    	</xsd:element>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			    	</xsd:element>
+			        
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ArrayCuentasEnAgenteType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="unbounded" minOccurs="1" name="cuentaEnAgente" type="tns:CuentaEnAgenteType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="CuentaEnAgenteType">
+			    <xsd:sequence>
+			    	<xsd:element name="cuitAgente" type="tns:CuitSimpleType" maxOccurs="1" minOccurs="1">
+			    	</xsd:element>
+			    	<xsd:element name="razonSocialAgente" type="xsd:string" maxOccurs="1" minOccurs="0" />
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="idCuenta" type="tns:IdCuentaAgenteSimpleType">
+			    	</xsd:element>
+
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="denominacion" type="tns:Texto250SimpleType">
+			    	</xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="CBUSimpleType">
+			    <xsd:restriction base="xsd:string">
+			        <xsd:length value="22" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+			
+			<xsd:simpleType name="IdCuentaAgenteSimpleType">
+			    <xsd:restriction base="xsd:string">
+			        <xsd:minLength value="3" />
+					<xsd:maxLength value="20" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="FiltroFechaType">
+				<xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="tipo" type="tns:TipoFechaSimpleType" />
+                    <xsd:element maxOccurs="1" minOccurs="1" name="desde" type="xsd:date" />
+                    <xsd:element maxOccurs="1" minOccurs="1" name="hasta" type="xsd:date" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="TipoFechaSimpleType">
+				<xsd:annotation>
+					<xsd:documentation>
+						Campo que determina sobre que columna vamos a
+						hacer el filtro de fechas. Fechas posibles a
+						filtrar - fechaEmision - fechaPuestaDispo -
+						fechaVenPago - fechaVenAcep - fechaAcep -
+						fechaInfoAgDptoCltv
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:string">
+
+
+
+					<xsd:enumeration value="Emision" />
+					<xsd:enumeration value="PuestaDispo" />
+					<xsd:enumeration value="VenPago" />
+					<xsd:enumeration value="VenAcep" />
+					<xsd:enumeration value="Acep" />
+					<xsd:enumeration value="InfoAgDptoCltv" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="RolSimpleType">
+				<xsd:restriction base="xsd:string">
+
+
+					<xsd:enumeration value="Emisor" />
+					<xsd:enumeration value="Receptor" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="EstadoCmpSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="PendienteRecepcion" />
+					<xsd:enumeration value="Recepcionado" />
+					<xsd:enumeration value="Aceptado" />
+					<xsd:enumeration value="Rechazado" />
+					<xsd:enumeration value="InformadaAgDpto" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="EstadoCtaCteSimpleType">
+				<xsd:restriction base="xsd:string">
+
+					<xsd:enumeration value="Modificable" />
+					<xsd:enumeration value="Aceptada" />
+					<xsd:enumeration value="Rechazada" />
+					<xsd:enumeration value="CanceladaTotal" />
+					<xsd:enumeration value="InformadaAgDpto" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="ArrayComprobantesType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="comprobante" type="tns:ComprobanteType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="TipoAceptacionSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Tacita" />
+					<xsd:enumeration value="Expresa" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="IdComprobanteType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="CUITEmisor" type="tns:CuitSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="codTipoCmp" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="ptoVta" type="tns:PuntoVentaSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="nroCmp" type="tns:NumeroComprobanteSimpleType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="RechazarNotaDCResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rechazarNotaDCReturn" type="tns:RechazarNotaDCReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="RechazarNotaDCReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="resultado" type="tns:ResultadoSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarCtasCtesResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="consultarCtasCtesReturn" type="tns:ConsultarCtasCtesReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtasCtesReturnType">
+            <xsd:sequence>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayInfosCtaCte" type="tns:ArrayInfosCtaCteType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="hayMas" type="tns:SiNoSimpleType" />
+            	<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+            	</xsd:element>
+            </xsd:sequence>
+
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayInfosCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="infoCtaCte" type="tns:InfoCtaCteType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="InfoCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estadoCtaCte" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idFacturaCredito" type="tns:IdComprobanteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importeTotalFC" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="saldo" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="saldoAceptado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string" />
+            		<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtaCteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarCtaCteReturn" type="tns:ConsultarCtaCteReturnType">
+            		</xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtaCteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="ctaCte" type="tns:CuentaCorrienteType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayConfirmarNotasType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="confirmarNota" type="tns:ConfirmarNotaDCType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConfirmarNotaDCType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="acepta" type="tns:SiNoSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idNota" type="tns:IdComprobanteType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="CuentaCorrienteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estadoCtaCte" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="factura" type="tns:ComprobanteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayNotasDCAsociadas" type="tns:ArrayComprobantesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayRetenciones" type="tns:ArrayRetencionesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayAjustesOperacion" type="tns:ArrayAjustesOperacionType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importeInicial" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalNotasDC" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeCancelado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalRetPesos" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeEmbargoPesos" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="saldoAceptado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="saldo" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMonedaUlt" type="xsd:decimal">
+            		</xsd:element>
+
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayRetencionesType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="retencion" type="tns:RetencionType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="RetencionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codTipo" type="xsd:short" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="porcentaje" type="tns:PorcentajeSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="descMotivo" type="tns:Texto250SimpleType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OperacionFECredResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="operacionFECredReturn" type="tns:OperacionFECredReturnType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OperacionFECredReturnType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="resultado" type="tns:ResultadoSimpleType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+            	    </xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+        
+            <xsd:simpleType name="TipoCancelacionSimpleType">
+            	<xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="PAR" />
+            		<xsd:enumeration value="TOT" />
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="InformarFacturaAgtDptoCltvRequestType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="ctaAgente" type="tns:CuentaEnAgenteType">
+            	    </xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvRequestType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="idCtaCte" type="tns:IdCtaCteType" />
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="filtroFecha" type="tns:FiltroFechaType">
+            	    </xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarFacturasAgtDptoCltvReturn" type="tns:ConsultarFacturasAgtDptoCltvReturnType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayFacturasAgtDptoCltv" type="tns:ArrayFacturasAgtDptoCltvType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayFacturasAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="facturaInformada" type="tns:FacturaInformadaAgtDptoCltvType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="FacturaInformadaAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idFactura" type="tns:IdComprobanteType">
+            		</xsd:element>
+            		<xsd:element name="infoAgtDptoCltv" type="tns:InfoAgtDptoCltvType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+	           	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="obtenerRemitosRequest" type="tns:ObtenerRemitosRequestType" />
+            <xsd:element name="obtenerRemitosResponse" type="tns:ObtenerRemitosResponseType">
+            </xsd:element>
+            <xsd:complexType name="ObtenerRemitosRequestType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ObtenerRemitosResponseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="obtenerRemitosReturn" type="tns:ObtenerRemitosReturnType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ObtenerRemitosReturnType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayIdsRemitos" type="tns:ArrayIdsComprobantesType">
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayIdsComprobantesType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="1" name="idsComprobantes" type="tns:IdComprobanteType">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArraySubtotalesIVAType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="subtotalIVA" type="tns:SubtotalIVAType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="ArrayOtrosTributosType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="otroTributo" type="tns:OtroTributoType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="SubtotalIVAType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="baseImponible" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OtroTributoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="detalle" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="baseImponible" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayMotivosRechazoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="motivoRechazo" type="tns:MotivoRechazoType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="MotivoRechazoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMotivo" type="xsd:short">
+					</xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="descMotivo" type="tns:Texto250SimpleType">
+					</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="justificacion" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="EstadoCmpType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCmpSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaHoraEstado" type="xsd:dateTime">
+            		</xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarHistorialEstadosComprobanteRequest" type="tns:ConsultarHistorialEstadosComprobanteRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarHistorialEstadosComprobanteResponse" type="tns:ConsultarHistorialEstadosComprobanteResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteRequestType">
+            	<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType">
+					</xsd:element>
+				    
+				</xsd:sequence>            
+            </xsd:complexType>
+        
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarHistorialEstadosComprobanteReturn" type="tns:ConsultarHistorialEstadosComprobanteReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="arrayHistorialEstados" type="tns:ArrayHistorialEstadosComprobanteType">
+            		</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayHistorialEstadosComprobanteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="estadoHistorico" type="tns:EstadoCmpType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarHistorialEstadosCtaCteRequest" type="tns:ConsultarHistorialEstadosCtaCteRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarHistorialEstadosCtaCteResponse" type="tns:consultarHistorialEstadosCtaCteResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarHistorialEstadosCtaCteRequestType">
+            	<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+				    
+				</xsd:sequence>  
+            </xsd:complexType>
+        
+            <xsd:complexType name="consultarHistorialEstadosCtaCteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarHistorialEstadosCtaCteReturn" type="tns:consultarHistorialEstadosCtaCteReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="consultarHistorialEstadosCtaCteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="arrayHistorialEstados" type="tns:ArrayHistorialEstadosCtaCteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayHistorialEstadosCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="estadoHistorico" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="EstadoCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCtaCteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaHoraEstado" type="xsd:dateTime">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayItemsType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="item" type="tns:ItemType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ItemType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="orden" type="xsd:int">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="unidadesMtx" type="xsd:int" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigoMtx" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigo" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codNomMercosur" type="xsd:string" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="cantidad" type="tns:DecimalSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigoUnidadMedida" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="precioUnitario" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeBonificacion" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigoCondicionIVA" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeIVA" type="tns:ImporteSimpleType">
+            		</xsd:element>
+
+                    <xsd:element maxOccurs="1" minOccurs="1" name="importeItem" type="tns:ImporteSimpleType">
+            		</xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayTexto250SimpleType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="texto" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarTiposAjustesOperacionRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarTiposAjustesOperacionResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+
+            </xsd:element>
+		
+            <xsd:complexType name="ArrayAjustesOperacionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="ajuste" type="tns:AjusteOperacionType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="AjusteOperacionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarMontoObligadoRecepcionRequest" type="tns:ConsultarMontoObligadoRecepcionRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarMontoObligadoRecepcionResponse" type="tns:ConsultarMontoObligadoRecepcionResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionRequestType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            		</xsd:element>
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="cuitConsultada" type="tns:CuitSimpleType">
+            		</xsd:element>
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaEmision" type="xsd:date">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarMontoObligadoRecepcionReturn" type="tns:ConsultarMontoObligadoRecepcionReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionReturnType">
+            	<xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="obligado" type="tns:SiNoSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="montoDesde" type="tns:ImporteSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			        </xsd:element>
+			    </xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:simpleType name="OpcionTransferenciaSimpleType">
+                <xsd:annotation>
+                	<xsd:documentation>SCA - Sistema de Circulación Abierta
+ADC - Agente de Depósito Colectivo</xsd:documentation>
+                </xsd:annotation>
+                <xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="SCA" />
+            		<xsd:enumeration value="ADC" />
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="InfoTransferenciaType">
+            	<xsd:sequence>
+            		<xsd:choice maxOccurs="1" minOccurs="1">
+            			<xsd:element name="infoAgtDptoCltv" type="tns:InfoAgtDptoCltvType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="infoSCA" type="tns:InfoSCAType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            		</xsd:choice>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="InfoAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaInfo" type="xsd:date" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="ctaAgente" type="tns:CuentaEnAgenteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="recibida" type="tns:SiNoSimpleType">
+            		</xsd:element>
+            		<xsd:element name="fechaLectura" type="xsd:date" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="fechaRecep" type="xsd:date" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="aceptada" type="tns:SiNoSimpleType" />
+            		<xsd:element name="motivoRechazo" type="xsd:string" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="idPagoAgtDptoCltv" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CBUAgtDptoCltv" type="tns:CBUSimpleType">
+					</xsd:element>
+            		
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="InfoSCAType">
+            	<xsd:sequence>
+            		<xsd:element name="fechaAceptacionFactura" type="xsd:date" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="informaCBUReceptor" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="CBUReceptor" type="tns:CBUSimpleType" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="CBUValidada" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="fechaLecturaSCA" type="xsd:dateTime" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modificarOpcionTransferenciaResponse" type="tns:OperacionFECredResponseType">
+
+            </xsd:element>
+
+            <xsd:complexType name="ModificarOpcionTransferenciaRequestType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+            		</xsd:element>
+
+            		<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modificarOpcionTransferenciaRequest" type="tns:ModificarOpcionTransferenciaRequestType">
+            </xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="dummyRequest" />
+
+	<wsdl:message name="dummyResponse">
+		<wsdl:part element="tns:dummyResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarComprobantesRequest">
+		<wsdl:part element="tns:consultarComprobantesRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarComprobantesResponse">
+		<wsdl:part element="tns:consultarComprobantesResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarFECredRequest">
+		<wsdl:part element="tns:rechazarFECredRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="rechazarFECredResponse">
+		<wsdl:part element="tns:rechazarFECredResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaCteRequest">
+		<wsdl:part element="tns:consultarCtaCteRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaCteResponse">
+		<wsdl:part element="tns:consultarCtaCteResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarNotaDCRequest">
+		<wsdl:part element="tns:rechazarNotaDCRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarNotaDCResponse">
+		<wsdl:part element="tns:rechazarNotaDCResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarFacturaAgtDptoCltvRequest">
+		<wsdl:part element="tns:informarFacturaAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarFacturaAgtDptoCltvResponse">
+		<wsdl:part element="tns:informarFacturaAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaAgenteRequest">
+		<wsdl:part element="tns:consultarCuentasEnAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaAgenteResponse">
+		<wsdl:part element="tns:consultarCuentasEnAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposRetencionesRequest">
+		<wsdl:part element="tns:consultarTiposRetencionesRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposRetencionesResponse">
+		<wsdl:part element="tns:consultarTiposRetencionesResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarObligadoRecepcionRequest">
+		<wsdl:part element="tns:consultarObligadoRecepcionRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarObligadoRecepcionResponse">
+		<wsdl:part element="tns:consultarObligadoRecepcionResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarFacturasAgtDptoCltvRequest">
+		<wsdl:part element="tns:consultarFacturasAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarFacturasAgtDptoCltvResponse">
+		<wsdl:part element="tns:consultarFacturasAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarCancelacionTotalFECredRequest">
+		<wsdl:part element="tns:informarCancelacionTotalFECredRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="informarCancelacionTotalFECredResponse">
+		<wsdl:part element="tns:informarCancelacionTotalFECredResponse" name="parameters" />
+	</wsdl:message>
+
+
+	<wsdl:message name="consultarTiposMotivosRechazoRequest">
+		<wsdl:part element="tns:consultarTiposMotivosRechazoRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposMotivosRechazoResponse">
+		<wsdl:part element="tns:consultarTiposMotivosRechazoResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposFormasCancelacionRequest">
+		<wsdl:part element="tns:consultarTiposFormasCancelacionRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposFormasCancelacionResponse">
+		<wsdl:part element="tns:consultarTiposFormasCancelacionResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="aceptarFECredRequest">
+		<wsdl:part element="tns:aceptarFECredRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="aceptarFECredResponse">
+		<wsdl:part element="tns:aceptarFECredResponse" name="parameters" />
+	</wsdl:message>
+
+
+
+	<wsdl:message name="consultarCtasCtesRequest">
+		<wsdl:part element="tns:consultarCtasCtesRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarCtasCtesResponse">
+		<wsdl:part element="tns:consultarCtasCtesResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="obtenerRemitosRequest">
+	    <wsdl:part element="tns:obtenerRemitosRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="obtenerRemitosResponse">
+	    <wsdl:part element="tns:obtenerRemitosResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosComprobanteRequest">
+		<wsdl:part element="tns:consultarHistorialEstadosComprobanteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosComprobanteResponse">
+		<wsdl:part element="tns:consultarHistorialEstadosComprobanteResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosCtaCteRequest">
+		<wsdl:part element="tns:consultarHistorialEstadosCtaCteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosCtaCteResponse">
+		<wsdl:part element="tns:consultarHistorialEstadosCtaCteResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarTiposAjustesOperacionRequest">
+		<wsdl:part element="tns:consultarTiposAjustesOperacionRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarTiposAjustesOperacionResponse">
+		<wsdl:part element="tns:consultarTiposAjustesOperacionResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarMontoObligadoRecepcionRequest">
+		<wsdl:part element="tns:consultarMontoObligadoRecepcionRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarMontoObligadoRecepcionResponse">
+		<wsdl:part element="tns:consultarMontoObligadoRecepcionResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="modificarOpcionTransferenciaRequest">
+		<wsdl:part name="parameters" element="tns:modificarOpcionTransferenciaRequest" />
+	</wsdl:message>
+	<wsdl:message name="modificarOpcionTransferenciaResponse">
+		<wsdl:part name="parameters" element="tns:modificarOpcionTransferenciaResponse" />
+	</wsdl:message>
+	<wsdl:portType name="FECredServicePortType">
+
+		<wsdl:operation name="dummy">
+			<wsdl:documentation>Metodo dummy.</wsdl:documentation>
+			<wsdl:input message="tns:dummyRequest" />
+			<wsdl:output message="tns:dummyResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarComprobantes">
+			<wsdl:documentation>Método que permite obtener información sobre los comprobates Emitidos y Recibidos.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarComprobantesRequest" />
+			<wsdl:output message="tns:consultarComprobantesResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="rechazarNotaDC">
+			<wsdl:documentation>Método que permite al Comprador rechazar Notas de Débito / Crédito individualmente para
+				desafectarlas del cálculo del saldo de la Cta. Cte. vinculada.
+			</wsdl:documentation>
+			<wsdl:input message="tns:rechazarNotaDCRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:rechazarNotaDCResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCtasCtes">
+			<wsdl:documentation>Método que permite obtener las cuentas corrientes que fueron generadas a partir de la
+				facturación, que coinciden con los parámetros de búsqueda.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtasCtesRequest" />
+			<wsdl:output message="tns:consultarCtasCtesResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCtaCte">
+			<wsdl:documentation>Método que permite obtener el detalle y composición de una cuenta corriente.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtaCteRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarCtaCteResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="informarCancelacionTotalFECred">
+			<wsdl:documentation>Método por el cual el Comprador informa que le ha cancelado (pagado) totalmente la deuda al
+				vendedor, debiendo indicar la forma de pago.Solo puede cancelar las aceptadas dentros de los plazos establecidos
+			</wsdl:documentation>
+			<wsdl:input message="tns:informarCancelacionTotalFECredRequest" />
+			<wsdl:output message="tns:informarCancelacionTotalFECredResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="aceptarFECred">
+			<wsdl:documentation>Método que permite al Comprador Aceptar el saldo actual de la Cta. Cte. de una Factura de Crédito
+				pudiendo indicar: pagos parciales, retenciones y/o embargos.
+			</wsdl:documentation>
+			<wsdl:input message="tns:aceptarFECredRequest" />
+			<wsdl:output message="tns:aceptarFECredResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="rechazarFECred">
+			<wsdl:documentation>Método que permite al Comprador Rechazar la Cta. Cte. de una Factura de Crédito debiendo indicar
+				el motivo del rechazo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:rechazarFECredRequest" />
+			<wsdl:output message="tns:rechazarFECredResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="informarFacturaAgtDptoCltv">
+			<wsdl:documentation>Método que permite al Vendedor solicitar la transeferencia (al Agente de Depósito Colectivo) de
+				la factura de crédito con el saldo resultante de la cuenta corriente vinculada aceptada por el comprador, debiendo
+				indicar la Cuenta del Agente de Deposito Colectivo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:informarFacturaAgtDptoCltvRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:informarFacturaAgtDptoCltvResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarFacturasAgtDptoCltv">
+			<wsdl:documentation>Método que permite obtener información sobre las transeferencias realizadas al Agente de Depósito
+				Colectivo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarFacturasAgtDptoCltvRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarFacturasAgtDptoCltvResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCuentasEnAgtDptoCltv">
+			<wsdl:documentation>Método que permite al Vendedor consultar sus cuentas en sus Agentes de Deposito Colectivo
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtaAgenteRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarCtaAgenteResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarObligadoRecepcion">
+			<wsdl:documentation>Método que permite a partir de una CUIT conocer su obligación respecto a la emisión o recepción
+				de facturas de créditos
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarObligadoRecepcionRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarObligadoRecepcionResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposRetenciones">
+			<wsdl:documentation>Método que permite consultar los tipos de retenciones habilitadas con sus respectivos porcentajes.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposRetencionesRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposRetencionesResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposMotivosRechazo">
+			<wsdl:documentation>Método que permite listar los tipos de  motivos de rechazo habilitados para una cta. cte.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposMotivosRechazoRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposMotivosRechazoResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposFormasCancelacion">
+			<wsdl:documentation>Método que permite listar los tipos de formas de pago habilitados para una factura de crédito.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposFormasCancelacionRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposFormasCancelacionResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="obtenerRemitos">
+		    <wsdl:input message="tns:obtenerRemitosRequest" />
+		    <wsdl:output message="tns:obtenerRemitosResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosComprobante">
+			<wsdl:input message="tns:consultarHistorialEstadosComprobanteRequest" />
+			<wsdl:output message="tns:consultarHistorialEstadosComprobanteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosCtaCte">
+			<wsdl:input message="tns:consultarHistorialEstadosCtaCteRequest" />
+			<wsdl:output message="tns:consultarHistorialEstadosCtaCteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposAjustesOperacion">
+			<wsdl:input message="tns:consultarTiposAjustesOperacionRequest" />
+			<wsdl:output message="tns:consultarTiposAjustesOperacionResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarMontoObligadoRecepcion">
+			<wsdl:input message="tns:consultarMontoObligadoRecepcionRequest" />
+			<wsdl:output message="tns:consultarMontoObligadoRecepcionResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="modificarOpcionTransferencia">
+			<wsdl:input message="tns:modificarOpcionTransferenciaRequest" />
+			<wsdl:output message="tns:modificarOpcionTransferenciaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<wsdl:binding name="FECredServiceSOAP" type="tns:FECredServicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="dummy">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/dummy" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarComprobantes">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarComprobantes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/rechazarFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCtasCtes">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCtasCtes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarNotaDC">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/rechazarNotaDC" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="informarFacturaAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/informarFacturaAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposRetenciones">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposRetenciones" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarObligadoRecepcion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarObligadoRecepcion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarFacturasAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarFacturasAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="informarCancelacionTotalFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/informarCancelacionTotalFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposMotivosRechazo">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposMotivosRechazo" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposFormasCancelacion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposFormasCancelacion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="aceptarFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/aceptarFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCtaCte">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCtaCte" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCuentasEnAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCuentasEnAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="obtenerRemitos">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/obtenerRemitos" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosComprobante">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarHistorialEstadosComprobante" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosCtaCte">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarHistorialEstadosCtaCte" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposAjustesOperacion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposAjustesOperacion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarMontoObligadoRecepcion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarMontoObligadoRecepcion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modificarOpcionTransferencia">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/modificarOpcionTransferencia" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="FECredService">
+		<wsdl:port binding="tns:FECredServiceSOAP" name="FECredServiceSOAP">
+			<soap:address location="https://fwshomo.afip.gov.ar:443/wsfecred/FECredService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>`,
+  'wsfex-production.wsdl': `<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ar.gov.afip.dif.fexv1/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://ar.gov.afip.dif.fexv1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de autorizacion de comprobantes de Exportacion electronicos</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ar.gov.afip.dif.fexv1/">
+      <s:element name="FEXAuthorize">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cmp" type="tns:ClsFEXRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEXAuthRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXRequest">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo_expo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permiso_existente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permisos" type="tns:ArrayOfPermiso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_cmp" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit_pais_cliente" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio_cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id_impositivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs_comerciales" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Imp_total" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmps_asoc" type="tns:ArrayOfCmp_asoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Forma_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms_Ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Idioma_cbte" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Permiso" nillable="true" type="tns:Permiso" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Permiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id_permiso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_merc" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCmp_asoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cmp_asoc" nillable="true" type="tns:Cmp_asoc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cmp_asoc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_cuit" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Item">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Pro_codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pro_ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_qty" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_umed" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_precio_uni" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_bonificacion" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_total_item" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOpcional">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcional" nillable="true" type="tns:Opcional" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Opcional">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Actividad" nillable="true" type="tns:Actividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Actividad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXAuthorizeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXAuthorizeResult" type="tns:FEXResponseAuthorize" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponseAuthorize">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultAuth" type="tns:ClsFEXOutAuthorize" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXOutAuthorize">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_venc_Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_cbte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reproceso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivos_Obs" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXErr">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrMsg" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXEvents">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EventCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventMsg" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetCMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cmp" type="tns:ClsFEXGetCMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEXGetCMP">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetCMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetCMPResult" type="tns:FEXGetCMPResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXGetCMPResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXGetCMPR" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXGetCMPR">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo_expo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permiso_existente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permisos" type="tns:ArrayOfPermiso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_cmp" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit_pais_cliente" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio_cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id_impositivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_Id" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Moneda_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs_comerciales" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Imp_total" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmps_asoc" type="tns:ArrayOfCmp_asoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Forma_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms_Ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Idioma_cbte" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte_cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_venc_Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivos_Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Cbte_Tipo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_Cbte_TipoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_Cbte_TipoResult" type="tns:FEXResponse_Cbte_Tipo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Cbte_Tipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Cbte_Tipo" nillable="true" type="tns:ClsFEXResponse_Cbte_Tipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Tipo_Expo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_Tipo_ExpoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_Tipo_ExpoResult" type="tns:FEXResponse_Tex" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Tex" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Tex" nillable="true" type="tns:ClsFEXResponse_Tex" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Tex_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Incoterms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_IncotermsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_IncotermsResult" type="tns:FEXResponse_Inc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Inc" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Inc" nillable="true" type="tns:ClsFEXResponse_Inc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Idiomas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_IdiomasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_IdiomasResult" type="tns:FEXResponse_Idi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Idi" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Idi" nillable="true" type="tns:ClsFEXResponse_Idi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Idi_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_UMed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_UMedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_UMedResult" type="tns:FEXResponse_Umed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Umed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_UMed" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_UMed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_UMed" nillable="true" type="tns:ClsFEXResponse_UMed" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_UMed">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Umed_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_DST_pais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_DST_paisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_DST_paisResult" type="tns:FEXResponse_DST_pais" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_DST_pais" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_DST_pais" nillable="true" type="tns:ClsFEXResponse_DST_pais" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Ds" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_DST_CUIT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_DST_CUITResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_DST_CUITResult" type="tns:FEXResponse_DST_cuit" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_DST_cuit" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_DST_cuit" nillable="true" type="tns:ClsFEXResponse_DST_cuit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DST_CUIT" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Ds" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_MON">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_MONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_MONResult" type="tns:FEXResponse_Mon" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Mon" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Mon" nillable="true" type="tns:ClsFEXResponse_Mon" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_MON_CON_COTIZACION">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha_CTZ" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_MON_CON_COTIZACIONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_MON_CON_COTIZACIONResult" type="tns:FEXResponse_Mon_CON_COTIZACION" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Mon_CON_COTIZACION">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Mon_CON_Cotizacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Mon_CON_Cotizacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Mon_CON_Cotizacion" nillable="true" type="tns:ClsFEXResponse_Mon_CON_Cotizacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Mon_CON_Cotizacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_ctz" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_ctz" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_CMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEX_LastCMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEX_LastCMP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pto_venta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Tipo" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_CMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetLast_CMPResult" type="tns:FEXResponseLast_CMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponseLast_CMP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResult_LastCMP" type="tns:ClsFEX_LastCMP_Response" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEX_LastCMP_Response">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_fecha" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXDummy">
+        <s:complexType />
+      </s:element>
+      <s:element name="FEXDummyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXDummyResult" type="tns:DummyResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DummyResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Ctz">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mon_id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_CtzResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_CtzResult" type="tns:FEXResponse_Ctz" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Ctz">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_Ctz" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Ctz">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Mon_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_fecha" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_ID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetLast_IDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetLast_IDResult" type="tns:FEXResponse_LastID" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_LastID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_LastID" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_LastID">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_PtoVenta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_PtoVentaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_PtoVentaResult" type="tns:FEXResponse_PtoVenta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_PtoVenta" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_PtoVenta" nillable="true" type="tns:ClsFEXResponse_PtoVenta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Pve_Nro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pve_Bloqueado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pve_FchBaja" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXCheck_Permiso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="ID_Permiso" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Dst_merc" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXCheck_PermisoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXCheck_PermisoResult" type="tns:FEXResponse_CheckPermiso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_CheckPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_CheckPermiso" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_CheckPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Opcionales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_OpcionalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_OpcionalesResult" type="tns:FEXResponse_Opc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Opc" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Opc" nillable="true" type="tns:ClsFEXResponse_Opc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Opc_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Actividades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_ActividadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_ActividadesResult" type="tns:FEXResponse_Actividades" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Actividades">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_ActividadTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_ActividadTipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_ActividadTipo" nillable="true" type="tns:ClsFEXResponse_ActividadTipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_ActividadTipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FEXAuthorizeSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXAuthorize" />
+  </wsdl:message>
+  <wsdl:message name="FEXAuthorizeSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXAuthorizeResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetCMPSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetCMP" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetCMPSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetCMPResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Cbte_TipoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Cbte_Tipo" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Cbte_TipoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Cbte_TipoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Tipo_ExpoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Tipo_Expo" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Tipo_ExpoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Tipo_ExpoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IncotermsSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Incoterms" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IncotermsSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_IncotermsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IdiomasSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Idiomas" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IdiomasSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_IdiomasResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_UMedSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_UMed" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_UMedSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_UMedResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_paisSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_pais" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_paisSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_paisResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_CUITSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_CUIT" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_CUITSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_CUITResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MONSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MONSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MONResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MON_CON_COTIZACIONSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON_CON_COTIZACION" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MON_CON_COTIZACIONSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON_CON_COTIZACIONResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_CMPSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_CMP" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_CMPSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_CMPResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXDummySoapIn">
+    <wsdl:part name="parameters" element="tns:FEXDummy" />
+  </wsdl:message>
+  <wsdl:message name="FEXDummySoapOut">
+    <wsdl:part name="parameters" element="tns:FEXDummyResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_CtzSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Ctz" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_CtzSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_CtzResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_IDSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_ID" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_IDSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_IDResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_PtoVentaSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_PtoVenta" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_PtoVentaSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_PtoVentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXCheck_PermisoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXCheck_Permiso" />
+  </wsdl:message>
+  <wsdl:message name="FEXCheck_PermisoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXCheck_PermisoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_OpcionalesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Opcionales" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_OpcionalesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_OpcionalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_ActividadesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Actividades" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_ActividadesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_ActividadesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="FEXAuthorize">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Autoriza un comprobante, devolviendo  su CAE correspondiente</wsdl:documentation>
+      <wsdl:input message="tns:FEXAuthorizeSoapIn" />
+      <wsdl:output message="tns:FEXAuthorizeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera los datos completos de un comprobante ya autorizado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetCMPSoapIn" />
+      <wsdl:output message="tns:FEXGetCMPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los tipos de comprobante  y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_Cbte_TipoSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_Cbte_TipoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los tipos de exportacion  y sus codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_Tipo_ExpoSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_Tipo_ExpoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado Incoterms  utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_IncotermsSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_IncotermsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los idiomas  y sus codigos utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_IdiomasSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_IdiomasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las unidades de medida  y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_UMedSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_UMedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de paises</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_DST_paisSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_DST_paisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las cuits de los paises de destinacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_DST_CUITSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_DST_CUITSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de monedas y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_MONSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_MONSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de monedas que tengan cotizacion de ADUANA a una fecha determinada, utilizables en el proceso de autorizacion de comprobantes de servicios</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_MON_CON_COTIZACIONSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_MON_CON_COTIZACIONSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el ultimos comprobante autorizado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetLast_CMPSoapIn" />
+      <wsdl:output message="tns:FEXGetLast_CMPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo dummy para verificacion de funcionamiento</wsdl:documentation>
+      <wsdl:input message="tns:FEXDummySoapIn" />
+      <wsdl:output message="tns:FEXDummySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera la cotizacion de la moneda consultada y su  fecha </wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_CtzSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_CtzSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el ultimo ID y su  fecha </wsdl:documentation>
+      <wsdl:input message="tns:FEXGetLast_IDSoapIn" />
+      <wsdl:output message="tns:FEXGetLast_IDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los puntos de venta registrados para Factura electronica de exportacion - WS y su estado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_PtoVentaSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_PtoVentaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica la  existencia de la permiso/pais de destinación  de embarque ingresado</wsdl:documentation>
+      <wsdl:input message="tns:FEXCheck_PermisoSoapIn" />
+      <wsdl:output message="tns:FEXCheck_PermisoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de identificadores para los campos Opcionales</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_OpcionalesSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_OpcionalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las diferentes actividades habilitadas para el emisor</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_ActividadesSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_ActividadesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FEXAuthorize">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXAuthorize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetCMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Cbte_Tipo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Tipo_Expo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Incoterms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Idiomas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_UMed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_pais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_CUIT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON_CON_COTIZACION" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_CMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXDummy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Ctz" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_ID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_PtoVenta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXCheck_Permiso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Opcionales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Actividades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FEXAuthorize">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXAuthorize" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetCMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Cbte_Tipo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Tipo_Expo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Incoterms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Idiomas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_UMed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_pais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_CUIT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON_CON_COTIZACION" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_CMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXDummy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Ctz" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_ID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_PtoVenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXCheck_Permiso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Opcionales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Actividades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de autorizacion de comprobantes de Exportacion electronicos</wsdl:documentation>
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="https://servicios1.afip.gov.ar/wsfexv1/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="https://servicios1.afip.gov.ar/wsfexv1/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'wsfex.wsdl': `<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ar.gov.afip.dif.fexv1/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://ar.gov.afip.dif.fexv1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de autorizacion de comprobantes de Exportacion electronicos</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ar.gov.afip.dif.fexv1/">
+      <s:element name="FEXAuthorize">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cmp" type="tns:ClsFEXRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEXAuthRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXRequest">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo_expo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permiso_existente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permisos" type="tns:ArrayOfPermiso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_cmp" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit_pais_cliente" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio_cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id_impositivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs_comerciales" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Imp_total" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmps_asoc" type="tns:ArrayOfCmp_asoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Forma_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms_Ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Idioma_cbte" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Permiso" nillable="true" type="tns:Permiso" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Permiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id_permiso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_merc" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCmp_asoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cmp_asoc" nillable="true" type="tns:Cmp_asoc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cmp_asoc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_cuit" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Item">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Pro_codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pro_ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_qty" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_umed" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_precio_uni" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_bonificacion" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_total_item" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOpcional">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcional" nillable="true" type="tns:Opcional" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Opcional">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Actividad" nillable="true" type="tns:Actividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Actividad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXAuthorizeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXAuthorizeResult" type="tns:FEXResponseAuthorize" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponseAuthorize">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultAuth" type="tns:ClsFEXOutAuthorize" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXOutAuthorize">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_venc_Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_cbte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reproceso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivos_Obs" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXErr">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrMsg" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXEvents">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EventCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventMsg" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetCMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cmp" type="tns:ClsFEXGetCMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEXGetCMP">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetCMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetCMPResult" type="tns:FEXGetCMPResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXGetCMPResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXGetCMPR" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXGetCMPR">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo_expo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permiso_existente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permisos" type="tns:ArrayOfPermiso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_cmp" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit_pais_cliente" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio_cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id_impositivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_Id" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Moneda_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs_comerciales" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Imp_total" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmps_asoc" type="tns:ArrayOfCmp_asoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Forma_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms_Ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Idioma_cbte" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte_cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_venc_Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivos_Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Cbte_Tipo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_Cbte_TipoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_Cbte_TipoResult" type="tns:FEXResponse_Cbte_Tipo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Cbte_Tipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Cbte_Tipo" nillable="true" type="tns:ClsFEXResponse_Cbte_Tipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Tipo_Expo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_Tipo_ExpoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_Tipo_ExpoResult" type="tns:FEXResponse_Tex" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Tex" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Tex" nillable="true" type="tns:ClsFEXResponse_Tex" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Tex_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Incoterms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_IncotermsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_IncotermsResult" type="tns:FEXResponse_Inc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Inc" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Inc" nillable="true" type="tns:ClsFEXResponse_Inc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Idiomas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_IdiomasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_IdiomasResult" type="tns:FEXResponse_Idi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Idi" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Idi" nillable="true" type="tns:ClsFEXResponse_Idi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Idi_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_UMed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_UMedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_UMedResult" type="tns:FEXResponse_Umed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Umed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_UMed" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_UMed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_UMed" nillable="true" type="tns:ClsFEXResponse_UMed" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_UMed">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Umed_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_DST_pais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_DST_paisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_DST_paisResult" type="tns:FEXResponse_DST_pais" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_DST_pais" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_DST_pais" nillable="true" type="tns:ClsFEXResponse_DST_pais" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Ds" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_DST_CUIT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_DST_CUITResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_DST_CUITResult" type="tns:FEXResponse_DST_cuit" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_DST_cuit" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_DST_cuit" nillable="true" type="tns:ClsFEXResponse_DST_cuit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DST_CUIT" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Ds" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_MON">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_MONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_MONResult" type="tns:FEXResponse_Mon" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Mon" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Mon" nillable="true" type="tns:ClsFEXResponse_Mon" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_MON_CON_COTIZACION">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha_CTZ" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_MON_CON_COTIZACIONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_MON_CON_COTIZACIONResult" type="tns:FEXResponse_Mon_CON_COTIZACION" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Mon_CON_COTIZACION">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Mon_CON_Cotizacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Mon_CON_Cotizacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Mon_CON_Cotizacion" nillable="true" type="tns:ClsFEXResponse_Mon_CON_Cotizacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Mon_CON_Cotizacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_ctz" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_ctz" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_CMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEX_LastCMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEX_LastCMP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pto_venta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Tipo" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_CMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetLast_CMPResult" type="tns:FEXResponseLast_CMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponseLast_CMP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResult_LastCMP" type="tns:ClsFEX_LastCMP_Response" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEX_LastCMP_Response">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_fecha" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXDummy">
+        <s:complexType />
+      </s:element>
+      <s:element name="FEXDummyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXDummyResult" type="tns:DummyResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DummyResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Ctz">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mon_id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_CtzResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_CtzResult" type="tns:FEXResponse_Ctz" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Ctz">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_Ctz" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Ctz">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Mon_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_fecha" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_ID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetLast_IDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetLast_IDResult" type="tns:FEXResponse_LastID" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_LastID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_LastID" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_LastID">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_PtoVenta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_PtoVentaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_PtoVentaResult" type="tns:FEXResponse_PtoVenta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_PtoVenta" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_PtoVenta" nillable="true" type="tns:ClsFEXResponse_PtoVenta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Pve_Nro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pve_Bloqueado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pve_FchBaja" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXCheck_Permiso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="ID_Permiso" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Dst_merc" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXCheck_PermisoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXCheck_PermisoResult" type="tns:FEXResponse_CheckPermiso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_CheckPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_CheckPermiso" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_CheckPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Opcionales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_OpcionalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_OpcionalesResult" type="tns:FEXResponse_Opc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Opc" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Opc" nillable="true" type="tns:ClsFEXResponse_Opc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Opc_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Actividades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_ActividadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_ActividadesResult" type="tns:FEXResponse_Actividades" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Actividades">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_ActividadTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_ActividadTipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_ActividadTipo" nillable="true" type="tns:ClsFEXResponse_ActividadTipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_ActividadTipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FEXAuthorizeSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXAuthorize" />
+  </wsdl:message>
+  <wsdl:message name="FEXAuthorizeSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXAuthorizeResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetCMPSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetCMP" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetCMPSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetCMPResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Cbte_TipoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Cbte_Tipo" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Cbte_TipoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Cbte_TipoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Tipo_ExpoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Tipo_Expo" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Tipo_ExpoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Tipo_ExpoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IncotermsSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Incoterms" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IncotermsSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_IncotermsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IdiomasSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Idiomas" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IdiomasSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_IdiomasResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_UMedSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_UMed" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_UMedSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_UMedResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_paisSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_pais" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_paisSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_paisResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_CUITSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_CUIT" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_CUITSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_CUITResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MONSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MONSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MONResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MON_CON_COTIZACIONSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON_CON_COTIZACION" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MON_CON_COTIZACIONSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON_CON_COTIZACIONResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_CMPSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_CMP" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_CMPSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_CMPResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXDummySoapIn">
+    <wsdl:part name="parameters" element="tns:FEXDummy" />
+  </wsdl:message>
+  <wsdl:message name="FEXDummySoapOut">
+    <wsdl:part name="parameters" element="tns:FEXDummyResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_CtzSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Ctz" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_CtzSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_CtzResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_IDSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_ID" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_IDSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_IDResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_PtoVentaSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_PtoVenta" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_PtoVentaSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_PtoVentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXCheck_PermisoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXCheck_Permiso" />
+  </wsdl:message>
+  <wsdl:message name="FEXCheck_PermisoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXCheck_PermisoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_OpcionalesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Opcionales" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_OpcionalesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_OpcionalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_ActividadesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Actividades" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_ActividadesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_ActividadesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="FEXAuthorize">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Autoriza un comprobante, devolviendo  su CAE correspondiente</wsdl:documentation>
+      <wsdl:input message="tns:FEXAuthorizeSoapIn" />
+      <wsdl:output message="tns:FEXAuthorizeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera los datos completos de un comprobante ya autorizado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetCMPSoapIn" />
+      <wsdl:output message="tns:FEXGetCMPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los tipos de comprobante  y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_Cbte_TipoSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_Cbte_TipoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los tipos de exportacion  y sus codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_Tipo_ExpoSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_Tipo_ExpoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado Incoterms  utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_IncotermsSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_IncotermsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los idiomas  y sus codigos utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_IdiomasSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_IdiomasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las unidades de medida  y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_UMedSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_UMedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de paises</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_DST_paisSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_DST_paisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las cuits de los paises de destinacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_DST_CUITSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_DST_CUITSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de monedas y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_MONSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_MONSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de monedas que tengan cotizacion de ADUANA a una fecha determinada, utilizables en el proceso de autorizacion de comprobantes de servicios</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_MON_CON_COTIZACIONSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_MON_CON_COTIZACIONSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el ultimos comprobante autorizado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetLast_CMPSoapIn" />
+      <wsdl:output message="tns:FEXGetLast_CMPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo dummy para verificacion de funcionamiento</wsdl:documentation>
+      <wsdl:input message="tns:FEXDummySoapIn" />
+      <wsdl:output message="tns:FEXDummySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera la cotizacion de la moneda consultada y su  fecha </wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_CtzSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_CtzSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el ultimo ID y su  fecha </wsdl:documentation>
+      <wsdl:input message="tns:FEXGetLast_IDSoapIn" />
+      <wsdl:output message="tns:FEXGetLast_IDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los puntos de venta registrados para Factura electronica de exportacion - WS y su estado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_PtoVentaSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_PtoVentaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica la  existencia de la permiso/pais de destinación  de embarque ingresado</wsdl:documentation>
+      <wsdl:input message="tns:FEXCheck_PermisoSoapIn" />
+      <wsdl:output message="tns:FEXCheck_PermisoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de identificadores para los campos Opcionales</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_OpcionalesSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_OpcionalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las diferentes actividades habilitadas para el emisor</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_ActividadesSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_ActividadesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FEXAuthorize">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXAuthorize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetCMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Cbte_Tipo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Tipo_Expo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Incoterms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Idiomas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_UMed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_pais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_CUIT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON_CON_COTIZACION" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_CMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXDummy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Ctz" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_ID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_PtoVenta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXCheck_Permiso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Opcionales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Actividades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FEXAuthorize">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXAuthorize" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetCMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Cbte_Tipo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Tipo_Expo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Incoterms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Idiomas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_UMed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_pais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_CUIT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON_CON_COTIZACION" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_CMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXDummy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Ctz" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_ID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_PtoVenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXCheck_Permiso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Opcionales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Actividades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de autorizacion de comprobantes de Exportacion electronicos</wsdl:documentation>
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="https://wswhomo.afip.gov.ar/wsfexv1/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="https://wswhomo.afip.gov.ar/wsfexv1/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_inscription_proof-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
+  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
+  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
+  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
+  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosGenerales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="caracterizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actividad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
+      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="categoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="impuesto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="regimen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorConstancia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaListReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaListResponse">
+    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2Response">
+    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2Response">
+    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList">
+    <wsdl:part element="tns:getPersonaList" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2">
+    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2">
+    <wsdl:part element="tns:getPersona_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA5">
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersona_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaList_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA5">
+    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
+      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_inscription_proof.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
+  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
+  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
+  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
+  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosGenerales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="caracterizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actividad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
+      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="categoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="impuesto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="regimen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorConstancia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaListReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaListResponse">
+    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2Response">
+    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2Response">
+    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList">
+    <wsdl:part element="tns:getPersonaList" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2">
+    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2">
+    <wsdl:part element="tns:getPersona_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA5">
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersona_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaList_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA5">
+    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
+      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a10-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA10">
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA10SoapBinding" type="tns:PersonaServiceA10">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA10">
+    <wsdl:port binding="tns:PersonaServiceA10SoapBinding" name="PersonaServiceA10Port">
+      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA10"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a10.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA10" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a10.soap.ws.server.puc.sr/" xmlns:tns="http://a10.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA10">
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA10SoapBinding" type="tns:PersonaServiceA10">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA10">
+    <wsdl:port binding="tns:PersonaServiceA10SoapBinding" name="PersonaServiceA10Port">
+      <soap:address location="http://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA10"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a13-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getIdPersonaListByDocumento" type="tns:getIdPersonaListByDocumento"/>
+  <xs:element name="getIdPersonaListByDocumentoResponse" type="tns:getIdPersonaListByDocumentoResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getIdPersonaListByDocumento">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="documento" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getIdPersonaListByDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idPersonaListReturn" type="tns:idPersonaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="idPersonaListReturn">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="idPersona" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodoActividadPrincipal" type="xs:int"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="calle" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigoPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoDomicilio" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="manzana" type="xs:string"/>
+      <xs:element minOccurs="0" name="numero" type="xs:int"/>
+      <xs:element minOccurs="0" name="oficinaDptoLocal" type="xs:string"/>
+      <xs:element minOccurs="0" name="piso" type="xs:string"/>
+      <xs:element minOccurs="0" name="sector" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+      <xs:element minOccurs="0" name="torre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIdPersonaListByDocumento">
+    <wsdl:part element="tns:getIdPersonaListByDocumento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIdPersonaListByDocumentoResponse">
+    <wsdl:part element="tns:getIdPersonaListByDocumentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA13">
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIdPersonaListByDocumento">
+      <wsdl:input message="tns:getIdPersonaListByDocumento" name="getIdPersonaListByDocumento">
+    </wsdl:input>
+      <wsdl:output message="tns:getIdPersonaListByDocumentoResponse" name="getIdPersonaListByDocumentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA13SoapBinding" type="tns:PersonaServiceA13">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIdPersonaListByDocumento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getIdPersonaListByDocumento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIdPersonaListByDocumentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA13">
+    <wsdl:port binding="tns:PersonaServiceA13SoapBinding" name="PersonaServiceA13Port">
+      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA13"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a13.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA13" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a13.soap.ws.server.puc.sr/" xmlns:tns="http://a13.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getIdPersonaListByDocumento" type="tns:getIdPersonaListByDocumento"/>
+  <xs:element name="getIdPersonaListByDocumentoResponse" type="tns:getIdPersonaListByDocumentoResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getIdPersonaListByDocumento">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="documento" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getIdPersonaListByDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idPersonaListReturn" type="tns:idPersonaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="idPersonaListReturn">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="idPersona" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="descripcionActividadPrincipal" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividadPrincipal" type="xs:long"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodoActividadPrincipal" type="xs:int"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="calle" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigoPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoDomicilio" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="manzana" type="xs:string"/>
+      <xs:element minOccurs="0" name="numero" type="xs:int"/>
+      <xs:element minOccurs="0" name="oficinaDptoLocal" type="xs:string"/>
+      <xs:element minOccurs="0" name="piso" type="xs:string"/>
+      <xs:element minOccurs="0" name="sector" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+      <xs:element minOccurs="0" name="torre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIdPersonaListByDocumento">
+    <wsdl:part element="tns:getIdPersonaListByDocumento" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIdPersonaListByDocumentoResponse">
+    <wsdl:part element="tns:getIdPersonaListByDocumentoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA13">
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIdPersonaListByDocumento">
+      <wsdl:input message="tns:getIdPersonaListByDocumento" name="getIdPersonaListByDocumento">
+    </wsdl:input>
+      <wsdl:output message="tns:getIdPersonaListByDocumentoResponse" name="getIdPersonaListByDocumentoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA13SoapBinding" type="tns:PersonaServiceA13">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIdPersonaListByDocumento">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getIdPersonaListByDocumento">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIdPersonaListByDocumentoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA13">
+    <wsdl:port binding="tns:PersonaServiceA13SoapBinding" name="PersonaServiceA13Port">
+      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA13"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a4-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element minOccurs="0" name="cantidadSociosEmpresaMono" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="categoria" nillable="true" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="email" nillable="true" type="tns:email"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaInscripcion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaJubilado" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaVencimientoMigracion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+      <xs:element minOccurs="0" name="leyJubilacion" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidadInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="organismoInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="organismoOriginante" type="xs:string"/>
+      <xs:element minOccurs="0" name="porcentajeCapitalNacional" type="xs:double"/>
+      <xs:element minOccurs="0" name="provinciaInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="relacion" nillable="true" type="tns:relacion"/>
+      <xs:element minOccurs="0" name="sexo" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="telefono" nillable="true" type="tns:telefono"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoOrganismoOriginante" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoResidencia" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actividad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
+      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="categoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="email">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoEmail" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="impuesto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="ffInscripcion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="regimen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
+      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
+      <xs:element minOccurs="0" name="subtipoRelacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoRelacion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="telefono">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numero" type="xs:long"/>
+      <xs:element minOccurs="0" name="tipoLinea" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoTelefono" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA4">
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA4SoapBinding" type="tns:PersonaServiceA4">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA4">
+    <wsdl:port binding="tns:PersonaServiceA4SoapBinding" name="PersonaServiceA4Port">
+      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA4"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a4.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA4" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a4.soap.ws.server.puc.sr/" xmlns:tns="http://a4.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element minOccurs="0" name="persona" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element minOccurs="0" name="cantidadSociosEmpresaMono" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="categoria" nillable="true" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="claveInactivaAsociada" nillable="true" type="xs:long"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="domicilio" nillable="true" type="tns:domicilio"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="email" nillable="true" type="tns:email"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaInscripcion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaJubilado" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaVencimientoMigracion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="formaJuridica" type="xs:string"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+      <xs:element minOccurs="0" name="leyJubilacion" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidadInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="organismoInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="organismoOriginante" type="xs:string"/>
+      <xs:element minOccurs="0" name="porcentajeCapitalNacional" type="xs:double"/>
+      <xs:element minOccurs="0" name="provinciaInscripcion" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="relacion" nillable="true" type="tns:relacion"/>
+      <xs:element minOccurs="0" name="sexo" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="telefono" nillable="true" type="tns:telefono"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoOrganismoOriginante" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoResidencia" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actividad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
+      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="categoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="email">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoEmail" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="impuesto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="ffInscripcion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="regimen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
+      <xs:element minOccurs="0" name="diaPeriodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
+      <xs:element minOccurs="0" name="subtipoRelacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoRelacion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="telefono">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numero" type="xs:long"/>
+      <xs:element minOccurs="0" name="tipoLinea" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoTelefono" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA4">
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA4SoapBinding" type="tns:PersonaServiceA4">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA4">
+    <wsdl:port binding="tns:PersonaServiceA4SoapBinding" name="PersonaServiceA4Port">
+      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA4"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a5-production.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
+  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
+  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
+  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
+  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosGenerales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="caracterizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actividad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
+      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="categoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="impuesto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="regimen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorConstancia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaListReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaListResponse">
+    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2Response">
+    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2Response">
+    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList">
+    <wsdl:part element="tns:getPersonaList" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2">
+    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2">
+    <wsdl:part element="tns:getPersona_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA5">
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersona_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaList_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA5">
+    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
+      <soap:address location="https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>`,
+  'ws_sr_padron_a5.wsdl': `<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="PersonaServiceA5" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://a5.soap.ws.server.puc.sr/" xmlns:tns="http://a5.soap.ws.server.puc.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dummy" type="tns:dummy"/>
+  <xs:element name="dummyResponse" type="tns:dummyResponse"/>
+  <xs:element name="getPersona" type="tns:getPersona"/>
+  <xs:element name="getPersonaList" type="tns:getPersonaList"/>
+  <xs:element name="getPersonaListResponse" type="tns:getPersonaListResponse"/>
+  <xs:element name="getPersonaList_v2" type="tns:getPersonaList_v2"/>
+  <xs:element name="getPersonaList_v2Response" type="tns:getPersonaList_v2Response"/>
+  <xs:element name="getPersonaResponse" type="tns:getPersonaResponse"/>
+  <xs:element name="getPersona_v2" type="tns:getPersona_v2"/>
+  <xs:element name="getPersona_v2Response" type="tns:getPersona_v2Response"/>
+  <xs:complexType name="getPersona">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosGenerales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="caracterizacion" nillable="true" type="tns:caracterizacion"/>
+      <xs:element minOccurs="0" name="dependencia" type="tns:dependencia"/>
+      <xs:element minOccurs="0" name="domicilioFiscal" type="tns:domicilio"/>
+      <xs:element minOccurs="0" name="esSucesion" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaContratoSocial" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fechaFallecimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="mesCierre" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoClave" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoPersona" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="caracterizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCaracterizacion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCaracterizacion" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dependencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionDependencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idDependencia" type="xs:int"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="domicilio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codPostal" type="xs:string"/>
+      <xs:element minOccurs="0" name="datoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcionProvincia" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="idProvincia" type="xs:int"/>
+      <xs:element minOccurs="0" name="localidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDatoAdicional" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoDomicilio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="actividadMonotributista" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaMonotributo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="componenteDeSociedad" nillable="true" type="tns:relacion"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actividad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionActividad" type="xs:string"/>
+      <xs:element minOccurs="0" name="idActividad" type="xs:long"/>
+      <xs:element minOccurs="0" name="nomenclador" type="xs:int"/>
+      <xs:element minOccurs="0" name="orden" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="categoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionCategoria" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCategoria" type="xs:int"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellidoPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="ffRelacion" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="ffVencimiento" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idPersonaAsociada" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombrePersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="razonSocialPersonaAsociada" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoComponente" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="impuesto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoImpuesto" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="motivo" type="xs:string"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="datosRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="actividad" nillable="true" type="tns:actividad"/>
+      <xs:element minOccurs="0" name="categoriaAutonomo" type="tns:categoria"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="impuesto" nillable="true" type="tns:impuesto"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="regimen" nillable="true" type="tns:regimen"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="regimen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcionRegimen" type="xs:string"/>
+      <xs:element minOccurs="0" name="idImpuesto" type="xs:int"/>
+      <xs:element minOccurs="0" name="idRegimen" type="xs:int"/>
+      <xs:element minOccurs="0" name="periodo" type="xs:int"/>
+      <xs:element minOccurs="0" name="tipoRegimen" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorConstancia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="idPersona" type="xs:long"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorMonotributo">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="errorRegimenGeneral">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaListReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="persona" nillable="true" type="tns:persona"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="datosGenerales" type="tns:datosGenerales"/>
+      <xs:element minOccurs="0" name="datosMonotributo" type="tns:datosMonotributo"/>
+      <xs:element minOccurs="0" name="datosRegimenGeneral" type="tns:datosRegimenGeneral"/>
+      <xs:element minOccurs="0" name="errorConstancia" type="tns:errorConstancia"/>
+      <xs:element minOccurs="0" name="errorMonotributo" type="tns:errorMonotributo"/>
+      <xs:element minOccurs="0" name="errorRegimenGeneral" type="tns:errorRegimenGeneral"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersona_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaReturn" type="tns:personaReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" name="idPersona" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPersonaList_v2Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="personaListReturn" type="tns:personaListReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SRValidationException" type="tns:SRValidationException"/>
+  <xs:complexType name="SRValidationException">
+    <xs:sequence/>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getPersonaListResponse">
+    <wsdl:part element="tns:getPersonaListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona">
+    <wsdl:part element="tns:getPersona" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2Response">
+    <wsdl:part element="tns:getPersonaList_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2Response">
+    <wsdl:part element="tns:getPersona_v2Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList">
+    <wsdl:part element="tns:getPersonaList" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaResponse">
+    <wsdl:part element="tns:getPersonaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersonaList_v2">
+    <wsdl:part element="tns:getPersonaList_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SRValidationException">
+    <wsdl:part element="tns:SRValidationException" name="SRValidationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPersona_v2">
+    <wsdl:part element="tns:getPersona_v2" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonaServiceA5">
+    <wsdl:operation name="getPersona">
+      <wsdl:input message="tns:getPersona" name="getPersona">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaResponse" name="getPersonaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <wsdl:input message="tns:getPersonaList" name="getPersonaList">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaListResponse" name="getPersonaListResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <wsdl:input message="tns:getPersona_v2" name="getPersona_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersona_v2Response" name="getPersona_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <wsdl:input message="tns:getPersonaList_v2" name="getPersonaList_v2">
+    </wsdl:input>
+      <wsdl:output message="tns:getPersonaList_v2Response" name="getPersonaList_v2Response">
+    </wsdl:output>
+      <wsdl:fault message="tns:SRValidationException" name="SRValidationException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonaServiceA5SoapBinding" type="tns:PersonaServiceA5">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getPersona">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPersona_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersona_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersona_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPersonaList_v2">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPersonaList_v2">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPersonaList_v2Response">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SRValidationException">
+        <soap:fault name="SRValidationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonaServiceA5">
+    <wsdl:port binding="tns:PersonaServiceA5SoapBinding" name="PersonaServiceA5Port">
+      <soap:address location="https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>`

@@ -7,4 +7,6 @@ export * from "./auth/auth.repository";
 export * from "./storage/file-system-ticket-storage";
 export * from "./logger/winston-logger";
 export * from "./electronic-billing";
+export * from "./fecred";
+export * from "./fex";
 export * from "./register";

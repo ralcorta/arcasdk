@@ -110,6 +110,16 @@ Explora la suite completa de herramientas diseñadas para potenciar tu negocio.
     <h3>Constancia de Inscripción</h3>
     <p>Obtén y verifica las constancias de inscripción de forma programática y segura.</p>
   </a>
+  <a href="/services/facturacion_exportacion" class="service-card">
+    <div class="card-icon">🌍</div>
+    <h3>Facturación de Exportación</h3>
+    <p>Emisión y consulta de comprobantes de exportación con WSFEX.</p>
+  </a>
+  <a href="/services/facturacion_credito_electronica" class="service-card">
+    <div class="card-icon">💳</div>
+    <h3>Factura de Crédito Electrónica</h3>
+    <p>Gestión de facturas MiPyMEs, cuentas corrientes y cancelaciones con WSFEcred.</p>
+  </a>
 </div>
 
 ## 📚 Centro de Conocimiento

@@ -12,12 +12,16 @@ import { IAuthenticationRepositoryPort } from "@application/ports/authentication
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
 
 import { ElectronicBillingService } from "@application/services/electronic-billing.service";
+import { WsfecredService } from "@application/services/wsfecred.service";
+import { WsfexService } from "@application/services/wsfex.service";
 import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
 import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
 import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
 import { RegisterScopeThirteenService } from "@application/services/register-scope-thirteen.service";
 import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
 import { ElectronicBillingRepository } from "@infrastructure/outbound/adapters/electronic-billing/electronic-billing-repository";
+import { WsfecredRepository } from "@infrastructure/outbound/adapters/fecred/fecred-repository";
+import { WsfexRepository } from "@infrastructure/outbound/adapters/fex/fex-repository";
 import { RegisterScopeFourRepository } from "@infrastructure/outbound/adapters/register/register-scope-four.repository";
 import { RegisterScopeFiveRepository } from "@infrastructure/outbound/adapters/register/register-scope-five.repository";
 import { RegisterScopeTenRepository } from "@infrastructure/outbound/adapters/register/register-scope-ten.repository";
@@ -30,6 +34,8 @@ import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
 export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;
+  private readonly _wsfecredService: WsfecredService;
+  private readonly _wsfexService: WsfexService;
   private readonly _registerInscriptionProofService: RegisterInscriptionProofService;
   private readonly _registerScopeFourService: RegisterScopeFourService;
   private readonly _registerScopeFiveService: RegisterScopeFiveService;
@@ -81,6 +87,16 @@ export class Arca {
         useSoap12: this.context.useSoap12 ?? true, // Default to SOAP 1.2
       });
 
+    const wsfexRepository = new WsfexRepository({
+      ...baseRepositoryConfig,
+      useSoap12: this.context.useSoap12 ?? true,
+    });
+
+    const wsfecredRepository = new WsfecredRepository({
+      ...baseRepositoryConfig,
+      useSoap12: false,
+    });
+
     const registerScopeFourRepository = new RegisterScopeFourRepository(
       baseRepositoryConfig
     );
@@ -108,6 +124,8 @@ export class Arca {
     this._electronicBillingService = new ElectronicBillingService(
       electronicBillingRepository
     );
+    this._wsfecredService = new WsfecredService(wsfecredRepository);
+    this._wsfexService = new WsfexService(wsfexRepository);
     this._registerInscriptionProofService = new RegisterInscriptionProofService(
       registerInscriptionProofRepository
     );
@@ -128,6 +146,14 @@ export class Arca {
 
   get electronicBillingService(): ElectronicBillingService {
     return this._electronicBillingService;
+  }
+
+  get wsfecredService(): WsfecredService {
+    return this._wsfecredService;
+  }
+
+  get wsfexService(): WsfexService {
+    return this._wsfexService;
   }
 
   get registerInscriptionProofService(): RegisterInscriptionProofService {
