@@ -4,8 +4,11 @@ export class Environment {
   public readonly nodeEnv: string;
 
   constructor() {
-    config();
-    this.nodeEnv = (process.env.NODE_ENV || "local") as string;
+    const nodeEnv = process.env.NODE_ENV || "local";
+    config({
+      path: `.env${nodeEnv ? `.${nodeEnv}` : ""}`,
+    });
+    this.nodeEnv = nodeEnv;
   }
 }
 

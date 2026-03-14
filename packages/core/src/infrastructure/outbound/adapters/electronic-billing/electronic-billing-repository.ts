@@ -79,8 +79,18 @@ export class ElectronicBillingRepository
   }
 
   /**
-   * Get or create SOAP client with authentication proxy
-   * Creates SOAP 1.1 or 1.2 client based on useSoap12 configuration
+   * Invalidate the cached SOAP client, forcing re-creation on next call.
+   * Call this when the auth token is refreshed.
+   */
+  invalidateClient(): void {
+    this.serviceClient = undefined;
+  }
+
+  // ── Private helpers ────────────────────────────────────────────────────────
+
+  /**
+   * Get or create SOAP client with authentication proxy.
+   * Creates SOAP 1.1 or 1.2 client based on useSoap12 configuration.
    */
   private async getClient(): Promise<IServiceSoapSoap | IServiceSoap12Soap> {
     if (this.serviceClient) {
@@ -102,7 +112,7 @@ export class ElectronicBillingRepository
         wsdlName,
         {
           forceSoap12Headers: true,
-        }
+        },
       );
       soapVersion = SoapServiceVersion.ServiceSoap12;
     } else {
@@ -123,49 +133,21 @@ export class ElectronicBillingRepository
     return this.serviceClient;
   }
 
-  async getServerStatus(): Promise<ServerStatusDto> {
-    const client = await this.getClient();
-    const [output] = await client.FEDummyAsync({});
-    return mapServerStatus(output.FEDummyResult);
+  /**
+   * Map SOAP Errors to the DTO format. Calls mapSoapErrors only once.
+   */
+  private mapErrors(
+    errors: any,
+  ): { err: NonNullable<ReturnType<typeof mapSoapErrors>> } | undefined {
+    const mapped = mapSoapErrors(errors);
+    return mapped ? { err: mapped } : undefined;
   }
 
-  async getSalesPoints(): Promise<SalesPointsResultDto> {
-    const client = await this.getClient();
-    const [output] = await client.FEParamGetPtosVentaAsync({});
-    const result = output.FEParamGetPtosVentaResult;
+  /**
+   * Build the common det request object shared by createVoucher and informCaeaUsage.
+   */
+  private buildVoucherDetRequest(voucherData: ReturnType<Voucher["toDTO"]>) {
     return {
-      resultGet: {
-        ptoVenta: mapSalesPoints(result),
-      },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
-    };
-  }
-
-  async getLastVoucher(
-    salesPoint: number,
-    voucherType: number
-  ): Promise<LastVoucherResultDto> {
-    const client = await this.getClient();
-    const [output] = await client.FECompUltimoAutorizadoAsync({
-      PtoVta: salesPoint,
-      CbteTipo: voucherType,
-    });
-    const result = output.FECompUltimoAutorizadoResult;
-    return {
-      ...mapLastVoucher(result),
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
-    };
-  }
-
-  async createVoucher(voucher: Voucher): Promise<ICreateVoucherResult> {
-    const client = await this.getClient();
-    const voucherData = voucher.toDTO();
-
-    const detRequest = {
       Concepto: voucherData.Concepto,
       DocTipo: voucherData.DocTipo,
       DocNro: voucherData.DocNro,
@@ -198,6 +180,48 @@ export class ElectronicBillingRepository
         ? { Opcional: voucherData.Opcionales }
         : undefined,
     };
+  }
+
+  // ── Public repository methods ──────────────────────────────────────────────
+
+  async getServerStatus(): Promise<ServerStatusDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEDummyAsync({});
+    return mapServerStatus(output.FEDummyResult);
+  }
+
+  async getSalesPoints(): Promise<SalesPointsResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FEParamGetPtosVentaAsync({});
+    const result = output.FEParamGetPtosVentaResult;
+    return {
+      resultGet: {
+        ptoVenta: mapSalesPoints(result),
+      },
+      errors: this.mapErrors(result.Errors),
+    };
+  }
+
+  async getLastVoucher(
+    salesPoint: number,
+    voucherType: number,
+  ): Promise<LastVoucherResultDto> {
+    const client = await this.getClient();
+    const [output] = await client.FECompUltimoAutorizadoAsync({
+      PtoVta: salesPoint,
+      CbteTipo: voucherType,
+    });
+    const result = output.FECompUltimoAutorizadoResult;
+    return {
+      ...mapLastVoucher(result),
+      errors: this.mapErrors(result.Errors),
+    };
+  }
+
+  async createVoucher(voucher: Voucher): Promise<ICreateVoucherResult> {
+    const client = await this.getClient();
+    const voucherData = voucher.toDTO();
+    const detRequest = this.buildVoucherDetRequest(voucherData);
 
     const typedDetRequest = this.useSoap12
       ? (detRequest as ServiceSoap12Types.IFECAEDetRequest)
@@ -221,7 +245,7 @@ export class ElectronicBillingRepository
 
     if (FECAESolicitarResult.Errors?.Err?.length && this.logger) {
       const errorMessages = FECAESolicitarResult.Errors.Err.map(
-        (e) => `${e.Code}: ${e.Msg}`
+        (e) => `${e.Code}: ${e.Msg}`,
       ).join(", ");
       this.logger.error(`Error creating voucher: ${errorMessages}`);
     }
@@ -240,7 +264,7 @@ export class ElectronicBillingRepository
   async getVoucherInfo(
     number: number,
     salesPoint: number,
-    type: number
+    type: number,
   ): Promise<VoucherInfoResultDto | null> {
     const client = await this.getClient();
 
@@ -260,9 +284,7 @@ export class ElectronicBillingRepository
       }
       return {
         ...voucherInfo,
-        errors: mapSoapErrors(result.Errors)
-          ? { err: mapSoapErrors(result.Errors)! }
-          : undefined,
+        errors: this.mapErrors(result.Errors),
       };
     } catch (error: any) {
       // Error 602 means voucher not found
@@ -281,9 +303,7 @@ export class ElectronicBillingRepository
       resultGet: {
         cbteTipo: mapParameterTypes<VoucherType>(result, "CbteTipo"),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -295,9 +315,7 @@ export class ElectronicBillingRepository
       resultGet: {
         conceptoTipo: mapParameterTypes<ConceptType>(result, "ConceptoTipo"),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -309,9 +327,7 @@ export class ElectronicBillingRepository
       resultGet: {
         docTipo: mapParameterTypes<DocumentType>(result, "DocTipo"),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -323,9 +339,7 @@ export class ElectronicBillingRepository
       resultGet: {
         ivaTipo: mapAliquotTypes(result),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -337,9 +351,7 @@ export class ElectronicBillingRepository
       resultGet: {
         moneda: mapParameterTypes<CurrencyType>(result, "Moneda"),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -351,9 +363,7 @@ export class ElectronicBillingRepository
       resultGet: {
         opcionalTipo: mapParameterTypes<OptionalType>(result, "OpcionalTipo"),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -365,14 +375,12 @@ export class ElectronicBillingRepository
       resultGet: {
         tributoTipo: mapParameterTypes<TaxType>(result, "TributoTipo"),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
   async getIvaReceptorTypes(
-    claseCmp?: string
+    claseCmp?: string,
   ): Promise<IvaReceptorTypesResultDto> {
     const client = await this.getClient();
     const [output] = await client.FEParamGetCondicionIvaReceptorAsync({
@@ -383,9 +391,7 @@ export class ElectronicBillingRepository
       resultGet: {
         condicionIvaReceptor: mapIvaReceptorTypes(result),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -398,9 +404,7 @@ export class ElectronicBillingRepository
     const result = output.FECAEASolicitarResult;
     return {
       resultGet: result.ResultGet ? mapCaea(result.ResultGet) : undefined,
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -413,15 +417,13 @@ export class ElectronicBillingRepository
     const result = output.FECAEAConsultarResult;
     return {
       resultGet: result.ResultGet ? mapCaea(result.ResultGet) : undefined,
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
   async informCaeaNoMovement(
     caea: string,
-    salesPoint: number
+    salesPoint: number,
   ): Promise<CaeaNoMovementResultDto> {
     const client = await this.getClient();
     const [output] = await client.FECAEASinMovimientoInformarAsync({
@@ -439,15 +441,13 @@ export class ElectronicBillingRepository
             },
           ]
         : undefined,
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
   async consultCaeaNoMovement(
     caea: string,
-    salesPoint: number
+    salesPoint: number,
   ): Promise<CaeaNoMovementResultDto> {
     const client = await this.getClient();
     const [output] = await client.FECAEASinMovimientoConsultarAsync({
@@ -457,54 +457,20 @@ export class ElectronicBillingRepository
     const result = output.FECAEASinMovimientoConsultarResult;
     return {
       resultGet: mapCaeaNoMovement(result),
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
   async informCaeaUsage(
     voucher: Voucher,
-    caea: string
+    caea: string,
   ): Promise<CaeaUsageResultDto> {
     const client = await this.getClient();
     const voucherData = voucher.toDTO();
 
     const detRequest = {
-      Concepto: voucherData.Concepto,
-      DocTipo: voucherData.DocTipo,
-      DocNro: voucherData.DocNro,
-      CbteDesde: voucherData.CbteDesde,
-      CbteHasta: voucherData.CbteHasta,
-      CbteFch: voucherData.CbteFch,
-      ImpTotal: voucherData.ImpTotal,
-      ImpTotConc: voucherData.ImpTotConc,
-      ImpNeto: voucherData.ImpNeto,
-      ImpOpEx: voucherData.ImpOpEx,
-      ImpIVA: voucherData.ImpIVA,
-      ImpTrib: voucherData.ImpTrib,
-      FchServDesde: voucherData.FchServDesde,
-      FchServHasta: voucherData.FchServHasta,
-      FchVtoPago: voucherData.FchVtoPago,
-      MonId: voucherData.MonId,
-      MonCotiz: voucherData.MonCotiz,
-      CondicionIVAReceptorId: voucherData.CondicionIVAReceptorId,
-      Tributos: voucherData.Tributos
-        ? { Tributo: voucherData.Tributos }
-        : undefined,
-      Iva: voucherData.Iva ? { AlicIva: voucherData.Iva } : undefined,
-      CbtesAsoc: voucherData.CbtesAsoc
-        ? { CbteAsoc: voucherData.CbtesAsoc }
-        : undefined,
-      Compradores: voucherData.Compradores
-        ? { Comprador: voucherData.Compradores }
-        : undefined,
-      Opcionales: voucherData.Opcionales
-        ? { Opcional: voucherData.Opcionales }
-        : undefined,
+      ...this.buildVoucherDetRequest(voucherData),
       CAEA: caea,
-      PeriodoAsoc: undefined as any,
-      CbteFchHsGen: undefined as any,
     };
 
     const typedDetRequest = this.useSoap12
@@ -529,9 +495,7 @@ export class ElectronicBillingRepository
       resultGet: result.FeDetResp?.FECAEADetResponse?.[0]
         ? mapCaeaUsage(result.FeDetResp.FECAEADetResponse[0] as any)
         : undefined,
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -543,9 +507,7 @@ export class ElectronicBillingRepository
     const result = output.FEParamGetCotizacionResult;
     return {
       resultGet: mapQuotation(result),
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -557,9 +519,7 @@ export class ElectronicBillingRepository
       resultGet: {
         paisTipo: mapCountries(result),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -571,9 +531,7 @@ export class ElectronicBillingRepository
       resultGet: {
         actividadesTipo: mapActivities(result),
       },
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 
@@ -583,9 +541,7 @@ export class ElectronicBillingRepository
     const result = output.FECompTotXRequestResult;
     return {
       resultGet: mapMaxRecords(result),
-      errors: mapSoapErrors(result.Errors)
-        ? { err: mapSoapErrors(result.Errors)! }
-        : undefined,
+      errors: this.mapErrors(result.Errors),
     };
   }
 }

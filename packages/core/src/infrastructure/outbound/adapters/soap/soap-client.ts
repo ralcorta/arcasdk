@@ -35,10 +35,23 @@ export class SoapClient implements ISoapClientPort {
     if (this.useHttpsAgent && isNode) {
       try {
         // Dynamic import to avoid issues in non-Node environments
-        const https = await import("https");
+        // We import both https and crypto to configure the agent securely for legacy servers
+        const [https, crypto] = await Promise.all([
+          import("https"),
+          import("crypto"),
+        ]);
+
+        // SSL options for Node.js 18+ and 24+ compatibility with legacy AFIP servers
+        const secureOptions =
+          crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT |
+          crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION;
+
         const legacyHttpsAgent = new https.Agent({
           rejectUnauthorized: true,
           minDHSize: MIN_DH_SIZE_LEGACY,
+          ciphers: "DEFAULT@SECLEVEL=1",
+          secureProtocol: "TLSv1_2_method",
+          secureOptions,
         });
 
         finalOptions.wsdl_options = {

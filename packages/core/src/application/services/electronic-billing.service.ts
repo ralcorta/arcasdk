@@ -1,8 +1,3 @@
-/**
- * Electronic Billing Service
- * Application service that orchestrates electronic billing use cases
- * Maintains compatibility with legacy API
- */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
 import { IVoucher, INextVoucher } from "@domain/types/voucher.types";
 import { ICreateVoucherResult } from "@application/types/result.types";
@@ -27,8 +22,6 @@ import {
   QuotationResultDto,
   MaxRecordsResultDto,
 } from "@application/dto/electronic-billing.dto";
-
-// Use cases
 import { GetServerStatusUseCase } from "@application/use-cases/electronic-billing/get-server-status.use-case";
 import { GetSalesPointsUseCase } from "@application/use-cases/electronic-billing/get-sales-points.use-case";
 import { GetLastVoucherUseCase } from "@application/use-cases/electronic-billing/get-last-voucher.use-case";
@@ -54,7 +47,6 @@ import { GetActivitiesUseCase } from "@application/use-cases/electronic-billing/
 import { GetMaxRecordsUseCase } from "@application/use-cases/electronic-billing/get-max-records.use-case";
 
 export class ElectronicBillingService {
-  // Use cases
   private readonly getServerStatusUseCase: GetServerStatusUseCase;
   private readonly getSalesPointsUseCase: GetSalesPointsUseCase;
   private readonly getLastVoucherUseCase: GetLastVoucherUseCase;
@@ -82,7 +74,6 @@ export class ElectronicBillingService {
   constructor(
     private readonly electronicBillingRepository: IElectronicBillingRepositoryPort
   ) {
-    // Initialize all use cases
     this.getServerStatusUseCase = new GetServerStatusUseCase(
       this.electronicBillingRepository
     );

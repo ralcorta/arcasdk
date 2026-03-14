@@ -18,7 +18,6 @@ export class CreateNextVoucherUseCase {
    * @returns Created voucher result with CAE
    */
   async execute(nextVoucherData: INextVoucher): Promise<ICreateVoucherResult> {
-    // Get last voucher number
     const lastVoucher = await this.electronicBillingRepository.getLastVoucher(
       nextVoucherData.PtoVta!,
       nextVoucherData.CbteTipo
@@ -27,17 +26,14 @@ export class CreateNextVoucherUseCase {
     const lastVoucherNumber = lastVoucher.cbteNro || 0;
     const nextVoucherNumber = lastVoucherNumber + 1;
 
-    // Build complete voucher data
     const voucherData: INextVoucher = {
       ...nextVoucherData,
       CbteDesde: nextVoucherNumber,
       CbteHasta: nextVoucherNumber,
     };
 
-    // Create domain entity
     const voucher = Voucher.create(voucherData as any);
 
-    // Use repository to create voucher
     return this.electronicBillingRepository.createVoucher(voucher);
   }
 }

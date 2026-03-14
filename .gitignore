@@ -1,5 +1,8 @@
 lib
 .env
+.env.local
+.env.production
+.env.development
 .DS_Store
 .vscode
 !.vscode/settings.json

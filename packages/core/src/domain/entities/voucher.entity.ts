@@ -67,20 +67,17 @@ export class Voucher {
       );
     }
 
-    // Validate Factura C (type 11) - No debe tener IVA
-    if (this.isFacturaC()) {
-      if (this.data.ImpIVA !== 0) {
-        throw new Error(
-          "El campo ImpIVA (Importe de IVA) para comprobantes tipo C debe ser igual a cero (0)."
-        );
-      }
-
-      if (this.data.Iva && this.data.Iva.length > 0) {
-        throw new Error(
-          "Para comprobantes tipo C el objeto IVA no debe informarse."
-        );
-      }
+    // Validate type-specific rules
+    if (this.isTypeC()) {
+      this.validateFacturaC();
     }
+
+    if (this.isTypeA() || this.isTypeB()) {
+      this.validateFacturaWithIVA();
+    }
+
+    // Validate IVA consistency
+    this.validateIVAConsistency();
 
     // Validate Total Calculation
     const calculatedTotal =
@@ -114,6 +111,59 @@ export class Voucher {
 
     if (!this.data.MonCotiz || this.data.MonCotiz <= 0) {
       throw new Error("Cotización de moneda (MonCotiz) debe ser mayor a cero.");
+    }
+  }
+
+  /**
+   * Validates Factura C (Type C) specific rules
+   * Type C vouchers are for exempt operations and must not include IVA
+   * @throws Error if Type C rules are violated
+   */
+  private validateFacturaC(): void {
+    if (this.data.ImpIVA !== 0) {
+      throw new Error(
+        "El campo ImpIVA (Importe de IVA) para comprobantes tipo C debe ser igual a cero (0)."
+      );
+    }
+
+    if (this.data.Iva && this.data.Iva.length > 0) {
+      throw new Error(
+        "Para comprobantes tipo C el array Iva no debe informarse."
+      );
+    }
+  }
+
+  /**
+   * Validates Factura A/B specific rules
+   * Type A/B vouchers must include IVA information when ImpIVA > 0
+   * @throws Error if Type A/B rules are violated
+   */
+  private validateFacturaWithIVA(): void {
+    // If ImpIVA > 0, must have Iva array
+    if (
+      this.data.ImpIVA > 0 &&
+      (!this.data.Iva || this.data.Iva.length === 0)
+    ) {
+      const type = this.data.CbteTipo === 1 ? "A" : "B";
+      throw new Error(
+        `Para comprobantes tipo ${type}, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.`
+      );
+    }
+  }
+
+  /**
+   * Validates that the IVA array totals match the ImpIVA field
+   * @throws Error if IVA array totals don't match ImpIVA
+   */
+  private validateIVAConsistency(): void {
+    if (this.data.Iva && this.data.Iva.length > 0) {
+      const totalIVA = this.data.Iva.reduce((sum, iva) => sum + iva.Importe, 0);
+
+      if (Math.abs(this.data.ImpIVA - totalIVA) > 0.01) {
+        throw new Error(
+          `El campo ImpIVA (${this.data.ImpIVA}) debe ser igual a la suma de los importes del array Iva (${totalIVA}).`
+        );
+      }
     }
   }
 
@@ -174,23 +224,23 @@ export class Voucher {
   }
 
   /**
-   * Checks if this is a Factura C (type 11)
+   * Checks if this is a Type C voucher (Factura C - type 11)
    */
-  isFacturaC(): boolean {
+  isTypeC(): boolean {
     return this.data.CbteTipo === 11;
   }
 
   /**
-   * Checks if this is a Factura A (type 1)
+   * Checks if this is a Type A voucher (Factura A - type 1)
    */
-  isFacturaA(): boolean {
+  isTypeA(): boolean {
     return this.data.CbteTipo === 1;
   }
 
   /**
-   * Checks if this is a Factura B (type 6)
+   * Checks if this is a Type B voucher (Factura B - type 6)
    */
-  isFacturaB(): boolean {
+  isTypeB(): boolean {
     return this.data.CbteTipo === 6;
   }
 

@@ -9,8 +9,6 @@ import { FileSystemTicketStorage } from "@infrastructure/outbound/adapters/stora
 import { AuthRepository } from "@infrastructure/outbound/adapters/auth/auth.repository";
 import { WinstonLogger } from "@infrastructure/outbound/adapters/logger/winston-logger";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
-import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-
 import { ElectronicBillingService } from "@application/services/electronic-billing.service";
 import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
 import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
@@ -24,7 +22,6 @@ import { RegisterScopeTenRepository } from "@infrastructure/outbound/adapters/re
 import { RegisterScopeThirteenRepository } from "@infrastructure/outbound/adapters/register/register-scope-thirteen.repository";
 import { RegisterInscriptionProofRepository } from "@infrastructure/outbound/adapters/register/register-inscription-proof.repository";
 import { GenericService } from "@application/services/generic.service";
-import { IGenericRepositoryPort } from "@application/ports/generic/generic-repository.port";
 import { GenericRepository } from "@infrastructure/outbound/adapters/generic/generic-repository";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
@@ -46,19 +43,21 @@ export class Arca {
         resolve(__dirname, "..", "..", "storage", "auth", "tickets"),
     };
 
-    const ticketStorage = new FileSystemTicketStorage({
-      ticketPath: this.context.ticketPath!,
-      cuit: this.context.cuit,
-      production: this.context.production ?? false,
-    });
     const useHttpsAgent = this.context.useHttpsAgent ?? DEFAULT_USE_HTTPS_AGENT;
+
     const authRepository: IAuthenticationRepositoryPort = new AuthRepository({
       cert: this.context.cert,
       key: this.context.key,
       cuit: this.context.cuit,
       production: this.context.production ?? false,
       handleTicket: this.context.handleTicket ?? false,
-      ticketStorage: this.context.handleTicket ? undefined : ticketStorage,
+      ticketStorage: this.context.handleTicket
+        ? undefined
+        : new FileSystemTicketStorage({
+            ticketPath: this.context.ticketPath!,
+            cuit: this.context.cuit,
+            production: this.context.production ?? false,
+          }),
       credentials: this.context.credentials,
       useHttpsAgent,
     });
@@ -66,7 +65,6 @@ export class Arca {
       enableLogging: this.context.enableLogging ?? false,
     });
 
-    // Base configuration shared by all repositories
     const baseRepositoryConfig = {
       authRepository,
       logger,
@@ -75,55 +73,32 @@ export class Arca {
       useHttpsAgent,
     };
 
-    const electronicBillingRepository: IElectronicBillingRepositoryPort =
-      new ElectronicBillingRepository({
-        ...baseRepositoryConfig,
-        useSoap12: this.context.useSoap12 ?? true, // Default to SOAP 1.2
-      });
-
-    const registerScopeFourRepository = new RegisterScopeFourRepository(
-      baseRepositoryConfig
-    );
-
-    const registerScopeFiveRepository = new RegisterScopeFiveRepository(
-      baseRepositoryConfig
-    );
-
-    const registerScopeTenRepository = new RegisterScopeTenRepository(
-      baseRepositoryConfig
-    );
-
-    const registerScopeThirteenRepository = new RegisterScopeThirteenRepository(
-      baseRepositoryConfig
-    );
-
-    const registerInscriptionProofRepository =
-      new RegisterInscriptionProofRepository(baseRepositoryConfig);
-
-    const genericRepository: IGenericRepositoryPort = new GenericRepository({
+    const soapConfig = {
       ...baseRepositoryConfig,
       useSoap12: this.context.useSoap12 ?? true,
-    });
+    };
 
     this._electronicBillingService = new ElectronicBillingService(
-      electronicBillingRepository
+      new ElectronicBillingRepository(soapConfig)
     );
     this._registerInscriptionProofService = new RegisterInscriptionProofService(
-      registerInscriptionProofRepository
+      new RegisterInscriptionProofRepository(baseRepositoryConfig)
     );
     this._registerScopeFourService = new RegisterScopeFourService(
-      registerScopeFourRepository
+      new RegisterScopeFourRepository(baseRepositoryConfig)
     );
     this._registerScopeFiveService = new RegisterScopeFiveService(
-      registerScopeFiveRepository
+      new RegisterScopeFiveRepository(baseRepositoryConfig)
     );
     this._registerScopeTenService = new RegisterScopeTenService(
-      registerScopeTenRepository
+      new RegisterScopeTenRepository(baseRepositoryConfig)
     );
     this._registerScopeThirteenService = new RegisterScopeThirteenService(
-      registerScopeThirteenRepository
+      new RegisterScopeThirteenRepository(baseRepositoryConfig)
     );
-    this._genericService = new GenericService(genericRepository);
+    this._genericService = new GenericService(
+      new GenericRepository(soapConfig)
+    );
   }
 
   get electronicBillingService(): ElectronicBillingService {

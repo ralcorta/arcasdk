@@ -104,6 +104,21 @@ describe("SoapClient", () => {
 
       expect(client).toBe(mockClient);
       expect(mockGetWsdlString).toHaveBeenCalledWith(wsdlName);
+
+      // Verify httpsAgent configuration passed to SoapClientFacade
+      const createCall = mockCreate.mock.calls[0][0];
+      const httpsAgent = createCall.options.wsdl_options.httpsAgent;
+
+      expect(httpsAgent).toBeDefined();
+      expect(httpsAgent.options).toMatchObject({
+        rejectUnauthorized: true,
+        minDHSize: 512, // MIN_DH_SIZE_LEGACY constant value
+        ciphers: "DEFAULT@SECLEVEL=1",
+        secureProtocol: "TLSv1_2_method",
+      });
+      // Check that secureOptions is set (it's a bitmask number)
+      expect(httpsAgent.options.secureOptions).toEqual(expect.any(Number));
+
       expect(mockCreate).toHaveBeenCalledWith({
         wsdl: '<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions></wsdl:definitions>',
         options: expect.objectContaining({
