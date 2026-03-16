@@ -30,7 +30,7 @@
   <p align="center">
     SDK para consumir y usar los Web Services de ARCA (ex AFIP)
     <br />
-    <a href="https://ralcorta.github.io/arcasdk">Ver documentacion completa</a>
+    <a href="https://ralcorta.github.io/arcasdk">Ver documentación completa</a>
     <br />
     <br />
     <small> 
@@ -46,7 +46,7 @@
 <a href='https://cafecito.app/rodrigoalcorta' rel='noopener' target='_blank'><img srcset='https://cdn.cafecito.app/imgs/buttons/button_5.png 1x, https://cdn.cafecito.app/imgs/buttons/button_5_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_5_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_5.png' alt='Invitame un café en cafecito.app' /></a>
 </p>
 
-## Guia
+## Guía
 
 ### Instalación
 
@@ -66,12 +66,12 @@ yarn add @arcasdk/core
 
 ##### Requisitos previos
 
-Se debe tener los certificados emitidos por ARCA/AFIP, ya sean para los servidores de homologacion (test) o produccion, para poder pasarselos como parametro al paquete y que este haga uso de ellos para comunicarse con los web services.
+Se debe tener los certificados emitidos por ARCA/AFIP, ya sean para los servidores de homologación (test) o producción, para poder pasárselos como parámetro al paquete y que este haga uso de ellos para comunicarse con los web services.
 
 - [Guia de como obtenerlos](https://ralcorta.github.io/arcasdk/tutorial/enable_testing_certificates.html)
 - [Documentacion oficial de certificados](https://www.afip.gob.ar/ws/documentacion/certificados.asp)
 
-##### Ejemplo basico
+##### Ejemplo básico
 
 Ejemplo de como generar factura electronica:
 
@@ -126,40 +126,40 @@ Ejemplo de otros endpoints:
 const points = await arca.electronicBillingService.getSalesPoints();
 ```
 
-## Caracteristicas
+## Características
 
 Toda configuracion del package es pasada por el constructor de la clase `Arca` la cual recibe [Context](https://www.arcasdk.com/guide/config.html).
 
-Caracteristicas:
+Características:
 
 - Escrito enteramente con `Typescript`
-- Soporte para `Serverless`. El package permite manejar los token de autenticacion de manera aislada.
+- Soporte para `Serverless`. El package permite manejar los token de autenticación de manera aislada.
 
-Para mas <strong>documentacion</strong>, ir al [sitio oficial](https://ralcorta.github.io/arcasdk).
+Para mas <strong>documentación</strong>, ir al [sitio oficial](https://ralcorta.github.io/arcasdk).
 
 ## Desarrollo y contribuciones
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/arcasdk/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/arcasdk/issues/new).
+Si encontras un bug o deseas sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/arcasdk/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/arcasdk/issues/new).
 
 ### Desarrollo
 
-Seria genial si puedes ayudarnos mejorando `arcasdk`. ¿Como hacer?
+Seria genial si puedes ayudarnos mejorando `arcasdk`. ¿Cómo hacer?
 
 1. [Clonar](https://github.com/ralcorta/arcasdk).
 
 2. `npm install`.
 
-3. Rompela escribiendo tu codigo.
+3. Rómpela escribiendo tu codigo.
 
 4. Correr los test: `npm test`.
 
-5. Cear un [Pull Request](https://github.com/ralcorta/arcasdk/compare).
+5. Crear un [Pull Request](https://github.com/ralcorta/arcasdk/compare).
 
 ## Licencia
 
-Este proyecto esta bajo la licencia `MIT` - Ver [LICENSE](LICENSE) para mas detalles.
+Este proyecto está bajo la licencia `MIT` - Ver [LICENSE](LICENSE) para mas detalles.
 
 <small>
 Este software y sus desarrolladores no tienen ninguna relación con la ARCA/AFIP.
