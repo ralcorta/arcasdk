@@ -4,6 +4,4 @@
  */
 export * from "./parser";
 export * from "./crypt-data";
-export * from "./logger";
 export * from "./soap-to-dto.mapper";
-

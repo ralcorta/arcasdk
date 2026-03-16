@@ -1,4 +1,4 @@
-import { Arca } from "../../src/infrastructure/inbound/adapters/arca";
+import { Arca } from "../../src/infrastructure/composition/arca";
 import { AccessTicket } from "../../src/domain/entities/access-ticket.entity";
 import { ServiceNamesEnum } from "../../src/infrastructure/outbound/ports/soap/enums/service-names.enum";
 import { ContextTest } from "../utils/context-test.utils";
@@ -17,7 +17,7 @@ const describeOrSkip = hasRealCertificates ? describe : describe.skip;
 if (!hasRealCertificates) {
   console.warn(
     "\n⚠️  Skipping integration tests: Real homologation certificates not found.\n" +
-      "   Set TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME, TEST_CERT_FILE_NAME, and CUIT environment variables.\n"
+      "   Set TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME, TEST_CERT_FILE_NAME, and CUIT environment variables.\n",
   );
 }
 
@@ -36,7 +36,7 @@ describeOrSkip(
       });
       const ticketsPath = resolve(
         __dirname,
-        "../../src/infrastructure/storage/auth/tickets"
+        "../../src/infrastructure/storage/auth/tickets",
       );
 
       if (!existsSync(ticketsPath)) mkdirSync(ticketsPath, { recursive: true });
@@ -80,7 +80,7 @@ describeOrSkip(
         await fs.writeFile(
           ticketFilePath,
           JSON.stringify(ticketData, null, 2),
-          "utf8"
+          "utf8",
         );
       }
 
@@ -97,8 +97,6 @@ describeOrSkip(
       it("should get server status from homologation servers", async () => {
         const status = await arca.electronicBillingService.getServerStatus();
 
-        console.log("status", status);
-
         expect(status).toBeDefined();
         expect(status.appServer).toBeDefined();
         expect(status.dbServer).toBeDefined();
@@ -112,8 +110,6 @@ describeOrSkip(
 
         expect(result).toBeDefined();
         expect(result.resultGet).toBeDefined();
-
-        console.log("result", result);
 
         if (result.errors?.err?.length) {
           expect(result).toBeDefined();
@@ -212,7 +208,7 @@ describeOrSkip(
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
           firstSalesPoint,
-          voucherType
+          voucherType,
         );
 
         expect(lastVoucher).toBeDefined();
@@ -236,7 +232,7 @@ describeOrSkip(
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
           firstSalesPoint,
-          voucherType
+          voucherType,
         );
 
         if (lastVoucher.cbteNro === 0) {
@@ -246,7 +242,7 @@ describeOrSkip(
         const voucherInfo = await arca.electronicBillingService.getVoucherInfo(
           lastVoucher.cbteNro,
           firstSalesPoint,
-          voucherType
+          voucherType,
         );
 
         if (voucherInfo) {
@@ -269,10 +265,10 @@ describeOrSkip(
           puntoVenta = 2;
         }
 
-        const tipoComprobante = 11; // Factura C
+        const tipoComprobante = 11; // C Invoice
 
         const fecha = new Date(
-          Date.now() - new Date().getTimezoneOffset() * 60000
+          Date.now() - new Date().getTimezoneOffset() * 60000,
         )
           .toISOString()
           .split("T")[0]
@@ -280,21 +276,21 @@ describeOrSkip(
 
         const impNeto = 100;
         const impTrib = 0;
-        const impIVA = 0; // Factura C no tiene IVA
+        const impIVA = 0; // C Invoice has no VAT
         const impTotal = impNeto + impTrib + impIVA;
 
         const createVoucherWithRetry = async (
           maxRetries = 3,
-          retryDelay = 500
+          retryDelay = 500,
         ) => {
           for (let attempt = 0; attempt < maxRetries; attempt++) {
             await new Promise((resolve) =>
-              setTimeout(resolve, Math.random() * 100 + 50)
+              setTimeout(resolve, Math.random() * 100 + 50),
             );
             const lastVoucher =
               await arca.electronicBillingService.getLastVoucher(
                 puntoVenta,
-                tipoComprobante
+                tipoComprobante,
               );
             const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
@@ -302,8 +298,8 @@ describeOrSkip(
               CantReg: 1,
               PtoVta: puntoVenta,
               CbteTipo: tipoComprobante,
-              Concepto: 2, // Servicios
-              DocTipo: 99, // Consumidor Final
+              Concepto: 2, // Services
+              DocTipo: 99, // Final Consumer
               DocNro: 0,
               CbteDesde: siguienteNumero,
               CbteHasta: siguienteNumero,
@@ -322,14 +318,13 @@ describeOrSkip(
               FchVtoPago: fecha,
             };
 
-            const resultado = await arca.electronicBillingService.createVoucher(
-              facturaData
-            );
+            const resultado =
+              await arca.electronicBillingService.createVoucher(facturaData);
 
             const hasRetryableError = resultado.response.Errors?.Err?.some(
               (err) =>
-                err.Code === 502 || // Error interno de base de datos - Transacción Activa
-                err.Code === 10016 // El numero o fecha del comprobante no se corresponde
+                err.Code === 502 || // Internal database error - Active Transaction
+                err.Code === 10016, // Voucher number or date does not match
             );
 
             if (hasRetryableError && attempt < maxRetries - 1) {
@@ -345,8 +340,6 @@ describeOrSkip(
 
         const resultado = await createVoucherWithRetry();
 
-        console.dir(resultado, { depth: 50 });
-
         expect(resultado).toBeDefined();
         expect(resultado.response).toBeDefined();
 
@@ -359,8 +352,8 @@ describeOrSkip(
         const voucherResponse = FeDetResp.FECAEDetResponse[0];
         expect(voucherResponse).toBeDefined();
 
-        expect(voucherResponse.Resultado).toBe("A"); // "A" = Aprobado
-        expect(FeCabResp.Resultado).toBe("A"); // "A" = Aprobado
+        expect(voucherResponse.Resultado).toBe("A"); // "A" = Approved
+        expect(FeCabResp.Resultado).toBe("A"); // "A" = Approved
 
         expect(voucherResponse.CAE).toBeDefined();
         expect(voucherResponse.CAE).not.toBe("");
@@ -381,8 +374,8 @@ describeOrSkip(
 
         expect(voucherResponse.CbteFch).toBe(fecha);
 
-        expect(voucherResponse.Concepto).toBe(2); // Servicios
-        expect(voucherResponse.DocTipo).toBe(99); // Consumidor Final
+        expect(voucherResponse.Concepto).toBe(2); // Services
+        expect(voucherResponse.DocTipo).toBe(99); // Final Consumer
         expect(voucherResponse.DocNro).toBe(0);
 
         if (Errors?.Err?.length) {
@@ -397,5 +390,5 @@ describeOrSkip(
         expect(FeCabResp.CbteTipo).toBe(tipoComprobante);
       });
     });
-  }
+  },
 );

@@ -7,7 +7,6 @@ import { SoapServices } from "@infrastructure/types/soap.types";
 import { SoapClient } from "./soap-client";
 import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
-import { ILoggerPort } from "@infrastructure/outbound/ports/logger/logger.port";
 import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 import {
   BaseSoapRepositoryConstructorConfig,
@@ -24,7 +23,6 @@ export abstract class BaseSoapRepository {
   protected readonly production: boolean;
   protected readonly soapClient: ISoapClientPort;
   protected readonly authRepository: IAuthenticationRepositoryPort;
-  protected readonly logger: ILoggerPort;
   protected readonly useSoap12: boolean;
 
   constructor(config: BaseSoapRepositoryConstructorConfig) {
@@ -32,7 +30,6 @@ export abstract class BaseSoapRepository {
       config.soapClient ??
       new SoapClient(config.useHttpsAgent ?? DEFAULT_USE_HTTPS_AGENT);
     this.authRepository = config.authRepository;
-    this.logger = config.logger;
     this.cuit = config.cuit;
     this.production = config.production ?? false;
     this.useSoap12 = config.useSoap12 ?? true; // Default to SOAP 1.2
@@ -47,7 +44,7 @@ export abstract class BaseSoapRepository {
    */
   protected createAuthenticatedProxy<T extends Client>(
     client: T,
-    options: AuthenticatedProxyOptions
+    options: AuthenticatedProxyOptions,
   ): T {
     const {
       serviceName,

@@ -6,7 +6,7 @@ export * from "./application";
 export * from "./domain";
 export * from "./infrastructure";
 
-export { Arca } from "./infrastructure/inbound/adapters/arca";
+export { Arca } from "./infrastructure/composition/arca";
 export { FileSystemTicketStorage } from "./infrastructure/outbound/adapters/storage/file-system-ticket-storage";
 export { AuthRepository } from "./infrastructure/outbound/adapters/auth/auth.repository";
 export { Context } from "./application/types";

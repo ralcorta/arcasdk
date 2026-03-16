@@ -41,13 +41,6 @@ export interface Context {
   ticketPath?: string;
 
   /**
-   * Enable console logging
-   *
-   * @default false
-   */
-  enableLogging?: boolean;
-
-  /**
    * Use SOAP 1.2 instead of SOAP 1.1 for Electronic Billing service
    * @default true (uses SOAP 1.2 by default)
    */

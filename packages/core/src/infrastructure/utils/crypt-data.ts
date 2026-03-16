@@ -1,7 +1,10 @@
 import forge from "node-forge";
 
 export class Cryptography {
-  constructor(private readonly cert: string, private readonly key: string) {}
+  constructor(
+    private readonly cert: string,
+    private readonly key: string,
+  ) {}
   sign(data: string): string {
     const p7 = forge.pkcs7.createSignedData();
     p7.content = forge.util.createBuffer(data, "utf8");
@@ -30,6 +33,6 @@ export class Cryptography {
     });
     p7.sign();
     const bytes = forge.asn1.toDer(p7.toAsn1()).getBytes();
-    return Buffer.from(bytes, "binary").toString("base64");
+    return forge.util.encode64(bytes).replace(/\r?\n|\r/g, "");
   }
 }

@@ -67,6 +67,7 @@ import {
   mapQuotation,
   mapMaxRecords,
 } from "@infrastructure/utils/soap-to-dto.mapper";
+import { isAfipNotFoundError } from "@infrastructure/utils/afip-errors";
 
 export class ElectronicBillingRepository
   extends BaseSoapRepository
@@ -242,14 +243,6 @@ export class ElectronicBillingRepository
 
     const { FECAESolicitarResult } = output;
     const detResponse = FECAESolicitarResult.FeDetResp?.FECAEDetResponse?.[0];
-
-    if (FECAESolicitarResult.Errors?.Err?.length && this.logger) {
-      const errorMessages = FECAESolicitarResult.Errors.Err.map(
-        (e) => `${e.Code}: ${e.Msg}`,
-      ).join(", ");
-      this.logger.error(`Error creating voucher: ${errorMessages}`);
-    }
-
     const cae = detResponse?.Resultado === "A" ? detResponse.CAE || "" : "";
     const caeFchVto =
       detResponse?.Resultado === "A" ? detResponse.CAEFchVto || "" : "";
@@ -287,8 +280,7 @@ export class ElectronicBillingRepository
         errors: this.mapErrors(result.Errors),
       };
     } catch (error: any) {
-      // Error 602 means voucher not found
-      if (error?.code === 602) {
+      if (isAfipNotFoundError(error)) {
         return null;
       }
       throw error;

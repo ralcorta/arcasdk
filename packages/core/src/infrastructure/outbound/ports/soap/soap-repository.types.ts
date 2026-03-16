@@ -4,14 +4,12 @@
  */
 import { ISoapClientPort } from "./soap-client.port";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
-import { ILoggerPort } from "../logger/logger.port";
 import { ServiceNamesEnum } from "./enums/service-names.enum";
 import { SoapServiceVersion } from "./enums/endpoints.enum";
 
 export interface BaseSoapRepositoryConstructorConfig {
   soapClient?: ISoapClientPort;
   authRepository: IAuthenticationRepositoryPort;
-  logger: ILoggerPort;
   cuit: number;
   production?: boolean;
   /**

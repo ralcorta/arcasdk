@@ -14,20 +14,7 @@ export const FECompUltimoAutorizadoAsyncReturnMocks = [
     },
   },
 ];
-export const FEParamGetPtosVentaAsyncReturnMocks = [
-  {
-    FEParamGetPtosVentaResult: {
-      Errors: {
-        Err: [
-          {
-            Code: 602,
-            Msg: "Sin Resultados: - Metodo FEParamGetPtosVenta",
-          },
-        ],
-      },
-    },
-  },
-];
+
 export const FEDummyAsyncReturnMocks = [
   {
     FEDummyResult: {

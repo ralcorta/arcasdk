@@ -7,7 +7,6 @@ import { resolve } from "path";
 import { Context } from "@application/types";
 import { FileSystemTicketStorage } from "@infrastructure/outbound/adapters/storage/file-system-ticket-storage";
 import { AuthRepository } from "@infrastructure/outbound/adapters/auth/auth.repository";
-import { WinstonLogger } from "@infrastructure/outbound/adapters/logger/winston-logger";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import { ElectronicBillingService } from "@application/services/electronic-billing.service";
 import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
@@ -40,7 +39,7 @@ export class Arca {
       ...context,
       ticketPath:
         context.ticketPath ??
-        resolve(__dirname, "..", "..", "storage", "auth", "tickets"),
+        resolve(__dirname, "..", "storage", "auth", "tickets"),
     };
 
     const useHttpsAgent = this.context.useHttpsAgent ?? DEFAULT_USE_HTTPS_AGENT;
@@ -61,13 +60,9 @@ export class Arca {
       credentials: this.context.credentials,
       useHttpsAgent,
     });
-    const logger = new WinstonLogger({
-      enableLogging: this.context.enableLogging ?? false,
-    });
 
     const baseRepositoryConfig = {
       authRepository,
-      logger,
       cuit: this.context.cuit,
       production: this.context.production ?? false,
       useHttpsAgent,
@@ -79,25 +74,25 @@ export class Arca {
     };
 
     this._electronicBillingService = new ElectronicBillingService(
-      new ElectronicBillingRepository(soapConfig)
+      new ElectronicBillingRepository(soapConfig),
     );
     this._registerInscriptionProofService = new RegisterInscriptionProofService(
-      new RegisterInscriptionProofRepository(baseRepositoryConfig)
+      new RegisterInscriptionProofRepository(baseRepositoryConfig),
     );
     this._registerScopeFourService = new RegisterScopeFourService(
-      new RegisterScopeFourRepository(baseRepositoryConfig)
+      new RegisterScopeFourRepository(baseRepositoryConfig),
     );
     this._registerScopeFiveService = new RegisterScopeFiveService(
-      new RegisterScopeFiveRepository(baseRepositoryConfig)
+      new RegisterScopeFiveRepository(baseRepositoryConfig),
     );
     this._registerScopeTenService = new RegisterScopeTenService(
-      new RegisterScopeTenRepository(baseRepositoryConfig)
+      new RegisterScopeTenRepository(baseRepositoryConfig),
     );
     this._registerScopeThirteenService = new RegisterScopeThirteenService(
-      new RegisterScopeThirteenRepository(baseRepositoryConfig)
+      new RegisterScopeThirteenRepository(baseRepositoryConfig),
     );
     this._genericService = new GenericService(
-      new GenericRepository(soapConfig)
+      new GenericRepository(soapConfig),
     );
   }
 

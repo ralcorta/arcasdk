@@ -1,4 +1,4 @@
-import { Arca } from "../../src/infrastructure/inbound/adapters/arca";
+import { Arca } from "../../src/infrastructure/composition/arca";
 import { ContextTest } from "../utils/context-test.utils";
 import EnvTest from "../utils/env-test";
 import { existsSync, mkdirSync } from "fs";
@@ -13,7 +13,7 @@ const describeOrSkip = hasRealCertificates ? describe : describe.skip;
 if (!hasRealCertificates) {
   console.warn(
     "\n⚠️  Skipping integration tests: Real homologation certificates not found.\n" +
-      "   Set TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME, TEST_CERT_FILE_NAME, and CUIT environment variables.\n"
+      "   Set TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME, TEST_CERT_FILE_NAME, and CUIT environment variables.\n",
   );
 }
 
@@ -23,7 +23,7 @@ describeOrSkip(
     let arca: Arca;
     const ticketsPath = resolve(
       __dirname,
-      "../../src/infrastructure/storage/auth/tickets"
+      "../../src/infrastructure/storage/auth/tickets",
     );
 
     beforeAll(async () => {
@@ -158,7 +158,7 @@ describeOrSkip(
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
           firstSalesPoint,
-          voucherType
+          voucherType,
         );
 
         expect(lastVoucher).toBeDefined();
@@ -182,7 +182,7 @@ describeOrSkip(
 
         const lastVoucher = await arca.electronicBillingService.getLastVoucher(
           firstSalesPoint,
-          voucherType
+          voucherType,
         );
 
         if (lastVoucher.cbteNro === 0) {
@@ -192,7 +192,7 @@ describeOrSkip(
         const voucherInfo = await arca.electronicBillingService.getVoucherInfo(
           lastVoucher.cbteNro,
           firstSalesPoint,
-          voucherType
+          voucherType,
         );
 
         if (voucherInfo) {
@@ -215,10 +215,10 @@ describeOrSkip(
           puntoVenta = 2;
         }
 
-        const tipoComprobante = 11; // Factura C
+        const tipoComprobante = 11; // C Invoice
 
         const fecha = new Date(
-          Date.now() - new Date().getTimezoneOffset() * 60000
+          Date.now() - new Date().getTimezoneOffset() * 60000,
         )
           .toISOString()
           .split("T")[0]
@@ -226,24 +226,24 @@ describeOrSkip(
 
         const impNeto = 100;
         const impTrib = 0;
-        const impIVA = 0; // Factura C no tiene IVA
+        const impIVA = 0; // C Invoice has no VAT
         const impTotal = impNeto + impTrib + impIVA;
 
         // Helper function to create voucher with retry for race conditions
         const createVoucherWithRetry = async (
           maxRetries = 3,
-          retryDelay = 500
+          retryDelay = 500,
         ) => {
           for (let attempt = 0; attempt < maxRetries; attempt++) {
             // Get the last voucher just before creating to minimize race conditions
             // Add a small random delay to reduce race conditions when tests run in parallel
             await new Promise((resolve) =>
-              setTimeout(resolve, Math.random() * 100 + 50)
+              setTimeout(resolve, Math.random() * 100 + 50),
             );
             const lastVoucher =
               await arca.electronicBillingService.getLastVoucher(
                 puntoVenta,
-                tipoComprobante
+                tipoComprobante,
               );
             const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
@@ -251,8 +251,8 @@ describeOrSkip(
               CantReg: 1,
               PtoVta: puntoVenta,
               CbteTipo: tipoComprobante,
-              Concepto: 2, // Servicios
-              DocTipo: 99, // Consumidor Final
+              Concepto: 2, // Services
+              DocTipo: 99, // Final Consumer
               DocNro: 0,
               CbteDesde: siguienteNumero,
               CbteHasta: siguienteNumero,
@@ -271,15 +271,14 @@ describeOrSkip(
               FchVtoPago: fecha,
             };
 
-            const resultado = await arca.electronicBillingService.createVoucher(
-              facturaData
-            );
+            const resultado =
+              await arca.electronicBillingService.createVoucher(facturaData);
 
             // Check if there's a retryable error (transaction active or duplicate number)
             const hasRetryableError = resultado.response.Errors?.Err?.some(
               (err: any) =>
-                err.Code === 502 || // Error interno de base de datos - Transacción Activa
-                err.Code === 10016 // El numero o fecha del comprobante no se corresponde
+                err.Code === 502 || // Internal database error - Active Transaction
+                err.Code === 10016, // Voucher number or date does not match
             );
 
             if (hasRetryableError && attempt < maxRetries - 1) {
@@ -296,8 +295,6 @@ describeOrSkip(
 
         const resultado = await createVoucherWithRetry();
 
-        console.dir(resultado, { depth: 50 });
-
         expect(resultado).toBeDefined();
         expect(resultado.response).toBeDefined();
 
@@ -311,8 +308,8 @@ describeOrSkip(
         expect(voucherResponse).toBeDefined();
 
         // First check if the voucher was approved before checking CAE
-        expect(voucherResponse.Resultado).toBe("A"); // "A" = Aprobado
-        expect(FeCabResp.Resultado).toBe("A"); // "A" = Aprobado
+        expect(voucherResponse.Resultado).toBe("A"); // "A" = Approved
+        expect(FeCabResp.Resultado).toBe("A"); // "A" = Approved
 
         // Only check CAE if voucher was approved
         expect(voucherResponse.CAE).toBeDefined();
@@ -336,8 +333,8 @@ describeOrSkip(
 
         expect(voucherResponse.CbteFch).toBe(fecha);
 
-        expect(voucherResponse.Concepto).toBe(2); // Servicios
-        expect(voucherResponse.DocTipo).toBe(99); // Consumidor Final
+        expect(voucherResponse.Concepto).toBe(2); // Services
+        expect(voucherResponse.DocTipo).toBe(99); // Final Consumer
         expect(voucherResponse.DocNro).toBe(0);
 
         if (Errors?.Err?.length) {
@@ -352,5 +349,5 @@ describeOrSkip(
         expect(FeCabResp.CbteTipo).toBe(tipoComprobante);
       });
     });
-  }
+  },
 );

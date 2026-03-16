@@ -4,7 +4,7 @@
  */
 import { Client, createClientAsync, IHttpClient, HttpClient } from "soap";
 
-export interface SoapClientParams {
+interface SoapClientParams {
   wsdl: string;
   options?: any;
 }
@@ -16,7 +16,7 @@ export class SoapClientFacade {
    * Create HTTP client with custom HTTPS agent for legacy servers
    */
   private static createHttpClientWithAgent(
-    httpsAgent: any // Using any to avoid importing https types in non-Node environments
+    httpsAgent: any, // Using any to avoid importing https types in non-Node environments
   ): IHttpClient {
     const originalHttpClient = new HttpClient();
 
@@ -26,7 +26,7 @@ export class SoapClientFacade {
         data: any,
         callback: (error: any, res?: any, body?: any) => any,
         exheaders?: any,
-        exoptions?: any
+        exoptions?: any,
       ) {
         if (!exoptions) {
           exoptions = {};
@@ -39,7 +39,7 @@ export class SoapClientFacade {
           data,
           callback,
           exheaders,
-          exoptions
+          exoptions,
         );
       },
     };

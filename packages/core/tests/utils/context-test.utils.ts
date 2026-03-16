@@ -40,7 +40,7 @@ export class ContextTest {
       if (!existsSync(filePath)) {
         console.warn(
           `⚠️  Test key file not found at: ${filePath}\n` +
-            `   Using mock key. Set TEST_CREDENTIALS_FOLDER and TEST_PRIVATE_KEY_FILE_NAME to use real certificates.`
+            `   Using mock key. Set TEST_CREDENTIALS_FOLDER and TEST_PRIVATE_KEY_FILE_NAME to use real certificates.`,
         );
         return "test_key";
       }
@@ -53,7 +53,7 @@ export class ContextTest {
           `   Error: ${
             error instanceof Error ? error.message : String(error)
           }\n` +
-          `   Using mock key.`
+          `   Using mock key.`,
       );
       return "test_key";
     }
@@ -66,7 +66,7 @@ export class ContextTest {
       if (!existsSync(filePath)) {
         console.warn(
           `⚠️  Test cert file not found at: ${filePath}\n` +
-            `   Using mock cert. Set TEST_CREDENTIALS_FOLDER and TEST_CERT_FILE_NAME to use real certificates.`
+            `   Using mock cert. Set TEST_CREDENTIALS_FOLDER and TEST_CERT_FILE_NAME to use real certificates.`,
         );
         return "test_cert";
       }
@@ -79,7 +79,7 @@ export class ContextTest {
           `   Error: ${
             error instanceof Error ? error.message : String(error)
           }\n` +
-          `   Using mock cert.`
+          `   Using mock cert.`,
       );
       return "test_cert";
     }
@@ -96,7 +96,6 @@ export class ContextTest {
     cuit?: number;
     handleTicket?: boolean;
     production?: boolean;
-    enableLogging?: boolean;
     ticketPath?: string;
     credentials?: ILoginCredentials;
   }): Promise<Context> {
@@ -114,7 +113,7 @@ export class ContextTest {
           "   - TEST_CREDENTIALS_FOLDER: Path to folder containing certificates\n" +
           "   - TEST_PRIVATE_KEY_FILE_NAME: Name of private key file\n" +
           "   - TEST_CERT_FILE_NAME: Name of certificate file\n" +
-          "   - CUIT: Test CUIT number\n\n"
+          "   - CUIT: Test CUIT number\n\n",
       );
     }
 
@@ -124,7 +123,6 @@ export class ContextTest {
       cuit: options?.cuit ?? parseInt(EnvTest.cuit),
       production: options?.production ?? false,
       handleTicket: options?.handleTicket ?? false,
-      enableLogging: options?.enableLogging ?? false,
       ticketPath: options?.ticketPath,
       credentials: options?.credentials,
     };

@@ -21,7 +21,7 @@ export class SoapClient implements ISoapClientPort {
 
   async createClient<T extends Client>(
     wsdlName: string,
-    options?: any
+    options?: any,
   ): Promise<T> {
     const finalOptions: any = {
       disableCache: true,
@@ -94,7 +94,7 @@ export class SoapClient implements ISoapClientPort {
   async call<T extends [any, string, any, string]>(
     client: any,
     methodName: string,
-    params: any
+    params: any,
   ): Promise<T> {
     if (!client || typeof client[methodName] !== "function") {
       throw new Error(`Method ${methodName} not found on SOAP client`);
