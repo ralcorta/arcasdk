@@ -17,7 +17,6 @@ const instancia = new Arca(Contexto);
   - `handleTicket` <small>(booleano)</small>: Flag que indica si los tickets de autenticación son gestionados automáticamente por el paquete o si serán proporcionados por el desarrollador (más adelante se explicará cómo hacer inicio de sesión y luego pasar los tokens antes de llamar al servicio web deseado). Esto es útil cuando se desea utilizar el paquete en una función `lambda` o en algun lugar que no se tenga almacenamiento.
   - `ticketPath` <small>(cadena)</small>: La ruta preferida donde se desean guardar los tokens obtenidos del servicio WSAA si no se desea utilizar la carpeta predeterminada.
   - `useSoap12` <small>(booleano, opcional)</small>: Flag que indica si se debe usar SOAP 1.2 en lugar de SOAP 1.1 para el servicio de Facturación Electrónica. Por defecto es `true` (usa SOAP 1.2).
-  - `enableLogging` <small>(booleano, opcional)</small>: Flag que habilita el registro de logs en consola. Por defecto es `false`.
   - `useHttpsAgent` <small>(booleano, opcional)</small>: Flag que habilita el uso de un agente HTTPS con configuración legacy para servidores ARCA/AFIP antiguos. **Por defecto es `false`** (deshabilitado). Ver más detalles abajo.
 
 <br/>
@@ -69,13 +68,6 @@ type Context = {
    * The path of the auth obj if the package is auto managed
    */
   ticketPath?: string;
-
-  /**
-   * Enable console logging
-   *
-   * @default false
-   */
-  enableLogging?: boolean;
 
   /**
    * Use SOAP 1.2 instead of SOAP 1.1 for Electronic Billing service
