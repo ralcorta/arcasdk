@@ -47,16 +47,17 @@ export abstract class BaseRegisterRepository<
       ? this.endpointProduction
       : this.endpointTesting;
 
-    const client = await this.soapClient.createClient<TClient>(wsdlName, {
-      forceSoap12Headers: false,
-    });
+    const { client, soapVersion } = await this.createSoapClient<TClient>(
+      wsdlName,
+      { forceSoap12Headers: false },
+    );
 
     this.soapClient.setEndpoint(client, endpoint);
 
     this.client = this.createAuthenticatedProxy(client, {
       serviceName: this.serviceName,
       injectAuthProperty: true,
-      soapVersion: SoapServiceVersion.ServiceSoap,
+      soapVersion,
       authMapper: (auth: any) => ({
         token: auth.Auth.Token,
         sign: auth.Auth.Sign,

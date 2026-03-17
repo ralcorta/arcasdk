@@ -1,19 +1,14 @@
-/**
- * SOAP Client
- * Implements ISoapClientPort using the soap library
- */
-import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
-import { SoapClientFacade } from "./soap-client-facade";
-import { Client } from "soap";
 import {
-  MIN_DH_SIZE_LEGACY,
-  DEFAULT_USE_HTTPS_AGENT,
-} from "@infrastructure/constants";
+  ISoapClientPort,
+  ISoapOptions,
+} from "@infrastructure/outbound/ports/soap/soap-client.port";
+import { Client, createClientAsync } from "soap";
+import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 import { getWsdlString } from "./wsdl-strings";
 import { isNode } from "std-env";
 
 export class SoapClient implements ISoapClientPort {
-  private useHttpsAgent: boolean;
+  private readonly useHttpsAgent: boolean;
 
   constructor(useHttpsAgent: boolean = DEFAULT_USE_HTTPS_AGENT) {
     this.useHttpsAgent = useHttpsAgent;
@@ -21,7 +16,7 @@ export class SoapClient implements ISoapClientPort {
 
   async createClient<T extends Client>(
     wsdlName: string,
-    options?: any,
+    options: ISoapOptions = {},
   ): Promise<T> {
     const finalOptions: any = {
       disableCache: true,
@@ -29,46 +24,22 @@ export class SoapClient implements ISoapClientPort {
       ...options,
     };
 
-    // Only create HTTPS agent if:
-    // 1. We're in a Node.js environment (detected via std-env)
-    // 2. useHttpsAgent is enabled (see DEFAULT_USE_HTTPS_AGENT constant)
-    if (this.useHttpsAgent && isNode) {
-      try {
-        // Dynamic import to avoid issues in non-Node environments
-        // We import both https and crypto to configure the agent securely for legacy servers
-        const [https, crypto] = await Promise.all([
-          import("https"),
-          import("crypto"),
-        ]);
-
-        // SSL options for Node.js 18+ and 24+ compatibility with legacy AFIP servers
-        const secureOptions =
-          crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT |
-          crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION;
-
-        const legacyHttpsAgent = new https.Agent({
-          rejectUnauthorized: true,
-          minDHSize: MIN_DH_SIZE_LEGACY,
-          ciphers: "DEFAULT@SECLEVEL=1",
-          secureProtocol: "TLSv1_2_method",
-          secureOptions,
-        });
-
-        finalOptions.wsdl_options = {
-          ...finalOptions.wsdl_options,
-          httpsAgent: legacyHttpsAgent,
-        };
-        finalOptions.request = {
-          ...finalOptions.request,
-          httpsAgent: legacyHttpsAgent,
-        };
-      } catch (error) {
-        // If https module is not available (e.g., Cloudflare Workers), skip agent
-        // The SOAP library will use the default fetch adapter
-        // Silently continue without the agent - this is expected in non-Node environments
-      }
+    // Use the unified Factory to handle environment-specific transport
+    if (!finalOptions.httpClient) {
+      /**
+       * We use dynamic import here to avoid loading the entire engines module
+       * (which might include Node-specific or Universal-specific code)
+       * until we absolutely need it during client creation.
+       */
+      const { createSoapEngine } = await import("./engines");
+      finalOptions.httpClient = await createSoapEngine({
+        isNode,
+        useHttpsAgent: this.useHttpsAgent,
+        requestOptions: finalOptions.request,
+      });
     }
 
+    // Resolve WSDL content
     let wsdlXml: string | undefined;
     if (options?.wsdlContent) {
       wsdlXml = options.wsdlContent;
@@ -79,10 +50,8 @@ export class SoapClient implements ISoapClientPort {
       }
     }
 
-    return SoapClientFacade.create<T>({
-      wsdl: wsdlXml!,
-      options: finalOptions,
-    });
+    // Create client using soap library
+    return (await createClientAsync(wsdlXml!, finalOptions)) as T;
   }
 
   setEndpoint(client: any, endpoint: string): void {

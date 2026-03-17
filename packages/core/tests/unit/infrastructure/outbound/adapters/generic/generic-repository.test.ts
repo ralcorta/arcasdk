@@ -1,20 +1,24 @@
 import { GenericRepository } from "@infrastructure/outbound/adapters/generic/generic-repository";
-import { SoapClientFacade } from "@infrastructure/outbound/adapters/soap/soap-client-facade";
+import { SoapClient } from "@infrastructure/outbound/adapters/soap/soap-client";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
+import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
+import { Client } from "soap";
 
-jest.mock("@infrastructure/outbound/adapters/soap/soap-client-facade");
+jest.mock("@infrastructure/outbound/adapters/soap/soap-client");
+
+interface MockSoapClient extends Client {
+  testMethodAsync: jest.Mock;
+}
 
 describe("GenericRepository", () => {
   let repository: GenericRepository;
-  let mockSoapClient: any;
+  let mockSoapClient: jest.Mocked<MockSoapClient>;
   let mockConfig: BaseSoapRepositoryConstructorConfig;
 
   beforeEach(() => {
     mockSoapClient = {
-      createClient: jest
-        .fn()
-        .mockImplementation(() => Promise.resolve(mockSoapClient)),
       testMethodAsync: jest.fn(),
+      setEndpoint: jest.fn(),
       describe: jest.fn().mockReturnValue({
         Service: {
           ServiceSoap: {
@@ -25,26 +29,23 @@ describe("GenericRepository", () => {
           },
         },
       }),
-    };
+    } as never;
 
-    (SoapClientFacade.create as jest.Mock).mockResolvedValue(mockSoapClient);
+    (SoapClient.prototype.createClient as jest.Mock).mockResolvedValue(
+      mockSoapClient,
+    );
+
+    const mockAuthRepository = {
+      login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
+      getAuthParams: jest.fn().mockReturnValue({
+        Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
+      }),
+    } as never;
 
     mockConfig = {
-      soapClient: mockSoapClient,
-      authRepository: {
-        login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
-        getAuthParams: jest.fn().mockReturnValue({
-          Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
-        }),
-      } as any,
+      authRepository: mockAuthRepository,
       cuit: 12345678901,
-      logger: {
-        info: jest.fn(),
-        error: jest.fn(),
-        warn: jest.fn(),
-        debug: jest.fn(),
-      },
-    } as any;
+    };
 
     repository = new GenericRepository(mockConfig);
   });
@@ -58,10 +59,6 @@ describe("GenericRepository", () => {
       const mockResponse = { result: "success" };
       mockSoapClient.testMethodAsync.mockResolvedValue([mockResponse]);
 
-      // Default is SOAP 1.1 (useSoap12 is undefined/false by default in BaseSoapRepository if not set,
-      // but let's check the implementation. BaseSoapRepository defaults useSoap12 to true for Electronic Billing,
-      // but GenericRepository extends BaseSoapRepository.
-      // Let's force it to false for this test to be sure.
       const config = { ...mockConfig, useSoap12: false };
       repository = new GenericRepository(config);
 
@@ -99,9 +96,9 @@ describe("GenericRepository", () => {
       repository = new GenericRepository(config);
 
       await expect(
-        repository.call("ws_test", "nonExistentMethod", {})
+        repository.call("ws_test", "nonExistentMethod", {}),
       ).rejects.toThrow(
-        "Method nonExistentMethod not found on service ws_test"
+        "Method nonExistentMethod not found on service ws_test",
       );
     });
   });

@@ -1,12 +1,17 @@
 import { ElectronicBillingRepository } from "@infrastructure/outbound/adapters/electronic-billing/electronic-billing-repository";
-import { SoapClientFacade } from "@infrastructure/outbound/adapters/soap/soap-client-facade";
+import { SoapClient } from "@infrastructure/outbound/adapters/soap/soap-client";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
+import { IServiceSoap12Soap } from "@infrastructure/outbound/ports/soap/interfaces/Service/ServiceSoap12";
+import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
+import { Voucher } from "@domain/entities/voucher.entity";
+import { IVoucher as IVoucherData } from "@domain/types/voucher.types";
+import { data } from "../../../../../mocks/data/voucher.mock";
 
-jest.mock("@infrastructure/outbound/adapters/soap/soap-client-facade");
+jest.mock("@infrastructure/outbound/adapters/soap/soap-client");
 
 describe("ElectronicBillingRepository", () => {
   let repository: ElectronicBillingRepository;
-  let mockSoapClient: any;
+  let mockSoapClient: jest.Mocked<IServiceSoap12Soap>;
   let mockConfig: BaseSoapRepositoryConstructorConfig;
   const expectedAuth = {
     Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
@@ -14,15 +19,29 @@ describe("ElectronicBillingRepository", () => {
 
   beforeEach(() => {
     mockSoapClient = {
+      FECAESolicitarAsync: jest.fn(),
+      FECompUltimoAutorizadoAsync: jest.fn(),
+      FECompConsultarAsync: jest.fn(),
       FECAEASolicitarAsync: jest.fn(),
       FECAEAConsultarAsync: jest.fn(),
       FECAEASinMovimientoInformarAsync: jest.fn(),
       FECAEASinMovimientoConsultarAsync: jest.fn(),
+      FECAEARegInformativoAsync: jest.fn(),
       FEParamGetCotizacionAsync: jest.fn(),
       FEParamGetTiposPaisesAsync: jest.fn(),
       FEParamGetActividadesAsync: jest.fn(),
       FECompTotXRequestAsync: jest.fn(),
       FEParamGetCondicionIvaReceptorAsync: jest.fn(),
+      FEDummyAsync: jest.fn(),
+      FEParamGetPtosVentaAsync: jest.fn(),
+      FEParamGetTiposCbteAsync: jest.fn(),
+      FEParamGetTiposConceptoAsync: jest.fn(),
+      FEParamGetTiposDocAsync: jest.fn(),
+      FEParamGetTiposIvaAsync: jest.fn(),
+      FEParamGetTiposMonedasAsync: jest.fn(),
+      FEParamGetTiposOpcionalAsync: jest.fn(),
+      FEParamGetTiposTributosAsync: jest.fn(),
+      setEndpoint: jest.fn(),
       describe: jest.fn().mockReturnValue({
         Service: {
           ServiceSoap12: {
@@ -38,20 +57,24 @@ describe("ElectronicBillingRepository", () => {
           },
         },
       }),
-    };
+    } as never;
 
-    (SoapClientFacade.create as jest.Mock).mockResolvedValue(mockSoapClient);
+    (SoapClient.prototype.createClient as jest.Mock).mockResolvedValue(
+      mockSoapClient,
+    );
+
+    const mockAuthRepository = {
+      login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
+      getAuthParams: jest.fn().mockReturnValue({
+        Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
+      }),
+    } as never;
 
     mockConfig = {
-      ticketPath: "/tmp/ticket.xml",
-      authRepository: {
-        login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
-        getAuthParams: jest.fn().mockReturnValue({
-          Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
-        }),
-      } as any,
+      authRepository: mockAuthRepository,
       cuit: 12345678901,
-    } as any;
+      production: false,
+    };
 
     repository = new ElectronicBillingRepository(mockConfig);
   });
@@ -77,7 +100,9 @@ describe("ElectronicBillingRepository", () => {
           Errors: undefined,
         },
       };
-      mockSoapClient.FECAEASolicitarAsync.mockResolvedValue([mockResponse]);
+      mockSoapClient.FECAEASolicitarAsync.mockResolvedValue([
+        mockResponse,
+      ] as never);
 
       const result = await repository.getCaea(202310, 1);
 
@@ -115,7 +140,9 @@ describe("ElectronicBillingRepository", () => {
           Errors: undefined,
         },
       };
-      mockSoapClient.FECAEAConsultarAsync.mockResolvedValue([mockResponse]);
+      mockSoapClient.FECAEAConsultarAsync.mockResolvedValue([
+        mockResponse,
+      ] as never);
 
       const result = await repository.consultCaea(202310, 1);
 
@@ -151,7 +178,7 @@ describe("ElectronicBillingRepository", () => {
       };
       mockSoapClient.FECAEASinMovimientoInformarAsync.mockResolvedValue([
         mockResponse,
-      ]);
+      ] as never);
 
       const result = await repository.informCaeaNoMovement("12345678901234", 1);
 
@@ -163,7 +190,7 @@ describe("ElectronicBillingRepository", () => {
         },
       ]);
       expect(
-        mockSoapClient.FECAEASinMovimientoInformarAsync
+        mockSoapClient.FECAEASinMovimientoInformarAsync,
       ).toHaveBeenCalledWith({
         CAEA: "12345678901234",
         PtoVta: 1,
@@ -188,11 +215,11 @@ describe("ElectronicBillingRepository", () => {
       };
       mockSoapClient.FECAEASinMovimientoConsultarAsync.mockResolvedValue([
         mockResponse,
-      ]);
+      ] as never);
 
       const result = await repository.consultCaeaNoMovement(
         "12345678901234",
-        1
+        1,
       );
 
       expect(result.resultGet).toEqual([
@@ -203,7 +230,7 @@ describe("ElectronicBillingRepository", () => {
         },
       ]);
       expect(
-        mockSoapClient.FECAEASinMovimientoConsultarAsync
+        mockSoapClient.FECAEASinMovimientoConsultarAsync,
       ).toHaveBeenCalledWith({
         CAEA: "12345678901234",
         PtoVta: 1,
@@ -234,12 +261,13 @@ describe("ElectronicBillingRepository", () => {
           Errors: undefined,
         },
       };
-      mockSoapClient.FECAEARegInformativoAsync = jest
-        .fn()
-        .mockResolvedValue([mockResponse]);
+      mockSoapClient.FECAEARegInformativoAsync.mockResolvedValue([
+        mockResponse,
+      ] as never);
 
       const mockVoucher = {
         toDTO: jest.fn().mockReturnValue({
+          CantReg: 1,
           Concepto: 1,
           DocTipo: 80,
           DocNro: 20111111112,
@@ -260,12 +288,12 @@ describe("ElectronicBillingRepository", () => {
           CondicionIVAReceptorId: 1,
           PtoVta: 1,
           CbteTipo: 1,
-        }),
-      } as any;
+        } as IVoucherData),
+      } as never;
 
       const result = await repository.informCaeaUsage(
         mockVoucher,
-        "12345678901234"
+        "12345678901234",
       );
 
       expect(result.resultGet).toEqual({
@@ -339,7 +367,7 @@ describe("ElectronicBillingRepository", () => {
       };
       mockSoapClient.FEParamGetCotizacionAsync.mockResolvedValue([
         mockResponse,
-      ]);
+      ] as never);
 
       const result = await repository.getQuotation("DOL");
 
@@ -372,7 +400,7 @@ describe("ElectronicBillingRepository", () => {
       };
       mockSoapClient.FEParamGetTiposPaisesAsync.mockResolvedValue([
         mockResponse,
-      ]);
+      ] as never);
 
       const result = await repository.getCountries();
 
@@ -406,7 +434,7 @@ describe("ElectronicBillingRepository", () => {
       };
       mockSoapClient.FEParamGetActividadesAsync.mockResolvedValue([
         mockResponse,
-      ]);
+      ] as never);
 
       const result = await repository.getActivities();
 
@@ -431,7 +459,9 @@ describe("ElectronicBillingRepository", () => {
           Errors: undefined,
         },
       };
-      mockSoapClient.FECompTotXRequestAsync.mockResolvedValue([mockResponse]);
+      mockSoapClient.FECompTotXRequestAsync.mockResolvedValue([
+        mockResponse,
+      ] as never);
 
       const result = await repository.getMaxRecordsPerRequest();
 
@@ -439,6 +469,127 @@ describe("ElectronicBillingRepository", () => {
       expect(mockSoapClient.FECompTotXRequestAsync).toHaveBeenCalledWith({
         ...expectedAuth,
       });
+    });
+  });
+
+  describe("getVoucherInfo", () => {
+    it("should return null if voucher not found (error 602)", async () => {
+      const error = { code: 602, message: "Comprobante inexistente" };
+      mockSoapClient.FECompConsultarAsync.mockRejectedValue(error);
+
+      const result = await repository.getVoucherInfo(1, 1, 1);
+
+      expect(result).toBeNull();
+    });
+
+    it("should throw error for other SOAP failures", async () => {
+      const error = new Error("Connection failed");
+      mockSoapClient.FECompConsultarAsync.mockRejectedValue(error);
+
+      await expect(repository.getVoucherInfo(1, 1, 1)).rejects.toThrow(
+        "Connection failed",
+      );
+    });
+  });
+
+  describe("createVoucher", () => {
+    it("should return empty CAE if voucher is rejected (Outcome R)", async () => {
+      const mockResponse = {
+        FECAESolicitarResult: {
+          FeDetResp: {
+            FECAEDetResponse: [
+              {
+                Resultado: "R",
+                CAE: "",
+                CAEFchVto: "",
+                Observaciones: {
+                  Obs: [{ Code: 1, Msg: "Error message" }],
+                },
+              },
+            ],
+          },
+        },
+      };
+      mockSoapClient.FECAESolicitarAsync.mockResolvedValue([
+        mockResponse,
+      ] as never);
+
+      const mockVoucher = {
+        toDTO: jest.fn().mockReturnValue({
+          ...data,
+          PtoVta: 1,
+          CbteTipo: 1,
+          CbteDesde: 1,
+          CbteHasta: 1,
+        }),
+      } as never;
+
+      const result = await repository.createVoucher(mockVoucher);
+
+      expect(result.cae).toBe("");
+      expect(result.caeFchVto).toBe("");
+      expect(result.response.FeDetResp?.FECAEDetResponse?.[0].Resultado).toBe(
+        "R",
+      );
+    });
+
+    it("should map multiple VAT aliquots and tributes correctly", async () => {
+      const mockVoucher = {
+        toDTO: jest.fn().mockReturnValue({
+          ...data,
+          PtoVta: 1,
+          CbteTipo: 1,
+          CbteDesde: 1,
+          CbteHasta: 1,
+          Iva: [
+            { Id: 5, BaseImp: 100, Importe: 21 },
+            { Id: 4, BaseImp: 100, Importe: 10.5 },
+          ],
+          Tributos: [
+            { Id: 99, Desc: "Test", BaseImp: 100, Alic: 1, Importe: 1 },
+          ],
+        }),
+      } as never;
+
+      mockSoapClient.FECAESolicitarAsync.mockResolvedValue([
+        {
+          FECAESolicitarResult: {
+            FeDetResp: { FECAEDetResponse: [{ Resultado: "A" }] },
+          },
+        },
+      ] as never);
+
+      await repository.createVoucher(mockVoucher);
+
+      expect(mockSoapClient.FECAESolicitarAsync).toHaveBeenCalledWith(
+        expect.objectContaining({
+          FeCAEReq: expect.objectContaining({
+            FeDetReq: {
+              FECAEDetRequest: [
+                expect.objectContaining({
+                  Iva: {
+                    AlicIva: [
+                      { Id: 5, BaseImp: 100, Importe: 21 },
+                      { Id: 4, BaseImp: 100, Importe: 10.5 },
+                    ],
+                  },
+                  Tributos: {
+                    Tributo: [
+                      {
+                        Id: 99,
+                        Desc: "Test",
+                        BaseImp: 100,
+                        Alic: 1,
+                        Importe: 1,
+                      },
+                    ],
+                  },
+                }),
+              ],
+            },
+          }),
+        }),
+      );
     });
   });
 });

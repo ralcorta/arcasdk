@@ -6,6 +6,17 @@ import { ISoapClientPort } from "./soap-client.port";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import { ServiceNamesEnum } from "./enums/service-names.enum";
 import { SoapServiceVersion } from "./enums/endpoints.enum";
+import { ISoapOptions } from "./soap-client.port";
+
+import { Client } from "soap";
+import { WSAuthParam } from "@application/types/auth.types";
+
+export type SoapClientOptions = ISoapOptions;
+
+export interface SoapClientResult<T extends Client> {
+  client: T;
+  soapVersion: SoapServiceVersion;
+}
 
 export interface BaseSoapRepositoryConstructorConfig {
   soapClient?: ISoapClientPort;
@@ -43,7 +54,7 @@ export interface AuthenticatedProxyOptions {
   /**
    * Optional function to map auth parameters before injection
    */
-  authMapper?: (auth: any) => any;
+  authMapper?: (auth: WSAuthParam) => any;
   /**
    * List of methods to exclude from authentication injection
    */

@@ -15,6 +15,7 @@ export interface AuthRepositoryConfig {
   handleTicket?: boolean;
   ticketStorage?: ITicketStoragePort;
   credentials?: ILoginCredentials;
+
   /**
    * Enable HTTPS Agent for Node.js environments (required for legacy ARCA servers)
    * Set to false when running in Cloudflare Workers or other edge runtimes

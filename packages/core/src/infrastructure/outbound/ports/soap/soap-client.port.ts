@@ -4,6 +4,13 @@
  */
 import { Client } from "soap";
 
+export interface ISoapOptions {
+  forceSoap12Headers?: boolean;
+  wsdlContent?: string;
+  disableCache?: boolean;
+  [key: string]: any;
+}
+
 export interface ISoapClientPort {
   /**
    * Create a SOAP client from a WSDL
@@ -13,7 +20,7 @@ export interface ISoapClientPort {
    */
   createClient<T extends Client>(
     wsdlName: string,
-    options?: any & { wsdlContent?: string }
+    options?: ISoapOptions,
   ): Promise<T>;
 
   /**
@@ -33,6 +40,6 @@ export interface ISoapClientPort {
   call<T extends [any, string, any, string]>(
     client: any,
     methodName: string,
-    params: any
+    params: any,
   ): Promise<T>;
 }

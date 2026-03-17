@@ -6,8 +6,10 @@
 import { resolve } from "path";
 import { Context } from "@application/types";
 import { FileSystemTicketStorage } from "@infrastructure/outbound/adapters/storage/file-system-ticket-storage";
+import { MemoryTicketStorage } from "@infrastructure/outbound/adapters/storage/memory-ticket-storage";
 import { AuthRepository } from "@infrastructure/outbound/adapters/auth/auth.repository";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
+import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 import { ElectronicBillingService } from "@application/services/electronic-billing.service";
 import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
 import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
@@ -23,6 +25,7 @@ import { RegisterInscriptionProofRepository } from "@infrastructure/outbound/ada
 import { GenericService } from "@application/services/generic.service";
 import { GenericRepository } from "@infrastructure/outbound/adapters/generic/generic-repository";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
+import { isNode } from "std-env";
 
 export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;
@@ -39,10 +42,29 @@ export class Arca {
       ...context,
       ticketPath:
         context.ticketPath ??
-        resolve(__dirname, "..", "storage", "auth", "tickets"),
+        (isNode
+          ? resolve(__dirname, "..", "storage", "auth", "tickets")
+          : undefined),
     };
 
     const useHttpsAgent = this.context.useHttpsAgent ?? DEFAULT_USE_HTTPS_AGENT;
+
+    let ticketStorage = this.context.ticketStorage;
+
+    if (!ticketStorage && !this.context.handleTicket) {
+      if (isNode && this.context.ticketPath) {
+        ticketStorage = new FileSystemTicketStorage({
+          ticketPath: this.context.ticketPath!,
+          cuit: this.context.cuit,
+          production: this.context.production ?? false,
+        });
+      } else {
+        ticketStorage = new MemoryTicketStorage({
+          cuit: this.context.cuit,
+          production: this.context.production ?? false,
+        });
+      }
+    }
 
     const authRepository: IAuthenticationRepositoryPort = new AuthRepository({
       cert: this.context.cert,
@@ -50,13 +72,7 @@ export class Arca {
       cuit: this.context.cuit,
       production: this.context.production ?? false,
       handleTicket: this.context.handleTicket ?? false,
-      ticketStorage: this.context.handleTicket
-        ? undefined
-        : new FileSystemTicketStorage({
-            ticketPath: this.context.ticketPath!,
-            cuit: this.context.cuit,
-            production: this.context.production ?? false,
-          }),
+      ticketStorage,
       credentials: this.context.credentials,
       useHttpsAgent,
     });

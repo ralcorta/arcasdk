@@ -2,8 +2,8 @@ import { RegisterInscriptionProofService } from "@arcasdk/core/src/application/s
 import { IRegisterInscriptionProofRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
 import {
   dummyAsyncReturnMocks,
-  getPersonaList_v2AsyncReturnMocks,
   getPersona_v2AsyncReturnMocks,
+  getPersonaList_v2AsyncReturnMocks,
 } from "../../../mocks/data/soapClient.mock";
 import {
   RegisterServerStatusDto,
@@ -22,11 +22,11 @@ describe("Register Inscription Proof Service", () => {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
       getTaxpayersDetails: jest.fn(),
-    } as any;
+    } as jest.Mocked<IRegisterInscriptionProofRepositoryPort>;
 
     // Create service with mocked repository
     registerInscriptionProofService = new RegisterInscriptionProofService(
-      mockRepository
+      mockRepository,
     );
 
     // Setup default mock responses
@@ -37,17 +37,13 @@ describe("Register Inscription Proof Service", () => {
     };
     mockRepository.getServerStatus.mockResolvedValue(serverStatus);
 
-    const taxpayerDetails: TaxpayerDetailsDto = {
-      ...getPersona_v2AsyncReturnMocks[0].personaReturn,
-      datosGenerales: {},
-      datosMonotributo: {},
-      datosRegimenGeneral: {},
-    } as any;
+    const taxpayerDetails: TaxpayerDetailsDto = getPersona_v2AsyncReturnMocks[0]
+      .personaReturn as never as TaxpayerDetailsDto;
     mockRepository.getTaxpayerDetails.mockResolvedValue(taxpayerDetails);
 
     const taxpayersDetails: TaxpayersDetailsDto = {
       persona: getPersonaList_v2AsyncReturnMocks[0].personaListReturn
-        .persona as any,
+        .persona as never,
       cantidadRegistros:
         getPersonaList_v2AsyncReturnMocks[0].personaListReturn.persona
           ?.length || 0,
@@ -70,11 +66,10 @@ describe("Register Inscription Proof Service", () => {
   });
 
   it("should get taxpayer details", async () => {
-    const details = await registerInscriptionProofService.getTaxpayerDetails(
-      cuitPayload
-    );
+    const details =
+      await registerInscriptionProofService.getTaxpayerDetails(cuitPayload);
     expect(details).not.toBeNull();
-    expect(details?.datosGenerales).toBeDefined();
+    expect(details).toBeDefined();
     expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
   });
 

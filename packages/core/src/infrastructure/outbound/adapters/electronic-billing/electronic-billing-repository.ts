@@ -105,23 +105,9 @@ export class ElectronicBillingRepository
       ? EndpointsEnum.WSFEV1
       : EndpointsEnum.WSFEV1_TEST;
 
-    let client: IServiceSoapSoap | IServiceSoap12Soap;
-    let soapVersion: SoapServiceVersion;
-
-    if (this.useSoap12) {
-      client = await this.soapClient.createClient<IServiceSoap12Soap>(
-        wsdlName,
-        {
-          forceSoap12Headers: true,
-        },
-      );
-      soapVersion = SoapServiceVersion.ServiceSoap12;
-    } else {
-      client = await this.soapClient.createClient<IServiceSoapSoap>(wsdlName, {
-        forceSoap12Headers: false,
-      });
-      soapVersion = SoapServiceVersion.ServiceSoap;
-    }
+    const { client, soapVersion } = await this.createSoapClient<
+      IServiceSoapSoap | IServiceSoap12Soap
+    >(wsdlName);
 
     this.soapClient.setEndpoint(client, endpoint);
 

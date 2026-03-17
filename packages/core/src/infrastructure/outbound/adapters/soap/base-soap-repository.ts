@@ -11,6 +11,8 @@ import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/en
 import {
   BaseSoapRepositoryConstructorConfig,
   AuthenticatedProxyOptions,
+  SoapClientOptions,
+  SoapClientResult,
 } from "@infrastructure/outbound/ports/soap/soap-repository.types";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
@@ -36,6 +38,29 @@ export abstract class BaseSoapRepository {
   }
 
   /**
+   * Helper to create a SOAP client with the correct version-specific headers
+   * @param wsdl WSDL path or name
+   * @param options Additional SOAP client options
+   * @returns Object containing the created client and the soap version used
+   */
+  protected async createSoapClient<T extends Client>(
+    wsdl: string,
+    options: SoapClientOptions = {},
+  ): Promise<SoapClientResult<T>> {
+    const useSoap12 = options.forceSoap12Headers ?? this.useSoap12;
+    const soapVersion = useSoap12
+      ? SoapServiceVersion.ServiceSoap12
+      : SoapServiceVersion.ServiceSoap;
+
+    const client = await this.soapClient.createClient<T>(wsdl, {
+      ...options,
+      forceSoap12Headers: useSoap12,
+    });
+
+    return { client, soapVersion };
+  }
+
+  /**
    * Create a proxy that automatically injects Auth into SOAP method calls
    * Only intercepts methods that actually require Auth (checked via client.describe())
    * @param client SOAP client to proxy
@@ -51,12 +76,13 @@ export abstract class BaseSoapRepository {
       injectAuthProperty = false,
       soapVersion = SoapServiceVersion.ServiceSoap12,
     } = options;
+    const soapServices: SoapServices<T> = (client as any).describe();
+
     return new Proxy(client, {
       get: (target: T, prop: string) => {
         const original = (target as any)[prop];
         if (typeof original === "function" && prop.endsWith("Async")) {
           const func = prop.slice(0, -5);
-          const soapServices: SoapServices<T> = (client as any).describe();
           const methodRequiresAuth =
             !options.excludeMethods?.includes(func) &&
             (!!options.authMapper ||
@@ -64,11 +90,13 @@ export abstract class BaseSoapRepository {
                 undefined);
 
           if (methodRequiresAuth) {
-            return async (params: any) => {
+            return async (params: Record<string, any>) => {
               const ticket = await this.authRepository.login(serviceName);
               const auth = this.authRepository.getAuthParams(ticket, this.cuit);
 
-              let authParams = injectAuthProperty ? auth.Auth : auth;
+              let authParams: Record<string, any> = injectAuthProperty
+                ? (auth.Auth as any)
+                : auth;
 
               if (options.authMapper) {
                 authParams = options.authMapper(auth);

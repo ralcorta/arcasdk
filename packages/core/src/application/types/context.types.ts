@@ -3,6 +3,7 @@
  * Configuration types for the application
  */
 import { ILoginCredentials } from "@domain/entities/access-ticket.entity";
+import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 
 export interface Context {
   /**
@@ -29,6 +30,12 @@ export interface Context {
    * Tokens object if you have one created before
    */
   credentials?: ILoginCredentials;
+
+  /**
+   * Custom ticket storage implementation.
+   * If provided, it will be used instead of the default FileSystemTicketStorage.
+   */
+  ticketStorage?: ITicketStoragePort;
 
   /**
    * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved locally.

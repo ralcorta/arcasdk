@@ -1277,3 +1277,10 @@ export const scopeThirteenGetPersonaAsyncReturnMocks = [
     },
   },
 ];
+export const getTaxIDByDocumentAsyncReturnMocks = [
+  {
+    return: {
+      taxID: "20111111111",
+    },
+  },
+];

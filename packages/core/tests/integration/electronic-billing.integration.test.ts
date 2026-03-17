@@ -245,7 +245,7 @@ describeOrSkip(
                 puntoVenta,
                 tipoComprobante,
               );
-            const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
+            const nextNumber = (lastVoucher.cbteNro || 0) + 1;
 
             const facturaData = {
               CantReg: 1,
@@ -254,8 +254,8 @@ describeOrSkip(
               Concepto: 2, // Services
               DocTipo: 99, // Final Consumer
               DocNro: 0,
-              CbteDesde: siguienteNumero,
-              CbteHasta: siguienteNumero,
+              CbteDesde: nextNumber,
+              CbteHasta: nextNumber,
               CbteFch: fecha,
               ImpTotal: impTotal,
               ImpTotConc: 0,

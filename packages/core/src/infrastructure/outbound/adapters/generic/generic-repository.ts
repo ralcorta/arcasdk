@@ -19,26 +19,13 @@ export class GenericRepository
     serviceName: string,
     methodName: string,
     params: any,
-    options?: { wsdlContent?: string }
+    options?: { wsdlContent?: string },
   ): Promise<any> {
     const wsdlName = serviceName;
 
-    let client: any;
-    let soapVersion: SoapServiceVersion;
-
-    if (this.useSoap12) {
-      client = await this.soapClient.createClient(wsdlName, {
-        forceSoap12Headers: true,
-        wsdlContent: options?.wsdlContent,
-      });
-      soapVersion = SoapServiceVersion.ServiceSoap12;
-    } else {
-      client = await this.soapClient.createClient(wsdlName, {
-        forceSoap12Headers: false,
-        wsdlContent: options?.wsdlContent,
-      });
-      soapVersion = SoapServiceVersion.ServiceSoap;
-    }
+    const { client, soapVersion } = await this.createSoapClient(wsdlName, {
+      wsdlContent: options?.wsdlContent,
+    });
 
     const authenticatedClient = this.createAuthenticatedProxy(client, {
       serviceName: serviceName as any,
@@ -50,7 +37,7 @@ export class GenericRepository
 
     if (typeof authenticatedClient[methodAsync] !== "function") {
       throw new Error(
-        `Method ${methodName} not found on service ${serviceName}`
+        `Method ${methodName} not found on service ${serviceName}`,
       );
     }
 

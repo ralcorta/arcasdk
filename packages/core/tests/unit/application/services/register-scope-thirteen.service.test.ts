@@ -3,9 +3,11 @@ import { IRegisterScopeThirteenRepositoryPort } from "@arcasdk/core/src/applicat
 import {
   scopeThirteenDummyAsyncReturnMocks,
   scopeThirteenGetPersonaAsyncReturnMocks,
+  getTaxIDByDocumentAsyncReturnMocks,
 } from "../../../mocks/data/soapClient.mock";
 import {
   RegisterServerStatusDto,
+  TaxIDByDocumentResultDto,
   TaxpayerDetailsDto,
 } from "@arcasdk/core/src/application/dto/register.dto";
 
@@ -20,11 +22,11 @@ describe("Register Scope Thirteen Service", () => {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
       getTaxIDByDocument: jest.fn(),
-    } as any;
+    } as jest.Mocked<IRegisterScopeThirteenRepositoryPort>;
 
     // Create service with mocked repository
     registerScopeThirteenService = new RegisterScopeThirteenService(
-      mockRepository
+      mockRepository,
     );
 
     // Setup default mock responses
@@ -35,9 +37,19 @@ describe("Register Scope Thirteen Service", () => {
     };
     mockRepository.getServerStatus.mockResolvedValue(serverStatus);
 
-    const taxpayerDetails: TaxpayerDetailsDto =
-      scopeThirteenGetPersonaAsyncReturnMocks[0].personaReturn as any;
+    const taxpayerDetails: TaxpayerDetailsDto = {
+      ...(scopeThirteenGetPersonaAsyncReturnMocks[0]
+        .personaReturn as never as TaxpayerDetailsDto),
+      datosGenerales: {},
+      datosMonotributo: {},
+      datosRegimenGeneral: {},
+    };
     mockRepository.getTaxpayerDetails.mockResolvedValue(taxpayerDetails);
+
+    const taxIDByDocument: TaxIDByDocumentResultDto = {
+      taxID: getTaxIDByDocumentAsyncReturnMocks[0].return.taxID,
+    };
+    mockRepository.getTaxIDByDocument.mockResolvedValue(taxIDByDocument);
   });
 
   afterEach(() => {
@@ -55,30 +67,23 @@ describe("Register Scope Thirteen Service", () => {
   });
 
   it("should get taxpayer details", async () => {
-    const details = await registerScopeThirteenService.getTaxpayerDetails(
-      cuitPayload
-    );
+    const details =
+      await registerScopeThirteenService.getTaxpayerDetails(cuitPayload);
     expect(details).not.toBeNull();
-    // expect(details?.persona).toBeDefined(); // Service returns DTO directly
-    expect(details).toBeDefined();
+    expect(details?.datosGenerales).toBeDefined();
     expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
   });
 
-  it("should get tax id by document", async () => {
-    const documentNumber = "11111111";
-    const mockResult = {
-      idPersona: [20111111111],
-      errorConstancia: undefined,
-    };
-    mockRepository.getTaxIDByDocument.mockResolvedValue(mockResult);
-
-    const result = await registerScopeThirteenService.getTaxIDByDocument(
-      documentNumber
+  it("should get tax ID by document", async () => {
+    const documentNumber = "20111111111";
+    const result =
+      await registerScopeThirteenService.getTaxIDByDocument(documentNumber);
+    expect(result).not.toBeNull();
+    expect(result.taxID).toEqual(
+      getTaxIDByDocumentAsyncReturnMocks[0].return.taxID,
     );
-
-    expect(result).toEqual(mockResult);
     expect(mockRepository.getTaxIDByDocument).toHaveBeenCalledWith(
-      documentNumber
+      documentNumber,
     );
   });
 });

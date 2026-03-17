@@ -19,7 +19,7 @@ describe("Register Scope Ten Service", () => {
     mockRepository = {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
-    } as any;
+    } as jest.Mocked<IRegisterScopeTenRepositoryPort>;
 
     // Create service with mocked repository
     registerScopeTenService = new RegisterScopeTenService(mockRepository);
@@ -33,7 +33,8 @@ describe("Register Scope Ten Service", () => {
     mockRepository.getServerStatus.mockResolvedValue(serverStatus);
 
     const taxpayerDetails: TaxpayerDetailsDto =
-      scopeTenGetPersonaAsyncReturnMocks[0].personaReturn as any;
+      scopeTenGetPersonaAsyncReturnMocks[0]
+        .personaReturn as never as TaxpayerDetailsDto;
     mockRepository.getTaxpayerDetails.mockResolvedValue(taxpayerDetails);
   });
 
@@ -52,9 +53,8 @@ describe("Register Scope Ten Service", () => {
   });
 
   it("should get taxpayer details", async () => {
-    const details = await registerScopeTenService.getTaxpayerDetails(
-      cuitPayload
-    );
+    const details =
+      await registerScopeTenService.getTaxpayerDetails(cuitPayload);
     expect(details).not.toBeNull();
     // expect(details?.persona).toBeDefined(); // Service returns DTO directly
     expect(details).toBeDefined();

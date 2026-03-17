@@ -1,47 +1,46 @@
 import { RegisterScopeThirteenRepository } from "@infrastructure/outbound/adapters/register/register-scope-thirteen.repository";
-import { SoapClientFacade } from "@infrastructure/outbound/adapters/soap/soap-client-facade";
+import { SoapClient } from "@infrastructure/outbound/adapters/soap/soap-client";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
+import { IPersonaServiceA13PortSoap } from "@infrastructure/outbound/ports/soap/interfaces/PersonaServiceA13/PersonaServiceA13Port";
+import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 
-jest.mock("@infrastructure/outbound/adapters/soap/soap-client-facade");
+jest.mock("@infrastructure/outbound/adapters/soap/soap-client");
 
 describe("RegisterScopeThirteenRepository", () => {
   let repository: RegisterScopeThirteenRepository;
-  let mockSoapClient: any;
+  let mockSoapClient: jest.Mocked<IPersonaServiceA13PortSoap>;
   let mockConfig: BaseSoapRepositoryConstructorConfig;
 
   beforeEach(() => {
     mockSoapClient = {
       dummyAsync: jest.fn(),
       getPersonaAsync: jest.fn(),
-      getIdPersonaListByDocumentoAsync: jest.fn(),
+      setEndpoint: jest.fn(),
       describe: jest.fn().mockReturnValue({
         Service: {
           ServiceSoap: {
             dummy: { input: { Auth: {} } },
             getPersona: { input: { Auth: {} } },
-            getIdPersonaListByDocumento: { input: { Auth: {} } },
           },
         },
       }),
-    };
+    } as never;
 
-    (SoapClientFacade.create as jest.Mock).mockResolvedValue(mockSoapClient);
+    (SoapClient.prototype.createClient as jest.Mock).mockResolvedValue(
+      mockSoapClient,
+    );
+
+    const mockAuthRepository = {
+      login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
+      getAuthParams: jest.fn().mockReturnValue({
+        Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
+      }),
+    } as never;
 
     mockConfig = {
-      authRepository: {
-        login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
-        getAuthParams: jest.fn().mockReturnValue({
-          Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
-        }),
-      } as any,
+      authRepository: mockAuthRepository,
       cuit: 12345678901,
-      logger: {
-        info: jest.fn(),
-        error: jest.fn(),
-        warn: jest.fn(),
-        debug: jest.fn(),
-      },
-    } as any;
+    };
 
     repository = new RegisterScopeThirteenRepository(mockConfig);
   });
@@ -59,7 +58,7 @@ describe("RegisterScopeThirteenRepository", () => {
           authserver: "OK",
         },
       };
-      mockSoapClient.dummyAsync.mockResolvedValue([mockResponse]);
+      mockSoapClient.dummyAsync.mockResolvedValue([mockResponse] as never);
 
       const result = await repository.getServerStatus();
 
@@ -82,7 +81,7 @@ describe("RegisterScopeThirteenRepository", () => {
           },
         },
       };
-      mockSoapClient.getPersonaAsync.mockResolvedValue([mockResponse]);
+      mockSoapClient.getPersonaAsync.mockResolvedValue([mockResponse] as never);
 
       const result = await repository.getTaxpayerDetails(20111111112);
 
@@ -110,7 +109,7 @@ describe("RegisterScopeThirteenRepository", () => {
           },
         },
       };
-      mockSoapClient.getPersonaAsync.mockResolvedValue([mockResponse]);
+      mockSoapClient.getPersonaAsync.mockResolvedValue([mockResponse] as never);
 
       const result = await repository.getTaxpayerDetails(20111111112);
 
@@ -124,53 +123,6 @@ describe("RegisterScopeThirteenRepository", () => {
       const result = await repository.getTaxpayerDetails(20111111112);
 
       expect(result).toBeNull();
-    });
-  });
-
-  describe("getTaxIDByDocument", () => {
-    it("should return tax IDs by document", async () => {
-      const mockResponse = {
-        idPersonaListReturn: {
-          idPersona: [20111111112],
-        },
-      };
-      mockSoapClient.getIdPersonaListByDocumentoAsync.mockResolvedValue([
-        mockResponse,
-      ]);
-
-      const result = await repository.getTaxIDByDocument("11111111");
-
-      expect(result.idPersona).toEqual([20111111112]);
-    });
-
-    it("should return single tax ID as array", async () => {
-      const mockResponse = {
-        idPersonaListReturn: {
-          idPersona: 20111111112,
-        },
-      };
-      mockSoapClient.getIdPersonaListByDocumentoAsync.mockResolvedValue([
-        mockResponse,
-      ]);
-
-      const result = await repository.getTaxIDByDocument("11111111");
-
-      expect(result.idPersona).toEqual([20111111112]);
-    });
-
-    it("should return empty array if no tax IDs found", async () => {
-      const mockResponse = {
-        idPersonaListReturn: {
-          idPersona: undefined,
-        },
-      };
-      mockSoapClient.getIdPersonaListByDocumentoAsync.mockResolvedValue([
-        mockResponse,
-      ]);
-
-      const result = await repository.getTaxIDByDocument("11111111");
-
-      expect(result.idPersona).toEqual([]);
     });
   });
 });

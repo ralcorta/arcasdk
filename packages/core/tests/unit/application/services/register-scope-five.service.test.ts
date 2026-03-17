@@ -22,7 +22,7 @@ describe("Register Scope Five Service", () => {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
       getTaxpayersDetails: jest.fn(),
-    } as any;
+    } as jest.Mocked<IRegisterScopeFiveRepositoryPort>;
 
     // Create service with mocked repository
     registerScopeFiveService = new RegisterScopeFiveService(mockRepository);
@@ -36,16 +36,17 @@ describe("Register Scope Five Service", () => {
     mockRepository.getServerStatus.mockResolvedValue(serverStatus);
 
     const taxpayerDetails: TaxpayerDetailsDto = {
-      ...getPersona_v2AsyncReturnMocks[0].personaReturn,
+      ...(getPersona_v2AsyncReturnMocks[0]
+        .personaReturn as never as TaxpayerDetailsDto),
       datosGenerales: {},
       datosMonotributo: {},
       datosRegimenGeneral: {},
-    } as any;
+    };
     mockRepository.getTaxpayerDetails.mockResolvedValue(taxpayerDetails);
 
     const taxpayersDetails: TaxpayersDetailsDto = {
       persona: getPersonaList_v2AsyncReturnMocks[0].personaListReturn
-        .persona as any,
+        .persona as never,
       cantidadRegistros:
         getPersonaList_v2AsyncReturnMocks[0].personaListReturn.persona
           ?.length || 0,
@@ -68,9 +69,8 @@ describe("Register Scope Five Service", () => {
   });
 
   it("should get taxpayer details", async () => {
-    const details = await registerScopeFiveService.getTaxpayerDetails(
-      cuitPayload
-    );
+    const details =
+      await registerScopeFiveService.getTaxpayerDetails(cuitPayload);
     expect(details).not.toBeNull();
     expect(details?.datosGenerales).toBeDefined();
     expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);

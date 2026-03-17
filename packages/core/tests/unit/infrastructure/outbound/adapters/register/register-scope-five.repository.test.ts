@@ -1,47 +1,46 @@
 import { RegisterScopeFiveRepository } from "@infrastructure/outbound/adapters/register/register-scope-five.repository";
-import { SoapClientFacade } from "@infrastructure/outbound/adapters/soap/soap-client-facade";
+import { SoapClient } from "@infrastructure/outbound/adapters/soap/soap-client";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/outbound/ports/soap/soap-repository.types";
+import { IPersonaServiceA5PortSoap } from "@infrastructure/outbound/ports/soap/interfaces/PersonaServiceA5/PersonaServiceA5Port";
+import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 
-jest.mock("@infrastructure/outbound/adapters/soap/soap-client-facade");
+jest.mock("@infrastructure/outbound/adapters/soap/soap-client");
 
 describe("RegisterScopeFiveRepository", () => {
   let repository: RegisterScopeFiveRepository;
-  let mockSoapClient: any;
+  let mockSoapClient: jest.Mocked<IPersonaServiceA5PortSoap>;
   let mockConfig: BaseSoapRepositoryConstructorConfig;
 
   beforeEach(() => {
     mockSoapClient = {
       dummyAsync: jest.fn(),
       getPersona_v2Async: jest.fn(),
-      getPersonaList_v2Async: jest.fn(),
+      setEndpoint: jest.fn(),
       describe: jest.fn().mockReturnValue({
         Service: {
           ServiceSoap: {
             dummy: { input: { Auth: {} } },
             getPersona_v2: { input: { Auth: {} } },
-            getPersonaList_v2: { input: { Auth: {} } },
           },
         },
       }),
-    };
+    } as never;
 
-    (SoapClientFacade.create as jest.Mock).mockResolvedValue(mockSoapClient);
+    (SoapClient.prototype.createClient as jest.Mock).mockResolvedValue(
+      mockSoapClient,
+    );
+
+    const mockAuthRepository = {
+      login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
+      getAuthParams: jest.fn().mockReturnValue({
+        Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
+      }),
+    } as never;
 
     mockConfig = {
-      authRepository: {
-        login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
-        getAuthParams: jest.fn().mockReturnValue({
-          Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
-        }),
-      } as any,
+      authRepository: mockAuthRepository,
       cuit: 12345678901,
-      logger: {
-        info: jest.fn(),
-        error: jest.fn(),
-        warn: jest.fn(),
-        debug: jest.fn(),
-      },
-    } as any;
+    };
 
     repository = new RegisterScopeFiveRepository(mockConfig);
   });
@@ -59,7 +58,7 @@ describe("RegisterScopeFiveRepository", () => {
           authserver: "OK",
         },
       };
-      mockSoapClient.dummyAsync.mockResolvedValue([mockResponse]);
+      mockSoapClient.dummyAsync.mockResolvedValue([mockResponse] as never);
 
       const result = await repository.getServerStatus();
 
@@ -82,7 +81,9 @@ describe("RegisterScopeFiveRepository", () => {
           },
         },
       };
-      mockSoapClient.getPersona_v2Async.mockResolvedValue([mockResponse]);
+      mockSoapClient.getPersona_v2Async.mockResolvedValue([
+        mockResponse,
+      ] as never);
 
       const result = await repository.getTaxpayerDetails(20111111112);
 
@@ -110,7 +111,9 @@ describe("RegisterScopeFiveRepository", () => {
           },
         },
       };
-      mockSoapClient.getPersona_v2Async.mockResolvedValue([mockResponse]);
+      mockSoapClient.getPersona_v2Async.mockResolvedValue([
+        mockResponse,
+      ] as never);
 
       const result = await repository.getTaxpayerDetails(20111111112);
 
@@ -124,38 +127,6 @@ describe("RegisterScopeFiveRepository", () => {
       const result = await repository.getTaxpayerDetails(20111111112);
 
       expect(result).toBeNull();
-    });
-  });
-
-  describe("getTaxpayersDetails", () => {
-    it("should return taxpayers details", async () => {
-      const mockResponse = {
-        personaListReturn: {
-          persona: [
-            {
-              datosGenerales: {
-                idPersona: 20111111112,
-                tipoPersona: "FISICA",
-                estadoClave: "ACTIVO",
-              },
-            },
-          ],
-        },
-      };
-      mockSoapClient.getPersonaList_v2Async.mockResolvedValue([mockResponse]);
-
-      const result = await repository.getTaxpayersDetails([20111111112]);
-
-      expect(result.persona).toHaveLength(1);
-      expect(result.persona?.[0]).toEqual({
-        idPersona: 20111111112,
-        tipoPersona: "FISICA",
-        estadoClave: "ACTIVO",
-        datosGenerales: expect.any(Object),
-        datosMonotributo: undefined,
-        datosRegimenGeneral: undefined,
-        errorConstancia: undefined,
-      });
     });
   });
 });

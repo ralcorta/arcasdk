@@ -10,6 +10,7 @@ import moment from "moment";
 import { Parser } from "@arcasdk/core/src/infrastructure/utils/parser";
 import { Cryptography } from "@arcasdk/core/src/infrastructure/utils/crypt-data";
 import { SoapClient } from "@arcasdk/core/src/infrastructure/outbound/adapters/soap/soap-client";
+import { Client } from "soap";
 
 jest.mock("@infrastructure/utils/parser");
 jest.mock("@infrastructure/utils/crypt-data");
@@ -32,23 +33,24 @@ describe("AuthRepository", () => {
       createClient: jest.fn(),
       setEndpoint: jest.fn(),
       call: jest.fn(),
-    } as any;
+      useHttpsAgent: jest.fn(),
+    } as never;
 
     (SoapClient as jest.MockedClass<typeof SoapClient>).mockImplementation(
-      () => mockSoapClientInstance
+      () => mockSoapClientInstance,
     );
 
     mockTicketStorage = {
       get: jest.fn(),
       save: jest.fn(),
       delete: jest.fn(),
-    } as any;
+    } as jest.Mocked<ITicketStoragePort>;
 
     // Setup Parser mocks
     jest.spyOn(Parser, "jsonToXml").mockReturnValue("<mock-xml>");
     jest.spyOn(Parser, "xmlToJson").mockResolvedValue({
       loginticketresponse: mockLoginCredentials,
-    } as any);
+    } as never);
 
     // Setup Cryptography mocks
     jest.spyOn(Cryptography.prototype, "sign").mockReturnValue("signed-tra");
@@ -78,7 +80,9 @@ describe("AuthRepository", () => {
 
   describe("login", () => {
     it("should return existing ticket from storage if valid", async () => {
-      const existingTicket = AccessTicket.create(mockLoginCredentials);
+      const existingTicket = AccessTicket.create(
+        mockLoginCredentials as ILoginCredentials,
+      );
       mockTicketStorage.get.mockResolvedValue(existingTicket);
 
       adapter = new AuthRepository({
@@ -101,14 +105,14 @@ describe("AuthRepository", () => {
             ...mockLoginCredentials.header[1],
             expirationtime: moment().subtract(1, "day").toISOString(),
           },
-        ] as any,
+        ] as never,
         credentials: mockLoginCredentials.credentials,
       };
       const expiredTicket = AccessTicket.create(expiredCredentials);
       mockTicketStorage.get.mockResolvedValue(expiredTicket);
 
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -131,8 +135,8 @@ describe("AuthRepository", () => {
     it("should request new login if no ticket in storage", async () => {
       mockTicketStorage.get.mockResolvedValue(null);
 
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -153,8 +157,8 @@ describe("AuthRepository", () => {
     });
 
     it("should request new login if no storage is provided", async () => {
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -175,7 +179,9 @@ describe("AuthRepository", () => {
 
   describe("requestLogin", () => {
     it("should return existing valid ticket from storage if available", async () => {
-      const existingTicket = AccessTicket.create(mockLoginCredentials);
+      const existingTicket = AccessTicket.create(
+        mockLoginCredentials as ILoginCredentials,
+      );
       mockTicketStorage.get.mockResolvedValue(existingTicket);
 
       adapter = new AuthRepository({
@@ -198,14 +204,14 @@ describe("AuthRepository", () => {
             ...mockLoginCredentials.header[1],
             expirationtime: moment().subtract(1, "day").toISOString(),
           },
-        ] as any,
+        ] as never,
         credentials: mockLoginCredentials.credentials,
       };
       const expiredTicket = AccessTicket.create(expiredCredentials);
       mockTicketStorage.get.mockResolvedValue(expiredTicket);
 
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -227,8 +233,8 @@ describe("AuthRepository", () => {
     it("should save ticket when handleTicket is false", async () => {
       mockTicketStorage.get.mockResolvedValue(null);
 
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -247,15 +253,15 @@ describe("AuthRepository", () => {
       expect(result).toBeInstanceOf(AccessTicket);
       expect(mockTicketStorage.save).toHaveBeenCalledWith(
         result,
-        ServiceNamesEnum.WSFE
+        ServiceNamesEnum.WSFE,
       );
     });
 
     it("should not save ticket when handleTicket is true", async () => {
       mockTicketStorage.get.mockResolvedValue(null);
 
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -276,8 +282,8 @@ describe("AuthRepository", () => {
     });
 
     it("should not save ticket when no storage is provided", async () => {
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -297,8 +303,8 @@ describe("AuthRepository", () => {
     it("should use production endpoint when production is true", async () => {
       mockTicketStorage.get.mockResolvedValue(null);
 
-      const mockClient = {};
-      mockSoapClientInstance.createClient.mockResolvedValue(mockClient as any);
+      const mockClient = {} as Client;
+      mockSoapClientInstance.createClient.mockResolvedValue(mockClient);
       mockSoapClientInstance.call.mockResolvedValue([
         { loginCmsReturn: "<xml>response</xml>" },
         "",
@@ -321,7 +327,9 @@ describe("AuthRepository", () => {
 
   describe("getAuthParams", () => {
     it("should return formatted auth params", () => {
-      const ticket = AccessTicket.create(mockLoginCredentials);
+      const ticket = AccessTicket.create(
+        mockLoginCredentials as ILoginCredentials,
+      );
       const cuit = 20111111111;
 
       adapter = new AuthRepository({
