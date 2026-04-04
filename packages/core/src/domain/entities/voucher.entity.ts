@@ -5,10 +5,8 @@
 import {
   IVoucher as IVoucherData,
   ICbtesAsoc,
-  IComprador,
   ITributo,
   IIva,
-  IOpcional,
 } from "../types/voucher.types";
 
 /**

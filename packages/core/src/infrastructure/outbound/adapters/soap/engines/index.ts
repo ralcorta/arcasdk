@@ -6,4 +6,6 @@
  * regardless of the environment (Node.js vs Universal/Fetch).
  */
 
-export { createSoapEngine, type EngineConfig } from "./soap-engine.factory";
+export { createSoapEngine } from "./soap-engine.factory";
+export type { EngineConfig } from "@infrastructure/types/soap-engine.types";
+export { detectSoapRuntime, type SoapRuntime } from "@infrastructure/utils/soap-runtime";

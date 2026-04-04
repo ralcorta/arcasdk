@@ -2,21 +2,24 @@
  * Fetch HTTP Client
  * Implements IHttpClient using the native fetch API
  */
+import type {
+  SoapHttpClientRequestArgs,
+  SoapHttpClientRequestReturn,
+  SoapTransportHeaders,
+  SoapTransportLikeResponse,
+} from "@infrastructure/types/soap-engine.types";
 import { IHttpClient } from "soap";
 
 export class FetchHttpClient implements IHttpClient {
   /**
    * Implementation of the soap IHttpClient request method using fetch
    */
-  public request(
-    rurl: string,
-    data: any,
-    callback: (error: any, res?: any, body?: any) => any,
-    exheaders?: any,
-    exoptions?: any,
-  ): any {
+  public request(...args: SoapHttpClientRequestArgs): SoapHttpClientRequestReturn {
+    const [rurl, data, callback, exheaders, exoptions] = args;
     const method = data ? "POST" : "GET";
-    const headers = { ...exheaders };
+    const headers: SoapTransportHeaders = {
+      ...((exheaders ?? {}) as SoapTransportHeaders),
+    };
 
     if (data) {
       headers["Content-Type"] =
@@ -26,16 +29,16 @@ export class FetchHttpClient implements IHttpClient {
     const options: RequestInit = {
       method,
       headers,
-      body: data,
-      ...exoptions,
+      body: (data as BodyInit | null | undefined) ?? null,
+      ...((exoptions ?? {}) as RequestInit),
     };
 
-    fetch(rurl, options)
+    const requestPromise = fetch(rurl, options)
       .then(async (response) => {
         const body = await response.text();
 
         // Map fetch response to what the soap library expects
-        const res = {
+        const res: SoapTransportLikeResponse = {
           statusCode: response.status,
           headers: Object.fromEntries(response.headers.entries()),
           body,
@@ -47,5 +50,7 @@ export class FetchHttpClient implements IHttpClient {
       .catch((error) => {
         callback(error);
       });
+
+    return requestPromise as unknown as SoapHttpClientRequestReturn;
   }
 }

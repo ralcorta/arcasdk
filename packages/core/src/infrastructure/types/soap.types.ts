@@ -1,38 +1,21 @@
+import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
+
 /**
- * Infrastructure Types - SOAP
- * Types related to SOAP infrastructure
+ * Result shape of node-soap promise-style methods:
+ * `[data, raw response XML, SOAP header, raw request XML]`.
  */
-import { IOptions } from "soap";
-import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
-import {
-  EndpointsEnum,
-  SoapServiceVersion,
-} from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+export type SoapAsyncResultTuple<O = unknown, H = unknown> = [
+  O,
+  string,
+  H,
+  string,
+];
 
 export type SoapAsyncFunc<I, O> = (
   input: I,
   options?: any,
-  extraHeaders?: any
-) => Promise<[O, string, { [k: string]: any }, string]>;
-
-export type WSAuthTokens = {
-  token: string;
-  sign: string;
-  expirationDate: string;
-};
-
-export type SoapClientParams = {
-  wsdl: WsdlPathEnum;
-  options?: IOptions;
-};
-
-export type ArcaServiceSoapParam = SoapClientParams & {
-  v12?: boolean;
-  url: EndpointsEnum;
-  url_test?: EndpointsEnum;
-  wsdl_test?: WsdlPathEnum;
-} & { serviceName: ServiceNamesEnum };
+  extraHeaders?: any,
+) => Promise<SoapAsyncResultTuple<O, { [k: string]: any }>>;
 
 export type SoapServices<T> = Record<
   "Service",

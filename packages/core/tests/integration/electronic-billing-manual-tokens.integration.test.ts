@@ -6,18 +6,15 @@ import EnvTest from "../utils/env-test";
 import { existsSync, mkdirSync } from "fs";
 import { promises as fs } from "fs";
 import { resolve } from "path";
-import { AuthRepository } from "../../src/infrastructure/outbound/adapters/auth/auth.repository";
+import { AuthRepository } from "../../src/infrastructure/outbound/adapters/repositories/auth/auth.repository";
 
-const keyPath = ContextTest.getKeyPath();
-const certPath = ContextTest.getCertPath();
-const hasRealCertificates = existsSync(keyPath) && existsSync(certPath);
+const describeOrSkip = EnvTest.enableIntegrationTests
+  ? describe
+  : describe.skip;
 
-const describeOrSkip = hasRealCertificates ? describe : describe.skip;
-
-if (!hasRealCertificates) {
-  console.warn(
-    "\n⚠️  Skipping integration tests: Real homologation certificates not found.\n" +
-      "   Set TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME, TEST_CERT_FILE_NAME, and CUIT environment variables.\n",
+if (!EnvTest.enableIntegrationTests) {
+  console.info(
+    "Omitiendo tests de integración: defina ENABLE_INTEGRATION_TESTS=true para ejecutarlos.",
   );
 }
 
@@ -27,6 +24,16 @@ describeOrSkip(
     let arca: Arca;
 
     beforeAll(async () => {
+      const keyPath = ContextTest.getKeyPath();
+      const certPath = ContextTest.getCertPath();
+      if (!existsSync(keyPath) || !existsSync(certPath)) {
+        throw new Error(
+          "Tests de integración: faltan certificados de homologación. " +
+            `Clave: ${keyPath}, certificado: ${certPath}. ` +
+            "Configure TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME y TEST_CERT_FILE_NAME.",
+        );
+      }
+
       const cuit = parseInt(EnvTest.cuit);
       const production = false;
       const serviceName = ServiceNamesEnum.WSFE;
@@ -198,6 +205,8 @@ describeOrSkip(
           await arca.electronicBillingService.getSalesPoints();
         const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
+        console.log(JSON.stringify(salesPoints.errors, null, 2));
+
         if (salesPointsList.length === 0) {
           console.warn("No sales points available for testing");
           return;
@@ -294,6 +303,8 @@ describeOrSkip(
               );
             const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
+            console.log(JSON.stringify(lastVoucher));
+
             const facturaData = {
               CantReg: 1,
               PtoVta: puntoVenta,
@@ -320,6 +331,7 @@ describeOrSkip(
 
             const resultado =
               await arca.electronicBillingService.createVoucher(facturaData);
+            console.log(JSON.stringify(resultado));
 
             const hasRetryableError = resultado.response.Errors?.Err?.some(
               (err) =>
@@ -343,7 +355,7 @@ describeOrSkip(
         expect(resultado).toBeDefined();
         expect(resultado.response).toBeDefined();
 
-        const { FeCabResp, FeDetResp, Errors, Events } = resultado.response;
+        const { FeCabResp, FeDetResp, Errors } = resultado.response;
         expect(FeCabResp).toBeDefined();
         expect(FeDetResp).toBeDefined();
         expect(FeDetResp.FECAEDetResponse).toBeDefined();

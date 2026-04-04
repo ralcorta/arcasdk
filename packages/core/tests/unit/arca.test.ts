@@ -2,13 +2,13 @@ import { Arca } from "@arcasdk/core/src/infrastructure/composition/arca";
 import { Context } from "@arcasdk/core/src/application/types";
 import { FileSystemTicketStorage } from "@arcasdk/core/src/infrastructure/outbound/adapters/storage/file-system-ticket-storage";
 import { MemoryTicketStorage } from "@arcasdk/core/src/infrastructure/outbound/adapters/storage/memory-ticket-storage";
-import { AuthRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/auth/auth.repository";
-import { ElectronicBillingRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/electronic-billing/electronic-billing-repository";
-import { RegisterScopeFourRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-four.repository";
-import { RegisterScopeFiveRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-five.repository";
-import { RegisterScopeTenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-ten.repository";
-import { RegisterScopeThirteenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-thirteen.repository";
-import { RegisterInscriptionProofRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-inscription-proof.repository";
+import { AuthRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/auth/auth.repository";
+import { ElectronicBillingRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/electronic-billing/electronic-billing-repository";
+import { RegisterScopeFourRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-four.repository";
+import { RegisterScopeFiveRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-five.repository";
+import { RegisterScopeTenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-ten.repository";
+import { RegisterScopeThirteenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-thirteen.repository";
+import { RegisterInscriptionProofRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-inscription-proof.repository";
 import { ElectronicBillingService } from "@arcasdk/core/src/application/services/electronic-billing.service";
 import { RegisterInscriptionProofService } from "@arcasdk/core/src/application/services/register-inscription-proof.service";
 import { RegisterScopeFourService } from "@arcasdk/core/src/application/services/register-scope-four.service";
@@ -28,25 +28,25 @@ jest.mock(
   "@arcasdk/core/src/infrastructure/outbound/adapters/storage/memory-ticket-storage",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/auth/auth.repository",
+  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/auth/auth.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/electronic-billing/electronic-billing-repository",
+  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/electronic-billing/electronic-billing-repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-four.repository",
+  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-four.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-five.repository",
+  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-five.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-ten.repository",
+  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-ten.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-scope-thirteen.repository",
+  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-thirteen.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/register/register-inscription-proof.repository",
+  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-inscription-proof.repository",
 );
 jest.mock("@arcasdk/core/src/application/services/electronic-billing.service");
 jest.mock(

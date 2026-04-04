@@ -6,6 +6,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      NX_DAEMON: "false"
     permissions:
       contents: write
       packages: write

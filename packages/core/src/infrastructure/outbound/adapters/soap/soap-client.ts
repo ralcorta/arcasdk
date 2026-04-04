@@ -1,8 +1,9 @@
-import {
-  ISoapClientPort,
+import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
+import type {
   ISoapOptions,
-} from "@infrastructure/outbound/ports/soap/soap-client.port";
-import { Client, createClientAsync } from "soap";
+  SoapCallResult,
+} from "@infrastructure/types/soap-client.types";
+import { Client, createClientAsync, type IOptions } from "soap";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 import { getWsdlString } from "./wsdl-strings";
 import { isNode } from "std-env";
@@ -18,31 +19,37 @@ export class SoapClient implements ISoapClientPort {
     wsdlName: string,
     options: ISoapOptions = {},
   ): Promise<T> {
-    const finalOptions: any = {
+    const {
+      wsdlContent,
+      request: adapterRequestOptions,
+      ...soapOptions
+    } = options;
+    const finalOptions: IOptions & Record<string, unknown> = {
+      ...soapOptions,
       disableCache: true,
-      forceSoap12Headers: options?.forceSoap12Headers ?? false,
-      ...options,
+      forceSoap12Headers: soapOptions.forceSoap12Headers ?? false,
     };
 
-    // Use the unified Factory to handle environment-specific transport
     if (!finalOptions.httpClient) {
       /**
        * We use dynamic import here to avoid loading the entire engines module
        * (which might include Node-specific or Universal-specific code)
        * until we absolutely need it during client creation.
        */
-      const { createSoapEngine } = await import("./engines");
+      const { createSoapEngine, detectSoapRuntime } = await import("./engines");
       finalOptions.httpClient = await createSoapEngine({
-        isNode,
+        runtime: options.runtime ?? detectSoapRuntime(isNode),
         useHttpsAgent: this.useHttpsAgent,
-        requestOptions: finalOptions.request,
+        requestOptions:
+          adapterRequestOptions == null
+            ? undefined
+            : (adapterRequestOptions as IOptions),
       });
     }
 
-    // Resolve WSDL content
     let wsdlXml: string | undefined;
-    if (options?.wsdlContent) {
-      wsdlXml = options.wsdlContent;
+    if (wsdlContent) {
+      wsdlXml = wsdlContent;
     } else {
       wsdlXml = getWsdlString(wsdlName);
       if (!wsdlXml) {
@@ -50,25 +57,25 @@ export class SoapClient implements ISoapClientPort {
       }
     }
 
-    // Create client using soap library
-    return (await createClientAsync(wsdlXml!, finalOptions)) as T;
+    return (await createClientAsync(wsdlXml, finalOptions)) as T;
   }
 
-  setEndpoint(client: any, endpoint: string): void {
-    if (client && typeof client.setEndpoint === "function") {
+  setEndpoint(client: Client, endpoint: string): void {
+    if (typeof client.setEndpoint === "function") {
       client.setEndpoint(endpoint);
     }
   }
 
-  async call<T extends [any, string, any, string]>(
-    client: any,
+  async call<T extends SoapCallResult>(
+    client: Client,
     methodName: string,
-    params: any,
+    params: unknown,
   ): Promise<T> {
-    if (!client || typeof client[methodName] !== "function") {
+    const method = client[methodName];
+    if (typeof method !== "function") {
       throw new Error(`Method ${methodName} not found on SOAP client`);
     }
 
-    return client[methodName](params) as Promise<T>;
+    return method(params) as Promise<T>;
   }
 }

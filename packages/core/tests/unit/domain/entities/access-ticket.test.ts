@@ -1,5 +1,5 @@
 import { mockLoginCredentials } from "../../../mocks/data/credential-json.mock";
-import moment from "moment";
+import { MS_PER_DAY } from "../../../utils/time.constants";
 import {
   AccessTicket,
   ILoginCredentials,
@@ -11,7 +11,7 @@ describe("Access Ticket", () => {
     it("should return the sign", () => {
       const accessTicket = AccessTicket.create(mockLoginCredentials);
       expect(accessTicket.getSign()).toBe(
-        mockLoginCredentials.credentials.sign
+        mockLoginCredentials.credentials.sign,
       );
     });
   });
@@ -20,7 +20,7 @@ describe("Access Ticket", () => {
     it("should return the token", () => {
       const accessTicket = AccessTicket.create(mockLoginCredentials);
       expect(accessTicket.getToken()).toBe(
-        mockLoginCredentials.credentials.token
+        mockLoginCredentials.credentials.token,
       );
     });
   });
@@ -86,8 +86,8 @@ describe("Access Ticket", () => {
             source: "source",
             destination: "destination",
             uniqueid: "uniqueid",
-            generationtime: moment().toISOString(),
-            expirationtime: moment().subtract(1, "day").toISOString(),
+            generationtime: new Date().toISOString(),
+            expirationtime: new Date(Date.now() - MS_PER_DAY).toISOString(),
           },
         ],
         credentials: {

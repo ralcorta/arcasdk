@@ -4,16 +4,13 @@ import EnvTest from "../utils/env-test";
 import { existsSync, mkdirSync } from "fs";
 import { resolve } from "path";
 
-const keyPath = ContextTest.getKeyPath();
-const certPath = ContextTest.getCertPath();
-const hasRealCertificates = existsSync(keyPath) && existsSync(certPath);
+const describeOrSkip = EnvTest.enableIntegrationTests
+  ? describe
+  : describe.skip;
 
-const describeOrSkip = hasRealCertificates ? describe : describe.skip;
-
-if (!hasRealCertificates) {
-  console.warn(
-    "\n⚠️  Skipping integration tests: Real homologation certificates not found.\n" +
-      "   Set TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME, TEST_CERT_FILE_NAME, and CUIT environment variables.\n",
+if (!EnvTest.enableIntegrationTests) {
+  console.info(
+    "Omitiendo tests de integración: defina ENABLE_INTEGRATION_TESTS=true para ejecutarlos.",
   );
 }
 
@@ -27,6 +24,16 @@ describeOrSkip(
     );
 
     beforeAll(async () => {
+      const keyPath = ContextTest.getKeyPath();
+      const certPath = ContextTest.getCertPath();
+      if (!existsSync(keyPath) || !existsSync(certPath)) {
+        throw new Error(
+          "Tests de integración: faltan certificados de homologación. " +
+            `Clave: ${keyPath}, certificado: ${certPath}. ` +
+            "Configure TEST_CREDENTIALS_FOLDER, TEST_PRIVATE_KEY_FILE_NAME y TEST_CERT_FILE_NAME.",
+        );
+      }
+
       if (!existsSync(ticketsPath)) {
         mkdirSync(ticketsPath, { recursive: true });
       }
@@ -298,7 +305,7 @@ describeOrSkip(
         expect(resultado).toBeDefined();
         expect(resultado.response).toBeDefined();
 
-        const { FeCabResp, FeDetResp, Errors, Events } = resultado.response;
+        const { FeCabResp, FeDetResp, Errors } = resultado.response;
         expect(FeCabResp).toBeDefined();
         expect(FeDetResp).toBeDefined();
         expect(FeDetResp.FECAEDetResponse).toBeDefined();

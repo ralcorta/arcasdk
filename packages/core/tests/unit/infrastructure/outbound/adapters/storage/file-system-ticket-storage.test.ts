@@ -240,7 +240,6 @@ describe("FileSystemTicketStorage", () => {
 
     it("should throw error if deletion fails for other reasons", async () => {
       const serviceName = ServiceNamesEnum.WSFE;
-      const error = new Error("Permission denied");
 
       (fs.unlink as jest.Mock).mockRejectedValue({
         code: "EACCES",

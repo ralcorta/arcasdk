@@ -14,6 +14,8 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
+    env:
+      NX_DAEMON: "false"
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

@@ -8,12 +8,12 @@ import { SoapClient } from "./soap-client";
 import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
+import type { ISoapOptions } from "@infrastructure/types/soap-client.types";
 import {
   BaseSoapRepositoryConstructorConfig,
   AuthenticatedProxyOptions,
-  SoapClientOptions,
   SoapClientResult,
-} from "@infrastructure/outbound/ports/soap/soap-repository.types";
+} from "@infrastructure/types/soap-repository.types";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
 /**
@@ -45,7 +45,7 @@ export abstract class BaseSoapRepository {
    */
   protected async createSoapClient<T extends Client>(
     wsdl: string,
-    options: SoapClientOptions = {},
+    options: ISoapOptions = {},
   ): Promise<SoapClientResult<T>> {
     const useSoap12 = options.forceSoap12Headers ?? this.useSoap12;
     const soapVersion = useSoap12
@@ -76,11 +76,11 @@ export abstract class BaseSoapRepository {
       injectAuthProperty = false,
       soapVersion = SoapServiceVersion.ServiceSoap12,
     } = options;
-    const soapServices: SoapServices<T> = (client as any).describe();
+    const soapServices = client.describe();
 
     return new Proxy(client, {
       get: (target: T, prop: string) => {
-        const original = (target as any)[prop];
+        const original = target[prop];
         if (typeof original === "function" && prop.endsWith("Async")) {
           const func = prop.slice(0, -5);
           const methodRequiresAuth =
@@ -90,20 +90,20 @@ export abstract class BaseSoapRepository {
                 undefined);
 
           if (methodRequiresAuth) {
-            return async (params: Record<string, any>) => {
+            return async (params: Record<string, unknown>) => {
               const ticket = await this.authRepository.login(serviceName);
               const auth = this.authRepository.getAuthParams(ticket, this.cuit);
 
-              let authParams: Record<string, any> = injectAuthProperty
-                ? (auth.Auth as any)
-                : auth;
+              let authParams: Record<string, unknown> = injectAuthProperty
+                ? (auth.Auth as unknown as Record<string, unknown>)
+                : (auth as unknown as Record<string, unknown>);
 
               if (options.authMapper) {
                 authParams = options.authMapper(auth);
               }
 
               const paramsWithAuth = { ...authParams, ...params };
-              return (original as any).call(target, paramsWithAuth);
+              return original.call(target, paramsWithAuth);
             };
           }
         }

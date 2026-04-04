@@ -1,5 +1,7 @@
-import moment from "moment";
 import { ILoginCredentials } from "@arcasdk/core/src/domain/entities/access-ticket.entity";
+import { MS_PER_DAY } from "../../utils/time.constants";
+
+const now = new Date();
 
 export const mockLoginCredentials: ILoginCredentials = {
   header: [
@@ -10,8 +12,8 @@ export const mockLoginCredentials: ILoginCredentials = {
       source: "source",
       destination: "destination",
       uniqueid: "uniqueid",
-      generationtime: moment().toISOString(),
-      expirationtime: moment().add(1, "day").toISOString(),
+      generationtime: now.toISOString(),
+      expirationtime: new Date(now.getTime() + MS_PER_DAY).toISOString(),
     },
   ],
   credentials: {

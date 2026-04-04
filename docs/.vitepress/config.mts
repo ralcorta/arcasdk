@@ -55,6 +55,7 @@ export default withMermaid(
             { text: "🎉 Introducción", link: "/introduction" },
             { text: "🚀 Uso basico", link: "/basic-use" },
             { text: "⚙️ Configuración", link: "/config" },
+            { text: "🧩 Engines SOAP", link: "/soap-engines" },
             { text: "🧐 Comportamiento", link: "/behaviour" },
             {
               text: "☁️ Gestión de Credenciales",

@@ -6,7 +6,7 @@ import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticke
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 import { promises as fs } from "fs";
 import { resolve } from "path";
-import { FileSystemTicketStorageConfig } from "@infrastructure/outbound/ports/storage/ticket-storage.types";
+import { FileSystemTicketStorageConfig } from "@infrastructure/types/ticket-storage.types";
 
 export class FileSystemTicketStorage implements ITicketStoragePort {
   private ticketPath: string;

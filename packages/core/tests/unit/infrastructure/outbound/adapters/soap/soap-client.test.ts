@@ -1,5 +1,6 @@
 import { SoapClient } from "@arcasdk/core/src/infrastructure/outbound/adapters/soap/soap-client";
-import { Client, createClientAsync } from "soap";
+import { Client, createClientAsync, type IHttpClient } from "soap";
+import { SoapRuntime } from "@arcasdk/core/src/infrastructure/utils/soap-runtime";
 
 // Mock the wsdl-strings module
 jest.mock(
@@ -11,10 +12,12 @@ jest.mock(
 
 // Mock the engines module
 const mockCreateSoapEngine = jest.fn();
+const mockDetectSoapRuntime = jest.fn();
 jest.mock(
   "@arcasdk/core/src/infrastructure/outbound/adapters/soap/engines",
   () => ({
     createSoapEngine: mockCreateSoapEngine,
+    detectSoapRuntime: mockDetectSoapRuntime,
   }),
 );
 
@@ -67,6 +70,8 @@ describe("SoapClient", () => {
     MockedGetWsdlString.mockReturnValue(
       '<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions></wsdl:definitions>',
     );
+
+    mockDetectSoapRuntime.mockReturnValue(SoapRuntime.Universal);
   });
 
   afterEach(() => {
@@ -81,6 +86,11 @@ describe("SoapClient", () => {
       expect(client).toBe(mockClient);
       expect(MockedGetWsdlString).toHaveBeenCalledWith(wsdlName);
       expect(mockCreateSoapEngine).toHaveBeenCalled();
+      expect(mockCreateSoapEngine).toHaveBeenCalledWith(
+        expect.objectContaining({
+          runtime: expect.any(String),
+        }),
+      );
       expect(MockedCreateClientAsync).toHaveBeenCalledWith(
         expect.any(String),
         expect.objectContaining({
@@ -110,6 +120,77 @@ describe("SoapClient", () => {
           disableCache: true,
           forceSoap12Headers: true,
           customOption: "value",
+        }),
+      );
+    });
+
+    it("should use explicit runtime when provided in options", async () => {
+      const wsdlName = "wsfe.wsdl";
+      await soapClient.createClient<Client>(wsdlName, {
+        runtime: SoapRuntime.Universal,
+      });
+
+      expect(mockCreateSoapEngine).toHaveBeenCalledWith(
+        expect.objectContaining({
+          runtime: SoapRuntime.Universal,
+        }),
+      );
+    });
+
+    it("should skip internal engine factory when custom httpClient is provided", async () => {
+      const wsdlName = "wsfe.wsdl";
+      const customHttpClient = {
+        request: jest.fn(),
+      } as unknown as IHttpClient;
+
+      await soapClient.createClient<Client>(wsdlName, {
+        httpClient: customHttpClient,
+      });
+
+      expect(mockCreateSoapEngine).not.toHaveBeenCalled();
+      expect(MockedCreateClientAsync).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({
+          httpClient: customHttpClient,
+        }),
+      );
+    });
+
+    it("should prioritize custom httpClient even when runtime is provided", async () => {
+      const wsdlName = "wsfe.wsdl";
+      const customHttpClient = {
+        request: jest.fn(),
+      } as unknown as IHttpClient;
+
+      await soapClient.createClient<Client>(wsdlName, {
+        runtime: SoapRuntime.Universal,
+        httpClient: customHttpClient,
+      });
+
+      expect(mockCreateSoapEngine).not.toHaveBeenCalled();
+      expect(MockedCreateClientAsync).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({
+          runtime: SoapRuntime.Universal,
+          httpClient: customHttpClient,
+        }),
+      );
+    });
+
+    it("should pass request options to internal engine factory", async () => {
+      const wsdlName = "wsfe.wsdl";
+      const requestOptions = {
+        timeout: 5000,
+        headers: { "X-Test": "1" },
+      };
+
+      await soapClient.createClient<Client>(wsdlName, {
+        request: requestOptions,
+      });
+
+      expect(mockCreateSoapEngine).toHaveBeenCalledWith(
+        expect.objectContaining({
+          requestOptions,
         }),
       );
     });
@@ -178,5 +259,6 @@ describe("SoapClient", () => {
         soapClient.call(mockClient, methodName, params),
       ).rejects.toThrow(`Method ${methodName} not found on SOAP client`);
     });
+
   });
 });

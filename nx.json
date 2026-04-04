@@ -15,7 +15,6 @@
             "!{projectRoot}/src/test-setup.[jt]s",
             "!{projectRoot}/test-setup.[jt]s",
             "!{projectRoot}/.eslintrc.json",
-            "!{projectRoot}/jest.preset.js",
             "!{projectRoot}/.eslintrc.json"
         ],
         "sharedGlobals": []
@@ -34,8 +33,7 @@
         "test": {
             "inputs": [
                 "default",
-                "^production",
-                "{workspaceRoot}/jest.preset.js"
+                "^production"
             ],
             "cache": true
         },

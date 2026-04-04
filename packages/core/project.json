@@ -24,34 +24,42 @@
             ]
         },
         "test": {
-            "executor": "nx:run-commands",
+            "executor": "@nx/jest:jest",
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+            ],
             "options": {
-                "command": "jest",
-                "cwd": "packages/core"
+                "jestConfig": "packages/core/jest.config.js",
+                "passWithNoTests": false
             },
             "configurations": {
                 "unit": {
-                    "command": "jest ./tests/unit",
-                    "cwd": "packages/core"
+                    "jestConfig": "packages/core/jest.config.js"
                 },
                 "integration": {
-                    "command": "jest ./tests/integration",
-                    "cwd": "packages/core"
+                    "jestConfig": "packages/core/jest.integration.config.js",
+                    "passWithNoTests": true
                 }
             }
         },
         "test:unit": {
-            "executor": "nx:run-commands",
+            "executor": "@nx/jest:jest",
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+            ],
             "options": {
-                "command": "jest ./tests/unit",
-                "cwd": "packages/core"
+                "jestConfig": "packages/core/jest.config.js",
+                "passWithNoTests": false
             }
         },
         "test:integration": {
-            "executor": "nx:run-commands",
+            "executor": "@nx/jest:jest",
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+            ],
             "options": {
-                "command": "jest ./tests/integration",
-                "cwd": "packages/core"
+                "jestConfig": "packages/core/jest.integration.config.js",
+                "passWithNoTests": true
             }
         },
         "lint": {
