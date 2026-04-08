@@ -1,7 +1,3 @@
-/**
- * ARCA SDK - Main Entry Point
- * Exports the main facade class and public types
- */
 export * from "./application";
 export * from "./domain";
 export * from "./infrastructure";
@@ -17,3 +13,4 @@ export {
   WSAA_TRA_VALIDITY_WINDOW_MS,
 } from "./infrastructure/constants/time.constants";
 export { Context } from "./application/types";
+export { ServiceNamesEnum } from "./infrastructure/constants/service-names.enum";

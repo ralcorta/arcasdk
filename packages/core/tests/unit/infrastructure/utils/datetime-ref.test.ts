@@ -21,7 +21,9 @@ describe("DateTimeRef", () => {
       expect(ref.minusMillisecondsAsIso(offset)).toBe(
         new Date(fixed.getTime() - offset).toISOString(),
       );
-      expect(ref.minusMillisecondsAsIso(offset)).toBe("2024-06-01T15:29:15.123Z");
+      expect(ref.minusMillisecondsAsIso(offset)).toBe(
+        "2024-06-01T15:29:15.123Z",
+      );
     });
 
     it("plusMillisecondsAsIso returns ISO for instant plus offset", () => {
@@ -29,7 +31,9 @@ describe("DateTimeRef", () => {
       expect(ref.plusMillisecondsAsIso(offset)).toBe(
         new Date(fixed.getTime() + offset).toISOString(),
       );
-      expect(ref.plusMillisecondsAsIso(offset)).toBe("2024-06-01T15:30:45.623Z");
+      expect(ref.plusMillisecondsAsIso(offset)).toBe(
+        "2024-06-01T15:30:45.623Z",
+      );
     });
 
     it("wsaaTraUniqueIdSeconds delegates to toUnixSeconds", () => {
@@ -58,7 +62,7 @@ describe("DateTimeRef", () => {
 
     it("builds a ref for the current system time", () => {
       jest.useFakeTimers();
-      jest.setSystemTime(new Date("2020-01-01T00:00:00.000Z"));
+      jest.setSystemTime(Date.parse("2020-01-01T00:00:00.000Z"));
 
       const ref = DateTimeRef.now();
 

@@ -1,5 +1,5 @@
 import { IGenericRepositoryPort } from "@application/ports/generic/generic-repository.port";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 
 export class GenericService {
   constructor(private readonly repository: IGenericRepositoryPort) {}

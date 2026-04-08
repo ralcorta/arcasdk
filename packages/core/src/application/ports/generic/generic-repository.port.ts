@@ -1,4 +1,4 @@
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 
 export interface IGenericRepositoryPort {
   /**

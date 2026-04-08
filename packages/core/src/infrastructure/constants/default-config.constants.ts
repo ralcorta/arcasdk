@@ -1,9 +1,4 @@
 /**
- * Default Configuration Constants
- * Centralized default values for context and application configuration
- */
-
-/**
  * Default value for useHttpsAgent configuration
  *
  * When false (default), the HTTPS agent is not used, which is suitable for:

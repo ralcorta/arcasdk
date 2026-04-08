@@ -1,8 +1,3 @@
-/**
- * Electronic Billing DTOs
- * Data Transfer Objects for electronic billing operations
- * These DTOs use domain types and are independent of infrastructure concerns
- */
 import {
   SalesPoint,
   ServerStatus,

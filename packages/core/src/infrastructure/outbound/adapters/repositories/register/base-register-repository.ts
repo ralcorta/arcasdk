@@ -1,6 +1,6 @@
 import { BaseSoapRepository } from "../../soap/base-soap-repository";
 import { IRegisterBaseRepositoryPort } from "@application/ports/register/register-repository.ports";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
 import { EndpointsEnum } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
@@ -85,27 +85,35 @@ export abstract class BaseRegisterRepository<
     const methodName = this.personaMethod;
 
     try {
-      const method = (client as Client & Record<string, unknown>)[methodName];
-      if (typeof method !== "function") {
+      const call = client[methodName];
+      if (typeof call !== "function") {
         throw new Error(`Method ${methodName} not found on register client`);
       }
-      const [output] = await (
-        method as (input: { idPersona: number }) => Promise<
-          [Record<string, unknown>]
-        >
-      )({
+      const [output] = await call.call(client, {
         idPersona: identifier,
       });
 
       const personaReturn = output.personaReturn;
-      if (!personaReturn || !(personaReturn as any).persona) {
+      if (!personaReturn) {
+        return null;
+      }
+
+      // ws_sr_constancia_inscripción devuelve datos* en la raíz de personaReturn (sin .persona).
+      // Si solo viene errorConstancia, debe ser null.
+      const pr = personaReturn.persona ?? personaReturn;
+      const hasTaxpayerPayload =
+        pr.datosGenerales != null ||
+        pr.datosMonotributo != null ||
+        pr.datosRegimenGeneral != null ||
+        (pr.idPersona !== undefined && pr.idPersona !== null);
+      if (!hasTaxpayerPayload) {
         return null;
       }
 
       return this.mapPersonaReturnToDto(personaReturn);
     } catch (error: any) {
       if (isAfipNotFoundError(error)) {
-        return null; // Known AFIP code/message for 'Not Found'
+        return null;
       }
       throw error;
     }
@@ -113,12 +121,13 @@ export abstract class BaseRegisterRepository<
 
   protected mapPersonaReturnToDto(personaReturn: any): TaxpayerDetailsDto {
     const persona = personaReturn.persona || personaReturn;
+    const datosGenerales = persona.datosGenerales;
 
     return {
-      idPersona: persona.idPersona,
-      tipoPersona: persona.tipoPersona,
-      estadoClave: persona.estadoClave,
-      datosGenerales: persona.datosGenerales || persona,
+      idPersona: persona.idPersona ?? datosGenerales?.idPersona,
+      tipoPersona: persona.tipoPersona ?? datosGenerales?.tipoPersona,
+      estadoClave: persona.estadoClave ?? datosGenerales?.estadoClave,
+      datosGenerales: datosGenerales || persona,
       datosMonotributo: persona.datosMonotributo,
       datosRegimenGeneral: persona.datosRegimenGeneral,
       errorConstancia: persona.errorConstancia

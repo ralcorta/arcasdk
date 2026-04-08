@@ -1,9 +1,4 @@
-/**
- * Base SOAP Repository
- * Abstract base class for SOAP repositories with common authentication proxy logic
- */
 import { Client } from "soap";
-import { SoapServices } from "@infrastructure/types/soap.types";
 import { SoapClient } from "./soap-client";
 import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
@@ -16,10 +11,6 @@ import {
 } from "@infrastructure/types/soap-repository.types";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
-/**
- * Base class for SOAP repositories
- * Provides common functionality for authentication proxy
- */
 export abstract class BaseSoapRepository {
   protected readonly cuit: number;
   protected readonly production: boolean;

@@ -1,7 +1,3 @@
-/**
- * Fetch HTTP Client
- * Implements IHttpClient using the native fetch API
- */
 import type {
   SoapHttpClientRequestArgs,
   SoapHttpClientRequestReturn,
@@ -11,10 +7,9 @@ import type {
 import { IHttpClient } from "soap";
 
 export class FetchHttpClient implements IHttpClient {
-  /**
-   * Implementation of the soap IHttpClient request method using fetch
-   */
-  public request(...args: SoapHttpClientRequestArgs): SoapHttpClientRequestReturn {
+  public request(
+    ...args: SoapHttpClientRequestArgs
+  ): SoapHttpClientRequestReturn {
     const [rurl, data, callback, exheaders, exoptions] = args;
     const method = data ? "POST" : "GET";
     const headers: SoapTransportHeaders = {
@@ -37,7 +32,6 @@ export class FetchHttpClient implements IHttpClient {
       .then(async (response) => {
         const body = await response.text();
 
-        // Map fetch response to what the soap library expects
         const res: SoapTransportLikeResponse = {
           statusCode: response.status,
           headers: Object.fromEntries(response.headers.entries()),

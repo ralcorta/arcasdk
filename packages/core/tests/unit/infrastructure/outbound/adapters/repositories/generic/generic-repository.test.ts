@@ -1,7 +1,7 @@
 import { GenericRepository } from "@infrastructure/outbound/adapters/repositories/generic/generic-repository";
 import { SoapClient } from "@infrastructure/outbound/adapters/soap/soap-client";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { Client } from "soap";
 
 jest.mock("@infrastructure/outbound/adapters/soap/soap-client");

@@ -1,7 +1,3 @@
-/**
- * Authentication Repository
- * Implements IAuthenticationRepositoryPort for WSAA authentication
- */
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import {
   AccessTicket,
@@ -52,7 +48,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
    * @returns AccessTicket if found and valid, null otherwise
    */
   private async getValidTicketFromStorage(
-    serviceName: string
+    serviceName: string,
   ): Promise<AccessTicket | null> {
     if (!this.ticketStorage) return null;
 
@@ -104,7 +100,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     if (existingTicket) return existingTicket;
 
     const signedTRA = this.signTRA(
-      await Parser.jsonToXml(this.getTRA(serviceName))
+      await Parser.jsonToXml(this.getTRA(serviceName)),
     );
 
     const client = await this.createAuthClient();
@@ -158,9 +154,8 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
   private async parseLoginTicketResponse(
     loginCmsReturnXml: string,
   ): Promise<ILoginCredentials> {
-    const parsed = await Parser.xmlToJson<LoginTicketResponse>(
-      loginCmsReturnXml,
-    );
+    const parsed =
+      await Parser.xmlToJson<LoginTicketResponse>(loginCmsReturnXml);
     return parsed.loginticketresponse;
   }
 

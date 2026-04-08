@@ -1,6 +1,6 @@
 import { Arca } from "../../src/infrastructure/composition/arca";
 import { AccessTicket } from "../../src/domain/entities/access-ticket.entity";
-import { ServiceNamesEnum } from "../../src/infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "../../src/infrastructure/constants/service-names.enum";
 import { ContextTest } from "../utils/context-test.utils";
 import EnvTest from "../utils/env-test";
 import { existsSync, mkdirSync } from "fs";
@@ -205,8 +205,6 @@ describeOrSkip(
           await arca.electronicBillingService.getSalesPoints();
         const salesPointsList = salesPoints.resultGet?.ptoVenta || [];
 
-        console.log(JSON.stringify(salesPoints.errors, null, 2));
-
         if (salesPointsList.length === 0) {
           console.warn("No sales points available for testing");
           return;
@@ -303,8 +301,6 @@ describeOrSkip(
               );
             const siguienteNumero = (lastVoucher.cbteNro || 0) + 1;
 
-            console.log(JSON.stringify(lastVoucher));
-
             const facturaData = {
               CantReg: 1,
               PtoVta: puntoVenta,
@@ -331,7 +327,6 @@ describeOrSkip(
 
             const resultado =
               await arca.electronicBillingService.createVoucher(facturaData);
-            console.log(JSON.stringify(resultado));
 
             const hasRetryableError = resultado.response.Errors?.Err?.some(
               (err) =>

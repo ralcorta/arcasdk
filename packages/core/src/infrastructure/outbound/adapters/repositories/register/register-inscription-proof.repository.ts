@@ -1,10 +1,6 @@
-/**
- * Register Inscription Proof Repository
- * Implements IRegisterInscriptionProofRepositoryPort
- */
 import { IRegisterInscriptionProofRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { BaseBatchRegisterRepository } from "./base-batch-register-repository";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
 import { EndpointsEnum } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 import { IPersonaServiceInscriptionProofPortSoap } from "@infrastructure/outbound/ports/soap/interfaces/PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";

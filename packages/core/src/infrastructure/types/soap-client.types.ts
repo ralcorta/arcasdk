@@ -1,7 +1,3 @@
-/**
- * SOAP Client Types
- * Shared types for the SOAP client port, adapter, and repositories
- */
 import { type SoapRuntime } from "@infrastructure/utils/soap-runtime";
 import { type IHttpClient } from "soap";
 import type { SoapAsyncResultTuple } from "./soap.types";

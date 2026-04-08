@@ -1,9 +1,5 @@
 import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 
-/**
- * Result shape of node-soap promise-style methods:
- * `[data, raw response XML, SOAP header, raw request XML]`.
- */
 export type SoapAsyncResultTuple<O = unknown, H = unknown> = [
   O,
   string,

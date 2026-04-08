@@ -2,11 +2,6 @@ import type { EngineConfig } from "@infrastructure/types/soap-engine.types";
 import { SoapRuntime } from "@infrastructure/utils/soap-runtime";
 import { HttpClient, IHttpClient } from "soap";
 
-/**
- * Unified Factory to create a SOAP Engine (HttpClient)
- * This handles the environment-specific logic (Node.js vs universal fetch)
- * and security configuration internally.
- */
 export async function createSoapEngine(
   config: EngineConfig,
 ): Promise<IHttpClient> {

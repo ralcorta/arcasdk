@@ -1,12 +1,8 @@
-/**
- * Generic Repository
- * Implements IGenericRepositoryPort for generic AFIP/ARCA requests
- */
 import { Client } from "soap";
 import { IGenericRepositoryPort } from "@application/ports/generic/generic-repository.port";
 import { BaseSoapRepository } from "../../soap/base-soap-repository";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 
 export class GenericRepository
   extends BaseSoapRepository

@@ -1,11 +1,7 @@
-/**
- * Register Scope Thirteen Repository
- * Implements IRegisterScopeThirteenRepositoryPort
- */
 import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { BaseRegisterRepository } from "./base-register-repository";
 import { TaxIDByDocumentResultDto } from "@application/dto/register.dto";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
 import { EndpointsEnum } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 import { IPersonaServiceA13PortSoap } from "@infrastructure/outbound/ports/soap/interfaces/PersonaServiceA13/PersonaServiceA13Port";

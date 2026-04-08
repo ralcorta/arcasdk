@@ -1,7 +1,3 @@
-/**
- * Application Types - Context
- * Configuration types for the application
- */
 import { ILoginCredentials } from "@domain/entities/access-ticket.entity";
 import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 

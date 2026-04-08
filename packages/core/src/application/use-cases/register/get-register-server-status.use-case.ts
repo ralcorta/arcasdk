@@ -1,7 +1,3 @@
-/**
- * Get Register Server Status Use Case
- * Retrieves the status of the register servers
- */
 import { IRegisterBaseRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { RegisterServerStatusDto } from "@application/dto/register.dto";
 

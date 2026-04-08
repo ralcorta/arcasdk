@@ -557,6 +557,10 @@ export namespace ServiceSoapTypes {
     MonId: string;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     MonCotiz: number;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    CanMisMonExt?: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+    CondicionIVAReceptorId?: number;
     CbtesAsoc?: ServiceSoapTypes.ICbtesAsoc;
     Tributos?: ServiceSoapTypes.ITributos;
     Iva?: ServiceSoapTypes.IIva;
@@ -770,6 +774,10 @@ export namespace ServiceSoapTypes {
     MonId: string;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     MonCotiz: number;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    CanMisMonExt?: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+    CondicionIVAReceptorId?: number;
     CbtesAsoc?: ServiceSoapTypes.ICbtesAsoc;
     Tributos?: ServiceSoapTypes.ITributos;
     Iva?: ServiceSoapTypes.IIva;

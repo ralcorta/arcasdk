@@ -1,13 +1,9 @@
-/**
- * SOAP Repository Types
- * Configuration types for SOAP repositories
- */
 import { Client } from "soap";
 import { WSAuthParam } from "@application/types/auth.types";
 
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 
 export interface SoapClientResult<T extends Client> {
@@ -57,4 +53,3 @@ export interface AuthenticatedProxyOptions {
    */
   excludeMethods?: string[];
 }
-

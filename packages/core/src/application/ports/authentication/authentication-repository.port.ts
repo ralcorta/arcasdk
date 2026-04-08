@@ -1,8 +1,3 @@
-/**
- * Authentication Repository Port
- * Port defined by the application layer for authentication operations
- * Infrastructure layer must implement this port
- */
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 import { WSAuthParam } from "@application/types";
 

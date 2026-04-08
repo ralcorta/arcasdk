@@ -4,7 +4,7 @@ import {
   AccessTicket,
   ILoginCredentials,
 } from "@arcasdk/core/src/domain/entities/access-ticket.entity";
-import { ServiceNamesEnum } from "@arcasdk/core/src/infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { mockLoginCredentials } from "../../../../../../mocks/data/credential-json.mock";
 import { MS_PER_DAY } from "../../../../../../utils/time.constants";
 import { Parser } from "@arcasdk/core/src/infrastructure/utils/parser";

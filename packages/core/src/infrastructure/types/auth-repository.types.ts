@@ -1,7 +1,3 @@
-/**
- * Auth Repository Types
- * Configuration types for authentication repositories
- */
 import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
 import { ILoginCredentials } from "@domain/entities/access-ticket.entity";
@@ -23,4 +19,3 @@ export interface AuthRepositoryConfig {
    */
   useHttpsAgent?: boolean;
 }
-

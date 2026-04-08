@@ -1,7 +1,3 @@
-/**
- * Outbound Ports
- * Exports all outbound ports (interfaces that infrastructure implements)
- */
 export * from "./soap/soap-client.port";
 export * from "./storage/ticket-storage.port";
 

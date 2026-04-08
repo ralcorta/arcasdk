@@ -1,9 +1,5 @@
 import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants";
 
-/**
- * Creates a legacy-compatible HTTPS agent for Node.js
- * This matches requirements for older AFIP servers
- */
 export async function createLegacyHttpsAgent() {
   /**
    * IMPORTANT: We use dynamic imports (import()) here to ensure this file

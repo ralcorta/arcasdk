@@ -1,7 +1,3 @@
-/**
- * Get Taxpayers Details Use Case
- * Retrieves details for multiple taxpayers
- */
 import { IRegisterBatchRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { TaxpayersDetailsDto } from "@application/dto/register.dto";
 

@@ -1,7 +1,3 @@
-/**
- * Electronic Billing Repository
- * Implements IElectronicBillingRepositoryPort for AFIP/ARCA Electronic Billing
- */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
 import { BaseSoapRepository } from "../../soap/base-soap-repository";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
@@ -36,7 +32,7 @@ import {
   IServiceSoapSoap,
   ServiceSoapTypes,
 } from "@infrastructure/outbound/ports/soap/interfaces/Service/ServiceSoap";
-import { ServiceNamesEnum } from "@infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
 import { EndpointsEnum } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 import {
@@ -149,6 +145,7 @@ export class ElectronicBillingRepository
       FchVtoPago: voucherData.FchVtoPago,
       MonId: voucherData.MonId,
       MonCotiz: voucherData.MonCotiz,
+      CanMisMonExt: voucherData.CanMisMonExt,
       CondicionIVAReceptorId: voucherData.CondicionIVAReceptorId,
       Tributos: voucherData.Tributos
         ? { Tributo: voucherData.Tributos }

@@ -1,6 +1,6 @@
 import { GenericService } from "@arcasdk/core/src/application/services/generic.service";
 import { IGenericRepositoryPort } from "@arcasdk/core/src/application/ports/generic/generic-repository.port";
-import { ServiceNamesEnum } from "@arcasdk/core/src/infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 
 describe("Generic Service", () => {
   let service: GenericService;

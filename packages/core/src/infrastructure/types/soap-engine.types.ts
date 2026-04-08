@@ -1,6 +1,3 @@
-/**
- * SOAP HTTP engine / transport types (`IHttpClient` adapters for the `soap` package).
- */
 import type { IHttpClient, IOptions } from "soap";
 import type { SoapRuntime } from "@infrastructure/utils/soap-runtime";
 

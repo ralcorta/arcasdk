@@ -81,7 +81,38 @@ describe("RegisterInscriptionProofRepository", () => {
             estadoClave: "ACTIVO",
           },
         },
-      } as never; // The property name is complex in the actual type
+      } as never;
+      mockSoapClient.getPersona_v2Async.mockResolvedValue([
+        mockResponse,
+      ] as never);
+
+      const result = await repository.getTaxpayerDetails(20111111112);
+
+      expect(result).toEqual({
+        idPersona: 20111111112,
+        tipoPersona: "FISICA",
+        estadoClave: "ACTIVO",
+        datosGenerales: {
+          idPersona: 20111111112,
+          tipoPersona: "FISICA",
+          estadoClave: "ACTIVO",
+        },
+        datosMonotributo: undefined,
+        datosRegimenGeneral: undefined,
+        errorConstancia: undefined,
+      });
+    });
+
+    it("should map personaReturn con datosGenerales en raíz (ws_sr_constancia_inscripción)", async () => {
+      const mockResponse = {
+        personaReturn: {
+          datosGenerales: {
+            idPersona: 20111111112,
+            tipoPersona: "FISICA",
+            estadoClave: "ACTIVO",
+          },
+        },
+      } as never;
       mockSoapClient.getPersona_v2Async.mockResolvedValue([
         mockResponse,
       ] as never);
@@ -107,8 +138,10 @@ describe("RegisterInscriptionProofRepository", () => {
       const mockResponse = {
         personaReturn: {
           errorConstancia: {
+            apellido: "",
             error: "No existe",
-            codigo: 602,
+            idPersona: 0,
+            nombre: "",
           },
         },
       } as never;

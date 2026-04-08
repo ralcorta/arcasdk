@@ -1,7 +1,3 @@
-/**
- * File System Ticket Storage
- * Implements ITicketStoragePort using the file system
- */
 import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 import { promises as fs } from "fs";

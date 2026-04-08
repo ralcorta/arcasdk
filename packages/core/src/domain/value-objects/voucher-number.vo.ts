@@ -1,8 +1,3 @@
-/**
- * VoucherNumber Value Object
- * Represents a voucher/comprobante number with validations
- * Immutable value object
- */
 export class VoucherNumber {
   private constructor(private readonly value: number) {
     this.validate();
@@ -100,7 +95,7 @@ export class VoucherNumber {
   previous(): VoucherNumber {
     if (this.value <= 1) {
       throw new Error(
-        "No se puede obtener el número anterior, ya está en el mínimo"
+        "No se puede obtener el número anterior, ya está en el mínimo",
       );
     }
     return VoucherNumber.create(this.value - 1);

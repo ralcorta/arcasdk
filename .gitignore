@@ -1,6 +1,9 @@
 lib
 .env
 .env.local
+
+# Certificados/clave de homologación local (TEST_CREDENTIALS_FOLDER por defecto)
+test-credentials/
 .env.production
 .env.development
 .DS_Store
@@ -19,6 +22,11 @@ packages/*/src/infrastructure/storage/auth/tickets
 
 docs/.vitepress/dist
 docs/.vitepress/cache
+
+# Consumer smoke (instala tarball; no commitear artefactos)
+integration/consumer-app/node_modules
+integration/consumer-app/vendor
+integration/consumer-app/.ticket-cache
 
 # Examples
 examples/

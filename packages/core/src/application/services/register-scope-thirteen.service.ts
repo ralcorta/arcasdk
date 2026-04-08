@@ -1,8 +1,3 @@
-/**
- * Register Scope Thirteen Service
- * Application service for Register Scope Thirteen (Padrón A13)
- * Orchestrates register use cases for scope THIRTEEN
- */
 import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   RegisterServerStatusDto,
@@ -19,16 +14,16 @@ export class RegisterScopeThirteenService {
   private readonly getTaxIDByDocumentUseCase: GetTaxIDByDocumentUseCase;
 
   constructor(
-    private readonly repository: IRegisterScopeThirteenRepositoryPort
+    private readonly repository: IRegisterScopeThirteenRepositoryPort,
   ) {
     this.getRegisterServerStatusUseCase = new GetRegisterServerStatusUseCase(
-      this.repository
+      this.repository,
     );
     this.getTaxpayerDetailsUseCase = new GetTaxpayerDetailsUseCase(
-      this.repository
+      this.repository,
     );
     this.getTaxIDByDocumentUseCase = new GetTaxIDByDocumentUseCase(
-      this.repository
+      this.repository,
     );
   }
 
@@ -43,7 +38,7 @@ export class RegisterScopeThirteenService {
    * Asks to web service for taxpayer details
    **/
   async getTaxpayerDetails(
-    identifier: number
+    identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {
     return this.getTaxpayerDetailsUseCase.execute(identifier);
   }
@@ -52,7 +47,7 @@ export class RegisterScopeThirteenService {
    * Asks to web service for tax id by document number
    **/
   async getTaxIDByDocument(
-    documentNumber: string
+    documentNumber: string,
   ): Promise<TaxIDByDocumentResultDto> {
     return this.getTaxIDByDocumentUseCase.execute(documentNumber);
   }

@@ -1,7 +1,3 @@
-/**
- * AccessTicket Entity
- * Domain entity representing an authentication ticket from AFIP/ARCA
- */
 import {
   ILoginCmsReturnHeaders,
   ILoginCmsReturnCredentials,

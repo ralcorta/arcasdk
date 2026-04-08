@@ -1,10 +1,4 @@
 /**
- * Register DTOs
- * Data Transfer Objects for register/padron operations
- * These DTOs are independent of infrastructure concerns
- */
-
-/**
  * Server Status DTO (for Register services)
  */
 export interface RegisterServerStatusDto {

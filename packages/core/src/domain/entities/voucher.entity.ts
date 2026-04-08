@@ -1,7 +1,3 @@
-/**
- * Voucher Entity
- * Domain entity representing an electronic voucher/comprobante
- */
 import {
   IVoucher as IVoucherData,
   ICbtesAsoc,
@@ -45,7 +41,7 @@ export class Voucher {
     // Validate Números de Comprobante
     if (!this.data.CbteDesde || !this.data.CbteHasta) {
       throw new Error(
-        "Números de comprobante inválidos. CbteDesde y CbteHasta son requeridos."
+        "Números de comprobante inválidos. CbteDesde y CbteHasta son requeridos.",
       );
     }
 
@@ -61,7 +57,7 @@ export class Voucher {
     const expectedCantReg = this.data.CbteHasta - this.data.CbteDesde + 1;
     if (this.data.CantReg !== expectedCantReg) {
       throw new Error(
-        `CantReg (${this.data.CantReg}) debe ser igual a la cantidad de comprobantes (${expectedCantReg})`
+        `CantReg (${this.data.CantReg}) debe ser igual a la cantidad de comprobantes (${expectedCantReg})`,
       );
     }
 
@@ -82,7 +78,7 @@ export class Voucher {
       this.data.ImpNeto + this.data.ImpTrib + this.data.ImpIVA;
     if (Math.abs(this.data.ImpTotal - calculatedTotal) > 0.01) {
       throw new Error(
-        `El campo 'Importe Total' ImpTotal (${this.data.ImpTotal}), debe ser igual a la suma de ImpNeto (${this.data.ImpNeto}) + ImpTrib (${this.data.ImpTrib}) + ImpIVA (${this.data.ImpIVA}) = ${calculatedTotal}.`
+        `El campo 'Importe Total' ImpTotal (${this.data.ImpTotal}), debe ser igual a la suma de ImpNeto (${this.data.ImpNeto}) + ImpTrib (${this.data.ImpTrib}) + ImpIVA (${this.data.ImpIVA}) = ${calculatedTotal}.`,
       );
     }
 
@@ -93,7 +89,7 @@ export class Voucher {
       this.data.Concepto > 3
     ) {
       throw new Error(
-        "Concepto inválido. Debe ser 1 (Productos), 2 (Servicios) o 3 (Productos y Servicios)."
+        "Concepto inválido. Debe ser 1 (Productos), 2 (Servicios) o 3 (Productos y Servicios).",
       );
     }
 
@@ -120,13 +116,13 @@ export class Voucher {
   private validateFacturaC(): void {
     if (this.data.ImpIVA !== 0) {
       throw new Error(
-        "El campo ImpIVA (Importe de IVA) para comprobantes tipo C debe ser igual a cero (0)."
+        "El campo ImpIVA (Importe de IVA) para comprobantes tipo C debe ser igual a cero (0).",
       );
     }
 
     if (this.data.Iva && this.data.Iva.length > 0) {
       throw new Error(
-        "Para comprobantes tipo C el array Iva no debe informarse."
+        "Para comprobantes tipo C el array Iva no debe informarse.",
       );
     }
   }
@@ -144,7 +140,7 @@ export class Voucher {
     ) {
       const type = this.data.CbteTipo === 1 ? "A" : "B";
       throw new Error(
-        `Para comprobantes tipo ${type}, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.`
+        `Para comprobantes tipo ${type}, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.`,
       );
     }
   }
@@ -159,7 +155,7 @@ export class Voucher {
 
       if (Math.abs(this.data.ImpIVA - totalIVA) > 0.01) {
         throw new Error(
-          `El campo ImpIVA (${this.data.ImpIVA}) debe ser igual a la suma de los importes del array Iva (${totalIVA}).`
+          `El campo ImpIVA (${this.data.ImpIVA}) debe ser igual a la suma de los importes del array Iva (${totalIVA}).`,
         );
       }
     }

@@ -1,9 +1,3 @@
-/**
- * Electronic Billing Repository Port
- * Port defined by the application layer
- * Infrastructure layer must implement this port
- * Uses DTOs to maintain independence from infrastructure
- */
 import { Voucher } from "@domain/entities/voucher.entity";
 import { ICreateVoucherResult } from "@application/types/result.types";
 import {
@@ -49,7 +43,7 @@ export interface IElectronicBillingRepositoryPort {
    */
   getLastVoucher(
     salesPoint: number,
-    voucherType: number
+    voucherType: number,
   ): Promise<LastVoucherResultDto>;
 
   /**
@@ -69,7 +63,7 @@ export interface IElectronicBillingRepositoryPort {
   getVoucherInfo(
     number: number,
     salesPoint: number,
-    type: number
+    type: number,
   ): Promise<VoucherInfoResultDto | null>;
 
   /**
@@ -145,7 +139,7 @@ export interface IElectronicBillingRepositoryPort {
    */
   informCaeaNoMovement(
     caea: string,
-    salesPoint: number
+    salesPoint: number,
   ): Promise<CaeaNoMovementResultDto>;
 
   /**
@@ -156,7 +150,7 @@ export interface IElectronicBillingRepositoryPort {
    */
   consultCaeaNoMovement(
     caea: string,
-    salesPoint: number
+    salesPoint: number,
   ): Promise<CaeaNoMovementResultDto>;
 
   /**

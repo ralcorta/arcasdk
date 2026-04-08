@@ -1,7 +1,7 @@
 import { FileSystemTicketStorage } from "@arcasdk/core/src/infrastructure/outbound/adapters/storage/file-system-ticket-storage";
 import { AccessTicket } from "@arcasdk/core/src/domain/entities/access-ticket.entity";
 import { mockLoginCredentials } from "../../../../../mocks/data/credential-json.mock";
-import { ServiceNamesEnum } from "@arcasdk/core/src/infrastructure/outbound/ports/soap/enums/service-names.enum";
+import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { promises as fs } from "fs";
 import { resolve } from "path";
 

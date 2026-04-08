@@ -1,8 +1,3 @@
-/**
- * CUIT Value Object
- * Represents a valid CUIT (Clave Única de Identificación Tributaria)
- * Immutable value object with validation
- */
 export class CUIT {
   private constructor(private readonly value: number) {
     this.validate();
@@ -33,7 +28,7 @@ export class CUIT {
     // CUIT debe tener 11 dígitos
     if (cuitStr.length !== 11) {
       throw new Error(
-        `CUIT inválido: debe tener 11 dígitos, tiene ${cuitStr.length}`
+        `CUIT inválido: debe tener 11 dígitos, tiene ${cuitStr.length}`,
       );
     }
 
@@ -90,7 +85,7 @@ export class CUIT {
     const cuitStr = this.value.toString();
     return `${cuitStr.substring(0, 2)}-${cuitStr.substring(
       2,
-      10
+      10,
     )}-${cuitStr.substring(10)}`;
   }
 

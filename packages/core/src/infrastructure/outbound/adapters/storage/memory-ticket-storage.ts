@@ -1,11 +1,6 @@
 import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 
-/**
- * Memory Ticket Storage
- * Implements ITicketStoragePort using an in-memory Map.
- * Useful for ephemeral environments like AWS Lambda or Cloudflare Workers.
- */
 export class MemoryTicketStorage implements ITicketStoragePort {
   private static storage = new Map<string, string>();
   private readonly cuit: number;

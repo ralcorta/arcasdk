@@ -1,9 +1,4 @@
 /**
- * Authentication Types
- * Types for authentication operations in the application layer
- */
-
-/**
  * Authentication parameters for SOAP requests
  * This type is independent of infrastructure SOAP types
  */
@@ -19,4 +14,3 @@ export interface AuthParams {
 export type WSAuthParam = {
   Auth: AuthParams;
 };
-

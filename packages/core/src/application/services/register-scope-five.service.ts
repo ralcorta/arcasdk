@@ -1,8 +1,3 @@
-/**
- * Register Scope Five Service
- * Application service for Register Scope Five (Padrón A5)
- * Orchestrates register use cases for scope FIVE
- */
 import { IRegisterScopeFiveRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   RegisterServerStatusDto,
@@ -20,13 +15,13 @@ export class RegisterScopeFiveService {
 
   constructor(private readonly repository: IRegisterScopeFiveRepositoryPort) {
     this.getRegisterServerStatusUseCase = new GetRegisterServerStatusUseCase(
-      this.repository
+      this.repository,
     );
     this.getTaxpayerDetailsUseCase = new GetTaxpayerDetailsUseCase(
-      this.repository
+      this.repository,
     );
     this.getTaxpayersDetailsUseCase = new GetTaxpayersDetailsUseCase(
-      this.repository
+      this.repository,
     );
   }
 
@@ -41,7 +36,7 @@ export class RegisterScopeFiveService {
    * Asks to web service for taxpayer details
    **/
   async getTaxpayerDetails(
-    identifier: number
+    identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {
     return this.getTaxpayerDetailsUseCase.execute(identifier);
   }
@@ -50,7 +45,7 @@ export class RegisterScopeFiveService {
    * Asks to web service for taxpayers details
    **/
   async getTaxpayersDetails(
-    identifiers: number[]
+    identifiers: number[],
   ): Promise<TaxpayersDetailsDto> {
     return this.getTaxpayersDetailsUseCase.execute(identifiers);
   }

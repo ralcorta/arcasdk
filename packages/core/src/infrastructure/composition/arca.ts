@@ -1,8 +1,3 @@
-/**
- * Arca - Main Facade Class
- * Entry point for the ARCA SDK
- * Orchestrates all services and adapters using hexagonal architecture
- */
 import { resolve } from "path";
 import { Context } from "@application/types";
 import { FileSystemTicketStorage } from "@infrastructure/outbound/adapters/storage/file-system-ticket-storage";
