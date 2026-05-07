@@ -13,9 +13,7 @@
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/jest.config.[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/.eslintrc.json"
+      "!{projectRoot}/test-setup.[jt]s"
     ],
     "sharedGlobals": []
   },
@@ -28,20 +26,31 @@
         "production",
         "^production"
       ],
-      "cache": true
+      "cache": true,
+      "parallelism": 3
     },
     "test": {
       "inputs": [
         "default",
         "^production"
       ],
-      "cache": true
+      "cache": true,
+      "parallelism": 3
     },
     "lint": {
       "inputs": [
         "default",
-        "{workspaceRoot}/.eslintrc.json"
-      ]
+        "{workspaceRoot}/eslint.config.js"
+      ],
+      "cache": true,
+      "parallelism": 3
+    },
+    "test:coverage": {
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "cache": true
     }
   },
   "tasksRunnerOptions": {
@@ -51,8 +60,10 @@
         "cacheableOperations": [
           "build",
           "test",
+          "test:coverage",
           "lint"
-        ]
+        ],
+        "parallel": 3
       }
     }
   },

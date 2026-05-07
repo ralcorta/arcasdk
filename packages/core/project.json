@@ -62,6 +62,17 @@
                 "passWithNoTests": true
             }
         },
+        "test:coverage": {
+            "executor": "@nx/jest:jest",
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+                "jestConfig": "packages/core/jest.config.js",
+                "coverage": true,
+                "passWithNoTests": false
+            }
+        },
         "lint": {
             "executor": "@nx/eslint:lint",
             "outputs": [

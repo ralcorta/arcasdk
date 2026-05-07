@@ -22,7 +22,7 @@ const invoice = await arca.electronicBillingService.createVoucher({
   DocNro: 0,
   CbteDesde: 1,
   CbteHasta: 1,
-  CbteFch: 20240101,
+  CbteFch: "20240101", // String en formato YYYYMMDD
   ImpTotal: 121,
   ImpTotConc: 0,
   ImpNeto: 100,

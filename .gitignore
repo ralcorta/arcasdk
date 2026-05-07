@@ -25,6 +25,10 @@ packages/*/src/infrastructure/storage/auth/tickets
 docs/.vitepress/dist
 docs/.vitepress/cache
 
+# Coverage reports
+coverage
+packages/core/coverage/
+
 # Consumer smoke (instala tarball; no commitear artefactos)
 packages/core/tests/integration/consumer-app/node_modules
 packages/core/tests/integration/consumer-app/vendor

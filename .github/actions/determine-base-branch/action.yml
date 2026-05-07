@@ -1,0 +1,25 @@
+name: Determine Base Branch
+description: "Determines the base branch for NX affected checks"
+
+outputs:
+  base-branch:
+    description: "The base branch reference"
+    value: ${{ steps.determine.outputs.base }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Determine base branch
+      id: determine
+      shell: bash
+      run: |
+        if [ "${{ github.event_name }}" == "pull_request" ]; then
+          BASE="origin/${{ github.base_ref }}"
+        else
+          if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
+            BASE="HEAD~1"
+          else
+            BASE="origin/main"
+          fi
+        fi
+        echo "base=$BASE" >> $GITHUB_OUTPUT

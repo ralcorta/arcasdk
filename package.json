@@ -10,6 +10,7 @@
     "build": "nx run-many --target=build --all",
     "build:core": "nx build core",
     "test": "nx run-many --target=test --all --skip-nx-cache",
+    "test:coverage": "nx run-many --target=test --all --skip-nx-cache",
     "test:integration": "nx run-many --target=test:integration --all --skip-nx-cache",
     "test:integration:all": "npm run test:integration && npm run test:consumer:integration",
     "lint": "nx run-many --target=lint --all",

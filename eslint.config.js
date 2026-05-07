@@ -16,6 +16,7 @@ module.exports = [
       "**/*.config.js",
       "**/*.js",
       "**/*.cjs",
+      "docs/",
     ],
   },
   {

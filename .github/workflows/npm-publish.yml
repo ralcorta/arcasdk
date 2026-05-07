@@ -4,7 +4,53 @@ on:
   workflow_dispatch:
 
 jobs:
+  validate:
+    name: Validate before publish
+    runs-on: ubuntu-latest
+    env:
+      NX_DAEMON: "false"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Setup NX
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Cache NX
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-node22-${{ hashFiles('**/nx.json', '**/package-lock.json') }}
+          restore-keys: |
+            nx-${{ runner.os }}-node22-
+            nx-${{ runner.os }}-
+
+      - name: Run lint checks
+        run: npm run lint
+
+      - name: Run test coverage
+        run: npm run test:coverage
+
+      - name: Check for security vulnerabilities
+        run: npm audit --production
+
+      - name: Build packages
+        run: npm run build
+
   publish:
+    name: Publish to NPM
+    needs: validate
     runs-on: ubuntu-latest
     env:
       NX_DAEMON: "false"
@@ -39,3 +85,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx nx release --yes
+
+      - name: Create GitHub Release
+        if: success()
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
