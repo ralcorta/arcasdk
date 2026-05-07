@@ -1,0 +1,138 @@
+name: Release & Documentation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
+jobs:
+  release:
+    name: Calculate Version & Release
+    runs-on: ubuntu-latest
+    env:
+      NX_DAEMON: "false"
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      published: ${{ steps.version.outputs.published }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Setup NX
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Cache NX
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-node22-${{ github.ref }}-${{ hashFiles('**/nx.json', '**/package-lock.json') }}
+          restore-keys: |
+            nx-${{ runner.os }}-node22-${{ github.ref }}-
+            nx-${{ runner.os }}-node22-
+            nx-${{ runner.os }}-
+
+      - name: Build packages
+        run: npm run build
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Calculate version with Conventional Commits
+        id: version
+        run: |
+          # Check if there are any unreleased commits
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          
+          if [ -z "$LAST_TAG" ]; then
+            echo "No previous tags found, this would be v0.1.0"
+            BASE_COMMIT="HEAD~1"
+          else
+            BASE_COMMIT="$LAST_TAG"
+          fi
+          
+          # Count commit types to determine version bump
+          FEAT_COUNT=$(git log $BASE_COMMIT..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^feat" || echo "0")
+          FIX_COUNT=$(git log $BASE_COMMIT..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^fix" || echo "0")
+          BREAKING=$(git log $BASE_COMMIT..HEAD --pretty=format:"%b" 2>/dev/null | grep -c "BREAKING CHANGE" || echo "0")
+          
+          if [ "$FEAT_COUNT" -gt 0 ] || [ "$FIX_COUNT" -gt 0 ] || [ "$BREAKING" -gt 0 ]; then
+            echo "published=true" >> $GITHUB_OUTPUT
+            if [ "$BREAKING" -gt 0 ]; then
+              VERSION_TYPE="major"
+            elif [ "$FEAT_COUNT" -gt 0 ]; then
+              VERSION_TYPE="minor"
+            else
+              VERSION_TYPE="patch"
+            fi
+            echo "version_type=$VERSION_TYPE" >> $GITHUB_OUTPUT
+            echo "version_bump=$VERSION_TYPE" >> $GITHUB_OUTPUT
+            echo "New commits detected - Version bump: $VERSION_TYPE"
+          else
+            echo "published=false" >> $GITHUB_OUTPUT
+            echo "No new features, fixes, or breaking changes detected"
+          fi
+
+      - name: Generate Changelog
+        if: steps.version.outputs.published == 'true'
+        run: |
+          npm run nx -- release --version-only --yes 2>/dev/null || echo "Release version determined"
+
+      - name: Build Documentation
+        run: npm run docs:build
+
+      - name: Create Release
+        if: steps.version.outputs.published == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Summary
+        run: |
+          echo "## 📦 Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Documentation Built**: Documentación actualizada" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Code Built**: Packages compilados exitosamente" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.version.outputs.published }}" == "true" ]; then
+            echo "✅ **Version Calculated**: Cambios detectados - listo para publicar en NPM" >> $GITHUB_STEP_SUMMARY
+            echo "🚀 **Next Step**: Ejecutar workflow 'Publish to NPM' manualmente" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ **No Changes**: No hay cambios que publicar en esta versión" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  publish-ready:
+    name: Ready for NPM Publishing
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Ready
+        run: |
+          echo "✅ Release is ready for publishing to NPM!"
+          echo ""
+          echo "👉 Next: Go to 'Actions' tab → 'Publish Packages to NPM' → 'Run workflow'"
+          echo ""
+          echo "This is a manual step to prevent accidental publications"

@@ -1,7 +1,17 @@
-name: Publish Packages to NPM
+name: 📦 Publish to NPM
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (optional, auto-calculated if empty)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
 
 jobs:
   validate:
@@ -72,19 +82,21 @@ jobs:
           scope: "@arcasdk"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --prefer-offline
 
-      - name: Git Identity
+      - name: Configure Git Identity
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Nx Release
+      - name: Publish with NX Release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx nx release --yes
+        run: |
+          echo "🚀 Starting NPM release process..."
+          npx nx release --yes
 
       - name: Create GitHub Release
         if: success()
@@ -94,4 +106,16 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Summary
+        if: success()
+        run: |
+          echo "## ✅ NPM Publishing Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Validation**: Lint, tests, coverage, audit, build" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Version Bump**: Automatic via Conventional Commits" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Published**: Package released to NPM @arcasdk/core" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **GitHub Release**: Created with changelog" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 [View on NPM](https://www.npmjs.com/package/@arcasdk/core)" >> $GITHUB_STEP_SUMMARY
 
