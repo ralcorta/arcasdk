@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/application/use-cases/electronic-billing/get-caea.use-case.ts</title>
+    <title>Code coverage report for src/infrastructure/outbound/adapters/soap/engines/node-security.engine.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/application/use-cases/electronic-billing</a> get-caea.use-case.ts</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">src/infrastructure/outbound/adapters/soap/engines</a> node-security.engine.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -85,49 +85,58 @@
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * Get CAEA Use Case
- * Requests an Anticipated Electronic Authorization Code (CAEA)
- */
-import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { CaeaResultDto } from "@application/dto/electronic-billing.dto";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants";
 &nbsp;
-export class GetCaeaUseCase {
-  constructor(
-    private readonly electronicBillingRepository: IElectronicBillingRepositoryPort
-  ) {}
-&nbsp;
+export async function createLegacyHttpsAgent() {
   /**
-   * Request CAEA
-   * @param period Period (YYYYMM)
-   * @param order Fortnight (1 or 2)
-   * @returns CAEA information
+   * IMPORTANT: We use dynamic imports (import()) here to ensure this file
+   * can be loaded in non-Node.js environments (like Cloudflare Workers)
+   * without throwing errors for missing built-in modules like 'https' or 'crypto'.
    */
-  async execute(period: number, order: number): Promise&lt;CaeaResultDto&gt; {
-    return this.electronicBillingRepository.getCaea(period, order);
-  }
+  const [https, crypto] = await Promise.all([
+    import("https"),
+    import("crypto"),
+  ]);
+&nbsp;
+  const secureOptions =
+    crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT |
+    crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION;
+&nbsp;
+  return new https.Agent({
+    rejectUnauthorized: true,
+    minDHSize: MIN_DH_SIZE_LEGACY,
+    ciphers: "DEFAULT@SECLEVEL=1",
+    secureProtocol: "TLSv1_2_method",
+    secureOptions,
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -138,14 +147,14 @@ export class GetCaeaUseCase {
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at 2026-05-07T19:13:41.663Z
             </div>
-        <script src="../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../sorter.js"></script>
-        <script src="../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

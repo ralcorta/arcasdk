@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.38% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.38% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,24 +101,22 @@
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,27 +132,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import forge from "node-forge";
 &nbsp;
 export class Cryptography {
-<span class="fstat-no" title="function not covered" >  constructor(</span>
-    private readonly <span class="cstat-no" title="statement not covered" >cert: string,</span>
-    private readonly <span class="cstat-no" title="statement not covered" >key: string,</span>
+  constructor(
+    private readonly cert: string,
+    private readonly key: string,
   ) {}
-<span class="fstat-no" title="function not covered" >  sign(</span>data: string): string {
-    const p7 = <span class="cstat-no" title="statement not covered" >forge.pkcs7.createSignedData();</span>
-<span class="cstat-no" title="statement not covered" >    p7.content = forge.util.createBuffer(data, "utf8");</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      p7.addCertificate(this.cert);</span>
+  sign(data: string): string {
+    const p7 = forge.pkcs7.createSignedData();
+    p7.content = forge.util.createBuffer(data, "utf8");
+    try {
+      p7.addCertificate(this.cert);
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >      throw new Error("Invalid PEM formatted message. Check your cert.");</span>
+      throw new Error("Invalid PEM formatted message. Check your cert.");
     }
-<span class="cstat-no" title="statement not covered" >    p7.addSigner({</span>
+    p7.addSigner({
       authenticatedAttributes: [
         {
           type: forge.pki.oids.contentType,
@@ -172,9 +172,9 @@ export class Cryptography {
       digestAlgorithm: forge.pki.oids.sha256,
       key: this.key,
     });
-<span class="cstat-no" title="statement not covered" >    p7.sign();</span>
-    const bytes = <span class="cstat-no" title="statement not covered" >forge.asn1.toDer(p7.toAsn1()).getBytes();</span>
-<span class="cstat-no" title="statement not covered" >    return forge.util.encode64(bytes).replace(/\r?\n|\r/g, "");</span>
+    p7.sign();
+    const bytes = forge.asn1.toDer(p7.toAsn1()).getBytes();
+    return forge.util.encode64(bytes).replace(/\r?\n|\r/g, "");
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -184,7 +184,7 @@ export class Cryptography {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-07T19:07:41.678Z
+                at 2026-05-07T19:13:41.663Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
