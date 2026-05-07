@@ -2,6 +2,13 @@ import { RegisterInscriptionProofRepository } from "@infrastructure/outbound/ada
 import { SoapClient } from "@infrastructure/outbound/adapters/soap/soap-client";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
 import { IPersonaServiceInscriptionProofPortSoap } from "@infrastructure/outbound/ports/soap/interfaces/PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
+import {
+  createRepositoryConfig,
+  createServerStatusResponse,
+  createTaxpayerPersonaResponse,
+  expectedTaxpayerDetails,
+  REPOSITORY_TEST_IDENTIFIER,
+} from "./register-repository.test.helpers";
 
 jest.mock("@infrastructure/outbound/adapters/soap/soap-client");
 
@@ -31,17 +38,7 @@ describe("RegisterInscriptionProofRepository", () => {
       mockSoapClient,
     );
 
-    const mockAuthRepository = {
-      login: jest.fn().mockResolvedValue({ token: "token", sign: "sign" }),
-      getAuthParams: jest.fn().mockReturnValue({
-        Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
-      }),
-    } as never;
-
-    mockConfig = {
-      authRepository: mockAuthRepository,
-      cuit: 12345678901,
-    };
+    mockConfig = createRepositoryConfig();
 
     repository = new RegisterInscriptionProofRepository(mockConfig);
   });
@@ -52,13 +49,7 @@ describe("RegisterInscriptionProofRepository", () => {
 
   describe("getServerStatus", () => {
     it("should return server status", async () => {
-      const mockResponse = {
-        return: {
-          appserver: "OK",
-          dbserver: "OK",
-          authserver: "OK",
-        },
-      };
+      const mockResponse = createServerStatusResponse();
       mockSoapClient.dummyAsync.mockResolvedValue([mockResponse] as never);
 
       const result = await repository.getServerStatus();
@@ -73,41 +64,23 @@ describe("RegisterInscriptionProofRepository", () => {
 
   describe("getTaxpayerDetails", () => {
     it("should return taxpayer details", async () => {
-      const mockResponse = {
-        personaReturn: {
-          persona: {
-            idPersona: 20111111112,
-            tipoPersona: "FISICA",
-            estadoClave: "ACTIVO",
-          },
-        },
-      } as never;
+      const mockResponse = createTaxpayerPersonaResponse() as never;
       mockSoapClient.getPersona_v2Async.mockResolvedValue([
         mockResponse,
       ] as never);
 
-      const result = await repository.getTaxpayerDetails(20111111112);
+      const result = await repository.getTaxpayerDetails(
+        REPOSITORY_TEST_IDENTIFIER,
+      );
 
-      expect(result).toEqual({
-        idPersona: 20111111112,
-        tipoPersona: "FISICA",
-        estadoClave: "ACTIVO",
-        datosGenerales: {
-          idPersona: 20111111112,
-          tipoPersona: "FISICA",
-          estadoClave: "ACTIVO",
-        },
-        datosMonotributo: undefined,
-        datosRegimenGeneral: undefined,
-        errorConstancia: undefined,
-      });
+      expect(result).toEqual(expectedTaxpayerDetails());
     });
 
     it("should map personaReturn con datosGenerales en raíz (ws_sr_constancia_inscripción)", async () => {
       const mockResponse = {
         personaReturn: {
           datosGenerales: {
-            idPersona: 20111111112,
+            idPersona: REPOSITORY_TEST_IDENTIFIER,
             tipoPersona: "FISICA",
             estadoClave: "ACTIVO",
           },
@@ -117,21 +90,11 @@ describe("RegisterInscriptionProofRepository", () => {
         mockResponse,
       ] as never);
 
-      const result = await repository.getTaxpayerDetails(20111111112);
+      const result = await repository.getTaxpayerDetails(
+        REPOSITORY_TEST_IDENTIFIER,
+      );
 
-      expect(result).toEqual({
-        idPersona: 20111111112,
-        tipoPersona: "FISICA",
-        estadoClave: "ACTIVO",
-        datosGenerales: {
-          idPersona: 20111111112,
-          tipoPersona: "FISICA",
-          estadoClave: "ACTIVO",
-        },
-        datosMonotributo: undefined,
-        datosRegimenGeneral: undefined,
-        errorConstancia: undefined,
-      });
+      expect(result).toEqual(expectedTaxpayerDetails());
     });
 
     it("should return null if persona not found", async () => {
@@ -149,7 +112,9 @@ describe("RegisterInscriptionProofRepository", () => {
         mockResponse,
       ] as never);
 
-      const result = await repository.getTaxpayerDetails(20111111112);
+      const result = await repository.getTaxpayerDetails(
+        REPOSITORY_TEST_IDENTIFIER,
+      );
 
       expect(result).toBeNull();
     });
@@ -158,7 +123,9 @@ describe("RegisterInscriptionProofRepository", () => {
       const error = { code: 602 };
       mockSoapClient.getPersona_v2Async.mockRejectedValue(error);
 
-      const result = await repository.getTaxpayerDetails(20111111112);
+      const result = await repository.getTaxpayerDetails(
+        REPOSITORY_TEST_IDENTIFIER,
+      );
 
       expect(result).toBeNull();
     });
@@ -183,7 +150,9 @@ describe("RegisterInscriptionProofRepository", () => {
         mockResponse,
       ] as never);
 
-      const result = await repository.getTaxpayersDetails([20111111112]);
+      const result = await repository.getTaxpayersDetails([
+        REPOSITORY_TEST_IDENTIFIER,
+      ]);
 
       expect(result.persona).toHaveLength(1);
       expect(result.persona?.[0]).toEqual({

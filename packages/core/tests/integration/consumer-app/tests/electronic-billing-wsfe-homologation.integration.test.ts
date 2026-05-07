@@ -7,15 +7,21 @@ import {
   WSFE_NO_PUNTOS_VENTA_CODE,
 } from "./utils/wsfe-homologation-helpers";
 import {
+  buildFacturaALote2,
+  buildFacturaAUsd,
   buildFacturaA,
   buildFacturaB,
   buildFacturaC,
+  buildNextFacturaC,
   createVoucherHomologacionWithRetry,
+  createNextVoucherHomologacionWithRetry,
+  expectFecaeHomologacionFlexible,
   expectFecaeFacturaAprobada,
   parseCuit11,
 } from "./utils/wsfe-invoice-emission";
 import {
   expectCaeaHomologationPayload,
+  expectIvaReceptorTypesForClaseCmp,
   expectNonEmptyArray,
   expectNonEmptyString,
   expectSampleActividadRow,
@@ -181,6 +187,11 @@ describeOrSkip(
           "condicionIvaReceptor[0]",
           r.resultGet!.condicionIvaReceptor![0]!,
         );
+      });
+
+      it('getIvaReceptorTypes("A") con clase de comprobante filtrada', async () => {
+        const r = await arca.electronicBillingService.getIvaReceptorTypes("A");
+        expectIvaReceptorTypesForClaseCmp("getIvaReceptorTypes(A)", "A", r);
       });
     });
 
@@ -373,6 +384,81 @@ describeOrSkip(
           concepto: 2,
           docTipo: 99,
           docNro: 0,
+        });
+      });
+
+      it("createNextVoucher Factura C (CbteTipo 11) con numeración automática", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_C ?? "1",
+          10,
+        );
+
+        const { resultado } = await createNextVoucherHomologacionWithRetry(
+          arca,
+          puntoVenta,
+          11,
+          (fecha) => buildNextFacturaC(puntoVenta, fecha, condIva),
+        );
+
+        expectFecaeHomologacionFlexible(resultado, {
+          puntoVenta,
+          cbteTipo: 11,
+        });
+      });
+
+      it("Factura A en USD (MonId DOL) con cotización WSFE", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const docNro = parseCuit11(
+          "TEST_FE_RECEIVER_CUIT",
+          process.env.TEST_FE_RECEIVER_CUIT,
+        );
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_A ?? "1",
+          10,
+        );
+
+        const quote = await arca.electronicBillingService.getQuotation("DOL");
+        expectWsfeWithoutErrors("getQuotation(DOL) para FECAE", quote);
+        const monCotiz = quote.resultGet?.monCotiz ?? 0;
+        expect(monCotiz).toBeGreaterThan(0);
+
+        const { resultado } = await createVoucherHomologacionWithRetry(
+          arca,
+          puntoVenta,
+          1,
+          (n, f) =>
+            buildFacturaAUsd(puntoVenta, docNro, condIva, n, f, monCotiz),
+        );
+
+        expectFecaeHomologacionFlexible(resultado, {
+          puntoVenta,
+          cbteTipo: 1,
+        });
+      });
+
+      it("Factura A en lote (CantReg=2) devuelve payload consistente", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const docNro = parseCuit11(
+          "TEST_FE_RECEIVER_CUIT",
+          process.env.TEST_FE_RECEIVER_CUIT,
+        );
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_A ?? "1",
+          10,
+        );
+
+        const { resultado } = await createVoucherHomologacionWithRetry(
+          arca,
+          puntoVenta,
+          1,
+          (n, f) => buildFacturaALote2(puntoVenta, docNro, condIva, n, f),
+        );
+
+        expectFecaeHomologacionFlexible(resultado, {
+          puntoVenta,
+          cbteTipo: 1,
+          expectBatch: { cantReg: 2 },
         });
       });
     });
