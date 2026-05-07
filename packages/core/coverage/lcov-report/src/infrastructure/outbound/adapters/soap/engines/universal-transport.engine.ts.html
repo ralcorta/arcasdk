@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -121,46 +121,46 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type {
@@ -172,45 +172,45 @@
 import { IHttpClient } from "soap";
 &nbsp;
 export class FetchHttpClient implements IHttpClient {
-  public <span class="fstat-no" title="function not covered" >request(</span>
+  public request(
     ...args: SoapHttpClientRequestArgs
   ): SoapHttpClientRequestReturn {
-    const [rurl, data, callback, exheaders, exoptions] = <span class="cstat-no" title="statement not covered" >args;</span>
-    const method = <span class="cstat-no" title="statement not covered" >data ? "POST" : "GET";</span>
-    const headers<span class="cstat-no" title="statement not covered" >: SoapTransportHeaders = {</span>
+    const [rurl, data, callback, exheaders, exoptions] = args;
+    const method = data ? "POST" : "GET";
+    const headers: SoapTransportHeaders = {
       ...((exheaders ?? {}) as SoapTransportHeaders),
     };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (data) {</span>
-<span class="cstat-no" title="statement not covered" >      headers["Content-Type"] =</span>
+    if (data) {
+      headers["Content-Type"] =
         headers["Content-Type"] || "text/xml; charset=utf-8";
     }
 &nbsp;
-    const options<span class="cstat-no" title="statement not covered" >: RequestInit = {</span>
+    const options: RequestInit = {
       method,
       headers,
       body: (data as BodyInit | null | undefined) ?? null,
       ...((exoptions ?? {}) as RequestInit),
     };
 &nbsp;
-    const requestPromise = <span class="cstat-no" title="statement not covered" >fetch(rurl, options)</span>
-      .then(<span class="fstat-no" title="function not covered" >async (r</span>esponse) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
-        const body = <span class="cstat-no" title="statement not covered" >await response.text();</span>
+    const requestPromise = fetch(rurl, options)
+      .then(async (response) =&gt; {
+        const body = await response.text();
 &nbsp;
-        const res: SoapTransportLikeResponse = <span class="cstat-no" title="statement not covered" >{</span>
+        const res: SoapTransportLikeResponse = {
           statusCode: response.status,
           headers: Object.fromEntries(response.headers.entries()),
           body,
           data: body, // axios/soap expects 'data' prop sometimes
         };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        callback(null, res, body);</span>
+        callback(null, res, body);
       })
-      .catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
-<span class="cstat-no" title="statement not covered" >        callback(error);</span>
+      .catch((error) =&gt; {
+        callback(error);
       });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return requestPromise as unknown as SoapHttpClientRequestReturn;</span>
+    return requestPromise as unknown as SoapHttpClientRequestReturn;
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -220,7 +220,7 @@ export class FetchHttpClient implements IHttpClient {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-07T16:16:09.524Z
+                at 2026-05-07T19:07:41.678Z
             </div>
         <script src="../../../../../../prettify.js"></script>
         <script>

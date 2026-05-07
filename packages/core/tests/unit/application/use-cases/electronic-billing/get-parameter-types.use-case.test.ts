@@ -35,8 +35,18 @@ describe("GetParameterTypesUseCase", () => {
       const mockData: ConceptTypesResultDto = {
         resultGet: {
           conceptoTipo: [
-            { id: 1, desc: "Productos", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: 2, desc: "Servicios", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
+            {
+              id: 1,
+              desc: "Productos",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: 2,
+              desc: "Servicios",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
           ],
         },
       };
@@ -49,9 +59,13 @@ describe("GetParameterTypesUseCase", () => {
     });
 
     it("should propagate repository errors", async () => {
-      mockRepository.getConceptTypes.mockRejectedValue(new Error("Repository error"));
+      mockRepository.getConceptTypes.mockRejectedValue(
+        new Error("Repository error"),
+      );
 
-      await expect(useCase.getConceptTypes()).rejects.toThrow("Repository error");
+      await expect(useCase.getConceptTypes()).rejects.toThrow(
+        "Repository error",
+      );
     });
   });
 
@@ -60,8 +74,18 @@ describe("GetParameterTypesUseCase", () => {
       const mockData: DocumentTypesResultDto = {
         resultGet: {
           docTipo: [
-            { id: 80, desc: "CUIT", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: 86, desc: "CUIL", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
+            {
+              id: 80,
+              desc: "CUIT",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: 86,
+              desc: "CUIL",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
           ],
         },
       };
@@ -74,7 +98,9 @@ describe("GetParameterTypesUseCase", () => {
     });
 
     it("should propagate repository errors", async () => {
-      mockRepository.getDocumentTypes.mockRejectedValue(new Error("Network error"));
+      mockRepository.getDocumentTypes.mockRejectedValue(
+        new Error("Network error"),
+      );
 
       await expect(useCase.getDocumentTypes()).rejects.toThrow("Network error");
     });
@@ -85,9 +111,24 @@ describe("GetParameterTypesUseCase", () => {
       const mockData: AliquotTypesResultDto = {
         resultGet: {
           ivaTipo: [
-            { id: 3, desc: "0%", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: 4, desc: "10.5%", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: 5, desc: "21%", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
+            {
+              id: 3,
+              desc: "0%",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: 4,
+              desc: "10.5%",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: 5,
+              desc: "21%",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
           ],
         },
       };
@@ -111,8 +152,18 @@ describe("GetParameterTypesUseCase", () => {
       const mockData: CurrencyTypesResultDto = {
         resultGet: {
           moneda: [
-            { id: "PES", desc: "Pesos Argentinos", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: "DOL", desc: "Dólares Estadounidenses", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
+            {
+              id: "PES",
+              desc: "Pesos Argentinos",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: "DOL",
+              desc: "Dólares Estadounidenses",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
           ],
         },
       };
@@ -125,9 +176,13 @@ describe("GetParameterTypesUseCase", () => {
     });
 
     it("should propagate repository errors", async () => {
-      mockRepository.getCurrencyTypes.mockRejectedValue(new Error("Service unavailable"));
+      mockRepository.getCurrencyTypes.mockRejectedValue(
+        new Error("Service unavailable"),
+      );
 
-      await expect(useCase.getCurrencyTypes()).rejects.toThrow("Service unavailable");
+      await expect(useCase.getCurrencyTypes()).rejects.toThrow(
+        "Service unavailable",
+      );
     });
   });
 
@@ -136,8 +191,18 @@ describe("GetParameterTypesUseCase", () => {
       const mockData: OptionalTypesResultDto = {
         resultGet: {
           opcionalTipo: [
-            { id: "1", desc: "Descripción", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: "2", desc: "Referencia de comprobante", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
+            {
+              id: "1",
+              desc: "Descripción",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: "2",
+              desc: "Referencia de comprobante",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
           ],
         },
       };
@@ -161,9 +226,24 @@ describe("GetParameterTypesUseCase", () => {
       const mockData: TaxTypesResultDto = {
         resultGet: {
           tributoTipo: [
-            { id: 1, desc: "Impuesto Municipal", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: 2, desc: "Impuesto Provincial", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
-            { id: 3, desc: "Tasa de Seguridad e Higiene", fchDesde: "2020-01-01", fchHasta: "2099-12-31" },
+            {
+              id: 1,
+              desc: "Impuesto Municipal",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: 2,
+              desc: "Impuesto Provincial",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
+            {
+              id: 3,
+              desc: "Tasa de Seguridad e Higiene",
+              fchDesde: "2020-01-01",
+              fchHasta: "2099-12-31",
+            },
           ],
         },
       };

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/application/use-cases/electronic-billing/get-countries.use-case.ts</title>
+    <title>Code coverage report for src/application/use-cases/authentication/login.use-case.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/application/use-cases/electronic-billing</a> get-countries.use-case.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/application/use-cases/authentication</a> login.use-case.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -80,19 +80,12 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -100,27 +93,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * Get Countries Use Case
- * Retrieves the list of available countries
- */
-import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { CountriesResultDto } from "@application/dto/electronic-billing.dto";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
+import { AccessTicket } from "@domain/entities/access-ticket.entity";
 &nbsp;
-export class GetCountriesUseCase {
+export class LoginUseCase {
   constructor(
-    private readonly electronicBillingRepository: IElectronicBillingRepositoryPort
+    private readonly authenticationRepository: IAuthenticationRepositoryPort,
   ) {}
 &nbsp;
   /**
-   * Get Countries
-   * @returns Countries information
+   * Execute the use case
+   * @param serviceName Service name to authenticate for
+   * @returns AccessTicket
    */
-  async execute(): Promise&lt;CountriesResultDto&gt; {
-    return this.electronicBillingRepository.getCountries();
+  async execute(serviceName: string): Promise&lt;AccessTicket&gt; {
+    return this.authenticationRepository.login(serviceName);
   }
 }
 &nbsp;</pre></td></tr></table></pre>

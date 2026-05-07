@@ -9,7 +9,9 @@ describe("Parser", () => {
           <age>30</age>
         </root>`;
 
-      const result = await Parser.xmlToJson<{ root: { name: string; age: string } }>(xml);
+      const result = await Parser.xmlToJson<{
+        root: { name: string; age: string };
+      }>(xml);
 
       expect(result).toHaveProperty("root");
       expect(result.root).toHaveProperty("name", "John");
@@ -119,8 +121,8 @@ describe("Parser", () => {
       const xml = Parser.jsonToXml(obj);
 
       // Verify it starts with < and ends with >
-      expect(xml).toMatch(/^\s*</);  // starts with <
-      expect(xml).toMatch(/>\s*$/);  // ends with >
+      expect(xml).toMatch(/^\s*</); // starts with <
+      expect(xml).toMatch(/>\s*$/); // ends with >
       expect(xml).toContain("root");
       expect(xml).toContain("test");
     });
