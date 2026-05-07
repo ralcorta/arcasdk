@@ -1,6 +1,11 @@
-import { AccessTicket, ILoginCredentials } from "@domain/entities/access-ticket.entity";
+import {
+  AccessTicket,
+  ILoginCredentials,
+} from "@domain/entities/access-ticket.entity";
+import { MS_PER_DAY } from "../../../utils/time.constants";
 
 describe("AccessTicket Entity", () => {
+  const futureExpiration = new Date(Date.now() + MS_PER_DAY).toISOString();
   const validLoginCredentials: ILoginCredentials = {
     header: [
       { version: "1.0" },
@@ -8,8 +13,8 @@ describe("AccessTicket Entity", () => {
         source: "WSAA",
         destination: "CN=wsfe",
         uniqueid: "12345",
-        generationtime: "2024-05-07T10:00:00-03:00",
-        expirationtime: "2024-05-07T14:00:00-03:00",
+        generationtime: new Date().toISOString(),
+        expirationtime: futureExpiration,
       },
     ] as any,
     credentials: {
@@ -77,9 +82,7 @@ describe("AccessTicket Entity", () => {
         ...validLoginCredentials,
         header: [null, { uniqueId: "12345" }] as any,
       };
-      expect(() => AccessTicket.create(invalidData)).toThrow(
-        /expiration/i,
-      );
+      expect(() => AccessTicket.create(invalidData)).toThrow(/expiration/i);
     });
   });
 
@@ -149,9 +152,35 @@ describe("AccessTicket Entity", () => {
 
     it("throws error with null CUIT", () => {
       const ticket = AccessTicket.create(validLoginCredentials);
-      expect(() => ticket.getWSAuthFormat(null as any)).toThrow(
-        /CUIT/i,
-      );
+      expect(() => ticket.getWSAuthFormat(null as any)).toThrow(/CUIT/i);
+    });
+  });
+
+  describe("isExpired", () => {
+    it("returns true when expiration time is in the past", () => {
+      const expiredCredentials: ILoginCredentials = {
+        header: [
+          { version: "1.0" },
+          {
+            source: "WSAA",
+            destination: "CN=wsfe",
+            uniqueid: "12345",
+            generationtime: new Date().toISOString(),
+            expirationtime: new Date(Date.now() - MS_PER_DAY).toISOString(),
+          },
+        ] as any,
+        credentials: {
+          token: "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4...",
+          sign: "signature123",
+        },
+      };
+      const ticket = AccessTicket.create(expiredCredentials);
+      expect(ticket.isExpired()).toBe(true);
+    });
+
+    it("returns false when expiration time is in the future", () => {
+      const ticket = AccessTicket.create(validLoginCredentials);
+      expect(ticket.isExpired()).toBe(false);
     });
   });
 });

@@ -36,15 +36,11 @@ describe("GetTaxpayersDetailsUseCase", () => {
 
   it("propagates repository errors", async () => {
     const repository: jest.Mocked<IRegisterBatchRepositoryPort> = {
-      getTaxpayersDetails: jest
-        .fn()
-        .mockRejectedValue(new Error("boom")),
+      getTaxpayersDetails: jest.fn().mockRejectedValue(new Error("boom")),
     } as any;
 
     const useCase = new GetTaxpayersDetailsUseCase(repository);
 
-    await expect(
-      useCase.execute([20111111112]),
-    ).rejects.toThrow("boom");
+    await expect(useCase.execute([20111111112])).rejects.toThrow("boom");
   });
 });

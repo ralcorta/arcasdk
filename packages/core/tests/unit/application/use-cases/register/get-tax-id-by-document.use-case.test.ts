@@ -34,15 +34,11 @@ describe("GetTaxIDByDocumentUseCase", () => {
 
   it("propagates repository errors", async () => {
     const repository: jest.Mocked<IRegisterScopeThirteenRepositoryPort> = {
-      getTaxIDByDocument: jest
-        .fn()
-        .mockRejectedValue(new Error("boom")),
+      getTaxIDByDocument: jest.fn().mockRejectedValue(new Error("boom")),
     } as any;
 
     const useCase = new GetTaxIDByDocumentUseCase(repository);
 
-    await expect(
-      useCase.execute("20111111112"),
-    ).rejects.toThrow("boom");
+    await expect(useCase.execute("20111111112")).rejects.toThrow("boom");
   });
 });

@@ -1,5 +1,5 @@
-import { Voucher } from "@arcasdk/core/src/domain/entities/voucher.entity";
-import { IVoucher } from "@arcasdk/core/src/domain/types/voucher.types";
+import { Voucher } from "@domain/entities/voucher.entity";
+import { IVoucher } from "@domain/types/voucher.types";
 import { data } from "../../../mocks/data/voucher.mock";
 
 describe("Voucher Entity", () => {

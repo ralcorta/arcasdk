@@ -27,8 +27,6 @@ describe("ConsultCaeaNoMovementUseCase", () => {
 
     const useCase = new ConsultCaeaNoMovementUseCase(repository);
 
-    await expect(
-      useCase.execute("12345678901234", 1),
-    ).rejects.toThrow("boom");
+    await expect(useCase.execute("12345678901234", 1)).rejects.toThrow("boom");
   });
 });
