@@ -589,5 +589,375 @@ describe("ElectronicBillingRepository", () => {
         }),
       );
     });
+
+    it("should return CAE and CAEFchVto when voucher is approved (Resultado A)", async () => {
+      mockSoapClient.FECAESolicitarAsync.mockResolvedValue([
+        {
+          FECAESolicitarResult: {
+            FeDetResp: {
+              FECAEDetResponse: [
+                { Resultado: "A", CAE: "12345678901234", CAEFchVto: "20241231" },
+              ],
+            },
+          },
+        },
+      ] as never);
+
+      const mockVoucher = {
+        toDTO: jest.fn().mockReturnValue({
+          ...data,
+          PtoVta: 1,
+          CbteTipo: 1,
+          CbteDesde: 5,
+          CbteHasta: 5,
+        }),
+      } as never;
+
+      const result = await repository.createVoucher(mockVoucher);
+
+      expect(result.cae).toBe("12345678901234");
+      expect(result.caeFchVto).toBe("20241231");
+    });
+  });
+
+  describe("getVoucherInfo", () => {
+    it("should return null when SOAP response has no ResultGet", async () => {
+      mockSoapClient.FECompConsultarAsync.mockResolvedValue([
+        {
+          FECompConsultarResult: {
+            ResultGet: undefined,
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getVoucherInfo(1, 1, 1);
+
+      expect(result).toBeNull();
+    });
+
+    it("should return mapped voucher info when ResultGet is present", async () => {
+      mockSoapClient.FECompConsultarAsync.mockResolvedValue([
+        {
+          FECompConsultarResult: {
+            ResultGet: {
+              CodAutorizacion: "12345678901234",
+              EmisionTipo: "CAE",
+              Resultado: "A",
+              Concepto: 1,
+              DocTipo: 80,
+              DocNro: 20111111112,
+              CbteDesde: 1,
+              CbteHasta: 1,
+              CbteFch: "20231001",
+              ImpTotal: 121,
+              ImpTotConc: 0,
+              ImpNeto: 100,
+              ImpOpEx: 0,
+              ImpIVA: 21,
+              ImpTrib: 0,
+              MonId: "PES",
+              MonCotiz: 1,
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getVoucherInfo(1, 1, 1);
+
+      expect(result).not.toBeNull();
+      expect(result!.codAutorizacion).toBe("12345678901234");
+      expect(result!.resultado).toBe("A");
+      expect(result!.docNro).toBe(20111111112);
+    });
+  });
+
+  describe("invalidateClient", () => {
+    it("should force SOAP client re-creation on next call", async () => {
+      mockSoapClient.FEDummyAsync.mockResolvedValue([
+        { FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" } },
+      ] as never);
+
+      await repository.getServerStatus();
+      repository.invalidateClient();
+      await repository.getServerStatus();
+
+      expect(SoapClient.prototype.createClient).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe("client caching", () => {
+    it("should reuse the cached SOAP client on consecutive calls", async () => {
+      mockSoapClient.FEDummyAsync.mockResolvedValue([
+        { FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" } },
+      ] as never);
+
+      await repository.getServerStatus();
+      await repository.getServerStatus();
+
+      expect(SoapClient.prototype.createClient).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("getServerStatus", () => {
+    it("should return mapped server status", async () => {
+      mockSoapClient.FEDummyAsync.mockResolvedValue([
+        { FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" } },
+      ] as never);
+
+      const result = await repository.getServerStatus();
+
+      expect(result).toEqual({ appServer: "OK", dbServer: "OK", authServer: "OK" });
+      expect(mockSoapClient.FEDummyAsync).toHaveBeenCalledWith({});
+    });
+  });
+
+  describe("getSalesPoints", () => {
+    it("should return sales points list", async () => {
+      mockSoapClient.FEParamGetPtosVentaAsync.mockResolvedValue([
+        {
+          FEParamGetPtosVentaResult: {
+            ResultGet: {
+              PtoVenta: [{ Nro: 1, EmisionTipo: "CAE", Bloqueado: "N" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getSalesPoints();
+
+      expect(result.resultGet!.ptoVenta).toEqual([
+        { nro: 1, emisionTipo: "CAE", bloqueado: "N", fechaBaja: undefined },
+      ]);
+      expect(result.errors).toBeUndefined();
+    });
+
+    it("should include mapped errors when present", async () => {
+      mockSoapClient.FEParamGetPtosVentaAsync.mockResolvedValue([
+        {
+          FEParamGetPtosVentaResult: {
+            ResultGet: { PtoVenta: [] },
+            Errors: { Err: [{ Code: 602, Msg: "No hay PV registrados" }] },
+          },
+        },
+      ] as never);
+
+      const result = await repository.getSalesPoints();
+
+      expect(result.errors).toEqual({ err: [{ code: 602, msg: "No hay PV registrados" }] });
+    });
+  });
+
+  describe("getLastVoucher", () => {
+    it("should return mapped last voucher", async () => {
+      mockSoapClient.FECompUltimoAutorizadoAsync.mockResolvedValue([
+        {
+          FECompUltimoAutorizadoResult: {
+            CbteNro: 42,
+            CbteTipo: 1,
+            PtoVta: 1,
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getLastVoucher(1, 1);
+
+      expect(result).toEqual({ cbteNro: 42, cbteTipo: 1, ptoVta: 1, errors: undefined });
+      expect(mockSoapClient.FECompUltimoAutorizadoAsync).toHaveBeenCalledWith({
+        PtoVta: 1,
+        CbteTipo: 1,
+      });
+    });
+  });
+
+  describe("getVoucherTypes", () => {
+    it("should return voucher types", async () => {
+      mockSoapClient.FEParamGetTiposCbteAsync.mockResolvedValue([
+        {
+          FEParamGetTiposCbteResult: {
+            ResultGet: {
+              CbteTipo: [{ Id: 1, Desc: "Factura A", FchDesde: "20030401", FchHasta: "99991231" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getVoucherTypes();
+
+      expect(result.resultGet!.cbteTipo).toEqual([
+        { id: 1, desc: "Factura A", fchDesde: "20030401", fchHasta: "99991231" },
+      ]);
+    });
+  });
+
+  describe("getConceptTypes", () => {
+    it("should return concept types", async () => {
+      mockSoapClient.FEParamGetTiposConceptoAsync.mockResolvedValue([
+        {
+          FEParamGetTiposConceptoResult: {
+            ResultGet: {
+              ConceptoTipo: [{ Id: 1, Desc: "Productos", FchDesde: "20030401", FchHasta: "99991231" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getConceptTypes();
+
+      expect(result.resultGet!.conceptoTipo).toEqual([
+        { id: 1, desc: "Productos", fchDesde: "20030401", fchHasta: "99991231" },
+      ]);
+    });
+  });
+
+  describe("getDocumentTypes", () => {
+    it("should return document types", async () => {
+      mockSoapClient.FEParamGetTiposDocAsync.mockResolvedValue([
+        {
+          FEParamGetTiposDocResult: {
+            ResultGet: {
+              DocTipo: [{ Id: 80, Desc: "CUIT", FchDesde: "20030401", FchHasta: "99991231" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getDocumentTypes();
+
+      expect(result.resultGet!.docTipo).toEqual([
+        { id: 80, desc: "CUIT", fchDesde: "20030401", fchHasta: "99991231" },
+      ]);
+    });
+  });
+
+  describe("getAliquotTypes", () => {
+    it("should return aliquot types with parsed integer Id", async () => {
+      mockSoapClient.FEParamGetTiposIvaAsync.mockResolvedValue([
+        {
+          FEParamGetTiposIvaResult: {
+            ResultGet: {
+              IvaTipo: [{ Id: "5", Desc: "21%", FchDesde: "20030401", FchHasta: "99991231" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getAliquotTypes();
+
+      expect(result.resultGet!.ivaTipo).toEqual([
+        { id: 5, desc: "21%", fchDesde: "20030401", fchHasta: "99991231" },
+      ]);
+    });
+  });
+
+  describe("getCurrencyTypes", () => {
+    it("should return currency types", async () => {
+      mockSoapClient.FEParamGetTiposMonedasAsync.mockResolvedValue([
+        {
+          FEParamGetTiposMonedasResult: {
+            ResultGet: {
+              Moneda: [{ Id: "DOL", Desc: "Dólar Americano", FchDesde: "20030401", FchHasta: "99991231" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getCurrencyTypes();
+
+      expect(result.resultGet!.moneda).toEqual([
+        { id: "DOL", desc: "Dólar Americano", fchDesde: "20030401", fchHasta: "99991231" },
+      ]);
+    });
+  });
+
+  describe("getOptionalTypes", () => {
+    it("should return optional types", async () => {
+      mockSoapClient.FEParamGetTiposOpcionalAsync.mockResolvedValue([
+        {
+          FEParamGetTiposOpcionalResult: {
+            ResultGet: {
+              OpcionalTipo: [{ Id: "10", Desc: "Dato Opcional 10", FchDesde: "20030401", FchHasta: "99991231" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getOptionalTypes();
+
+      expect(result.resultGet!.opcionalTipo).toEqual([
+        { id: "10", desc: "Dato Opcional 10", fchDesde: "20030401", fchHasta: "99991231" },
+      ]);
+    });
+  });
+
+  describe("getTaxTypes", () => {
+    it("should return tax types", async () => {
+      mockSoapClient.FEParamGetTiposTributosAsync.mockResolvedValue([
+        {
+          FEParamGetTiposTributosResult: {
+            ResultGet: {
+              TributoTipo: [{ Id: 99, Desc: "Otros tributos", FchDesde: "20030401", FchHasta: "99991231" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getTaxTypes();
+
+      expect(result.resultGet!.tributoTipo).toEqual([
+        { id: 99, desc: "Otros tributos", fchDesde: "20030401", fchHasta: "99991231" },
+      ]);
+    });
+  });
+
+  describe("getIvaReceptorTypes", () => {
+    it("should return IVA receptor types without filter", async () => {
+      mockSoapClient.FEParamGetCondicionIvaReceptorAsync.mockResolvedValue([
+        {
+          FEParamGetCondicionIvaReceptorResult: {
+            ResultGet: {
+              CondicionIvaReceptor: [{ Id: 1, Desc: "IVA Responsable Inscripto", Cmp_Clase: "A" }],
+            },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      const result = await repository.getIvaReceptorTypes();
+
+      expect(result.resultGet!.condicionIvaReceptor).toEqual([
+        { id: 1, desc: "IVA Responsable Inscripto", cmp_Clase: "A" },
+      ]);
+      expect(mockSoapClient.FEParamGetCondicionIvaReceptorAsync).toHaveBeenCalledWith({
+        ClaseCmp: undefined,
+      });
+    });
+
+    it("should pass claseCmp filter when provided", async () => {
+      mockSoapClient.FEParamGetCondicionIvaReceptorAsync.mockResolvedValue([
+        {
+          FEParamGetCondicionIvaReceptorResult: {
+            ResultGet: { CondicionIvaReceptor: [] },
+            Errors: undefined,
+          },
+        },
+      ] as never);
+
+      await repository.getIvaReceptorTypes("A");
+
+      expect(mockSoapClient.FEParamGetCondicionIvaReceptorAsync).toHaveBeenCalledWith({
+        ClaseCmp: "A",
+      });
+    });
   });
 });

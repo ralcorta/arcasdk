@@ -484,8 +484,7 @@ describeOrSkip(
           arca,
           puntoVenta,
           1,
-          (n, f) =>
-            buildFacturaAProductos(puntoVenta, docNro, condIva, n, f),
+          (n, f) => buildFacturaAProductos(puntoVenta, docNro, condIva, n, f),
         );
 
         expectFecaeHomologacionFlexible(resultado, {
@@ -518,7 +517,8 @@ describeOrSkip(
         const tributoId = tributoList[0]!.id;
 
         // Obtener opcionalId desde FEParamGetTiposOpcional
-        const opcionales = await arca.electronicBillingService.getOptionsTypes();
+        const opcionales =
+          await arca.electronicBillingService.getOptionsTypes();
         expectWsfeWithoutErrors("getOptionsTypes para multi-IVA", opcionales);
         const opcionalList = opcionales.resultGet?.opcionalTipo ?? [];
         if (opcionalList.length === 0) {
@@ -587,19 +587,20 @@ describeOrSkip(
         const emitterCuit = emitterCuit11Digits();
 
         // 2. Emitir Nota de Crédito con la Factura como asociada
-        const { resultado: notaResult } = await createVoucherHomologacionWithRetry(
-          arca,
-          puntoVenta,
-          3,
-          (n, f) =>
-            buildNotaCreditoAConAsociado(puntoVenta, docNro, condIva, n, f, {
-              tipo: 1,
-              ptoVta: puntoVenta,
-              nro: det.CbteDesde!,
-              cuit: emitterCuit,
-              cbteFch: facturaFecha,
-            }),
-        );
+        const { resultado: notaResult } =
+          await createVoucherHomologacionWithRetry(
+            arca,
+            puntoVenta,
+            3,
+            (n, f) =>
+              buildNotaCreditoAConAsociado(puntoVenta, docNro, condIva, n, f, {
+                tipo: 1,
+                ptoVta: puntoVenta,
+                nro: det.CbteDesde!,
+                cuit: emitterCuit,
+                cbteFch: facturaFecha,
+              }),
+          );
 
         expectFecaeHomologacionFlexible(notaResult, {
           puntoVenta,
@@ -643,19 +644,20 @@ describeOrSkip(
         const emitterCuit = emitterCuit11Digits();
 
         // 2. Emitir Nota de Débito con la Factura como asociada
-        const { resultado: notaResult } = await createVoucherHomologacionWithRetry(
-          arca,
-          puntoVenta,
-          2,
-          (n, f) =>
-            buildNotaDebitoAConAsociado(puntoVenta, docNro, condIva, n, f, {
-              tipo: 1,
-              ptoVta: puntoVenta,
-              nro: det.CbteDesde!,
-              cuit: emitterCuit,
-              cbteFch: facturaFecha,
-            }),
-        );
+        const { resultado: notaResult } =
+          await createVoucherHomologacionWithRetry(
+            arca,
+            puntoVenta,
+            2,
+            (n, f) =>
+              buildNotaDebitoAConAsociado(puntoVenta, docNro, condIva, n, f, {
+                tipo: 1,
+                ptoVta: puntoVenta,
+                nro: det.CbteDesde!,
+                cuit: emitterCuit,
+                cbteFch: facturaFecha,
+              }),
+          );
 
         expectFecaeHomologacionFlexible(notaResult, {
           puntoVenta,

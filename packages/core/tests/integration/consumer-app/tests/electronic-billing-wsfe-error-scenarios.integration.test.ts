@@ -1,17 +1,13 @@
 import { describe, expect, it, beforeAll } from "@jest/globals";
 import type { Arca } from "@arcasdk/core";
 import { createArcaForWsfeHomologation } from "./utils/homologation-arca";
-import {
-  resolveHomologationPuntoVenta,
-} from "./utils/wsfe-homologation-helpers";
+import { resolveHomologationPuntoVenta } from "./utils/wsfe-homologation-helpers";
 import {
   buildFacturaA,
   homologacionCbteFch,
   createVoucherHomologacionWithRetry,
 } from "./utils/wsfe-invoice-emission";
-import {
-  expectNonEmptyString,
-} from "./utils/wsfe-expect";
+import { expectNonEmptyString } from "./utils/wsfe-expect";
 
 /**
  * Errores y violaciones de reglas de negocio en WSFE.
@@ -128,8 +124,7 @@ describeOrSkip(
         const response = resultado.response;
         const soapErrors = response.Errors?.Err ?? [];
         const cabResult = response.FeCabResp?.Resultado;
-        const detResult =
-          response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado;
+        const detResult = response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado;
 
         const hasErrors = soapErrors.length > 0;
         const isRejected = cabResult === "R" || detResult === "R";
@@ -177,8 +172,7 @@ describeOrSkip(
         const response = resultado.response;
         const soapErrors = response.Errors?.Err ?? [];
         const cabResult = response.FeCabResp?.Resultado;
-        const detResult =
-          response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado;
+        const detResult = response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado;
 
         const hasErrors = soapErrors.length > 0;
         const isRejected = cabResult === "R" || detResult === "R";
@@ -226,8 +220,7 @@ describeOrSkip(
         const response = resultado.response;
         const soapErrors = response.Errors?.Err ?? [];
         const cabResult = response.FeCabResp?.Resultado;
-        const detResult =
-          response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado;
+        const detResult = response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado;
 
         const hasErrors = soapErrors.length > 0;
         const isRejected = cabResult === "R" || detResult === "R";
@@ -251,35 +244,30 @@ describeOrSkip(
         let thrownError: Error | null = null;
 
         try {
-          await createVoucherHomologacionWithRetry(
-            arca,
-            puntoVenta,
-            1,
-            () => ({
-              CantReg: 1,
-              PtoVta: puntoVenta,
-              CbteTipo: 1,
-              Concepto: 999, // Inválido
-              DocTipo: 80,
-              DocNro: docNro,
-              CbteDesde: numSig,
-              CbteHasta: numSig,
-              CbteFch: fecha,
-              ImpTotal: 100,
-              ImpTotConc: 0,
-              ImpNeto: 100,
-              ImpOpEx: 0,
-              ImpIVA: 0,
-              ImpTrib: 0,
-              MonId: "PES",
-              MonCotiz: 1,
-              CondicionIVAReceptorId: condIva,
-              FchServDesde: fecha,
-              FchServHasta: fecha,
-              FchVtoPago: fecha,
-              Iva: [{ Id: 5, BaseImp: 100, Importe: 0 }],
-            }),
-          );
+          await createVoucherHomologacionWithRetry(arca, puntoVenta, 1, () => ({
+            CantReg: 1,
+            PtoVta: puntoVenta,
+            CbteTipo: 1,
+            Concepto: 999, // Inválido
+            DocTipo: 80,
+            DocNro: docNro,
+            CbteDesde: numSig,
+            CbteHasta: numSig,
+            CbteFch: fecha,
+            ImpTotal: 100,
+            ImpTotConc: 0,
+            ImpNeto: 100,
+            ImpOpEx: 0,
+            ImpIVA: 0,
+            ImpTrib: 0,
+            MonId: "PES",
+            MonCotiz: 1,
+            CondicionIVAReceptorId: condIva,
+            FchServDesde: fecha,
+            FchServHasta: fecha,
+            FchVtoPago: fecha,
+            Iva: [{ Id: 5, BaseImp: 100, Importe: 0 }],
+          }));
         } catch (e) {
           thrownError = e instanceof Error ? e : new Error(String(e));
         }
@@ -306,8 +294,7 @@ describeOrSkip(
           arca,
           puntoVenta,
           1,
-          (n, f) =>
-            buildFacturaA(puntoVenta, inexistentDocNro, condIva, n, f),
+          (n, f) => buildFacturaA(puntoVenta, inexistentDocNro, condIva, n, f),
         );
 
         const response = resultado.response;
@@ -317,10 +304,7 @@ describeOrSkip(
         // Pero si hay observaciones, debemos validarlas
         if (detList.length > 0 && detList[0]!.Observaciones) {
           const obs = detList[0]!.Observaciones;
-          expectNonEmptyString(
-            "observaciones presentes",
-            JSON.stringify(obs),
-          );
+          expectNonEmptyString("observaciones presentes", JSON.stringify(obs));
         }
       });
     });
@@ -337,14 +321,15 @@ describeOrSkip(
           arca,
           puntoVenta,
           1,
-          () =>
-            buildFacturaA(puntoVenta, docNro, condIva, numSig, fecha),
+          () => buildFacturaA(puntoVenta, docNro, condIva, numSig, fecha),
         );
 
         const response = resultado.response;
         const hasCabResp = response.FeCabResp !== undefined;
         const hasErrors =
-          response.Errors && response.Errors.Err && response.Errors.Err.length > 0;
+          response.Errors &&
+          response.Errors.Err &&
+          response.Errors.Err.length > 0;
 
         expect(hasCabResp || hasErrors).toBe(true);
       });
@@ -399,7 +384,5 @@ describeOrSkip(
 );
 
 if (!enableIntegration) {
-  console.info(
-    "Omitiendo tests WSFE (errores): ENABLE_INTEGRATION_TESTS=true",
-  );
+  console.info("Omitiendo tests WSFE (errores): ENABLE_INTEGRATION_TESTS=true");
 }
