@@ -11,8 +11,6 @@
     "test:unit": "jest --config jest.config.js",
     "test:integration": "jest --config jest.integration.config.js",
     "test:integration:watch": "jest --config jest.integration.config.js --watch",
-    "test:integration:manual": "jest --config jest.integration.config.js ./tests/integration/electronic-billing-manual-tokens.integration.test.ts",
-    "test:integration:auto": "jest --config jest.integration.config.js ./tests/integration/electronic-billing.integration.test.ts",
     "generate:wsdl-strings": "node scripts/generate-wsdl-strings.js",
     "prepublishOnly": "npm run build"
   },

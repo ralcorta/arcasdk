@@ -1,7 +1,12 @@
-const path = require("path");
-const { config } = require("dotenv");
+/**
+ * Setup de Jest solo para el mini-proyecto `consumer-app` (npm install desde tarball).
+ * Referenciado por consumer-app/jest.config.cjs; no usar en la suite Nx de packages/core.
+ */
+import path from "path";
+import { config } from "dotenv";
+import { registerIntegrationTestLogs } from "./jest-integration-logs";
 
-const repoRoot = path.resolve(__dirname, "../..");
+const repoRoot = path.resolve(__dirname, "../../../..");
 config({ path: path.join(repoRoot, ".env") });
 
 if (!process.env.TEST_CREDENTIALS_FOLDER) {
@@ -13,20 +18,10 @@ if (!process.env.TEST_CREDENTIALS_FOLDER) {
   );
 }
 
-/**
- * Si WSFE devuelve 602 en FEParamGetPtosVenta (sin PV en padrón), los tests usan este número.
- * Override: export TEST_WSFE_PTO_VTA=10
- */
 if (!process.env.TEST_WSFE_PTO_VTA) {
   process.env.TEST_WSFE_PTO_VTA = "2";
 }
 
-/**
- * Factura A: TEST_FE_RECEIVER_CUIT (DocTipo 80), suele ser un RI.
- * Factura B (CbteTipo 6): receptor 20111111112 (ej. AFIP). CondicionIVAReceptorId debe ser válida
- * para clase B/C (ver FEParamGetCondicionIvaReceptor: Cmp_Clase). El código 6 (monotributo) aplica a
- * clase A, no a B: default 5 (consumidor final). Override en .env si AFIP o el padrón lo exigen.
- */
 if (!process.env.TEST_FE_RECEIVER_CUIT) {
   process.env.TEST_FE_RECEIVER_CUIT = "30716756411";
 }
@@ -43,12 +38,17 @@ if (!process.env.TEST_FE_COND_IVA_RECEPTOR_C) {
   process.env.TEST_FE_COND_IVA_RECEPTOR_C = "1";
 }
 
-/** Caché de TA de WSAA para integración (evita `alreadyAuthenticated` en reruns). */
 if (!process.env.TEST_TICKET_CACHE_FOLDER) {
   process.env.TEST_TICKET_CACHE_FOLDER = path.join(
-    __dirname,
+    repoRoot,
+    "packages",
+    "core",
     ".ticket-cache",
   );
 }
 
-jest.setTimeout(60000);
+jest.setTimeout(60_000);
+
+if (process.env.ENABLE_INTEGRATION_TESTS === "true") {
+  registerIntegrationTestLogs("consumer integration");
+}

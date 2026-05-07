@@ -3,23 +3,23 @@
  * (same files a consumer gets from npm install @scope/pkg@version).
  *
  * Usage:
- *   node integration/scripts/pack-package-for-consumer.js <packageDir> [--out <stable.tgz>]
+ *   node packages/core/tests/integration/scripts/pack-package-for-consumer.js <packageDir> [--out <stable.tgz>]
  *
  * <packageDir>  Path under repo root (e.g. packages/core, packages/mi-paquete).
  * --out          Destination .tgz (absolute or relative to repo root).
- *                Default: integration/consumer-app/vendor/<último-segmento-del-nombre>.tgz
- *                (p.ej. @arcasdk/core → integration/consumer-app/vendor/core.tgz)
+ *                Default: packages/core/tests/integration/consumer-app/vendor/<último-segmento-del-nombre>.tgz
+ *                (p.ej. @arcasdk/core → packages/core/tests/integration/consumer-app/vendor/core.tgz)
  *
  * Examples:
  *   node integration/scripts/pack-package-for-consumer.js packages/core
- *   node integration/scripts/pack-package-for-consumer.js packages/core --out integration/consumer-app/vendor/core.tgz
- *   node integration/scripts/pack-package-for-consumer.js packages/otro --out integration/consumer-otro/vendor/otro.tgz
+ *   node integration/scripts/pack-package-for-consumer.js packages/core --out packages/core/tests/integration/consumer-app/vendor/core.tgz
+ *   node integration/scripts/pack-package-for-consumer.js packages/otro --out packages/otro/tests/integration/consumer-app/vendor/otro.tgz
  */
 const { spawnSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-const repoRoot = path.resolve(__dirname, "../..");
+const repoRoot = path.resolve(__dirname, "../../../../..");
 
 function runNpm(args, cwd) {
   const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
@@ -30,7 +30,9 @@ function runNpm(args, cwd) {
   });
   if (r.error) throw r.error;
   if (r.status !== 0) {
-    throw new Error(`npm ${args.join(" ")} exited with code ${String(r.status)}`);
+    throw new Error(
+      `npm ${args.join(" ")} exited with code ${String(r.status)}`,
+    );
   }
 }
 
@@ -61,10 +63,15 @@ function defaultStableTgzPath(repoRootArg, pkgJson) {
     ? name.split("/").pop()
     : name.replace(/^@/, "");
   if (!shortName) {
-    throw new Error(`Cannot derive artifact short name from package name: ${name}`);
+    throw new Error(
+      `Cannot derive artifact short name from package name: ${name}`,
+    );
   }
   return path.join(
     repoRootArg,
+    "packages",
+    "core",
+    "tests",
     "integration",
     "consumer-app",
     "vendor",

@@ -9,5 +9,9 @@
     "noEmit": true,
     "types": ["jest", "node"]
   },
-  "include": ["tests/**/*.ts"]
+  "include": [
+    "tests/**/*.ts",
+    "../jest-integration-logs.ts",
+    "../jest.setup.consumer.ts"
+  ]
 }

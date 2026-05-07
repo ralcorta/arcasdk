@@ -117,13 +117,19 @@ export class ContextTest {
       );
     }
 
+    const ticketPathFromEnv = (() => {
+      const raw = process.env.TEST_TICKET_CACHE_FOLDER;
+      if (!raw) return undefined;
+      return raw.startsWith("/") ? raw : resolve(process.cwd(), raw);
+    })();
+
     return {
       key,
       cert,
       cuit: options?.cuit ?? parseInt(EnvTest.cuit),
       production: options?.production ?? false,
       handleTicket: options?.handleTicket ?? false,
-      ticketPath: options?.ticketPath,
+      ticketPath: options?.ticketPath ?? ticketPathFromEnv,
       credentials: options?.credentials,
     };
   }
