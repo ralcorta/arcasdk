@@ -596,7 +596,11 @@ describe("ElectronicBillingRepository", () => {
           FECAESolicitarResult: {
             FeDetResp: {
               FECAEDetResponse: [
-                { Resultado: "A", CAE: "12345678901234", CAEFchVto: "20241231" },
+                {
+                  Resultado: "A",
+                  CAE: "12345678901234",
+                  CAEFchVto: "20241231",
+                },
               ],
             },
           },
@@ -676,7 +680,9 @@ describe("ElectronicBillingRepository", () => {
   describe("invalidateClient", () => {
     it("should force SOAP client re-creation on next call", async () => {
       mockSoapClient.FEDummyAsync.mockResolvedValue([
-        { FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" } },
+        {
+          FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" },
+        },
       ] as never);
 
       await repository.getServerStatus();
@@ -690,7 +696,9 @@ describe("ElectronicBillingRepository", () => {
   describe("client caching", () => {
     it("should reuse the cached SOAP client on consecutive calls", async () => {
       mockSoapClient.FEDummyAsync.mockResolvedValue([
-        { FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" } },
+        {
+          FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" },
+        },
       ] as never);
 
       await repository.getServerStatus();
@@ -703,12 +711,18 @@ describe("ElectronicBillingRepository", () => {
   describe("getServerStatus", () => {
     it("should return mapped server status", async () => {
       mockSoapClient.FEDummyAsync.mockResolvedValue([
-        { FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" } },
+        {
+          FEDummyResult: { AppServer: "OK", DbServer: "OK", AuthServer: "OK" },
+        },
       ] as never);
 
       const result = await repository.getServerStatus();
 
-      expect(result).toEqual({ appServer: "OK", dbServer: "OK", authServer: "OK" });
+      expect(result).toEqual({
+        appServer: "OK",
+        dbServer: "OK",
+        authServer: "OK",
+      });
       expect(mockSoapClient.FEDummyAsync).toHaveBeenCalledWith({});
     });
   });
@@ -746,7 +760,9 @@ describe("ElectronicBillingRepository", () => {
 
       const result = await repository.getSalesPoints();
 
-      expect(result.errors).toEqual({ err: [{ code: 602, msg: "No hay PV registrados" }] });
+      expect(result.errors).toEqual({
+        err: [{ code: 602, msg: "No hay PV registrados" }],
+      });
     });
   });
 
@@ -765,7 +781,12 @@ describe("ElectronicBillingRepository", () => {
 
       const result = await repository.getLastVoucher(1, 1);
 
-      expect(result).toEqual({ cbteNro: 42, cbteTipo: 1, ptoVta: 1, errors: undefined });
+      expect(result).toEqual({
+        cbteNro: 42,
+        cbteTipo: 1,
+        ptoVta: 1,
+        errors: undefined,
+      });
       expect(mockSoapClient.FECompUltimoAutorizadoAsync).toHaveBeenCalledWith({
         PtoVta: 1,
         CbteTipo: 1,
@@ -779,7 +800,14 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetTiposCbteResult: {
             ResultGet: {
-              CbteTipo: [{ Id: 1, Desc: "Factura A", FchDesde: "20030401", FchHasta: "99991231" }],
+              CbteTipo: [
+                {
+                  Id: 1,
+                  Desc: "Factura A",
+                  FchDesde: "20030401",
+                  FchHasta: "99991231",
+                },
+              ],
             },
             Errors: undefined,
           },
@@ -789,7 +817,12 @@ describe("ElectronicBillingRepository", () => {
       const result = await repository.getVoucherTypes();
 
       expect(result.resultGet!.cbteTipo).toEqual([
-        { id: 1, desc: "Factura A", fchDesde: "20030401", fchHasta: "99991231" },
+        {
+          id: 1,
+          desc: "Factura A",
+          fchDesde: "20030401",
+          fchHasta: "99991231",
+        },
       ]);
     });
   });
@@ -800,7 +833,14 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetTiposConceptoResult: {
             ResultGet: {
-              ConceptoTipo: [{ Id: 1, Desc: "Productos", FchDesde: "20030401", FchHasta: "99991231" }],
+              ConceptoTipo: [
+                {
+                  Id: 1,
+                  Desc: "Productos",
+                  FchDesde: "20030401",
+                  FchHasta: "99991231",
+                },
+              ],
             },
             Errors: undefined,
           },
@@ -810,7 +850,12 @@ describe("ElectronicBillingRepository", () => {
       const result = await repository.getConceptTypes();
 
       expect(result.resultGet!.conceptoTipo).toEqual([
-        { id: 1, desc: "Productos", fchDesde: "20030401", fchHasta: "99991231" },
+        {
+          id: 1,
+          desc: "Productos",
+          fchDesde: "20030401",
+          fchHasta: "99991231",
+        },
       ]);
     });
   });
@@ -821,7 +866,14 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetTiposDocResult: {
             ResultGet: {
-              DocTipo: [{ Id: 80, Desc: "CUIT", FchDesde: "20030401", FchHasta: "99991231" }],
+              DocTipo: [
+                {
+                  Id: 80,
+                  Desc: "CUIT",
+                  FchDesde: "20030401",
+                  FchHasta: "99991231",
+                },
+              ],
             },
             Errors: undefined,
           },
@@ -842,7 +894,14 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetTiposIvaResult: {
             ResultGet: {
-              IvaTipo: [{ Id: "5", Desc: "21%", FchDesde: "20030401", FchHasta: "99991231" }],
+              IvaTipo: [
+                {
+                  Id: "5",
+                  Desc: "21%",
+                  FchDesde: "20030401",
+                  FchHasta: "99991231",
+                },
+              ],
             },
             Errors: undefined,
           },
@@ -863,7 +922,14 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetTiposMonedasResult: {
             ResultGet: {
-              Moneda: [{ Id: "DOL", Desc: "Dólar Americano", FchDesde: "20030401", FchHasta: "99991231" }],
+              Moneda: [
+                {
+                  Id: "DOL",
+                  Desc: "Dólar Americano",
+                  FchDesde: "20030401",
+                  FchHasta: "99991231",
+                },
+              ],
             },
             Errors: undefined,
           },
@@ -873,7 +939,12 @@ describe("ElectronicBillingRepository", () => {
       const result = await repository.getCurrencyTypes();
 
       expect(result.resultGet!.moneda).toEqual([
-        { id: "DOL", desc: "Dólar Americano", fchDesde: "20030401", fchHasta: "99991231" },
+        {
+          id: "DOL",
+          desc: "Dólar Americano",
+          fchDesde: "20030401",
+          fchHasta: "99991231",
+        },
       ]);
     });
   });
@@ -884,7 +955,14 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetTiposOpcionalResult: {
             ResultGet: {
-              OpcionalTipo: [{ Id: "10", Desc: "Dato Opcional 10", FchDesde: "20030401", FchHasta: "99991231" }],
+              OpcionalTipo: [
+                {
+                  Id: "10",
+                  Desc: "Dato Opcional 10",
+                  FchDesde: "20030401",
+                  FchHasta: "99991231",
+                },
+              ],
             },
             Errors: undefined,
           },
@@ -894,7 +972,12 @@ describe("ElectronicBillingRepository", () => {
       const result = await repository.getOptionalTypes();
 
       expect(result.resultGet!.opcionalTipo).toEqual([
-        { id: "10", desc: "Dato Opcional 10", fchDesde: "20030401", fchHasta: "99991231" },
+        {
+          id: "10",
+          desc: "Dato Opcional 10",
+          fchDesde: "20030401",
+          fchHasta: "99991231",
+        },
       ]);
     });
   });
@@ -905,7 +988,14 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetTiposTributosResult: {
             ResultGet: {
-              TributoTipo: [{ Id: 99, Desc: "Otros tributos", FchDesde: "20030401", FchHasta: "99991231" }],
+              TributoTipo: [
+                {
+                  Id: 99,
+                  Desc: "Otros tributos",
+                  FchDesde: "20030401",
+                  FchHasta: "99991231",
+                },
+              ],
             },
             Errors: undefined,
           },
@@ -915,7 +1005,12 @@ describe("ElectronicBillingRepository", () => {
       const result = await repository.getTaxTypes();
 
       expect(result.resultGet!.tributoTipo).toEqual([
-        { id: 99, desc: "Otros tributos", fchDesde: "20030401", fchHasta: "99991231" },
+        {
+          id: 99,
+          desc: "Otros tributos",
+          fchDesde: "20030401",
+          fchHasta: "99991231",
+        },
       ]);
     });
   });
@@ -926,7 +1021,9 @@ describe("ElectronicBillingRepository", () => {
         {
           FEParamGetCondicionIvaReceptorResult: {
             ResultGet: {
-              CondicionIvaReceptor: [{ Id: 1, Desc: "IVA Responsable Inscripto", Cmp_Clase: "A" }],
+              CondicionIvaReceptor: [
+                { Id: 1, Desc: "IVA Responsable Inscripto", Cmp_Clase: "A" },
+              ],
             },
             Errors: undefined,
           },
@@ -938,7 +1035,9 @@ describe("ElectronicBillingRepository", () => {
       expect(result.resultGet!.condicionIvaReceptor).toEqual([
         { id: 1, desc: "IVA Responsable Inscripto", cmp_Clase: "A" },
       ]);
-      expect(mockSoapClient.FEParamGetCondicionIvaReceptorAsync).toHaveBeenCalledWith({
+      expect(
+        mockSoapClient.FEParamGetCondicionIvaReceptorAsync,
+      ).toHaveBeenCalledWith({
         ClaseCmp: undefined,
       });
     });
@@ -955,7 +1054,9 @@ describe("ElectronicBillingRepository", () => {
 
       await repository.getIvaReceptorTypes("A");
 
-      expect(mockSoapClient.FEParamGetCondicionIvaReceptorAsync).toHaveBeenCalledWith({
+      expect(
+        mockSoapClient.FEParamGetCondicionIvaReceptorAsync,
+      ).toHaveBeenCalledWith({
         ClaseCmp: "A",
       });
     });

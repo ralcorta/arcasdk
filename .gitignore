@@ -31,7 +31,7 @@ packages/core/tests/integration/consumer-app/vendor
 packages/core/tests/integration/consumer-app/.ticket-cache
 node_modules
 vendor
-.ticket-cache
+.ticket-cache*
 
 # Examples
 examples/

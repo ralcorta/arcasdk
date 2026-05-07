@@ -537,4 +537,108 @@ describe("Electronic Billings Service", () => {
     expect(result).toEqual(mockResult);
     expect(mockRepository.consultCaea).toHaveBeenCalledWith(period, order);
   });
+
+  it("should get quotation by currency", async () => {
+    const mockResult = {
+      resultGet: {
+        monId: "DOL",
+        monCotiz: 1012.25,
+        fchCotiz: "20240507",
+      },
+    };
+    mockRepository.getQuotation.mockResolvedValue(mockResult as never);
+
+    const result = await electronicBillingService.getQuotation("DOL");
+
+    expect(result).toEqual(mockResult);
+    expect(mockRepository.getQuotation).toHaveBeenCalledWith("DOL");
+  });
+
+  it("should get countries", async () => {
+    const mockResult = {
+      resultGet: {
+        paisTipo: [
+          { id: 200, desc: "ARGENTINA", fchDesde: "20100101", fchHasta: null },
+        ],
+      },
+    };
+    mockRepository.getCountries.mockResolvedValue(mockResult as never);
+
+    const result = await electronicBillingService.getCountries();
+
+    expect(result).toEqual(mockResult);
+    expect(mockRepository.getCountries).toHaveBeenCalledTimes(1);
+  });
+
+  it("should get activities", async () => {
+    const mockResult = {
+      resultGet: {
+        actividadTipo: [
+          {
+            id: 620100,
+            desc: "SERVICIOS",
+            fchDesde: "20100101",
+            fchHasta: null,
+          },
+        ],
+      },
+    };
+    mockRepository.getActivities.mockResolvedValue(mockResult as never);
+
+    const result = await electronicBillingService.getActivities();
+
+    expect(result).toEqual(mockResult);
+    expect(mockRepository.getActivities).toHaveBeenCalledTimes(1);
+  });
+
+  it("should get max records per request", async () => {
+    const mockResult = {
+      resultGet: 500,
+    };
+    mockRepository.getMaxRecordsPerRequest.mockResolvedValue(
+      mockResult as never,
+    );
+
+    const result = await electronicBillingService.getMaxRecordsPerRequest();
+
+    expect(result).toEqual(mockResult);
+    expect(mockRepository.getMaxRecordsPerRequest).toHaveBeenCalledTimes(1);
+  });
+
+  it("should create invoice as alias of createVoucher", async () => {
+    const voucherInput = {
+      ...data,
+      CbteDesde: 10,
+      CbteHasta: 10,
+    };
+
+    await electronicBillingService.createInvoice(voucherInput);
+
+    expect(mockRepository.createVoucher).toHaveBeenCalledTimes(1);
+  });
+
+  it("should create next invoice as alias of createNextVoucher", async () => {
+    const lastVoucherNumber = 77;
+    mockRepository.getLastVoucher.mockResolvedValue({
+      cbteNro: lastVoucherNumber,
+      cbteTipo: testCbteTipo,
+      ptoVta: testPtoVta,
+    });
+
+    const req = {
+      ...data,
+      PtoVta: testPtoVta,
+      CbteTipo: testCbteTipo,
+    };
+    delete (req as any).CbteDesde;
+    delete (req as any).CbteHasta;
+
+    await electronicBillingService.createNextInvoice(req as never);
+
+    expect(mockRepository.getLastVoucher).toHaveBeenCalledWith(
+      testPtoVta,
+      testCbteTipo,
+    );
+    expect(mockRepository.createVoucher).toHaveBeenCalledTimes(1);
+  });
 });

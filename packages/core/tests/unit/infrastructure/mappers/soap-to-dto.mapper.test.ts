@@ -49,7 +49,11 @@ describe("soap-to-dto.mapper", () => {
         AuthServer: "OK",
       });
 
-      expect(result).toEqual({ appServer: "OK", dbServer: "OK", authServer: "OK" });
+      expect(result).toEqual({
+        appServer: "OK",
+        dbServer: "OK",
+        authServer: "OK",
+      });
     });
   });
 
@@ -140,14 +144,26 @@ describe("soap-to-dto.mapper", () => {
       const result = mapParameterTypes(
         {
           ResultGet: {
-            CbteTipo: [{ Id: 1, Desc: "Factura A", FchDesde: "20030401", FchHasta: "99991231" }],
+            CbteTipo: [
+              {
+                Id: 1,
+                Desc: "Factura A",
+                FchDesde: "20030401",
+                FchHasta: "99991231",
+              },
+            ],
           },
         },
         "CbteTipo",
       );
 
       expect(result).toEqual([
-        { id: 1, desc: "Factura A", fchDesde: "20030401", fchHasta: "99991231" },
+        {
+          id: 1,
+          desc: "Factura A",
+          fchDesde: "20030401",
+          fchHasta: "99991231",
+        },
       ]);
     });
 
@@ -164,7 +180,14 @@ describe("soap-to-dto.mapper", () => {
     it("should parse Id from string to integer", () => {
       const result = mapAliquotTypes({
         ResultGet: {
-          IvaTipo: [{ Id: "5", Desc: "21%", FchDesde: "20030401", FchHasta: "99991231" }],
+          IvaTipo: [
+            {
+              Id: "5",
+              Desc: "21%",
+              FchDesde: "20030401",
+              FchHasta: "99991231",
+            },
+          ],
         },
       });
 
@@ -183,11 +206,15 @@ describe("soap-to-dto.mapper", () => {
     it("should map CondicionIvaReceptor array to domain IvaReceptorType array", () => {
       const result = mapIvaReceptorTypes({
         ResultGet: {
-          CondicionIvaReceptor: [{ Id: 1, Desc: "IVA Responsable Inscripto", Cmp_Clase: "A" }],
+          CondicionIvaReceptor: [
+            { Id: 1, Desc: "IVA Responsable Inscripto", Cmp_Clase: "A" },
+          ],
         },
       });
 
-      expect(result).toEqual([{ id: 1, desc: "IVA Responsable Inscripto", cmp_Clase: "A" }]);
+      expect(result).toEqual([
+        { id: 1, desc: "IVA Responsable Inscripto", cmp_Clase: "A" },
+      ]);
     });
 
     it("should return empty array when CondicionIvaReceptor is absent", () => {
@@ -320,7 +347,11 @@ describe("soap-to-dto.mapper", () => {
         ResultGet: { MonId: "DOL", MonCotiz: 350, FchCotiz: "20231001" },
       });
 
-      expect(result).toEqual({ monId: "DOL", monCotiz: 350, fchCotiz: "20231001" });
+      expect(result).toEqual({
+        monId: "DOL",
+        monCotiz: 350,
+        fchCotiz: "20231001",
+      });
     });
 
     it("should return undefined when ResultGet is absent", () => {
