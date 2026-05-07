@@ -26,24 +26,21 @@
         "production",
         "^production"
       ],
-      "cache": true,
-      "parallelism": 3
+      "cache": true
     },
     "test": {
       "inputs": [
         "default",
         "^production"
       ],
-      "cache": true,
-      "parallelism": 3
+      "cache": true
     },
     "lint": {
       "inputs": [
         "default",
         "{workspaceRoot}/eslint.config.js"
       ],
-      "cache": true,
-      "parallelism": 3
+      "cache": true
     },
     "test:coverage": {
       "inputs": [
