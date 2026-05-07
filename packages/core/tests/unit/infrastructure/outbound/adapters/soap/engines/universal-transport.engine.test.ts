@@ -36,7 +36,7 @@ describe("FetchHttpClient", () => {
         expect.objectContaining({
           method: "GET",
           body: null,
-        })
+        }),
       );
       expect(callback).toHaveBeenCalledWith(
         null,
@@ -45,13 +45,13 @@ describe("FetchHttpClient", () => {
           body: responseBody,
           data: responseBody,
         }),
-        responseBody
+        responseBody,
       );
     });
 
     it("should preserve external headers in GET request", async () => {
       const url = "https://api.example.com/soap";
-      const exheaders = { "Authorization": "Bearer token123" };
+      const exheaders = { Authorization: "Bearer token123" };
       const mockResponse = {
         status: 200,
         text: jest.fn().mockResolvedValue("<response />"),
@@ -67,8 +67,10 @@ describe("FetchHttpClient", () => {
       expect(fetchMock).toHaveBeenCalledWith(
         url,
         expect.objectContaining({
-          headers: expect.objectContaining({ "Authorization": "Bearer token123" }),
-        })
+          headers: expect.objectContaining({
+            Authorization: "Bearer token123",
+          }),
+        }),
       );
     });
   });
@@ -95,7 +97,7 @@ describe("FetchHttpClient", () => {
         expect.objectContaining({
           method: "POST",
           body: soapData,
-        })
+        }),
       );
     });
 
@@ -120,7 +122,7 @@ describe("FetchHttpClient", () => {
           headers: expect.objectContaining({
             "Content-Type": "text/xml; charset=utf-8",
           }),
-        })
+        }),
       );
     });
 
@@ -146,7 +148,7 @@ describe("FetchHttpClient", () => {
           headers: expect.objectContaining({
             "Content-Type": "application/json",
           }),
-        })
+        }),
       );
     });
   });
@@ -156,7 +158,7 @@ describe("FetchHttpClient", () => {
       const url = "https://api.example.com/soap";
       const exheaders = {
         "X-Custom": "value1",
-        "Authorization": "Bearer token",
+        Authorization: "Bearer token",
       };
       const mockResponse = {
         status: 200,
@@ -175,9 +177,9 @@ describe("FetchHttpClient", () => {
         expect.objectContaining({
           headers: expect.objectContaining({
             "X-Custom": "value1",
-            "Authorization": "Bearer token",
+            Authorization: "Bearer token",
           }),
-        })
+        }),
       );
     });
   });
@@ -210,7 +212,7 @@ describe("FetchHttpClient", () => {
         expect.objectContaining({
           "content-type": "text/xml",
           "x-response": "custom-value",
-        })
+        }),
       );
     });
 
@@ -292,7 +294,7 @@ describe("FetchHttpClient", () => {
         expect.objectContaining({
           method: "GET",
           credentials: "include",
-        })
+        }),
       );
     });
 
@@ -339,20 +341,32 @@ describe("FetchHttpClient", () => {
       const callback1 = jest.fn();
       const callback2 = jest.fn();
 
-      client.request("https://api.example.com/1", null, callback1, undefined, undefined);
-      client.request("https://api.example.com/2", null, callback2, undefined, undefined);
+      client.request(
+        "https://api.example.com/1",
+        null,
+        callback1,
+        undefined,
+        undefined,
+      );
+      client.request(
+        "https://api.example.com/2",
+        null,
+        callback2,
+        undefined,
+        undefined,
+      );
 
       await new Promise((resolve) => setTimeout(resolve, 20));
 
       expect(callback1).toHaveBeenCalledWith(
         null,
         expect.objectContaining({ body: "<response1 />" }),
-        "<response1 />"
+        "<response1 />",
       );
       expect(callback2).toHaveBeenCalledWith(
         null,
         expect.objectContaining({ body: "<response2 />" }),
-        "<response2 />"
+        "<response2 />",
       );
     });
   });

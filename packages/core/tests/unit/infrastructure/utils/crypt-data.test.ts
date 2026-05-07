@@ -6,8 +6,10 @@ jest.mock("node-forge");
 describe("Cryptography", () => {
   let mockForge: any;
   let cryptography: Cryptography;
-  const testCert = "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----";
-  const testKey = "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----";
+  const testCert =
+    "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----";
+  const testKey =
+    "-----BEGIN PRIVATE KEY-----\nMIIE...\n-----END PRIVATE KEY-----";
   const testData = "test data to sign";
 
   beforeEach(() => {
@@ -108,7 +110,7 @@ describe("Cryptography", () => {
           certificate: testCert,
           digestAlgorithm: "sha256",
           key: testKey,
-        })
+        }),
       );
     });
 
@@ -189,7 +191,7 @@ describe("Cryptography", () => {
       mockForge.pkcs7.createSignedData.mockReturnValue(mockP7);
 
       expect(() => cryptography.sign(testData)).toThrow(
-        "Invalid PEM formatted message. Check your cert."
+        "Invalid PEM formatted message. Check your cert.",
       );
     });
 
@@ -224,7 +226,10 @@ describe("Cryptography", () => {
 
       cryptography.sign(testData);
 
-      expect(mockForge.util.createBuffer).toHaveBeenCalledWith(testData, "utf8");
+      expect(mockForge.util.createBuffer).toHaveBeenCalledWith(
+        testData,
+        "utf8",
+      );
     });
 
     it("should sign the same data consistently", () => {
