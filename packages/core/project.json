@@ -11,7 +11,7 @@
             ],
             "options": {
                 "commands": [
-                    "npx tsc"
+                    "npx tsc --project tsconfig.build.json"
                 ],
                 "parallel": false,
                 "cwd": "packages/core"
