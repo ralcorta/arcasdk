@@ -62,19 +62,19 @@ jobs:
         run: |
           # Check if there are any unreleased commits
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
-          
+
           if [ -z "$LAST_TAG" ]; then
             echo "No previous tags found, this would be v0.1.0"
             BASE_COMMIT="HEAD~1"
           else
             BASE_COMMIT="$LAST_TAG"
           fi
-          
+
           # Count commit types to determine version bump
           FEAT_COUNT=$(git log $BASE_COMMIT..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^feat" || echo "0")
           FIX_COUNT=$(git log $BASE_COMMIT..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^fix" || echo "0")
           BREAKING=$(git log $BASE_COMMIT..HEAD --pretty=format:"%b" 2>/dev/null | grep -c "BREAKING CHANGE" || echo "0")
-          
+
           if [ "$FEAT_COUNT" -gt 0 ] || [ "$FIX_COUNT" -gt 0 ] || [ "$BREAKING" -gt 0 ]; then
             echo "published=true" >> $GITHUB_OUTPUT
             if [ "$BREAKING" -gt 0 ]; then
@@ -114,13 +114,13 @@ jobs:
         run: |
           echo "## 📦 Release Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **Documentation Built**: Documentación actualizada" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **Code Built**: Packages compilados exitosamente" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Documentation Built**: Documentation updated" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Code Built**: Packages built successfully" >> $GITHUB_STEP_SUMMARY
           if [ "${{ steps.version.outputs.published }}" == "true" ]; then
-            echo "✅ **Version Calculated**: Cambios detectados - listo para publicar en NPM" >> $GITHUB_STEP_SUMMARY
-            echo "🚀 **Next Step**: Ejecutar workflow 'Publish to NPM' manualmente" >> $GITHUB_STEP_SUMMARY
+            echo "✅ **Version Calculated**: Changes detected - ready for NPM publishing" >> $GITHUB_STEP_SUMMARY
+            echo "🚀 **Next Step**: Run 'Publish to NPM' workflow manually" >> $GITHUB_STEP_SUMMARY
           else
-            echo "ℹ️ **No Changes**: No hay cambios que publicar en esta versión" >> $GITHUB_STEP_SUMMARY
+            echo "ℹ️ **No Changes**: No changes to publish in this version" >> $GITHUB_STEP_SUMMARY
           fi
 
   publish-ready:
@@ -133,6 +133,6 @@ jobs:
         run: |
           echo "✅ Release is ready for publishing to NPM!"
           echo ""
-          echo "👉 Next: Go to 'Actions' tab → 'Publish Packages to NPM' → 'Run workflow'"
+          echo "👉 Next: Go to 'Actions' tab → '📦 Publish to NPM' → 'Run workflow'"
           echo ""
-          echo "This is a manual step to prevent accidental publications"
+          echo "ℹ️ This is a manual step to prevent accidental publications"

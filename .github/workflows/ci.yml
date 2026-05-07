@@ -80,7 +80,7 @@ jobs:
         if: always()
         run: |
           echo "✓ Coverage validation: Tests verify coverage thresholds (85% statements, 80% branches, 95% functions)"
-          echo "  Coverage reports location: packages/*/coverage/ or ./coverage/"
+          echo "  Coverage reports: packages/*/coverage/ or ./coverage/"
 
   build:
     name: Build

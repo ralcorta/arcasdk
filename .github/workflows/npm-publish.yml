@@ -95,7 +95,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "🚀 Starting NPM release process..."
+          echo "🚀 Publishing to NPM..."
           npx nx release --yes
 
       - name: Create GitHub Release
