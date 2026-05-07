@@ -84,9 +84,7 @@ const arca: Arca = new Arca({
   cuit: 20111111112,
 });
 
-const date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-  .toISOString()
-  .split("T")[0];
+const date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
 
 const payload = {
   CantReg: 1, // Cantidad de comprobantes a registrar
@@ -143,25 +141,11 @@ Toda la documentación de engines SOAP (Node.js, Universal e inyección de engin
 
 Para mas <strong>documentacion</strong>, ir al [sitio oficial](https://ralcorta.github.io/arcasdk).
 
-## Desarrollo y contribuciones
+## Desarrollo y Contribuciones
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/arcasdk/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/arcasdk/issues/new).
-
-### Desarrollo
-
-Seria genial si puedes ayudarnos mejorando `arcasdk`. ¿Como hacer?
-
-1. [Clonar](https://github.com/ralcorta/arcasdk).
-
-2. `npm install`.
-
-3. Rompela escribiendo tu codigo.
-
-4. Correr los test: `npm test`.
-
-5. Cear un [Pull Request](https://github.com/ralcorta/arcasdk/compare).
+Nos encantaría que contribuyas a mejorar `arcasdk`. Para una guía completa de desarrollo, ver [CONTRIBUTING.md](CONTRIBUTING.md) que incluye:
 
 ## Licencia
 
