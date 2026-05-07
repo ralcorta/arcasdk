@@ -7,16 +7,22 @@ import {
   buildFacturaAUsd,
   buildFacturaALote2,
   buildNextFacturaC,
+  buildFacturaAProductos,
+  buildFacturaAMultiIvaTributoOpcional,
+  buildNotaCreditoAConAsociado,
+  buildNotaDebitoAConAsociado,
   createVoucherHomologacionWithRetry,
   createNextVoucherHomologacionWithRetry,
   expectFecaeFacturaAprobada,
   expectFecaeHomologacionFlexible,
   parseCuit11,
+  emitterCuit11Digits,
 } from "./utils/wsfe-invoice-emission";
 import {
   expectNonEmptyString,
   expectIvaReceptorTypesForClaseCmp,
   expectWsfeWithoutErrors,
+  expectNonEmptyArray,
 } from "./utils/wsfe-expect";
 
 /**
@@ -161,6 +167,204 @@ describeOrSkip(
       it('getIvaReceptorTypes("A") con clase de comprobante filtrada', async () => {
         const r = await arca.electronicBillingService.getIvaReceptorTypes("A");
         expectIvaReceptorTypesForClaseCmp("getIvaReceptorTypes(A)", "A", r);
+      });
+    });
+
+    describe("FECAESolicitar — Comprobantes complejos (notas y multi-IVA, TA manual)", () => {
+      it("Factura A concepto 1 (Productos): sin fechas de servicio", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const docNro = parseCuit11(
+          "TEST_FE_RECEIVER_CUIT",
+          process.env.TEST_FE_RECEIVER_CUIT,
+        );
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_A ?? "1",
+          10,
+        );
+
+        const { resultado } = await createVoucherHomologacionWithRetry(
+          arca,
+          puntoVenta,
+          1,
+          (n, f) =>
+            buildFacturaAProductos(puntoVenta, docNro, condIva, n, f),
+        );
+
+        expectFecaeHomologacionFlexible(resultado, {
+          puntoVenta,
+          cbteTipo: 1,
+        });
+      });
+
+      it("Factura A multi-IVA (21 % + 10,5 %) + tributo + opcional", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const docNro = parseCuit11(
+          "TEST_FE_RECEIVER_CUIT",
+          process.env.TEST_FE_RECEIVER_CUIT,
+        );
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_A ?? "1",
+          10,
+        );
+
+        // Obtener tributoId desde FEParamGetTiposTributos
+        const tributos = await arca.electronicBillingService.getTaxTypes();
+        expectWsfeWithoutErrors("getTaxTypes para multi-IVA", tributos);
+        const tributoList = tributos.resultGet?.tributoTipo ?? [];
+        if (tributoList.length === 0) {
+          console.info(
+            "[WSFE] Sin tributos disponibles en homologación; se omite test multi-IVA+tributo",
+          );
+          return;
+        }
+        const tributoId = tributoList[0]!.id;
+
+        // Obtener opcionalId desde FEParamGetTiposOpcional
+        const opcionales = await arca.electronicBillingService.getOptionsTypes();
+        expectWsfeWithoutErrors("getOptionsTypes para multi-IVA", opcionales);
+        const opcionalList = opcionales.resultGet?.opcionalTipo ?? [];
+        if (opcionalList.length === 0) {
+          console.info(
+            "[WSFE] Sin opcionales disponibles en homologación; se omite test multi-IVA+opcional",
+          );
+          return;
+        }
+        const opcionalId = opcionalList[0]!.id;
+
+        const { resultado } = await createVoucherHomologacionWithRetry(
+          arca,
+          puntoVenta,
+          1,
+          (n, f) =>
+            buildFacturaAMultiIvaTributoOpcional(
+              puntoVenta,
+              docNro,
+              condIva,
+              n,
+              f,
+              tributoId,
+              opcionalId,
+            ),
+        );
+
+        expectFecaeHomologacionFlexible(resultado, {
+          puntoVenta,
+          cbteTipo: 1,
+        });
+      });
+
+      it("Nota de Crédito A (CbteTipo 3) con comprobante asociado", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const docNro = parseCuit11(
+          "TEST_FE_RECEIVER_CUIT",
+          process.env.TEST_FE_RECEIVER_CUIT,
+        );
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_A ?? "1",
+          10,
+        );
+
+        // 1. Emitir Factura A base para asociar
+        const { resultado: facturaResult, fecha: facturaFecha } =
+          await createVoucherHomologacionWithRetry(
+            arca,
+            puntoVenta,
+            1,
+            (n, f) =>
+              buildFacturaAProductos(puntoVenta, docNro, condIva, n, f),
+          );
+
+        const facturaAprobada =
+          facturaResult.response.FeCabResp?.Resultado === "A" &&
+          facturaResult.response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado ===
+            "A";
+
+        if (!facturaAprobada) {
+          console.info(
+            "[WSFE] Factura base no aprobada; se omite test Nota de Crédito",
+          );
+          return;
+        }
+
+        const det = facturaResult.response.FeDetResp!.FECAEDetResponse![0]!;
+        const emitterCuit = emitterCuit11Digits();
+
+        // 2. Emitir Nota de Crédito con la Factura como asociada
+        const { resultado: notaResult } = await createVoucherHomologacionWithRetry(
+          arca,
+          puntoVenta,
+          3,
+          (n, f) =>
+            buildNotaCreditoAConAsociado(puntoVenta, docNro, condIva, n, f, {
+              tipo: 1,
+              ptoVta: puntoVenta,
+              nro: det.CbteDesde!,
+              cuit: emitterCuit,
+              cbteFch: facturaFecha,
+            }),
+        );
+
+        expectFecaeHomologacionFlexible(notaResult, {
+          puntoVenta,
+          cbteTipo: 3,
+        });
+      });
+
+      it("Nota de Débito A (CbteTipo 2) con comprobante asociado", async () => {
+        const { nro: puntoVenta } = await resolveHomologationPuntoVenta(arca);
+        const docNro = parseCuit11(
+          "TEST_FE_RECEIVER_CUIT",
+          process.env.TEST_FE_RECEIVER_CUIT,
+        );
+        const condIva = parseInt(
+          process.env.TEST_FE_COND_IVA_RECEPTOR_A ?? "1",
+          10,
+        );
+
+        // 1. Emitir Factura A base para asociar
+        const { resultado: facturaResult, fecha: facturaFecha } =
+          await createVoucherHomologacionWithRetry(
+            arca,
+            puntoVenta,
+            1,
+            (n, f) =>
+              buildFacturaAProductos(puntoVenta, docNro, condIva, n, f),
+          );
+
+        const facturaAprobada =
+          facturaResult.response.FeCabResp?.Resultado === "A" &&
+          facturaResult.response.FeDetResp?.FECAEDetResponse?.[0]?.Resultado ===
+            "A";
+
+        if (!facturaAprobada) {
+          console.info(
+            "[WSFE] Factura base no aprobada; se omite test Nota de Débito",
+          );
+          return;
+        }
+
+        const det = facturaResult.response.FeDetResp!.FECAEDetResponse![0]!;
+        const emitterCuit = emitterCuit11Digits();
+
+        // 2. Emitir Nota de Débito con la Factura como asociada
+        const { resultado: notaResult } = await createVoucherHomologacionWithRetry(
+          arca,
+          puntoVenta,
+          2,
+          (n, f) =>
+            buildNotaDebitoAConAsociado(puntoVenta, docNro, condIva, n, f, {
+              tipo: 1,
+              ptoVta: puntoVenta,
+              nro: det.CbteDesde!,
+              cuit: emitterCuit,
+              cbteFch: facturaFecha,
+            }),
+        );
+
+        expectFecaeHomologacionFlexible(notaResult, {
+          puntoVenta,
+          cbteTipo: 2,
+        });
       });
     });
   },
