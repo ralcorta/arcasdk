@@ -69,9 +69,12 @@ jobs:
             BASE_COMMIT="$LAST_TAG"
           fi
 
-          FEAT_COUNT=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^feat" || true)
-          FIX_COUNT=$(git log  "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^fix"  || true)
-          BREAKING=$(git log  "$BASE_COMMIT"..HEAD --pretty=format:"%b" 2>/dev/null | grep -c "BREAKING CHANGE" || true)
+          FEAT_COUNT=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -cE "^feat(\([^)]+\))?[!:]" || true)
+          FIX_COUNT=$(git log  "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -cE "^fix(\([^)]+\))?[!:]"  || true)
+          # Match only conventional commit footer or ! in subject — not arbitrary text mentioning "BREAKING CHANGE"
+          BREAKING_FOOTER=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%b" 2>/dev/null | grep -cE "^BREAKING[ -]CHANGE:" || true)
+          BREAKING_SUBJECT=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -cE "^[a-z]+(\([^)]+\))?!:" || true)
+          BREAKING=$((BREAKING_FOOTER + BREAKING_SUBJECT))
 
           if [ "$FEAT_COUNT" -gt 0 ] || [ "$FIX_COUNT" -gt 0 ] || [ "$BREAKING" -gt 0 ]; then
             IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
