@@ -60,50 +60,52 @@ jobs:
       - name: Calculate version with Conventional Commits
         id: version
         run: |
-          # Check if there are any unreleased commits
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          CURRENT_VERSION=$(node -p "require('./packages/core/package.json').version")
 
           if [ -z "$LAST_TAG" ]; then
-            echo "No previous tags found, this would be v0.1.0"
-            BASE_COMMIT="HEAD~1"
+            BASE_COMMIT="$(git rev-list --max-parents=0 HEAD)"
           else
             BASE_COMMIT="$LAST_TAG"
           fi
 
-          # Count commit types to determine version bump
-          FEAT_COUNT=$(git log $BASE_COMMIT..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^feat" || echo "0")
-          FIX_COUNT=$(git log $BASE_COMMIT..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^fix" || echo "0")
-          BREAKING=$(git log $BASE_COMMIT..HEAD --pretty=format:"%b" 2>/dev/null | grep -c "BREAKING CHANGE" || echo "0")
+          FEAT_COUNT=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^feat" || true)
+          FIX_COUNT=$(git log  "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -c "^fix"  || true)
+          BREAKING=$(git log  "$BASE_COMMIT"..HEAD --pretty=format:"%b" 2>/dev/null | grep -c "BREAKING CHANGE" || true)
 
           if [ "$FEAT_COUNT" -gt 0 ] || [ "$FIX_COUNT" -gt 0 ] || [ "$BREAKING" -gt 0 ]; then
-            echo "published=true" >> $GITHUB_OUTPUT
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
             if [ "$BREAKING" -gt 0 ]; then
-              VERSION_TYPE="major"
+              NEW_VERSION="$((MAJOR + 1)).0.0"
             elif [ "$FEAT_COUNT" -gt 0 ]; then
-              VERSION_TYPE="minor"
+              NEW_VERSION="$MAJOR.$((MINOR + 1)).0"
             else
-              VERSION_TYPE="patch"
+              NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
             fi
-            echo "version_type=$VERSION_TYPE" >> $GITHUB_OUTPUT
-            echo "version_bump=$VERSION_TYPE" >> $GITHUB_OUTPUT
-            echo "New commits detected - Version bump: $VERSION_TYPE"
+            echo "published=true"   >> $GITHUB_OUTPUT
+            echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+            echo "tag=v$NEW_VERSION"    >> $GITHUB_OUTPUT
+            echo "New version: v$NEW_VERSION"
           else
             echo "published=false" >> $GITHUB_OUTPUT
             echo "No new features, fixes, or breaking changes detected"
           fi
 
-      - name: Generate Changelog
+      - name: Create and push Git tag
         if: steps.version.outputs.published == 'true'
         run: |
-          npm run nx -- release --version-only --yes 2>/dev/null || echo "Release version determined"
+          TAG="${{ steps.version.outputs.tag }}"
+          git tag "$TAG"
+          git push origin "$TAG"
 
       - name: Build Documentation
         run: npm run docs:build
 
-      - name: Create Release
+      - name: Create GitHub Release
         if: steps.version.outputs.published == 'true'
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.version.outputs.tag }}
           generate_release_notes: true
           draft: false
           prerelease: false
