@@ -1,9 +1,4 @@
 /**
- * SSL/TLS constants for HTTPS connections
- * These constants are used to configure SSL options for connections to ARCA/AFIP servers
- */
-
-/**
  * Minimum Diffie-Hellman key size for legacy servers
  *
  * AFIP/ARCA production servers use legacy SSL configurations with weak Diffie-Hellman parameters.

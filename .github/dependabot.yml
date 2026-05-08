@@ -5,7 +5,33 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    open-pull-requests-limit: 10
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "chore(deps):"
+      prefix-development: "chore(deps-dev):"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "npm"
+    reviewers:
+      - "ralcorta"
+    milestone: 1
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    reviewers:
+      - "ralcorta"

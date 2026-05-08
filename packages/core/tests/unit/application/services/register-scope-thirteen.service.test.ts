@@ -3,16 +3,21 @@ import { IRegisterScopeThirteenRepositoryPort } from "@arcasdk/core/src/applicat
 import {
   scopeThirteenDummyAsyncReturnMocks,
   scopeThirteenGetPersonaAsyncReturnMocks,
+  getTaxIDByDocumentAsyncReturnMocks,
 } from "../../../mocks/data/soapClient.mock";
 import {
-  RegisterServerStatusDto,
+  TaxIDByDocumentResultDto,
   TaxpayerDetailsDto,
 } from "@arcasdk/core/src/application/dto/register.dto";
+import {
+  mapServerStatus,
+  REGISTER_TEST_CUIT,
+  withNormalizedTaxpayerDetails,
+} from "./register-service.test.helpers";
 
 describe("Register Scope Thirteen Service", () => {
   let registerScopeThirteenService: RegisterScopeThirteenService;
   let mockRepository: jest.Mocked<IRegisterScopeThirteenRepositoryPort>;
-  const cuitPayload = 20111111111;
 
   beforeEach(() => {
     // Create mock repository
@@ -20,24 +25,27 @@ describe("Register Scope Thirteen Service", () => {
       getServerStatus: jest.fn(),
       getTaxpayerDetails: jest.fn(),
       getTaxIDByDocument: jest.fn(),
-    } as any;
+    } as jest.Mocked<IRegisterScopeThirteenRepositoryPort>;
 
     // Create service with mocked repository
     registerScopeThirteenService = new RegisterScopeThirteenService(
-      mockRepository
+      mockRepository,
     );
 
     // Setup default mock responses
-    const serverStatus: RegisterServerStatusDto = {
-      appserver: scopeThirteenDummyAsyncReturnMocks[0].return.appserver,
-      dbserver: scopeThirteenDummyAsyncReturnMocks[0].return.dbserver,
-      authserver: scopeThirteenDummyAsyncReturnMocks[0].return.authserver,
-    };
+    const serverStatus = mapServerStatus(scopeThirteenDummyAsyncReturnMocks[0]);
     mockRepository.getServerStatus.mockResolvedValue(serverStatus);
 
-    const taxpayerDetails: TaxpayerDetailsDto =
-      scopeThirteenGetPersonaAsyncReturnMocks[0].personaReturn as any;
+    const taxpayerDetails = withNormalizedTaxpayerDetails(
+      scopeThirteenGetPersonaAsyncReturnMocks[0]
+        .personaReturn as never as TaxpayerDetailsDto,
+    );
     mockRepository.getTaxpayerDetails.mockResolvedValue(taxpayerDetails);
+
+    const taxIDByDocument: TaxIDByDocumentResultDto = {
+      taxID: getTaxIDByDocumentAsyncReturnMocks[0].return.taxID,
+    };
+    mockRepository.getTaxIDByDocument.mockResolvedValue(taxIDByDocument);
   });
 
   afterEach(() => {
@@ -46,39 +54,32 @@ describe("Register Scope Thirteen Service", () => {
 
   it("should get server status", async () => {
     const status = await registerScopeThirteenService.getServerStatus();
-    expect(status).toEqual({
-      appserver: scopeThirteenDummyAsyncReturnMocks[0].return.appserver,
-      dbserver: scopeThirteenDummyAsyncReturnMocks[0].return.dbserver,
-      authserver: scopeThirteenDummyAsyncReturnMocks[0].return.authserver,
-    });
+    expect(status).toEqual(
+      mapServerStatus(scopeThirteenDummyAsyncReturnMocks[0]),
+    );
     expect(mockRepository.getServerStatus).toHaveBeenCalled();
   });
 
   it("should get taxpayer details", async () => {
-    const details = await registerScopeThirteenService.getTaxpayerDetails(
-      cuitPayload
-    );
+    const details =
+      await registerScopeThirteenService.getTaxpayerDetails(REGISTER_TEST_CUIT);
     expect(details).not.toBeNull();
-    // expect(details?.persona).toBeDefined(); // Service returns DTO directly
-    expect(details).toBeDefined();
-    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(cuitPayload);
+    expect(details?.datosGenerales).toBeDefined();
+    expect(mockRepository.getTaxpayerDetails).toHaveBeenCalledWith(
+      REGISTER_TEST_CUIT,
+    );
   });
 
-  it("should get tax id by document", async () => {
-    const documentNumber = "11111111";
-    const mockResult = {
-      idPersona: [20111111111],
-      errorConstancia: undefined,
-    };
-    mockRepository.getTaxIDByDocument.mockResolvedValue(mockResult);
-
-    const result = await registerScopeThirteenService.getTaxIDByDocument(
-      documentNumber
+  it("should get tax ID by document", async () => {
+    const documentNumber = "20111111111";
+    const result =
+      await registerScopeThirteenService.getTaxIDByDocument(documentNumber);
+    expect(result).not.toBeNull();
+    expect(result.taxID).toEqual(
+      getTaxIDByDocumentAsyncReturnMocks[0].return.taxID,
     );
-
-    expect(result).toEqual(mockResult);
     expect(mockRepository.getTaxIDByDocument).toHaveBeenCalledWith(
-      documentNumber
+      documentNumber,
     );
   });
 });

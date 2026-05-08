@@ -1,9 +1,4 @@
 /**
- * Use Case Input Types
- * Input interfaces for all use cases in the application layer
- */
-
-/**
  * Authentication Use Cases Inputs
  */
 export interface GetAuthParamsInput {

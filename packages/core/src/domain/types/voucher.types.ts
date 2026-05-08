@@ -1,7 +1,3 @@
-/**
- * Domain Types - Voucher
- * Types related to voucher domain entity
- */
 export interface IVoucher {
   CantReg: number;
   PtoVta: number;
@@ -32,8 +28,10 @@ export interface IVoucher {
   Compradores?: IComprador[];
 }
 
-export interface INextVoucher
-  extends Omit<IVoucher, "CbteDesde" | "CbteHasta"> {
+export interface INextVoucher extends Omit<
+  IVoucher,
+  "CbteDesde" | "CbteHasta"
+> {
   CbteDesde?: number;
   CbteHasta?: number;
 }
@@ -70,4 +68,3 @@ export interface ITributo {
   Alic: number;
   Importe: number;
 }
-

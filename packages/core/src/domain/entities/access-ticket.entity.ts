@@ -1,8 +1,3 @@
-/**
- * AccessTicket Entity
- * Domain entity representing an authentication ticket from AFIP/ARCA
- */
-import moment from "moment";
 import {
   ILoginCmsReturnHeaders,
   ILoginCmsReturnCredentials,
@@ -23,7 +18,7 @@ export interface ILoginCredentials {
 export class AccessTicket {
   private constructor(
     private readonly header: ILoginCmsReturnHeaders,
-    private readonly credentials: ILoginCmsReturnCredentials
+    private readonly credentials: ILoginCmsReturnCredentials,
   ) {
     this.validate();
   }
@@ -82,7 +77,11 @@ export class AccessTicket {
     if (!expirationTime) {
       throw new Error("Expiration time is missing");
     }
-    return moment(expirationTime).toDate();
+    const d = new Date(expirationTime);
+    if (Number.isNaN(d.getTime())) {
+      throw new Error("Invalid ticket expiration time");
+    }
+    return d;
   }
 
   /**
@@ -136,7 +135,7 @@ export class AccessTicket {
   isExpired(): boolean {
     try {
       const expiration = this.getExpiration();
-      return moment(expiration).isBefore(new Date());
+      return expiration.getTime() < Date.now();
     } catch (error) {
       return true; // If we can't determine expiration, consider it expired
     }

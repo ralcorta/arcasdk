@@ -18,10 +18,7 @@ export class CreateVoucherUseCase {
    * @returns Created voucher result with CAE
    */
   async execute(voucherData: IVoucher): Promise<ICreateVoucherResult> {
-    // Create domain entity from data
     const voucher = Voucher.create(voucherData);
-
-    // Use repository to create voucher
     return this.electronicBillingRepository.createVoucher(voucher);
   }
 }

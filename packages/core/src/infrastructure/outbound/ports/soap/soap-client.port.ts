@@ -1,8 +1,5 @@
-/**
- * SOAP Client Port
- * Outbound port for SOAP client operations
- */
 import { Client } from "soap";
+import type { ISoapOptions, SoapCallResult } from "@infrastructure/types/soap-client.types";
 
 export interface ISoapClientPort {
   /**
@@ -13,7 +10,7 @@ export interface ISoapClientPort {
    */
   createClient<T extends Client>(
     wsdlName: string,
-    options?: any & { wsdlContent?: string }
+    options?: ISoapOptions,
   ): Promise<T>;
 
   /**
@@ -21,7 +18,7 @@ export interface ISoapClientPort {
    * @param client The SOAP client
    * @param endpoint The endpoint URL
    */
-  setEndpoint(client: any, endpoint: string): void;
+  setEndpoint(client: Client, endpoint: string): void;
 
   /**
    * Execute a SOAP method
@@ -30,9 +27,9 @@ export interface ISoapClientPort {
    * @param params The parameters for the method
    * @returns The response from the SOAP call (tuple: [result, rawResponse, soapHeader, rawRequest])
    */
-  call<T extends [any, string, any, string]>(
-    client: any,
+  call<T extends SoapCallResult>(
+    client: Client,
     methodName: string,
-    params: any
+    params: unknown,
   ): Promise<T>;
 }

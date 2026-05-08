@@ -1,10 +1,4 @@
 /**
- * Domain Types - Electronic Billing
- * Types representing electronic billing domain concepts
- * These are business concepts, independent of infrastructure (SOAP, REST, etc.)
- */
-
-/**
  * Sales Point (Punto de Venta)
  */
 export interface SalesPoint {

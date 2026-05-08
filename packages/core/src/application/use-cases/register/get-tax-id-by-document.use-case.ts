@@ -1,13 +1,9 @@
-/**
- * Get Tax ID By Document Use Case
- * Retrieves Tax ID (CUIT) by document number (Scope 13)
- */
 import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { TaxIDByDocumentResultDto } from "@application/dto/register.dto";
 
 export class GetTaxIDByDocumentUseCase {
   constructor(
-    private readonly repository: IRegisterScopeThirteenRepositoryPort
+    private readonly repository: IRegisterScopeThirteenRepositoryPort,
   ) {}
 
   /**

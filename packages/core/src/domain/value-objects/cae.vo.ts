@@ -1,8 +1,3 @@
-/**
- * CAE Value Object
- * Represents a CAE (Código de Autorización Electrónico)
- * Immutable value object with validation
- */
 export class CAE {
   private constructor(private readonly value: string) {
     this.validate();
@@ -30,7 +25,7 @@ export class CAE {
     // CAE debe tener exactamente 14 dígitos
     if (!/^\d{14}$/.test(this.value)) {
       throw new Error(
-        `CAE inválido: debe tener 14 dígitos, tiene "${this.value}"`
+        `CAE inválido: debe tener 14 dígitos, tiene "${this.value}"`,
       );
     }
 
@@ -60,7 +55,7 @@ export class CAE {
   toFormattedString(): string {
     return `${this.value.substring(0, 4)}-${this.value.substring(
       4,
-      8
+      8,
     )}-${this.value.substring(8, 12)}-${this.value.substring(12)}`;
   }
 

@@ -84,9 +84,7 @@ const arca: Arca = new Arca({
   cuit: 20111111112,
 });
 
-const date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-  .toISOString()
-  .split("T")[0];
+const date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
 
 const payload = {
   CantReg: 1, // Cantidad de comprobantes a registrar
@@ -97,7 +95,7 @@ const payload = {
   DocNro: 0, // Número de documento del comprador (0 consumidor final)
   CbteDesde: 1, // Número de comprobante o numero del primer comprobante en caso de ser mas de uno
   CbteHasta: 1, // Número de comprobante o numero del último comprobante en caso de ser mas de uno
-  CbteFch: parseInt(date.replace(/-/g, "")), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
+  CbteFch: date.replace(/-/g, ""), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
   ImpTotal: 121, // Importe total del comprobante
   ImpTotConc: 0, // Importe neto no gravado
   ImpNeto: 100, // Importe neto gravado
@@ -135,27 +133,19 @@ Caracteristicas:
 - Escrito enteramente con `Typescript`
 - Soporte para `Serverless`. El package permite manejar los token de autenticacion de manera aislada.
 
+### Runtimes SOAP y engines
+
+Toda la documentación de engines SOAP (Node.js, Universal e inyección de engine personalizado) está en:
+
+- [Engines SOAP y runtimes](https://ralcorta.github.io/arcasdk/soap-engines)
+
 Para mas <strong>documentacion</strong>, ir al [sitio oficial](https://ralcorta.github.io/arcasdk).
 
-## Desarrollo y contribuciones
+## Desarrollo y Contribuciones
 
 ### Contribuciones
 
-Si encontras un bug o desaes sugerir algo, revisa de que no haya [issues](https://github.com/ralcorta/arcasdk/issues) con el mismo tema, y de ser asi [puedes generar uno aqui](https://github.com/ralcorta/arcasdk/issues/new).
-
-### Desarrollo
-
-Seria genial si puedes ayudarnos mejorando `arcasdk`. ¿Como hacer?
-
-1. [Clonar](https://github.com/ralcorta/arcasdk).
-
-2. `npm install`.
-
-3. Rompela escribiendo tu codigo.
-
-4. Correr los test: `npm test`.
-
-5. Cear un [Pull Request](https://github.com/ralcorta/arcasdk/compare).
+Nos encantaría que contribuyas a mejorar `arcasdk`. Para una guía completa de desarrollo, ver [CONTRIBUTING.md](CONTRIBUTING.md) que incluye:
 
 ## Licencia
 

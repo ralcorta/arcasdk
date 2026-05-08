@@ -1,10 +1,4 @@
 /**
- * Register DTOs
- * Data Transfer Objects for register/padron operations
- * These DTOs are independent of infrastructure concerns
- */
-
-/**
  * Server Status DTO (for Register services)
  */
 export interface RegisterServerStatusDto {
@@ -62,64 +56,4 @@ export interface TaxIDByDocumentResultDto {
     codigo?: number;
   };
   [key: string]: any;
-}
-
-/**
- * Register Service Result DTOs
- * These DTOs represent the return types for register services
- * They maintain compatibility with legacy API while being independent of SOAP types
- */
-
-/**
- * Register Server Status Result DTO
- */
-export interface RegisterServerStatusResultDto {
-  appserver: string;
-  dbserver: string;
-  authserver: string;
-}
-
-/**
- * Register Taxpayer Details Result DTO
- * Wraps TaxpayerDetailsDto with metadata for compatibility
- */
-export interface RegisterTaxpayerDetailsResultDto {
-  metadata?: {
-    fechaHora?: string;
-    servidor?: string;
-  };
-  persona?: TaxpayerDetailsDto;
-  datosGenerales?: TaxpayerDetailsDto["datosGenerales"];
-  datosMonotributo?: TaxpayerDetailsDto["datosMonotributo"];
-  datosRegimenGeneral?: TaxpayerDetailsDto["datosRegimenGeneral"];
-  errorConstancia?: TaxpayerDetailsDto["errorConstancia"];
-  errorMonotributo?: any;
-  errorRegimenGeneral?: any;
-}
-
-/**
- * Register Taxpayers List Result DTO
- */
-export interface RegisterTaxpayersListResultDto {
-  metadata?: {
-    fechaHora?: string;
-    servidor?: string;
-  };
-  persona?: TaxpayerDetailsDto[];
-  cantidadRegistros?: number;
-  errorConstancia?: {
-    error?: string;
-    codigo?: number;
-  };
-}
-
-/**
- * Register Tax ID by Document Result DTO
- */
-export interface RegisterTaxIDByDocumentResultDto {
-  idPersona?: number;
-  metadata?: {
-    fechaHora?: string;
-    servidor?: string;
-  };
 }

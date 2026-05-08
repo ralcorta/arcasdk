@@ -8,38 +8,39 @@ describe("CAE Value Object", () => {
     });
 
     it("should throw error if CAE is not a string", () => {
-      expect(() => CAE.create(null as any)).toThrow(
-        "CAE debe ser una cadena de texto"
+      // @ts-expect-error - testing invalid type
+      expect(() => CAE.create(null)).toThrow(
+        "CAE debe ser una cadena de texto",
       );
-      expect(() => CAE.create(undefined as any)).toThrow(
-        "CAE debe ser una cadena de texto"
+      // @ts-expect-error - testing invalid type
+      expect(() => CAE.create(undefined)).toThrow(
+        "CAE debe ser una cadena de texto",
       );
-      expect(() => CAE.create(123 as any)).toThrow(
-        "CAE debe ser una cadena de texto"
-      );
+      // @ts-expect-error - testing invalid type
+      expect(() => CAE.create(123)).toThrow("CAE debe ser una cadena de texto");
     });
 
     it("should throw error if CAE has incorrect length", () => {
       expect(() => CAE.create("1234567890123")).toThrow(
-        'CAE inválido: debe tener 14 dígitos, tiene "1234567890123"'
+        'CAE inválido: debe tener 14 dígitos, tiene "1234567890123"',
       );
       expect(() => CAE.create("123456789012345")).toThrow(
-        'CAE inválido: debe tener 14 dígitos, tiene "123456789012345"'
+        'CAE inválido: debe tener 14 dígitos, tiene "123456789012345"',
       );
     });
 
     it("should throw error if CAE contains non-digits", () => {
       expect(() => CAE.create("7358822301328a")).toThrow(
-        'CAE inválido: debe tener 14 dígitos, tiene "7358822301328a"'
+        'CAE inválido: debe tener 14 dígitos, tiene "7358822301328a"',
       );
       expect(() => CAE.create("735882230132-2")).toThrow(
-        'CAE inválido: debe tener 14 dígitos, tiene "735882230132-2"'
+        'CAE inválido: debe tener 14 dígitos, tiene "735882230132-2"',
       );
     });
 
     it("should throw error if CAE is all zeros", () => {
       expect(() => CAE.create("00000000000000")).toThrow(
-        "CAE inválido: no puede ser todo ceros"
+        "CAE inválido: no puede ser todo ceros",
       );
     });
   });
@@ -109,4 +110,3 @@ describe("CAE Value Object", () => {
     });
   });
 });
-

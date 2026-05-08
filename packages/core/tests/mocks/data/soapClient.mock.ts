@@ -14,20 +14,7 @@ export const FECompUltimoAutorizadoAsyncReturnMocks = [
     },
   },
 ];
-export const FEParamGetPtosVentaAsyncReturnMocks = [
-  {
-    FEParamGetPtosVentaResult: {
-      Errors: {
-        Err: [
-          {
-            Code: 602,
-            Msg: "Sin Resultados: - Metodo FEParamGetPtosVenta",
-          },
-        ],
-      },
-    },
-  },
-];
+
 export const FEDummyAsyncReturnMocks = [
   {
     FEDummyResult: {
@@ -1287,6 +1274,13 @@ export const scopeThirteenGetPersonaAsyncReturnMocks = [
         tipoDocumento: "DNI",
         tipoPersona: "FISICA",
       },
+    },
+  },
+];
+export const getTaxIDByDocumentAsyncReturnMocks = [
+  {
+    return: {
+      taxID: "20111111111",
     },
   },
 ];

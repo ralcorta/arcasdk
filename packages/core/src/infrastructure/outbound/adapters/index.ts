@@ -1,10 +1,5 @@
-/**
- * Infrastructure Outbound Adapters
- * Exports all outbound adapters
- */
 export * from "./soap/soap-client";
-export * from "./auth/auth.repository";
+export * from "./repositories/auth";
 export * from "./storage/file-system-ticket-storage";
-export * from "./logger/winston-logger";
-export * from "./electronic-billing";
-export * from "./register";
+export * from "./repositories/electronic-billing";
+export * from "./repositories/register";

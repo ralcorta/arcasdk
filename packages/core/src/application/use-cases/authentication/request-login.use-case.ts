@@ -1,13 +1,9 @@
-/**
- * Request Login Use Case
- * Forces a new login request (ignores existing tickets)
- */
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 
 export class RequestLoginUseCase {
   constructor(
-    private readonly authenticationRepository: IAuthenticationRepositoryPort
+    private readonly authenticationRepository: IAuthenticationRepositoryPort,
   ) {}
 
   /**

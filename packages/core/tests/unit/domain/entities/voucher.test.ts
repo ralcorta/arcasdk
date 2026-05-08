@@ -1,5 +1,5 @@
-import { Voucher } from "@arcasdk/core/src/domain/entities/voucher.entity";
-import { IVoucher } from "@arcasdk/core/src/domain/types/voucher.types";
+import { Voucher } from "@domain/entities/voucher.entity";
+import { IVoucher } from "@domain/types/voucher.types";
 import { data } from "../../../mocks/data/voucher.mock";
 
 describe("Voucher Entity", () => {
@@ -15,7 +15,7 @@ describe("Voucher Entity", () => {
         PtoVta: 0,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Punto de venta inválido. Debe ser mayor a cero."
+        "Punto de venta inválido. Debe ser mayor a cero.",
       );
     });
 
@@ -25,27 +25,29 @@ describe("Voucher Entity", () => {
         CbteTipo: 0,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Tipo de comprobante inválido. Debe ser mayor a cero."
+        "Tipo de comprobante inválido. Debe ser mayor a cero.",
       );
     });
 
     it("should throw error if CbteDesde is missing", () => {
       const invalidData: IVoucher = {
         ...data,
-        CbteDesde: undefined as any,
+        // @ts-expect-error - testing invalid data
+        CbteDesde: undefined,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Números de comprobante inválidos. CbteDesde y CbteHasta son requeridos."
+        "Números de comprobante inválidos. CbteDesde y CbteHasta son requeridos.",
       );
     });
 
     it("should throw error if CbteHasta is missing", () => {
       const invalidData: IVoucher = {
         ...data,
-        CbteHasta: undefined as any,
+        // @ts-expect-error - testing invalid data
+        CbteHasta: undefined,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Números de comprobante inválidos. CbteDesde y CbteHasta son requeridos."
+        "Números de comprobante inválidos. CbteDesde y CbteHasta son requeridos.",
       );
     });
 
@@ -56,7 +58,7 @@ describe("Voucher Entity", () => {
         CbteHasta: 5,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "CbteDesde no puede ser mayor que CbteHasta."
+        "CbteDesde no puede ser mayor que CbteHasta.",
       );
     });
 
@@ -66,7 +68,7 @@ describe("Voucher Entity", () => {
         CbteDesde: -1,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Los números de comprobante no pueden ser negativos."
+        "Los números de comprobante no pueden ser negativos.",
       );
     });
 
@@ -78,7 +80,7 @@ describe("Voucher Entity", () => {
         CantReg: 5, // Should be 3
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "CantReg (5) debe ser igual a la cantidad de comprobantes (3)"
+        "CantReg (5) debe ser igual a la cantidad de comprobantes (3)",
       );
     });
 
@@ -89,7 +91,7 @@ describe("Voucher Entity", () => {
         ImpIVA: 100,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "El campo ImpIVA (Importe de IVA) para comprobantes tipo C debe ser igual a cero (0)."
+        "El campo ImpIVA (Importe de IVA) para comprobantes tipo C debe ser igual a cero (0).",
       );
     });
 
@@ -101,7 +103,49 @@ describe("Voucher Entity", () => {
         Iva: [{ Id: 5, BaseImp: 100, Importe: 0 }],
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Para comprobantes tipo C el objeto IVA no debe informarse."
+        "Para comprobantes tipo C el array Iva no debe informarse.",
+      );
+    });
+
+    it("should throw error if Factura A has ImpIVA but no Iva array", () => {
+      const invalidData: IVoucher = {
+        ...data,
+        CbteTipo: 1, // Factura A
+        ImpNeto: 100,
+        ImpIVA: 21,
+        ImpTotal: 121,
+        Iva: undefined,
+      };
+      expect(() => Voucher.create(invalidData)).toThrow(
+        "Para comprobantes tipo A, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.",
+      );
+    });
+
+    it("should throw error if Factura B has ImpIVA but no Iva array", () => {
+      const invalidData: IVoucher = {
+        ...data,
+        CbteTipo: 6, // Factura B
+        ImpNeto: 100,
+        ImpIVA: 21,
+        ImpTotal: 121,
+        Iva: [],
+      };
+      expect(() => Voucher.create(invalidData)).toThrow(
+        "Para comprobantes tipo B, si ImpIVA es mayor a 0, debe informarse el array Iva con el detalle de alícuotas.",
+      );
+    });
+
+    it("should throw error if IVA array totals don't match ImpIVA", () => {
+      const invalidData: IVoucher = {
+        ...data,
+        CbteTipo: 1,
+        ImpNeto: 100,
+        ImpIVA: 25, // Should be 21
+        ImpTotal: 125,
+        Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }],
+      };
+      expect(() => Voucher.create(invalidData)).toThrow(
+        "El campo ImpIVA (25) debe ser igual a la suma de los importes del array Iva (21).",
       );
     });
 
@@ -113,9 +157,10 @@ describe("Voucher Entity", () => {
         ImpTrib: 10,
         ImpIVA: 21,
         ImpTotal: 150, // Should be 131
+        Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }], // Added to pass IVA validation
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "El campo 'Importe Total' ImpTotal (150), debe ser igual a la suma de ImpNeto (100) + ImpTrib (10) + ImpIVA (21) = 131."
+        "El campo 'Importe Total' ImpTotal (150), debe ser igual a la suma de ImpNeto (100) + ImpTrib (10) + ImpIVA (21) = 131.",
       );
     });
 
@@ -125,7 +170,7 @@ describe("Voucher Entity", () => {
         Concepto: 0,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Concepto inválido. Debe ser 1 (Productos), 2 (Servicios) o 3 (Productos y Servicios)."
+        "Concepto inválido. Debe ser 1 (Productos), 2 (Servicios) o 3 (Productos y Servicios).",
       );
     });
 
@@ -135,7 +180,7 @@ describe("Voucher Entity", () => {
         DocTipo: 0,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Tipo de documento inválido."
+        "Tipo de documento inválido.",
       );
     });
 
@@ -145,7 +190,7 @@ describe("Voucher Entity", () => {
         MonId: "",
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Moneda (MonId) es requerida."
+        "Moneda (MonId) es requerida.",
       );
     });
 
@@ -155,7 +200,7 @@ describe("Voucher Entity", () => {
         MonCotiz: 0,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
-        "Cotización de moneda (MonCotiz) debe ser mayor a cero."
+        "Cotización de moneda (MonCotiz) debe ser mayor a cero.",
       );
     });
   });
@@ -249,9 +294,9 @@ describe("Voucher Entity", () => {
         Iva: undefined,
       };
       const voucher = Voucher.create(facturaC);
-      expect(voucher.isFacturaC()).toBe(true);
-      expect(voucher.isFacturaA()).toBe(false);
-      expect(voucher.isFacturaB()).toBe(false);
+      expect(voucher.isTypeC()).toBe(true);
+      expect(voucher.isTypeA()).toBe(false);
+      expect(voucher.isTypeB()).toBe(false);
     });
 
     it("should return true for Factura A (type 1)", () => {
@@ -260,9 +305,9 @@ describe("Voucher Entity", () => {
         CbteTipo: 1,
       };
       const voucher = Voucher.create(facturaA);
-      expect(voucher.isFacturaA()).toBe(true);
-      expect(voucher.isFacturaC()).toBe(false);
-      expect(voucher.isFacturaB()).toBe(false);
+      expect(voucher.isTypeA()).toBe(true);
+      expect(voucher.isTypeC()).toBe(false);
+      expect(voucher.isTypeB()).toBe(false);
     });
 
     it("should return true for Factura B (type 6)", () => {
@@ -271,9 +316,9 @@ describe("Voucher Entity", () => {
         CbteTipo: 6,
       };
       const voucher = Voucher.create(facturaB);
-      expect(voucher.isFacturaB()).toBe(true);
-      expect(voucher.isFacturaA()).toBe(false);
-      expect(voucher.isFacturaC()).toBe(false);
+      expect(voucher.isTypeB()).toBe(true);
+      expect(voucher.isTypeA()).toBe(false);
+      expect(voucher.isTypeC()).toBe(false);
     });
   });
 

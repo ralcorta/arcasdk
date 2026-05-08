@@ -1,7 +1,3 @@
-/**
- * Ticket Storage Port
- * Outbound port for ticket storage operations
- */
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 
 export interface ITicketStoragePort {

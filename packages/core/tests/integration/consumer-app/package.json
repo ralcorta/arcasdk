@@ -1,0 +1,22 @@
+{
+  "name": "@arcasdk/integration-consumer-smoke",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Smoke / integration tests against the published @arcasdk/core tarball (npm pack), not workspace source.",
+  "scripts": {
+    "test": "jest --config jest.config.cjs",
+    "test:integration": "ENABLE_INTEGRATION_TESTS=true jest --config jest.config.cjs"
+  },
+  "dependencies": {
+    "@arcasdk/core": "file:vendor/core.tgz"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.10.1",
+    "dotenv": "^16.3.1",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.4",
+    "typescript": "^5.0.4"
+  }
+}

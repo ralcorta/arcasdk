@@ -195,10 +195,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECAESolicitarOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECAESolicitarAsync: SoapAsyncFunc<
     IFECAESolicitarInput,
@@ -210,10 +210,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECompTotXRequestOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECompTotXRequestAsync: SoapAsyncFunc<
     IFECompTotXRequestInput,
@@ -225,15 +225,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEDummyOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEDummyAsync: (
     input: IFEDummyInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<[IFEDummyOutput, string, { [k: string]: any }, string]>;
   FECompUltimoAutorizado: (
     input: IFECompUltimoAutorizadoInput,
@@ -241,15 +241,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECompUltimoAutorizadoOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECompUltimoAutorizadoAsync: (
     input: IFECompUltimoAutorizadoInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<
     [IFECompUltimoAutorizadoOutput, string, { [k: string]: any }, string]
   >;
@@ -259,15 +259,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECompConsultarOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECompConsultarAsync: (
     input: IFECompConsultarInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<[IFECompConsultarOutput, string, { [k: string]: any }, string]>;
   FECAEARegInformativo: (
     input: IFECAEARegInformativoInput,
@@ -275,15 +275,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECAEARegInformativoOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECAEARegInformativoAsync: (
     input: IFECAEARegInformativoInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<
     [IFECAEARegInformativoOutput, string, { [k: string]: any }, string]
   >;
@@ -293,15 +293,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECAEASolicitarOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECAEASolicitarAsync: (
     input: IFECAEASolicitarInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<[IFECAEASolicitarOutput, string, { [k: string]: any }, string]>;
   FECAEASinMovimientoConsultar: (
     input: IFECAEASinMovimientoConsultarInput,
@@ -309,15 +309,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECAEASinMovimientoConsultarOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECAEASinMovimientoConsultarAsync: (
     input: IFECAEASinMovimientoConsultarInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<
     [IFECAEASinMovimientoConsultarOutput, string, { [k: string]: any }, string]
   >;
@@ -327,15 +327,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECAEASinMovimientoInformarOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECAEASinMovimientoInformarAsync: (
     input: IFECAEASinMovimientoInformarInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<
     [IFECAEASinMovimientoInformarOutput, string, { [k: string]: any }, string]
   >;
@@ -345,15 +345,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFECAEAConsultarOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FECAEAConsultarAsync: (
     input: IFECAEAConsultarInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<[IFECAEAConsultarInput, string, { [k: string]: any }, string]>;
   FEParamGetCotizacion: (
     input: IFEParamGetCotizacionInput,
@@ -361,15 +361,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetCotizacionOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetCotizacionAsync: (
     input: IFEParamGetCotizacionInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<
     [IFEParamGetCotizacionOutput, string, { [k: string]: any }, string]
   >;
@@ -379,10 +379,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposTributosOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetTiposTributosAsync: SoapAsyncFunc<
     IFEParamGetTiposTributosInput,
@@ -394,10 +394,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposMonedasOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetTiposMonedasAsync: SoapAsyncFunc<
     IFEParamGetTiposMonedasInput,
@@ -413,10 +413,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposIvaOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
 
   FEParamGetTiposOpcionalAsync: SoapAsyncFunc<
@@ -429,10 +429,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposOpcionalOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetTiposConceptoAsync: SoapAsyncFunc<
     IFEParamGetTiposConceptoInput,
@@ -444,15 +444,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposConceptoOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetPtosVentaAsync: (
     input: IFEParamGetPtosVentaInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => Promise<
     [IFEParamGetPtosVentaOutput, string, { [k: string]: any }, string]
   >;
@@ -462,10 +462,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetPtosVentaOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetTiposCbte: (
     input: IFEParamGetTiposCbteInput,
@@ -473,15 +473,15 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposCbteOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetTiposCbteAsync: (
     input: IFEParamGetTiposCbteInput,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => [IFEParamGetTiposCbteOutput, string, { [k: string]: any }, string];
   FEParamGetTiposDocAsync: SoapAsyncFunc<
     IFEParamGetTiposDocInput,
@@ -493,10 +493,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposDocOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   FEParamGetTiposPaisesAsync: SoapAsyncFunc<
     IFEParamGetTiposPaisesInput,
@@ -508,10 +508,10 @@ export interface IServiceSoap12Soap extends Client {
       err: any | null,
       result: IFEParamGetTiposPaisesOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
 }
 
@@ -634,6 +634,10 @@ export namespace ServiceSoap12Types {
     MonId: string;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     MonCotiz: number;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    CanMisMonExt?: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+    CondicionIVAReceptorId?: number;
     CbtesAsoc?: ServiceSoap12Types.ICbtesAsoc;
     Tributos?: ServiceSoap12Types.ITributos;
     Iva?: ServiceSoap12Types.IIva;
@@ -847,16 +851,20 @@ export namespace ServiceSoap12Types {
     MonId: string;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     MonCotiz: number;
-    CbtesAsoc: ServiceSoap12Types.ICbtesAsoc;
-    Tributos: ServiceSoap12Types.ITributos;
-    Iva: ServiceSoap12Types.IIva;
-    Opcionales: ServiceSoap12Types.IOpcionales;
-    Compradores: ServiceSoap12Types.ICompradores;
-    PeriodoAsoc: ServiceSoap12Types.IPeriodoAsoc;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    CAEA: string;
+    CanMisMonExt?: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+    CondicionIVAReceptorId?: number;
+    CbtesAsoc?: ServiceSoap12Types.ICbtesAsoc;
+    Tributos?: ServiceSoap12Types.ITributos;
+    Iva?: ServiceSoap12Types.IIva;
+    Opcionales?: ServiceSoap12Types.IOpcionales;
+    Compradores?: ServiceSoap12Types.ICompradores;
+    PeriodoAsoc?: ServiceSoap12Types.IPeriodoAsoc;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    CbteFchHsGen: string;
+    CAEA?: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    CbteFchHsGen?: string;
   }
   export interface IFeCAEARegInfReq {
     FeCabReq: ServiceSoap12Types.IFeCabReq;

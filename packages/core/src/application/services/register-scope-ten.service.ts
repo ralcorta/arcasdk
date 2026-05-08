@@ -1,8 +1,3 @@
-/**
- * Register Scope Ten Service
- * Application service for Register Scope Ten (Padrón A10)
- * Orchestrates register use cases for scope TEN
- */
 import { IRegisterScopeTenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   RegisterServerStatusDto,
@@ -17,10 +12,10 @@ export class RegisterScopeTenService {
 
   constructor(private readonly repository: IRegisterScopeTenRepositoryPort) {
     this.getRegisterServerStatusUseCase = new GetRegisterServerStatusUseCase(
-      this.repository
+      this.repository,
     );
     this.getTaxpayerDetailsUseCase = new GetTaxpayerDetailsUseCase(
-      this.repository
+      this.repository,
     );
   }
 
@@ -35,7 +30,7 @@ export class RegisterScopeTenService {
    * Asks to web service for taxpayer details
    **/
   async getTaxpayerDetails(
-    identifier: number
+    identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {
     return this.getTaxpayerDetailsUseCase.execute(identifier);
   }

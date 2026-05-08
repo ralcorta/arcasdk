@@ -41,7 +41,7 @@ try {
     DocNro: 0, // 0 para Consumidor Final
     CbteDesde: 1, // Número de comprobante (debe ser el próximo libre)
     CbteHasta: 1,
-    CbteFch: 20240101, // Fecha del comprobante (YYYYMMDD)
+    CbteFch: "20240101", // Fecha del comprobante (YYYYMMDD como string)
     ImpTotal: 121, // Importe Total
     ImpTotConc: 0, // Importe Neto no Gravado
     ImpNeto: 100, // Importe Neto Gravado

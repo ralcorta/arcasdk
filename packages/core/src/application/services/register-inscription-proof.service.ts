@@ -1,8 +1,3 @@
-/**
- * Register Inscription Proof Service
- * Application service for Register Inscription Proof
- * Orchestrates register use cases for INSCRIPTION_PROOF scope
- */
 import { IRegisterInscriptionProofRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   RegisterServerStatusDto,
@@ -19,16 +14,16 @@ export class RegisterInscriptionProofService {
   private readonly getTaxpayersDetailsUseCase: GetTaxpayersDetailsUseCase;
 
   constructor(
-    private readonly repository: IRegisterInscriptionProofRepositoryPort
+    private readonly repository: IRegisterInscriptionProofRepositoryPort,
   ) {
     this.getRegisterServerStatusUseCase = new GetRegisterServerStatusUseCase(
-      this.repository
+      this.repository,
     );
     this.getTaxpayerDetailsUseCase = new GetTaxpayerDetailsUseCase(
-      this.repository
+      this.repository,
     );
     this.getTaxpayersDetailsUseCase = new GetTaxpayersDetailsUseCase(
-      this.repository
+      this.repository,
     );
   }
 
@@ -43,7 +38,7 @@ export class RegisterInscriptionProofService {
    * Asks to web service for taxpayer details
    **/
   async getTaxpayerDetails(
-    identifier: number
+    identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {
     return this.getTaxpayerDetailsUseCase.execute(identifier);
   }
@@ -52,7 +47,7 @@ export class RegisterInscriptionProofService {
    * Asks to web service for taxpayers details
    **/
   async getTaxpayersDetails(
-    identifiers: number[]
+    identifiers: number[],
   ): Promise<TaxpayersDetailsDto> {
     return this.getTaxpayersDetailsUseCase.execute(identifiers);
   }

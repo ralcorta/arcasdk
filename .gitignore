@@ -1,5 +1,13 @@
 lib
 .env
+.env.local
+
+# Certificados/clave de homologación local (TEST_CREDENTIALS_FOLDER por defecto)
+test-credentials/
+
+packages/core/.ticket-cache/
+.env.production
+.env.development
 .DS_Store
 .vscode
 !.vscode/settings.json
@@ -16,6 +24,18 @@ packages/*/src/infrastructure/storage/auth/tickets
 
 docs/.vitepress/dist
 docs/.vitepress/cache
+
+# Coverage reports
+coverage
+packages/core/coverage/
+
+# Consumer smoke (instala tarball; no commitear artefactos)
+packages/core/tests/integration/consumer-app/node_modules
+packages/core/tests/integration/consumer-app/vendor
+packages/core/tests/integration/consumer-app/.ticket-cache
+node_modules
+vendor
+.ticket-cache*
 
 # Examples
 examples/

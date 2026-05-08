@@ -2,6 +2,8 @@ node_modules
 src
 tests
 jest.config.js
+jest.base.config.js
+jest.integration.config.js
 jest.setup.js
 .DS_Store
 scripts

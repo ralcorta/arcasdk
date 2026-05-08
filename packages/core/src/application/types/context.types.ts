@@ -1,8 +1,5 @@
-/**
- * Application Types - Context
- * Configuration types for the application
- */
 import { ILoginCredentials } from "@domain/entities/access-ticket.entity";
+import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
 
 export interface Context {
   /**
@@ -31,6 +28,12 @@ export interface Context {
   credentials?: ILoginCredentials;
 
   /**
+   * Custom ticket storage implementation.
+   * If provided, it will be used instead of the default FileSystemTicketStorage.
+   */
+  ticketStorage?: ITicketStoragePort;
+
+  /**
    * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved locally.
    */
   handleTicket?: boolean;
@@ -39,13 +42,6 @@ export interface Context {
    * The path of the auth obj if the package is auto managed
    */
   ticketPath?: string;
-
-  /**
-   * Enable console logging
-   *
-   * @default false
-   */
-  enableLogging?: boolean;
 
   /**
    * Use SOAP 1.2 instead of SOAP 1.1 for Electronic Billing service

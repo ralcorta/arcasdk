@@ -10,6 +10,6 @@
       "@infrastructure/*": ["src/infrastructure/*"]
     }
   },
-  "include": ["src/**/*", "tests/**/*"],
+  "include": ["src/**/*", "tests/**/*", "jest.setup.integration.ts"],
   "exclude": ["node_modules", "lib"]
 }

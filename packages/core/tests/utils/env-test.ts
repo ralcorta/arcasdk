@@ -1,4 +1,16 @@
-import { Environment } from "../../src/application/config/env";
+import { config } from "dotenv";
+
+export class Environment {
+  public readonly nodeEnv: string;
+
+  constructor() {
+    const nodeEnv = process.env.NODE_ENV || "local";
+    config({
+      path: `.env${nodeEnv ? `.${nodeEnv}` : ""}`,
+    });
+    this.nodeEnv = nodeEnv;
+  }
+}
 
 class EnvirnonmentTest extends Environment {
   cuit: string;
