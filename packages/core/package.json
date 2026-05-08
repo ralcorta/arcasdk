@@ -29,7 +29,7 @@
     "@types/soap": "^0.18.0",
     "@types/underscore": "^1.11.5",
     "@types/xml2js": "^0.4.11",
-    "dotenv": "^16.3.1",
+    "dotenv": "^17.4.2",
     "jest": "^29.7.0",
     "rimraf": "^5.0.7",
     "ts-jest": "^29.3.4",
