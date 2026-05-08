@@ -113,6 +113,12 @@ Debes habilitar este parámetro (`true`) solo si:
 - ⚠️ Experimentas errores de conexión SSL relacionados con parámetros Diffie-Hellman débiles
 - ⚠️ Te conectas a **servidores ARCA/AFIP legacy** que requieren configuración SSL legacy
 
+#### Errores TLS en Producción
+
+Para errores como `EPROTO`, `dh key too small` o fallas de handshake TLS en producción, consulta la sección especial de errores frecuentes:
+
+- [Errores de conexión SSL/TLS en Producción](/faq/errors#errores-de-conexion-ssl-tls-en-produccion-issue-112)
+
 #### Ejemplo de uso
 
 ```ts

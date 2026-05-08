@@ -59,9 +59,16 @@ const arca = new Arca({
   cuit: 20111111112,
   cert: "contenido_del_certificado",
   key: "contenido_de_la_clave_privada",
+  production: true,
   useHttpsAgent: true, // Habilita el agente HTTPS legacy
 });
 ```
+
+Checklist rápido para evitar confusiones:
+
+- Si querés producción, usá `production: true`
+- `useHttpsAgent: true` solo ajusta la capa TLS; no cambia el entorno
+- Si omitís `production: true`, el SDK sigue apuntando a homologación
 
 ::: warning Importante
 
@@ -71,3 +78,33 @@ const arca = new Arca({
 
 Ver más detalles en la [documentación de configuración](/config#usehttpsagent).
 :::
+
+## Errores de conexión SSL/TLS en Producción (Issue #112)
+
+Esta sección aplica cuando estás facturando contra AFIP en producción y aparecen errores como:
+
+- `EPROTO`
+- `dh key too small`
+- fallas de handshake TLS
+
+### Qué validar
+
+1. Confirmá que realmente estás en producción con `production: true`
+2. Si estás en Node.js, activá `useHttpsAgent: true`
+3. Reintentá la operación contra WSFE
+
+```ts
+const arca = new Arca({
+  cuit: 20111111112,
+  cert: "contenido_del_certificado",
+  key: "contenido_de_la_clave_privada",
+  production: true,
+  useHttpsAgent: true,
+});
+```
+
+### Importante
+
+- `useHttpsAgent: true` solo ajusta la capa TLS
+- El entorno (producción/homologación) lo define únicamente `production`
+- Si omitís `production: true`, el SDK sigue apuntando a homologación
