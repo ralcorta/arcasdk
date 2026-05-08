@@ -1,5 +1,7 @@
 # Contribuciones
 
+---
+
 ### Commit
 
 El proyecto utiliza convenciones de commits semánticos para mantener un historial claro. Aunque ya no se usa semantic-release automático, recomendamos seguir el formato de commits semánticos para facilitar la lectura del historial y la generación manual de changelogs.

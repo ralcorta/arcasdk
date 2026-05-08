@@ -1,6 +1,10 @@
 # Servicio Genérico
 
-El `GenericService` permite interactuar con cualquier servicio web de AFIP, incluso aquellos que no tienen una implementación específica en el SDK. Esto es útil para acceder a servicios menos comunes o para utilizar nuevas funcionalidades antes de que sean incorporadas oficialmente en el paquete.
+El `GenericService` permite interactuar con cualquier servicio web de ARCA, incluso aquellos que no tienen una implementación específica en el SDK. Esto es útil para acceder a servicios menos comunes o para utilizar nuevas funcionalidades antes de que sean incorporadas oficialmente en el paquete.
+
+[[toc]]
+
+---
 
 ## Uso Básico
 
@@ -22,11 +26,7 @@ const arca = new Arca({
 async function checkServerStatus() {
   try {
     // Llamada al método 'dummy' del servicio 'ws_sr_padron_a4'
-    const result = await arca.genericService.call(
-      "ws_sr_padron_a4",
-      "dummy",
-      {}
-    );
+    const result = await arca.genericService.call("ws_sr_padron_a4", "dummy", {});
 
     console.log(result);
   } catch (error) {
@@ -62,7 +62,7 @@ async function callCustomService() {
       "custom_service_name", // Nombre usado para la autenticación (WSAA)
       "someMethod", // Método a llamar
       { param1: "value" }, // Parámetros
-      { wsdlContent } // Contenido del WSDL
+      { wsdlContent }, // Contenido del WSDL
     );
 
     console.log(result);

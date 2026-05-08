@@ -1,6 +1,8 @@
-# Engines SOAP y runtimes
+# Engines SOAP y Runtimes
 
 Esta guía explica cómo el SDK selecciona el transporte SOAP según el entorno de ejecución y cómo inyectar un engine personalizado.
+
+---
 
 ## Selección automática de engine
 

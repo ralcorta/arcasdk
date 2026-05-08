@@ -1,12 +1,14 @@
-# 5️⃣ Padrón Alcance 5
+# Padrón Alcance 5
 
 El servicio `registerScopeFiveService` permite consultar los datos completos de un contribuyente en el Padrón de ARCA (Alcance 5). Este alcance incluye datos de Monotributo y Régimen General.
 
 ::: info Documentación Oficial
-[Manual del Desarrollador (PDF)](http://www.arca.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf)
+[Manual del Desarrollador - ARCA (PDF)](http://www.arca.gob.ar/ws/ws_sr_padron_a5/manual_ws_sr_padron_a5_v1.0.pdf)
 :::
 
 [[toc]]
+
+---
 
 ## Obtener Datos del Contribuyente
 
@@ -14,9 +16,7 @@ Consulta los detalles completos de una persona física o jurídica mediante su C
 
 ```ts
 // Consultar datos del CUIT 20111111111
-const taxpayerDetails = await arca.registerScopeFiveService.getTaxpayerDetails(
-  20111111111
-);
+const taxpayerDetails = await arca.registerScopeFiveService.getTaxpayerDetails(20111111111);
 
 if (taxpayerDetails) {
   console.log("Datos del contribuyente:", taxpayerDetails);
@@ -61,9 +61,7 @@ if (taxpayerDetails) {
 Permite consultar hasta 250 CUITs en una sola petición.
 
 ```ts
-const taxpayers = await arca.registerScopeFiveService.getTaxpayersDetails([
-  20111111111, 20222222222,
-]);
+const taxpayers = await arca.registerScopeFiveService.getTaxpayersDetails([20111111111, 20222222222]);
 
 console.log(`Se encontraron ${taxpayers.cantidadRegistros} contribuyentes.`);
 ```
