@@ -1,12 +1,14 @@
-# 💸 Facturación Electrónica
+# Facturación Electrónica
 
 El servicio `electronicBillingService` permite la gestión completa de comprobantes electrónicos (Facturas, Notas de Crédito, Débito, etc.) a través del Web Service de Facturación Electrónica (WSFE).
 
 ::: info Documentación Oficial
-[Manual del Desarrollador (PDF)](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
+[Manual del Desarrollador - ARCA (PDF)](http://www.arca.gob.ar/fe/documentos/manual_desarrollador_COMPG_v2_10.pdf)
 :::
 
 [[toc]]
+
+---
 
 ## Crear Comprobante (CAE)
 
@@ -107,6 +109,8 @@ El método principal para generar una factura y obtener el CAE.
 }
 ```
 
+### Ejemplo Básico
+
 ```ts
 const invoice = await arca.electronicBillingService.createVoucher({
   CantReg: 1,
@@ -151,6 +155,8 @@ const invoice = await arca.electronicBillingService.createVoucher({
 
 :::
 
+---
+
 ## Siguiente Comprobante Automático
 
 `createNextVoucher` combina `getLastVoucher` + `createVoucher` en un solo paso. No requiere `CbteDesde` ni `CbteHasta`.
@@ -176,6 +182,8 @@ const invoice = await arca.electronicBillingService.createNextVoucher({
 });
 ```
 
+---
+
 ## Consultar Último Comprobante
 
 Obtiene el número del último comprobante autorizado para un punto de venta y tipo específico.
@@ -185,12 +193,15 @@ const lastVoucher = await arca.electronicBillingService.getLastVoucher(1, 6);
 console.log(`Último comprobante: ${lastVoucher}`);
 ```
 
+---
+
 ## Información de Comprobante
 
 Recupera los datos de un comprobante ya emitido.
 
 ```ts
 const voucherInfo = await arca.electronicBillingService.getVoucherInfo(1, 1, 6);
+// getVoucherInfo(nroComprobante, puntoVenta, tipoComprobante)
 
 if (voucherInfo) {
   console.log("Datos del comprobante:", voucherInfo);
@@ -198,6 +209,8 @@ if (voucherInfo) {
   console.log("El comprobante no existe.");
 }
 ```
+
+---
 
 ## Tablas de Referencia
 
@@ -234,6 +247,8 @@ const taxTypes = await arca.electronicBillingService.getTaxTypes();
 ```
 
 :::
+
+---
 
 ## Estado del Servidor
 

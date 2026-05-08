@@ -1,12 +1,14 @@
-# 📜 Constancia de Inscripción
+# Constancia de Inscripción
 
 El servicio `registerInscriptionProofService` permite consultar la constancia de inscripción de un contribuyente en el Padrón de ARCA. Este servicio devuelve información detallada sobre el estado fiscal, impuestos y actividades.
 
 ::: info Documentación Oficial
-[Manual del Desarrollador (PDF)](https://www.arca.gob.ar/ws/WSCI/manual-ws-sr-ws-constancia-inscripcion.pdf)
+[Manual del Desarrollador - ARCA (PDF)](https://www.arca.gob.ar/ws/WSCI/manual-ws-sr-ws-constancia-inscripcion.pdf)
 :::
 
 [[toc]]
+
+---
 
 ## Obtener Datos del Contribuyente
 
@@ -14,8 +16,7 @@ Consulta los detalles completos de una persona física o jurídica mediante su C
 
 ```ts
 // Consultar datos del CUIT 20111111111
-const taxpayerDetails =
-  await arca.registerInscriptionProofService.getTaxpayerDetails(20111111111);
+const taxpayerDetails = await arca.registerInscriptionProofService.getTaxpayerDetails(20111111111);
 
 if (taxpayerDetails) {
   console.log("Datos del contribuyente:", taxpayerDetails);
@@ -60,10 +61,7 @@ if (taxpayerDetails) {
 Permite consultar hasta 250 CUITs en una sola petición.
 
 ```ts
-const taxpayers =
-  await arca.registerInscriptionProofService.getTaxpayersDetails([
-    20111111111, 20222222222,
-  ]);
+const taxpayers = await arca.registerInscriptionProofService.getTaxpayersDetails([20111111111, 20222222222]);
 
 console.log(`Se encontraron ${taxpayers.cantidadRegistros} contribuyentes.`);
 ```

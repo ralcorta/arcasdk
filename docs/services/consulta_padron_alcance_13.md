@@ -1,12 +1,14 @@
-# 1️⃣3️⃣ Padrón Alcance 13
+# Padrón Alcance 13
 
 El servicio `registerScopeThirteenService` permite consultar los datos de un contribuyente en el Padrón de ARCA (Alcance 13). Este alcance está orientado a consultar actividades económicas y permite buscar CUIT por DNI.
 
 ::: info Documentación Oficial
-[Manual del Desarrollador (PDF)](http://www.arca.gob.ar/ws/ws-padron-a13/manual-ws-sr-padron-a13-v1.2.pdf)
+[Manual del Desarrollador - ARCA (PDF)](http://www.arca.gob.ar/ws/ws-padron-a13/manual-ws-sr-padron-a13-v1.2.pdf)
 :::
 
 [[toc]]
+
+---
 
 ## Obtener Datos del Contribuyente
 
@@ -14,8 +16,7 @@ Consulta los detalles de una persona física o jurídica mediante su CUIT.
 
 ```ts
 // Consultar datos del CUIT 20111111111
-const taxpayerDetails =
-  await arca.registerScopeThirteenService.getTaxpayerDetails(20111111111);
+const taxpayerDetails = await arca.registerScopeThirteenService.getTaxpayerDetails(20111111111);
 
 if (taxpayerDetails) {
   console.log("Datos del contribuyente:", taxpayerDetails);
@@ -55,9 +56,7 @@ if (taxpayerDetails) {
 Permite obtener el CUIT asociado a un número de documento (DNI).
 
 ```ts
-const taxID = await arca.registerScopeThirteenService.getTaxIDByDocument(
-  "11111111"
-);
+const taxID = await arca.registerScopeThirteenService.getTaxIDByDocument("11111111");
 
 if (taxID.idPersona) {
   console.log(`El CUIT para el DNI 11111111 es: ${taxID.idPersona}`);
