@@ -83,6 +83,19 @@ describeOrSkip("Register services integration (consumidor npm)", () => {
     ).toBe(true);
   });
 
+  it("inscription proof responde server status y taxpayer details (singular)", async () => {
+    const status = await arca.registerInscriptionProofService.getServerStatus();
+    expectServerStatus(status);
+
+    const details =
+      await arca.registerInscriptionProofService.getTaxpayerDetails(
+        getTestIdentifier(),
+      );
+
+    // In homologation this may return full details or null, both valid outcomes.
+    expect(details === null || typeof details === "object").toBe(true);
+  });
+
   it("inscription proof responde server status y taxpayers details", async () => {
     const status = await arca.registerInscriptionProofService.getServerStatus();
     expectServerStatus(status);
