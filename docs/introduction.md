@@ -1,13 +1,21 @@
 # 🎉 Introducción
 
-Bienvenido a **Arca SDK**, la herramienta definitiva para integrar los servicios de ARCA (ex AFIP) en tus aplicaciones Node.js. Diseñada para ser robusta, fácil de usar y moderna.
+Bienvenido a **Arca SDK**, la herramienta definitiva para integrar los servicios de ARCA (ex AFIP) en tus aplicaciones Node.js.
+
+> Desarrollada para ser robusta, fácil de usar y moderna. Con tipado estático, gestión automática de credenciales y arquitectura modular.
+
+---
 
 ## Características Principales
 
-- **Tipado Estático**: Desarrollado en TypeScript para garantizar seguridad de tipos y autocompletado.
-- **Gestión de Credenciales**: Manejo automático de tickets de acceso (WSAA) y renovación de tokens.
-- **Modular**: Arquitectura basada en servicios independientes (Facturación, Padrón, etc.).
-- **Isomórfico**: Compatible con entornos Node.js y Edge runtimes.
+| Característica              | Descripción                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| **Tipado Estático**         | Desarrollado en TypeScript para garantizar seguridad de tipos y autocompletado |
+| **Gestión de Credenciales** | Manejo automático de tickets de acceso (WSAA) y renovación de tokens           |
+| **Modular**                 | Arquitectura basada en servicios independientes (Facturación, Padrón, etc.)    |
+| **Isomórfico**              | Compatible con entornos Node.js y Edge runtimes                                |
+
+---
 
 ## Servicios Disponibles
 
@@ -58,9 +66,7 @@ La SDK ofrece soporte de primera clase para los servicios más críticos:
   </a>
 </div>
 
-::: tip Contribuciones
-¿Necesitas otro servicio? ¡El proyecto es Open Source! Puedes hacer un fork y enviar un PR.
-:::
+---
 
 ## Instalación
 
@@ -80,8 +86,27 @@ pnpm add @arcasdk/core
 
 :::
 
-### Requisitos Previos
+---
 
+## Requisitos Previos
+
+::: warning Certificados Requeridos
 Para utilizar esta SDK, debes tener los **certificados emitidos por ARCA** (homologación o producción). Son necesarios para la autenticación WSAA.
 
 [Ver guía de certificados](/tutorial/enable_testing_certificates)
+:::
+
+---
+
+## Próximos Pasos
+
+- [Uso Básico](/basic-use) — Aprende cómo instanciar y hacer tu primera operación
+- [Configuración](/config) — Configura tu entorno
+- [Gestión de Credenciales](/credential_management) — Maneja credenciales de forma segura
+- [Documentación de Servicios](/services/facturacion_electronica) — Explora todos los servicios disponibles
+
+---
+
+::: tip Contribuciones
+¿Necesitas otro servicio? ¡El proyecto es Open Source! Puedes hacer un [fork en GitHub](https://github.com/ralcorta/arcasdk) y enviar un PR.
+:::

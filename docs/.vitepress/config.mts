@@ -56,11 +56,11 @@ export default withMermaid(
             { text: "🚀 Uso basico", link: "/basic-use" },
             { text: "⚙️ Configuración", link: "/config" },
             { text: "🧩 Engines SOAP", link: "/soap-engines" },
-            { text: "🧐 Comportamiento", link: "/behaviour" },
             {
               text: "☁️ Gestión de Credenciales",
               link: "/credential_management",
             },
+            { text: "🧐 Comportamiento", link: "/behaviour" },
           ],
         },
         {
@@ -150,5 +150,5 @@ export default withMermaid(
         // copyright: `Copyright © ${new Date().getFullYear()}`,
       },
     },
-  })
+  }),
 );

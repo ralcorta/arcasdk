@@ -98,8 +98,12 @@ jobs:
         if: steps.version.outputs.published == 'true'
         run: |
           TAG="${{ steps.version.outputs.tag }}"
-          git tag "$TAG"
-          git push origin "$TAG"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists, skipping creation"
+          else
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
 
       - name: Build Documentation
         run: npm run docs:build

@@ -1,26 +1,65 @@
 # Comportamientos
 
-## Autenticación
+---
 
-Para interactuar con los servicios web de ARCA, es esencial autenticarse a través de su servicio de [WSAA](https://www.arca.gob.ar/ws/WSAA/WSAAmanualDev.pdf), que proporciona los tokens necesarios con una validez de hasta 12 horas. Sin embargo, este servicio de autenticación tiene ciertas restricciones en cuanto a cuándo se puede llamar: solo cada 2 minutos en entornos de producción y hasta cada 10 minutos en entornos de homologación.
-En resumen, necesitamos almacenar las credenciales requeridas para acceder a los servicios web de ARCA en algún lugar seguro, con el propósito de poder utilizarlas nuevamente en el futuro.
+## Autenticación (WSAA)
 
-Muchos otros paquetes resuelven este problema almacenando internamente estos tokens en archivos locales del servidor utilizando el file sistem de Node (mediante `require('fs')`). Esto plantea un desafío cuando se ejecutan en entornos serverless, como las Lambdas de AWS.
+### El Desafío
 
-Nuestro paquete, en cambio, ofrece una solución versátil para gestionar estos tickets de acceso (TA que devuelve ARCA). Podés optar por manejar estos datos de manera personalizada, lo que te permite tomar esos datos y guardarlos en el lugar que más te convenga, como una base de datos, un sistema de almacenamiento S3 o cualquier otro proveedor de almacenamiento que prefieras.
+Para interactuar con los servicios web de ARCA, es esencial autenticarse a través de su servicio [WSAA](https://www.arca.gob.ar/ws/WSAA/WSAAmanualDev.pdf), que proporciona tokens con validez de **12 horas**.
 
-Sin embargo, si prefieres que los tokens se gestionen automáticamente y se almacenen en el servidor, simplemente puedes no especificar ninguna configuración en el contexto de la clase Arca al instanciarla. El paquete se encargará de guardar los tokens en formato JSON dentro de la carpeta predeterminada (por defecto, en `lib/infrastructure/storage/auth/tickets` dentro del paquete compilado), aunque también tienes la flexibilidad de personalizar la ubicación de almacenamiento desde el constructor usando el parámetro `ticketPath` según tus necesidades.
+Pero hay restricciones importantes:
 
-### En resumen
+- **Producción:** 1 solicitud cada 2 minutos
+- **Homologación (testing):** 1 solicitud cada 10 minutos
 
-- **Autenticación Crucial:** La autenticación a través del servicio WSAA de ARCA es esencial para acceder a sus servicios web.
-- **Validez de Tokens:** Los tokens generados tienen una validez de hasta 12 horas.
-- **Restricciones de Tiempo:** El servicio de autenticación tiene restricciones de tiempo:
-  - 2 minutos en producción
-  - 10 minutos en entornos de homologación (testing).
-- **Necesidad de Almacenamiento:** Para futuros accesos, es necesario guardar las credenciales de manera segura.
-- **Desafío en Entornos Serverless:** Algunos paquetes almacenan tokens internamente en archivos locales, lo que puede ser problemático en entornos serverless como AWS Lambda.
-- **Solución Versátil:** Nuestro paquete ofrece una solución versátil para gestionar los tokens de acceso (TA) de ARCA.
-- **Opción Personalizada:** Puedes optar por gestionar estos datos de manera personalizada y elegir dónde almacenarlos.
-- **Almacenamiento Automático:** Si prefieres, el paquete puede encargarse del almacenamiento automático en el servidor.
-- **Flexibilidad de Ubicación:** Tienes la flexibilidad de personalizar la ubicación de almacenamiento según tus necesidades desde el constructor.
+**Conclusión:** No puedes solicitar un token en cada request. Debes generar una vez y reutilizar durante 12 horas.
+
+### El Problema con Almacenamiento Local
+
+Muchas librerías resuelven esto guardando tokens en archivos locales del servidor (usando `fs` de Node). Esto funciona bien en servidores tradicionales, pero **falla en entornos serverless** (AWS Lambda, Vercel, Cloudflare Workers, etc.) donde el sistema de archivos es efímero.
+
+### La Solución: Dos Formas de Gestionar Tokens
+
+Esta SDK ofrece **dos estrategias complementarias**:
+
+#### 1. Automática (por defecto)
+
+La SDK genera, almacena y reutiliza tokens internamente. Los guarda en:
+
+- Local: `lib/infrastructure/storage/auth/tickets` (predeterminado)
+- O en una ubicación personalizada con `ticketPath`
+
+**Ideal para:** Servidores tradicionales, desarrollo local.
+
+#### 2. Manual (para serverless)
+
+Tú controlas dónde guardar credenciales. Obtienes el token, lo extraes y lo almacenas en tu infraestructura:
+
+- Base de datos
+- Redis
+- S3
+- Cualquier storage persistente
+
+Luego reutilizas ese token en próximos requests pasándolo a la SDK.
+
+**Ideal para:** AWS Lambda, Vercel, entornos edge, compartir tokens entre instancias.
+
+---
+
+## Resumen Conceptual
+
+| Aspecto                | Automática                | Manual                     |
+| ---------------------- | ------------------------- | -------------------------- |
+| **Ubicación de token** | FS local (predeterminado) | Tu BD/Redis/S3             |
+| **Generación**         | SDK automática            | SDK + Extraes credenciales |
+| **Almacenamiento**     | SDK automático            | Tú guardas                 |
+| **Reutilización**      | SDK busca en FS           | Tú pasas al crear Arca     |
+| **Serverless**         | ✗ No funciona bien        | ✓ Funciona                 |
+| **Complejidad**        | Baja                      | Media                      |
+
+---
+
+## Implementación
+
+Para ver ejemplos prácticos y paso a paso de cómo implementar ambas estrategias, consulta [Gestión de Credenciales](./credential_management.md).

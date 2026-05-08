@@ -102,15 +102,6 @@ jobs:
           echo "🚀 Publishing to NPM..."
           npx nx release --yes
 
-      - name: Create GitHub Release
-        if: success()
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: false
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Publish Summary
         if: success()
         run: |

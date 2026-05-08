@@ -112,26 +112,11 @@ Explora la suite completa de herramientas diseñadas para potenciar tu negocio.
   </a>
 </div>
 
-## 📚 Centro de Conocimiento
-
-Domina la integración con nuestros recursos detallados.
-
-<div class="resources-grid">
-  <a href="/introduction" class="resource-card">
-    <h3>🎓 Guía de Inicio</h3>
-    <p>Todo lo que necesitas saber para empezar desde cero.</p>
-  </a>
-  <a href="/config" class="resource-card">
-    <h3>⚙️ Configuración Avanzada</h3>
-    <p>Ajusta la SDK a tus necesidades específicas.</p>
-  </a>
-  <a href="/credential_management" class="resource-card">
-    <h3>🔑 Gestión de Credenciales</h3>
-    <p>Aprende a manejar certificados de forma segura.</p>
-  </a>
-  <a href="/tutorial/enable_testing_certificates" class="resource-card">
-    <h3>🧪 Modo Testing</h3>
-    <p>Configura tu entorno de pruebas sin miedo a romper nada.</p>
+<div class="cta-section">
+  <h2>📚 Explora la Documentación Completa</h2>
+  <p>Accede a guías detalladas, tutoriales paso a paso y referencias de API</p>
+  <a href="/introduction" class="VPButton brand cta-button">
+    Ir a Documentación →
   </a>
 </div>
 
@@ -389,5 +374,40 @@ Domina la integración con nuestros recursos detallados.
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin: 4rem 0 2rem 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(189, 52, 254, 0.1) 0%, rgba(65, 209, 255, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.cta-section h2 {
+  background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.5rem 0 !important;
+  border-top: none !important;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.cta-section p {
+  color: var(--vp-c-text-2);
+  margin: 0.5rem 0 1.5rem 0;
+  font-size: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  font-weight: 600;
+  padding: 0.75rem 2rem !important;
+  font-size: 1rem !important;
+  border-radius: 8px;
 }
 </style>
