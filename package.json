@@ -55,6 +55,11 @@
     "url": "https://github.com/ralcorta/arcasdk/issues"
   },
   "homepage": "https://github.com/ralcorta/arcasdk#readme",
+  "overrides": {
+    "axios": "^1.16.0",
+    "follow-redirects": "^1.16.0",
+    "@xmldom/xmldom": "^0.9.10"
+  },
   "keywords": [
     "monorepo",
     "web-service",
