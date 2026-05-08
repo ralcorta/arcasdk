@@ -14,9 +14,7 @@ Consulta los detalles de una persona física o jurídica mediante su CUIT.
 
 ```ts
 // Consultar datos del CUIT 20111111111
-const taxpayerDetails = await arca.registerScopeFourService.getTaxpayerDetails(
-  20111111111
-);
+const taxpayerDetails = await arca.registerScopeFourService.getTaxpayerDetails(20111111111);
 
 if (taxpayerDetails) {
   console.log("Datos del contribuyente:", taxpayerDetails);

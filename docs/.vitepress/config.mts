@@ -150,5 +150,5 @@ export default withMermaid(
         // copyright: `Copyright © ${new Date().getFullYear()}`,
       },
     },
-  })
+  }),
 );

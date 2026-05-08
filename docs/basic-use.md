@@ -15,7 +15,7 @@ import { Arca } from "@arcasdk/core";
 
 // Instancia la SDK con tus credenciales
 const arca = new Arca({
-  cuit: 20111111112, // Tu CUIT (sin guiones)
+  cuit: 20111111112,
   cert: "contenido_del_certificado", // O path al archivo .crt
   key: "contenido_de_la_clave_privada", // O path al archivo .key
 });
@@ -31,7 +31,6 @@ La SDK maneja automáticamente la obtención del ticket de acceso (TA) si este h
 
 ```ts
 try {
-  // 1. Acceder al servicio de facturación
   const invoice = await arca.electronicBillingService.createVoucher({
     CantReg: 1, // Cantidad de registros
     PtoVta: 1, // Punto de venta configurado en ARCA
@@ -61,10 +60,10 @@ try {
     ],
   });
 
-  console.log("✅ CAE Asignado:", invoice.CAE);
-  console.log("📅 Vencimiento CAE:", invoice.CAEFchVto);
+  console.log("CAE Asignado:", invoice.CAE);
+  console.log("Vencimiento CAE:", invoice.CAEFchVto);
 } catch (error) {
-  console.error("❌ Error al facturar:", error.message);
+  console.error("Error al facturar:", error.message);
 }
 ```
 
