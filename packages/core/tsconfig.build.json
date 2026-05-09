@@ -2,13 +2,10 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "ignoreDeprecations": "5.0",
-    "baseUrl": "./",
     "paths": {
-      "@domain/*": ["src/domain/*"],
-      "@application/*": ["src/application/*"],
-      "@infrastructure/*": ["src/infrastructure/*"]
+      "@domain/*": ["./src/domain/*"],
+      "@application/*": ["./src/application/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
