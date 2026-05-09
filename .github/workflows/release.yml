@@ -37,7 +37,7 @@ jobs:
         run: npm ci --prefer-offline --no-audit
 
       - name: Setup NX
-        uses: nrwl/nx-set-shas@v4
+        uses: nrwl/nx-set-shas@v5
 
       - name: Cache NX
         uses: actions/cache@v4
