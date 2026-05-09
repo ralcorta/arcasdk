@@ -13,6 +13,7 @@
     "test:coverage": "nx run-many --target=test --all --skip-nx-cache",
     "test:integration": "nx run-many --target=test:integration --all --skip-nx-cache",
     "test:integration:all": "npm run test:integration && npm run test:consumer:integration",
+    "test:all": "npm run test && npm run test:integration:all",
     "lint": "nx run-many --target=lint --all",
     "test:core": "nx test core",
     "test:core:unit": "nx test:unit core",
