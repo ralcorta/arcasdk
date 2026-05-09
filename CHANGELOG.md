@@ -1,3 +1,21 @@
+## 1.0.1 (2026-05-09)
+
+### 🩹 Fixes
+
+- add TLS production tests and docs for issue 112 ([0e510f9](https://github.com/ralcorta/arcasdk/commit/0e510f9))
+- deps ([27d8b98](https://github.com/ralcorta/arcasdk/commit/27d8b98))
+- deps ([cbe1c52](https://github.com/ralcorta/arcasdk/commit/cbe1c52))
+- deps ([9d0b291](https://github.com/ralcorta/arcasdk/commit/9d0b291))
+- **ci:** use strict conventional commit format for BREAKING CHANGE detection ([11739d8](https://github.com/ralcorta/arcasdk/commit/11739d8))
+- **ci:** use strict conventional commit format for BREAKING CHANGE detection ([39d3f2e](https://github.com/ralcorta/arcasdk/commit/39d3f2e))
+- **ci:** skip tag creation if tag already exists ([579be37](https://github.com/ralcorta/arcasdk/commit/579be37))
+- **ci:** remove redundant GitHub Release step from npm-publish workflow ([81e6280](https://github.com/ralcorta/arcasdk/commit/81e6280))
+- **core:** use ignoreDeprecations 5.0 for tsc compatibility ([ddc0318](https://github.com/ralcorta/arcasdk/commit/ddc0318))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 0.3.6 (2025-12-03)
 
 ### 🩹 Fixes
