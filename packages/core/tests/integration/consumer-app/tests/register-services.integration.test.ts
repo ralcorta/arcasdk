@@ -9,8 +9,8 @@ const describeOrSkip = enableIntegration ? describe : describe.skip;
 describeOrSkip("Register services integration (consumidor npm)", () => {
   let arca: Arca;
 
-  beforeAll(async () => {
-    arca = await createArcaForRegisterHomologation();
+  beforeAll(() => {
+    arca = createArcaForRegisterHomologation();
   });
 
   function getTestIdentifier(): number {

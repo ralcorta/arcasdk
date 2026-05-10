@@ -20,6 +20,10 @@ import { GenericService } from "@application/services/generic.service";
 import { GenericRepository } from "@infrastructure/outbound/adapters/repositories/generic/generic-repository";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 import { isNode } from "std-env";
+import { WsfecredService } from "@application/services/wsfecred.service";
+import { WsfexService } from "@application/services/wsfex.service";
+import { FecredRepository } from "@infrastructure/outbound/adapters/repositories/fecred/fecred.repository";
+import { FexRepository } from "@infrastructure/outbound/adapters/repositories/fex/fex.repository";
 
 export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;
@@ -29,6 +33,8 @@ export class Arca {
   private readonly _registerScopeTenService: RegisterScopeTenService;
   private readonly _registerScopeThirteenService: RegisterScopeThirteenService;
   private readonly _genericService: GenericService;
+  private readonly _wsfecredService: WsfecredService;
+  private readonly _wsfexService: WsfexService;
   private readonly context: Context;
 
   constructor(context: Context) {
@@ -104,6 +110,10 @@ export class Arca {
     this._genericService = new GenericService(
       new GenericRepository(soapConfig),
     );
+    this._wsfecredService = new WsfecredService(
+      new FecredRepository(soapConfig),
+    );
+    this._wsfexService = new WsfexService(new FexRepository(soapConfig));
   }
 
   get electronicBillingService(): ElectronicBillingService {
@@ -132,5 +142,13 @@ export class Arca {
 
   get genericService(): GenericService {
     return this._genericService;
+  }
+
+  get wsfecredService(): WsfecredService {
+    return this._wsfecredService;
+  }
+
+  get wsfexService(): WsfexService {
+    return this._wsfexService;
   }
 }

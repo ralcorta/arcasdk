@@ -44,6 +44,18 @@ export enum EndpointsEnum {
    **/
   WSSR_PADRON_THIRTEEN = "https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA13",
   WSSR_PADRON_THIRTEEN_TEST = "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA13",
+
+  /**
+   * WS Facturacion Electronica de Exportacion
+   **/
+  WSFEX = "https://servicios1.afip.gov.ar/wsfexv1/service.asmx",
+  WSFEX_TEST = "https://wswhomo.afip.gov.ar/wsfexv1/service.asmx",
+
+  /**
+   * WS Factura de Credito Electronica
+   **/
+  WSFECRED = "https://serviciosjava.afip.gob.ar/wsfecred/FECredService",
+  WSFECRED_TEST = "https://fwshomo.afip.gov.ar/wsfecred/FECredService",
 }
 
 /**

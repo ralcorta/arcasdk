@@ -63,7 +63,7 @@ describeOrSkip("TLS DH Key Size - Producción (Validación Issue #112)", () => {
       production: true, // ← IMPORTANTE: Usar servidores de PRODUCCIÓN
       handleTicket: false,
       useHttpsAgent, // ← Variar según el test
-      ticketPath: resolve(process.cwd(), ".ticket-cache-production"),
+      ticketPath: resolve(process.cwd(), ".ticket-cache"),
     });
   }
 

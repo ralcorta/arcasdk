@@ -1,0 +1,4 @@
+
+/** FEXDummy */
+export interface FexDummy {
+}

@@ -3,7 +3,7 @@ import { resolve } from "path";
 import { Arca } from "@arcasdk/core";
 import { buildContext, getCertPath, getKeyPath } from "./test-credentials";
 
-export async function createArcaForRegisterHomologation(): Promise<Arca> {
+export function createArcaForHomologation(): Arca {
   const keyPath = getKeyPath();
   const certPath = getCertPath();
 
@@ -24,6 +24,10 @@ export async function createArcaForRegisterHomologation(): Promise<Arca> {
   return new Arca({
     ...baseContext,
     handleTicket: false,
-    ticketPath: resolve(process.cwd(), ".ticket-cache-register"),
+    ticketPath: resolve(process.cwd(), ".ticket-cache"),
   });
 }
+
+export const createArcaForRegisterHomologation = createArcaForHomologation;
+export const createArcaForWsfexHomologation = createArcaForHomologation;
+export const createArcaForWsfecredHomologation = createArcaForHomologation;

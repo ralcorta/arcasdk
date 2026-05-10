@@ -18,4 +18,10 @@ export enum WsdlPathEnum {
 
   WSSR_PADRON_THIRTEEN = "ws_sr_padron_a13-production.wsdl",
   WSSR_PADRON_THIRTEEN_TEST = "ws_sr_padron_a13.wsdl",
+
+  WSFEX = "wsfex-production.wsdl",
+  WSFEX_TEST = "wsfex.wsdl",
+
+  WSFECRED = "wsfecred-production.wsdl",
+  WSFECRED_TEST = "wsfecred.wsdl",
 }

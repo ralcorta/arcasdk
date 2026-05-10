@@ -1,0 +1,7 @@
+import { AuthRequest } from "./AuthRequest";
+
+/** tns:ConsultarCodigoDescripcionRequestType */
+export interface TnsconsultarCodigoDescripcionRequestType1 {
+    /** authRequest */
+    authRequest?: AuthRequest;
+}
