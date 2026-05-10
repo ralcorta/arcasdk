@@ -18,12 +18,12 @@ jobs:
       NX_DAEMON: "false"
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: "npm"
@@ -35,7 +35,7 @@ jobs:
         run: npm audit --production || echo "Vulnerabilities found, but not failing build"
 
       - name: Setup NX
-        uses: nrwl/nx-set-shas@v4
+        uses: nrwl/nx-set-shas@v5
 
       - name: Cache NX
         uses: actions/cache@v4
@@ -104,7 +104,7 @@ jobs:
         run: npm ci --prefer-offline --no-audit
 
       - name: Setup NX
-        uses: nrwl/nx-set-shas@v4
+        uses: nrwl/nx-set-shas@v5
 
       - name: Cache NX
         uses: actions/cache@v4

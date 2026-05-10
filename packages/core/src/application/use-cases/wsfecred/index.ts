@@ -18,4 +18,3 @@ export * from "./consultar-historial-estados-cta-cte.use-case";
 export * from "./consultar-tipos-ajustes-operacion.use-case";
 export * from "./consultar-monto-obligado-recepcion.use-case";
 export * from "./modificar-opcion-transferencia.use-case";
-export * from "./dummy.use-case";
