@@ -71,6 +71,7 @@ jobs:
     permissions:
       contents: write
       packages: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -93,14 +94,19 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Publish with NX Release
+      - name: Version & Changelog
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "🚀 Publishing to NPM..."
-          npx nx release --yes
+          echo "📦 Calculating version and generating changelog..."
+          npx nx release --skip-publish --yes
+
+      - name: Publish to NPM
+        env:
+          NPM_CONFIG_PROVENANCE: true
+        run: |
+          echo "🚀 Publishing to NPM with provenance..."
+          npx nx release publish
 
       - name: Publish Summary
         if: success()
