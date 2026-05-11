@@ -270,4 +270,19 @@ function generate() {
   }
 }
 
+function cleanup() {
+  const rootDir = path.join(__dirname, "..");
+  const tmpDirs = [
+    path.join(rootDir, ".tmp-wsdl-types"),
+    path.join(rootDir, "wsdl"),
+  ];
+  for (const dir of tmpDirs) {
+    if (fs.existsSync(dir)) {
+      fs.rmSync(dir, { recursive: true, force: true });
+      console.log(`Cleaned up ${path.relative(rootDir, dir)}/`);
+    }
+  }
+}
+
 generate();
+cleanup();
