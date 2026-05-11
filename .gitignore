@@ -25,6 +25,9 @@ packages/*/src/infrastructure/storage/auth/tickets
 docs/.vitepress/dist
 docs/.vitepress/cache
 
+# WSDL codegen intermediate output
+.tmp-wsdl-types/
+
 # Coverage reports
 coverage
 packages/core/coverage/
