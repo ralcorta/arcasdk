@@ -1,3 +1,18 @@
+## 1.2.0 (2026-05-11)
+
+### 🚀 Features
+
+- add WSFEX and WSFECred services ([60ed7cf](https://github.com/ralcorta/arcasdk/commit/60ed7cf))
+
+### 🩹 Fixes
+
+- remove orphaned WSFECred dummy use-case file ([753ab9a](https://github.com/ralcorta/arcasdk/commit/753ab9a))
+- update moduleResolution to Node16 in consumer-app tsconfig ([b434ac7](https://github.com/ralcorta/arcasdk/commit/b434ac7))
+
+### ❤️ Thank You
+
+- Rodrigo Alcorta @ralcorta
+
 ## 1.0.1 (2026-05-09)
 
 ### 🩹 Fixes
