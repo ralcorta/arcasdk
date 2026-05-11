@@ -1,0 +1,1802 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ar.gob.afip.wsfecred/FECredService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FECredService" targetNamespace="http://ar.gob.afip.wsfecred/FECredService/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://ar.gob.afip.wsfecred/FECredService/">
+			<xsd:element name="dummyResponse" type="tns:DummyResponseType" />
+			<xsd:complexType name="DummyResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="dummyReturn" type="tns:DummyReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DummyReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="appserver" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="authserver" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="dbserver" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="AuthRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="token" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="sign" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitRepresentada" type="tns:CuitSimpleType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="CuitSimpleType">
+				<xsd:restriction base="xsd:long">
+					<xsd:minExclusive value="9999999999" />
+					<xsd:maxInclusive value="99999999999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ArrayCodigosDescripcionesType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="codigoDescripcion" type="tns:CodigoDescripcionType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayCodigosDescripcionesStringType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="codigoDescripcionString" type="tns:CodigoDescripcionStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CodigoDescripcionType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="CodigoDescripcionStringType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:string" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+
+
+			<xsd:element name="consultarComprobantesRequest" type="tns:ConsultarComprobanteRequestType" />
+			<xsd:element name="consultarComprobantesResponse" type="tns:ConsultarComprobantesResponseType" />
+			<xsd:complexType name="ConsultarComprobanteRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rolCUITRepresentada" type="tns:RolSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="CUITContraparte" type="tns:CuitSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="codTipoCmp" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCmp" type="tns:EstadoCmpSimpleType" />
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="fecha" type="tns:FiltroFechaType" />
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="codCtaCte" type="xsd:long" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCtaCte" type="tns:EstadoCtaCteSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ConsultarComprobantesResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="consultarCmpReturn" type="tns:ConsultarCmpReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ConsultarCmpReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayComprobantes" type="tns:ArrayComprobantesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short">
+	            	</xsd:element>
+	            	<xsd:element maxOccurs="1" minOccurs="0" name="hayMas" type="tns:SiNoSimpleType" />
+	            	<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="ResultadoSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A" />
+					<xsd:enumeration value="O" />
+					<xsd:enumeration value="R" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="NumeroComprobanteSimpleType">
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="99999999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="PuntoVentaSimpleType">
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="99999" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:element name="rechazarFECredRequest" type="tns:RechazarFECredRequestType" />
+			<xsd:element name="rechazarFECredResponse" type="tns:OperacionFECredResponseType" />
+			<xsd:complexType name="RechazarFECredRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="consultarCtaCteRequest" type="tns:ConsultarCtaCteRequestType" />
+			<xsd:element name="consultarCtaCteResponse" type="tns:ConsultarCtaCteResponseType" />
+			<xsd:complexType name="ConsultarCtaCteRequestType">
+				<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:element name="rechazarNotaDCRequest" type="tns:RechazarNotaDCRequestType">
+			</xsd:element>
+			<xsd:element name="rechazarNotaDCResponse" type="tns:RechazarNotaDCResponseType" />
+			<xsd:complexType name="RechazarNotaDCRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="informarFacturaAgtDptoCltvRequest" type="tns:InformarFacturaAgtDptoCltvRequestType" />
+			<xsd:element name="informarFacturaAgtDptoCltvResponse" type="tns:OperacionFECredResponseType" />
+			
+			<xsd:element name="consultarCuentasEnAgtDptoCltvRequest" type="tns:ConsultarCuentasEnAgtDptoCltvRequestType" />
+			<xsd:element name="consultarCuentasEnAgtDptoCltvResponse" type="tns:consultarCuentasEnAgtDptoCltvResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCuentasEnAgtDptoCltvRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="Texto250SimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="3" />
+					<xsd:maxLength value="250" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+
+
+			<xsd:element name="consultarTiposRetencionesRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposRetencionesResponse" type="tns:ConsultarTiposRetencionesResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCtasCtesRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rolCUITRepresentada" type="tns:RolSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CUITContraparte" type="tns:CuitSimpleType">
+					</xsd:element>
+
+
+
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="fecha" type="tns:FiltroFechaType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="estadoCtaCte" type="tns:EstadoCtaCteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short" />
+					<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="consultarObligadoRecepcionRequest" type="tns:consultarObligadoRecepcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarObligadoRecepcionResponse" type="tns:consultarObligadoRecepcionResponseType">
+			</xsd:element>
+			
+			<xsd:element name="consultarFacturasAgtDptoCltvRequest" type="tns:ConsultarFacturasAgtDptoCltvRequestType">
+			</xsd:element>
+			<xsd:element name="consultarFacturasAgtDptoCltvResponse" type="tns:ConsultarFacturasAgtDptoCltvResponseType">
+			</xsd:element>
+			<xsd:element name="informarCancelacionTotalFECredResponse" type="tns:OperacionFECredResponseType">
+			</xsd:element>
+			<xsd:element name="informarCancelacionTotalFECredRequest" type="tns:InformarCancelacionTotalFECredRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposMotivosRechazoRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposMotivosRechazoResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+			</xsd:element>
+			<xsd:complexType name="ConsultarCodigoDescripcionReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayCodigoDescripcion" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="consultarTiposFormasCancelacionRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+			</xsd:element>
+			<xsd:element name="consultarTiposFormasCancelacionResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+			</xsd:element>
+
+			<xsd:element name="aceptarFECredRequest" type="tns:AceptarFECredRequestType">
+			</xsd:element>
+			<xsd:element name="aceptarFECredResponse" type="tns:OperacionFECredResponseType" />
+			<xsd:complexType name="AceptarFECredRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayConfirmarNotasDC" type="tns:ArrayConfirmarNotasType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayRetenciones" type="tns:ArrayRetencionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayAjustesOperacion" type="tns:ArrayAjustesOperacionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipoCancelacion" type="tns:TipoCancelacionSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeCancelado" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalRetPesos" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="importeEmbargoPesos" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="saldoAceptado" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMonedaUlt" type="xsd:decimal">
+					</xsd:element>
+
+					<xsd:element name="informaCBU" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="CBUComprador" type="tns:CBUSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			
+            <xsd:complexType name="IdCtaCteType">
+                <xsd:sequence>
+                    <xsd:choice maxOccurs="1" minOccurs="1">
+                        <xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long" />
+                        <xsd:element maxOccurs="1" minOccurs="1" name="idFactura" type="tns:IdComprobanteType" />
+                    </xsd:choice>
+                </xsd:sequence>
+            </xsd:complexType>
+			
+            <xsd:group name="NewGroupDefinition">
+				<xsd:sequence />
+			</xsd:group>
+			<xsd:simpleType name="SiNoSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:length value="1" />
+					<xsd:enumeration value="S" />
+					<xsd:enumeration value="N" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="ComprobanteType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitEmisor" type="tns:CuitSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="razonSocialEmi" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codTipoCmp" type="xsd:short">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="ptovta" type="tns:PuntoVentaSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="nroCmp" type="tns:NumeroComprobanteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cuitReceptor" type="tns:CuitSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="razonSocialRecep" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="tipoCodAuto" type="tns:TipoCodAutorizacionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codAutorizacion" type="xsd:long">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="fechaEmision" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaPuestaDispo" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaVenPago" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaVenAcep" type="xsd:date">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="importeTotal" type="tns:ImporteSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMoneda" type="xsd:decimal">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CBUEmisor" type="tns:CBUSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="AliasEmisor" type="tns:Texto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="esAnulacion" type="tns:SiNoSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="esPostAceptacion" type="tns:SiNoSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="idComprobanteAsociado" type="tns:IdComprobanteType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="referenciasComerciales" type="tns:ArrayTexto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arraySubtotalesIVA" type="tns:ArraySubtotalesIVAType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayOtrosTributos" type="tns:ArrayOtrosTributosType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayItems" type="tns:ArrayItemsType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="datosGenerales" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="datosComerciales" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="leyendaComercial" type="tns:Texto250SimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCmpType">
+					</xsd:element>
+
+
+					<xsd:element maxOccurs="1" minOccurs="0" name="tipoAcep" type="tns:TipoAceptacionSimpleType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="fechaHoraAcep" type="xsd:dateTime">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayMotivosRechazo" type="tns:ArrayMotivosRechazoType">
+					</xsd:element>
+
+					<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+					<xsd:element name="infoTransferencia" type="tns:InfoTransferenciaType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+
+
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="ImporteSimpleType">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:minInclusive value="-9999999999999.99" />
+					<xsd:maxInclusive value="9999999999999.99" />
+					<xsd:totalDigits value="15" />
+					<xsd:fractionDigits value="2" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="DecimalSimpleType">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:minInclusive value="0" />
+					<xsd:maxInclusive value="999999999999.999999" />
+					<xsd:totalDigits value="18" />
+					<xsd:fractionDigits value="6" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+			<xsd:complexType name="ConsultarCodigoDescripcionRequestType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="InformarCancelacionTotalFECredRequestType">
+				<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+				    <xsd:element maxOccurs="1" minOccurs="1" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="importeCancelacion" type="tns:ImporteSimpleType">
+				    </xsd:element>
+
+				</xsd:sequence>
+			</xsd:complexType>
+			
+			<xsd:complexType name="ConsultarCodigoDescripcionResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigoDescripcionReturn" type="tns:ConsultarCodigoDescripcionReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+				
+			
+			<xsd:element name="consultarCtasCtesRequest" type="tns:ConsultarCtasCtesRequestType">
+			</xsd:element>
+			<xsd:element name="consultarCtasCtesResponse" type="tns:ConsultarCtasCtesResponseType" />
+
+
+
+
+
+			<xsd:complexType name="ConsultarCodigoDescripcionStringResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="codigoDescripcionReturn" type="tns:ConsultarCodigoDescripcionStringReturnType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ConsultarCodigoDescripcionStringReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayCodigoDescripcion" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+		
+			<xsd:simpleType name="TipoCodAutorizacionType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="A" />
+					<xsd:enumeration value="E" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="ConsultarTiposRetencionesResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarTiposRetencionesReturn" type="tns:ConsultarTiposRetencionesReturnType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarTiposRetencionesReturnType">
+			    <xsd:sequence>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayTiposRetenciones" type="tns:ArrayTiposRetencionesType">
+			    	</xsd:element>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ArrayTiposRetencionesType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="unbounded" minOccurs="1" name="tipoRetencion" type="tns:TipoRetencionType" />
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="TipoRetencionType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="codigoJurisdiccion" type="xsd:short">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="descripcionJurisdiccion" type="xsd:string" />
+			        <xsd:element maxOccurs="1" minOccurs="1" name="porcentajeRetencion" type="tns:PorcentajeSimpleType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="PorcentajeSimpleType">
+			    <xsd:restriction base="xsd:decimal">
+			        <xsd:maxInclusive value="100.00" />
+			        <xsd:minInclusive value="0.0" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionRequestType">
+			    <xsd:sequence>
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+			    	</xsd:element>
+
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="cuitConsultada" type="tns:CuitSimpleType" />
+
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarObligadoRecepcionReturn" type="tns:consultarObligadoRecepcionReturnType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="consultarObligadoRecepcionReturnType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="respuesta" type="tns:SiNoSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="desde" type="xsd:date" />
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+
+		
+			<xsd:complexType name="consultarCuentasEnAgtDptoCltvResponseType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="1" name="consultarCuentasEnAgtDptoCltvReturn" type="tns:ConsultarCuentasEnAgtDptoCltvReturnType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarCuentasEnAgtDptoCltvReturnType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayCuentasEnAgente" type="tns:ArrayCuentasEnAgenteType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType" />
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			    	</xsd:element>
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			    	</xsd:element>
+			        
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ArrayCuentasEnAgenteType">
+			    <xsd:sequence>
+			        <xsd:element maxOccurs="unbounded" minOccurs="1" name="cuentaEnAgente" type="tns:CuentaEnAgenteType">
+			        </xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="CuentaEnAgenteType">
+			    <xsd:sequence>
+			    	<xsd:element name="cuitAgente" type="tns:CuitSimpleType" maxOccurs="1" minOccurs="1">
+			    	</xsd:element>
+			    	<xsd:element name="razonSocialAgente" type="xsd:string" maxOccurs="1" minOccurs="0" />
+			    	<xsd:element maxOccurs="1" minOccurs="1" name="idCuenta" type="tns:IdCuentaAgenteSimpleType">
+			    	</xsd:element>
+
+			    	<xsd:element maxOccurs="1" minOccurs="0" name="denominacion" type="tns:Texto250SimpleType">
+			    	</xsd:element>
+			    </xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="CBUSimpleType">
+			    <xsd:restriction base="xsd:string">
+			        <xsd:length value="22" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+			
+			<xsd:simpleType name="IdCuentaAgenteSimpleType">
+			    <xsd:restriction base="xsd:string">
+			        <xsd:minLength value="3" />
+					<xsd:maxLength value="20" />
+			    </xsd:restriction>
+			</xsd:simpleType>
+		
+			<xsd:complexType name="FiltroFechaType">
+				<xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="tipo" type="tns:TipoFechaSimpleType" />
+                    <xsd:element maxOccurs="1" minOccurs="1" name="desde" type="xsd:date" />
+                    <xsd:element maxOccurs="1" minOccurs="1" name="hasta" type="xsd:date" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="TipoFechaSimpleType">
+				<xsd:annotation>
+					<xsd:documentation>
+						Campo que determina sobre que columna vamos a
+						hacer el filtro de fechas. Fechas posibles a
+						filtrar - fechaEmision - fechaPuestaDispo -
+						fechaVenPago - fechaVenAcep - fechaAcep -
+						fechaInfoAgDptoCltv
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:string">
+
+
+
+					<xsd:enumeration value="Emision" />
+					<xsd:enumeration value="PuestaDispo" />
+					<xsd:enumeration value="VenPago" />
+					<xsd:enumeration value="VenAcep" />
+					<xsd:enumeration value="Acep" />
+					<xsd:enumeration value="InfoAgDptoCltv" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="RolSimpleType">
+				<xsd:restriction base="xsd:string">
+
+
+					<xsd:enumeration value="Emisor" />
+					<xsd:enumeration value="Receptor" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="EstadoCmpSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="PendienteRecepcion" />
+					<xsd:enumeration value="Recepcionado" />
+					<xsd:enumeration value="Aceptado" />
+					<xsd:enumeration value="Rechazado" />
+					<xsd:enumeration value="InformadaAgDpto" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="EstadoCtaCteSimpleType">
+				<xsd:restriction base="xsd:string">
+
+					<xsd:enumeration value="Modificable" />
+					<xsd:enumeration value="Aceptada" />
+					<xsd:enumeration value="Rechazada" />
+					<xsd:enumeration value="CanceladaTotal" />
+					<xsd:enumeration value="InformadaAgDpto" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="ArrayComprobantesType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="comprobante" type="tns:ComprobanteType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:simpleType name="TipoAceptacionSimpleType">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="Tacita" />
+					<xsd:enumeration value="Expresa" />
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="IdComprobanteType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="CUITEmisor" type="tns:CuitSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="codTipoCmp" type="xsd:short" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="ptoVta" type="tns:PuntoVentaSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="nroCmp" type="tns:NumeroComprobanteSimpleType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="RechazarNotaDCResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="rechazarNotaDCReturn" type="tns:RechazarNotaDCReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="RechazarNotaDCReturnType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="resultado" type="tns:ResultadoSimpleType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+			<xsd:complexType name="ConsultarCtasCtesResponseType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="1" minOccurs="1" name="consultarCtasCtesReturn" type="tns:ConsultarCtasCtesReturnType" />
+				</xsd:sequence>
+			</xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtasCtesReturnType">
+            <xsd:sequence>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayInfosCtaCte" type="tns:ArrayInfosCtaCteType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="nroPagina" type="xsd:short">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="hayMas" type="tns:SiNoSimpleType" />
+            	<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+            	</xsd:element>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+            	</xsd:element>
+            </xsd:sequence>
+
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayInfosCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="infoCtaCte" type="tns:InfoCtaCteType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="InfoCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estadoCtaCte" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idFacturaCredito" type="tns:IdComprobanteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importeTotalFC" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="saldo" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="saldoAceptado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string" />
+            		<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtaCteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarCtaCteReturn" type="tns:ConsultarCtaCteReturnType">
+            		</xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarCtaCteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="ctaCte" type="tns:CuentaCorrienteType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+					</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayConfirmarNotasType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="confirmarNota" type="tns:ConfirmarNotaDCType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConfirmarNotaDCType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="acepta" type="tns:SiNoSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idNota" type="tns:IdComprobanteType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="CuentaCorrienteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codCtaCte" type="xsd:long">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estadoCtaCte" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="factura" type="tns:ComprobanteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayNotasDCAsociadas" type="tns:ArrayComprobantesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayFormasCancelacion" type="tns:ArrayCodigosDescripcionesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayRetenciones" type="tns:ArrayRetencionesType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayAjustesOperacion" type="tns:ArrayAjustesOperacionType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importeInicial" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalNotasDC" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeCancelado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeTotalRetPesos" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeEmbargoPesos" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="saldoAceptado" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="saldo" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMoneda" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="cotizacionMonedaUlt" type="xsd:decimal">
+            		</xsd:element>
+
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayRetencionesType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="retencion" type="tns:RetencionType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="RetencionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codTipo" type="xsd:short" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="porcentaje" type="tns:PorcentajeSimpleType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="descMotivo" type="tns:Texto250SimpleType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OperacionFECredResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="operacionFECredReturn" type="tns:OperacionFECredReturnType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OperacionFECredReturnType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="resultado" type="tns:ResultadoSimpleType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+            	    </xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+        
+            <xsd:simpleType name="TipoCancelacionSimpleType">
+            	<xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="PAR" />
+            		<xsd:enumeration value="TOT" />
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="InformarFacturaAgtDptoCltvRequestType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="ctaAgente" type="tns:CuentaEnAgenteType">
+            	    </xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvRequestType">
+            	<xsd:sequence>
+            	    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            	    </xsd:element>
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="idCtaCte" type="tns:IdCtaCteType" />
+            	    <xsd:element maxOccurs="1" minOccurs="0" name="filtroFecha" type="tns:FiltroFechaType">
+            	    </xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarFacturasAgtDptoCltvReturn" type="tns:ConsultarFacturasAgtDptoCltvReturnType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarFacturasAgtDptoCltvReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayFacturasAgtDptoCltv" type="tns:ArrayFacturasAgtDptoCltvType" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="evento" type="tns:CodigoDescripcionType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayObservaciones" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayFacturasAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="facturaInformada" type="tns:FacturaInformadaAgtDptoCltvType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="FacturaInformadaAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idFactura" type="tns:IdComprobanteType">
+            		</xsd:element>
+            		<xsd:element name="infoAgtDptoCltv" type="tns:InfoAgtDptoCltvType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+	           	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="obtenerRemitosRequest" type="tns:ObtenerRemitosRequestType" />
+            <xsd:element name="obtenerRemitosResponse" type="tns:ObtenerRemitosResponseType">
+            </xsd:element>
+            <xsd:complexType name="ObtenerRemitosRequestType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ObtenerRemitosResponseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="obtenerRemitosReturn" type="tns:ObtenerRemitosReturnType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ObtenerRemitosReturnType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayIdsRemitos" type="tns:ArrayIdsComprobantesType">
+                    </xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+                    <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayIdsComprobantesType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="1" name="idsComprobantes" type="tns:IdComprobanteType">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArraySubtotalesIVAType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="subtotalIVA" type="tns:SubtotalIVAType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="ArrayOtrosTributosType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="otroTributo" type="tns:OtroTributoType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="SubtotalIVAType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="baseImponible" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="OtroTributoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="detalle" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="baseImponible" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayMotivosRechazoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="motivoRechazo" type="tns:MotivoRechazoType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="MotivoRechazoType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codMotivo" type="xsd:short">
+					</xsd:element>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="descMotivo" type="tns:Texto250SimpleType">
+					</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="justificacion" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="EstadoCmpType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCmpSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaHoraEstado" type="xsd:dateTime">
+            		</xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarHistorialEstadosComprobanteRequest" type="tns:ConsultarHistorialEstadosComprobanteRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarHistorialEstadosComprobanteResponse" type="tns:ConsultarHistorialEstadosComprobanteResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteRequestType">
+            	<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType">
+					</xsd:element>
+				    
+				</xsd:sequence>            
+            </xsd:complexType>
+        
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarHistorialEstadosComprobanteReturn" type="tns:ConsultarHistorialEstadosComprobanteReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarHistorialEstadosComprobanteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idComprobante" type="tns:IdComprobanteType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="arrayHistorialEstados" type="tns:ArrayHistorialEstadosComprobanteType">
+            		</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayHistorialEstadosComprobanteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="estadoHistorico" type="tns:EstadoCmpType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarHistorialEstadosCtaCteRequest" type="tns:ConsultarHistorialEstadosCtaCteRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarHistorialEstadosCtaCteResponse" type="tns:consultarHistorialEstadosCtaCteResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarHistorialEstadosCtaCteRequestType">
+            	<xsd:sequence>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+				    </xsd:element>
+				    <xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+					</xsd:element>
+				    
+				</xsd:sequence>  
+            </xsd:complexType>
+        
+            <xsd:complexType name="consultarHistorialEstadosCtaCteResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarHistorialEstadosCtaCteReturn" type="tns:consultarHistorialEstadosCtaCteReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="consultarHistorialEstadosCtaCteReturnType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="arrayHistorialEstados" type="tns:ArrayHistorialEstadosCtaCteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType" />
+					<xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType" />
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayHistorialEstadosCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="estadoHistorico" type="tns:EstadoCtaCteType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="EstadoCtaCteType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="estado" type="tns:EstadoCtaCteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaHoraEstado" type="xsd:dateTime">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ArrayItemsType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="item" type="tns:ItemType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ItemType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="orden" type="xsd:int">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="unidadesMtx" type="xsd:int" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigoMtx" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigo" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="descripcion" type="xsd:string">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codNomMercosur" type="xsd:string" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="cantidad" type="tns:DecimalSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="codigoUnidadMedida" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="precioUnitario" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeBonificacion" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigoCondicionIVA" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="importeIVA" type="tns:ImporteSimpleType">
+            		</xsd:element>
+
+                    <xsd:element maxOccurs="1" minOccurs="1" name="importeItem" type="tns:ImporteSimpleType">
+            		</xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ArrayTexto250SimpleType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="texto" type="tns:Texto250SimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarTiposAjustesOperacionRequest" type="tns:ConsultarCodigoDescripcionRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarTiposAjustesOperacionResponse" type="tns:ConsultarCodigoDescripcionResponseType">
+
+            </xsd:element>
+		
+            <xsd:complexType name="ArrayAjustesOperacionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="unbounded" minOccurs="1" name="ajuste" type="tns:AjusteOperacionType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="AjusteOperacionType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="codigo" type="xsd:short">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="importe" type="tns:ImporteSimpleType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="consultarMontoObligadoRecepcionRequest" type="tns:ConsultarMontoObligadoRecepcionRequestType">
+
+            </xsd:element>
+            <xsd:element name="consultarMontoObligadoRecepcionResponse" type="tns:ConsultarMontoObligadoRecepcionResponseType">
+
+            </xsd:element>
+            
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionRequestType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            		</xsd:element>
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="cuitConsultada" type="tns:CuitSimpleType">
+            		</xsd:element>
+
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaEmision" type="xsd:date">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionResponseType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="consultarMontoObligadoRecepcionReturn" type="tns:ConsultarMontoObligadoRecepcionReturnType">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="ConsultarMontoObligadoRecepcionReturnType">
+            	<xsd:sequence>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="obligado" type="tns:SiNoSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="montoDesde" type="tns:ImporteSimpleType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayObservacion" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErrores" type="tns:ArrayCodigosDescripcionesType">
+			        </xsd:element>
+			        <xsd:element maxOccurs="1" minOccurs="0" name="arrayErroresFormato" type="tns:ArrayCodigosDescripcionesStringType">
+			        </xsd:element>
+			    </xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:simpleType name="OpcionTransferenciaSimpleType">
+                <xsd:annotation>
+                	<xsd:documentation>SCA - Sistema de Circulación Abierta
+ADC - Agente de Depósito Colectivo</xsd:documentation>
+                </xsd:annotation>
+                <xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="SCA" />
+            		<xsd:enumeration value="ADC" />
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="InfoTransferenciaType">
+            	<xsd:sequence>
+            		<xsd:choice maxOccurs="1" minOccurs="1">
+            			<xsd:element name="infoAgtDptoCltv" type="tns:InfoAgtDptoCltvType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="infoSCA" type="tns:InfoSCAType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            		</xsd:choice>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="InfoAgtDptoCltvType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="fechaInfo" type="xsd:date" />
+            		<xsd:element maxOccurs="1" minOccurs="1" name="ctaAgente" type="tns:CuentaEnAgenteType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="recibida" type="tns:SiNoSimpleType">
+            		</xsd:element>
+            		<xsd:element name="fechaLectura" type="xsd:date" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="fechaRecep" type="xsd:date" />
+            		<xsd:element maxOccurs="1" minOccurs="0" name="aceptada" type="tns:SiNoSimpleType" />
+            		<xsd:element name="motivoRechazo" type="xsd:string" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="0" name="idPagoAgtDptoCltv" type="xsd:string">
+					</xsd:element>
+					<xsd:element maxOccurs="1" minOccurs="0" name="CBUAgtDptoCltv" type="tns:CBUSimpleType">
+					</xsd:element>
+            		
+            	</xsd:sequence>
+            </xsd:complexType>
+        
+            <xsd:complexType name="InfoSCAType">
+            	<xsd:sequence>
+            		<xsd:element name="fechaAceptacionFactura" type="xsd:date" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="informaCBUReceptor" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="CBUReceptor" type="tns:CBUSimpleType" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="CBUValidada" type="tns:SiNoSimpleType" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="fechaLecturaSCA" type="xsd:dateTime" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modificarOpcionTransferenciaResponse" type="tns:OperacionFECredResponseType">
+
+            </xsd:element>
+
+            <xsd:complexType name="ModificarOpcionTransferenciaRequestType">
+            	<xsd:sequence>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="authRequest" type="tns:AuthRequestType">
+            		</xsd:element>
+            		<xsd:element maxOccurs="1" minOccurs="1" name="idCtaCte" type="tns:IdCtaCteType">
+            		</xsd:element>
+
+            		<xsd:element name="opcionTransferencia" type="tns:OpcionTransferenciaSimpleType" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modificarOpcionTransferenciaRequest" type="tns:ModificarOpcionTransferenciaRequestType">
+            </xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="dummyRequest" />
+
+	<wsdl:message name="dummyResponse">
+		<wsdl:part element="tns:dummyResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarComprobantesRequest">
+		<wsdl:part element="tns:consultarComprobantesRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarComprobantesResponse">
+		<wsdl:part element="tns:consultarComprobantesResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarFECredRequest">
+		<wsdl:part element="tns:rechazarFECredRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="rechazarFECredResponse">
+		<wsdl:part element="tns:rechazarFECredResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaCteRequest">
+		<wsdl:part element="tns:consultarCtaCteRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaCteResponse">
+		<wsdl:part element="tns:consultarCtaCteResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarNotaDCRequest">
+		<wsdl:part element="tns:rechazarNotaDCRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="rechazarNotaDCResponse">
+		<wsdl:part element="tns:rechazarNotaDCResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarFacturaAgtDptoCltvRequest">
+		<wsdl:part element="tns:informarFacturaAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarFacturaAgtDptoCltvResponse">
+		<wsdl:part element="tns:informarFacturaAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaAgenteRequest">
+		<wsdl:part element="tns:consultarCuentasEnAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarCtaAgenteResponse">
+		<wsdl:part element="tns:consultarCuentasEnAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposRetencionesRequest">
+		<wsdl:part element="tns:consultarTiposRetencionesRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposRetencionesResponse">
+		<wsdl:part element="tns:consultarTiposRetencionesResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarObligadoRecepcionRequest">
+		<wsdl:part element="tns:consultarObligadoRecepcionRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarObligadoRecepcionResponse">
+		<wsdl:part element="tns:consultarObligadoRecepcionResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarFacturasAgtDptoCltvRequest">
+		<wsdl:part element="tns:consultarFacturasAgtDptoCltvRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarFacturasAgtDptoCltvResponse">
+		<wsdl:part element="tns:consultarFacturasAgtDptoCltvResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="informarCancelacionTotalFECredRequest">
+		<wsdl:part element="tns:informarCancelacionTotalFECredRequest" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="informarCancelacionTotalFECredResponse">
+		<wsdl:part element="tns:informarCancelacionTotalFECredResponse" name="parameters" />
+	</wsdl:message>
+
+
+	<wsdl:message name="consultarTiposMotivosRechazoRequest">
+		<wsdl:part element="tns:consultarTiposMotivosRechazoRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposMotivosRechazoResponse">
+		<wsdl:part element="tns:consultarTiposMotivosRechazoResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposFormasCancelacionRequest">
+		<wsdl:part element="tns:consultarTiposFormasCancelacionRequest" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="consultarTiposFormasCancelacionResponse">
+		<wsdl:part element="tns:consultarTiposFormasCancelacionResponse" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="aceptarFECredRequest">
+		<wsdl:part element="tns:aceptarFECredRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="aceptarFECredResponse">
+		<wsdl:part element="tns:aceptarFECredResponse" name="parameters" />
+	</wsdl:message>
+
+
+
+	<wsdl:message name="consultarCtasCtesRequest">
+		<wsdl:part element="tns:consultarCtasCtesRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarCtasCtesResponse">
+		<wsdl:part element="tns:consultarCtasCtesResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="obtenerRemitosRequest">
+	    <wsdl:part element="tns:obtenerRemitosRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="obtenerRemitosResponse">
+	    <wsdl:part element="tns:obtenerRemitosResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosComprobanteRequest">
+		<wsdl:part element="tns:consultarHistorialEstadosComprobanteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosComprobanteResponse">
+		<wsdl:part element="tns:consultarHistorialEstadosComprobanteResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosCtaCteRequest">
+		<wsdl:part element="tns:consultarHistorialEstadosCtaCteRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarHistorialEstadosCtaCteResponse">
+		<wsdl:part element="tns:consultarHistorialEstadosCtaCteResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarTiposAjustesOperacionRequest">
+		<wsdl:part element="tns:consultarTiposAjustesOperacionRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarTiposAjustesOperacionResponse">
+		<wsdl:part element="tns:consultarTiposAjustesOperacionResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarMontoObligadoRecepcionRequest">
+		<wsdl:part element="tns:consultarMontoObligadoRecepcionRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="consultarMontoObligadoRecepcionResponse">
+		<wsdl:part element="tns:consultarMontoObligadoRecepcionResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="modificarOpcionTransferenciaRequest">
+		<wsdl:part name="parameters" element="tns:modificarOpcionTransferenciaRequest" />
+	</wsdl:message>
+	<wsdl:message name="modificarOpcionTransferenciaResponse">
+		<wsdl:part name="parameters" element="tns:modificarOpcionTransferenciaResponse" />
+	</wsdl:message>
+	<wsdl:portType name="FECredServicePortType">
+
+		<wsdl:operation name="dummy">
+			<wsdl:documentation>Metodo dummy.</wsdl:documentation>
+			<wsdl:input message="tns:dummyRequest" />
+			<wsdl:output message="tns:dummyResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarComprobantes">
+			<wsdl:documentation>Método que permite obtener información sobre los comprobates Emitidos y Recibidos.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarComprobantesRequest" />
+			<wsdl:output message="tns:consultarComprobantesResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="rechazarNotaDC">
+			<wsdl:documentation>Método que permite al Comprador rechazar Notas de Débito / Crédito individualmente para
+				desafectarlas del cálculo del saldo de la Cta. Cte. vinculada.
+			</wsdl:documentation>
+			<wsdl:input message="tns:rechazarNotaDCRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:rechazarNotaDCResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCtasCtes">
+			<wsdl:documentation>Método que permite obtener las cuentas corrientes que fueron generadas a partir de la
+				facturación, que coinciden con los parámetros de búsqueda.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtasCtesRequest" />
+			<wsdl:output message="tns:consultarCtasCtesResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCtaCte">
+			<wsdl:documentation>Método que permite obtener el detalle y composición de una cuenta corriente.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtaCteRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarCtaCteResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="informarCancelacionTotalFECred">
+			<wsdl:documentation>Método por el cual el Comprador informa que le ha cancelado (pagado) totalmente la deuda al
+				vendedor, debiendo indicar la forma de pago.Solo puede cancelar las aceptadas dentros de los plazos establecidos
+			</wsdl:documentation>
+			<wsdl:input message="tns:informarCancelacionTotalFECredRequest" />
+			<wsdl:output message="tns:informarCancelacionTotalFECredResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="aceptarFECred">
+			<wsdl:documentation>Método que permite al Comprador Aceptar el saldo actual de la Cta. Cte. de una Factura de Crédito
+				pudiendo indicar: pagos parciales, retenciones y/o embargos.
+			</wsdl:documentation>
+			<wsdl:input message="tns:aceptarFECredRequest" />
+			<wsdl:output message="tns:aceptarFECredResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="rechazarFECred">
+			<wsdl:documentation>Método que permite al Comprador Rechazar la Cta. Cte. de una Factura de Crédito debiendo indicar
+				el motivo del rechazo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:rechazarFECredRequest" />
+			<wsdl:output message="tns:rechazarFECredResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="informarFacturaAgtDptoCltv">
+			<wsdl:documentation>Método que permite al Vendedor solicitar la transeferencia (al Agente de Depósito Colectivo) de
+				la factura de crédito con el saldo resultante de la cuenta corriente vinculada aceptada por el comprador, debiendo
+				indicar la Cuenta del Agente de Deposito Colectivo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:informarFacturaAgtDptoCltvRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:informarFacturaAgtDptoCltvResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarFacturasAgtDptoCltv">
+			<wsdl:documentation>Método que permite obtener información sobre las transeferencias realizadas al Agente de Depósito
+				Colectivo.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarFacturasAgtDptoCltvRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarFacturasAgtDptoCltvResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarCuentasEnAgtDptoCltv">
+			<wsdl:documentation>Método que permite al Vendedor consultar sus cuentas en sus Agentes de Deposito Colectivo
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarCtaAgenteRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarCtaAgenteResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarObligadoRecepcion">
+			<wsdl:documentation>Método que permite a partir de una CUIT conocer su obligación respecto a la emisión o recepción
+				de facturas de créditos
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarObligadoRecepcionRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarObligadoRecepcionResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposRetenciones">
+			<wsdl:documentation>Método que permite consultar los tipos de retenciones habilitadas con sus respectivos porcentajes.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposRetencionesRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposRetencionesResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposMotivosRechazo">
+			<wsdl:documentation>Método que permite listar los tipos de  motivos de rechazo habilitados para una cta. cte.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposMotivosRechazoRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposMotivosRechazoResponse">
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="consultarTiposFormasCancelacion">
+			<wsdl:documentation>Método que permite listar los tipos de formas de pago habilitados para una factura de crédito.
+			</wsdl:documentation>
+			<wsdl:input message="tns:consultarTiposFormasCancelacionRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:consultarTiposFormasCancelacionResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="obtenerRemitos">
+		    <wsdl:input message="tns:obtenerRemitosRequest" />
+		    <wsdl:output message="tns:obtenerRemitosResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosComprobante">
+			<wsdl:input message="tns:consultarHistorialEstadosComprobanteRequest" />
+			<wsdl:output message="tns:consultarHistorialEstadosComprobanteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosCtaCte">
+			<wsdl:input message="tns:consultarHistorialEstadosCtaCteRequest" />
+			<wsdl:output message="tns:consultarHistorialEstadosCtaCteResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposAjustesOperacion">
+			<wsdl:input message="tns:consultarTiposAjustesOperacionRequest" />
+			<wsdl:output message="tns:consultarTiposAjustesOperacionResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="consultarMontoObligadoRecepcion">
+			<wsdl:input message="tns:consultarMontoObligadoRecepcionRequest" />
+			<wsdl:output message="tns:consultarMontoObligadoRecepcionResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="modificarOpcionTransferencia">
+			<wsdl:input message="tns:modificarOpcionTransferenciaRequest" />
+			<wsdl:output message="tns:modificarOpcionTransferenciaResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<wsdl:binding name="FECredServiceSOAP" type="tns:FECredServicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="dummy">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/dummy" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarComprobantes">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarComprobantes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/rechazarFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCtasCtes">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCtasCtes" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rechazarNotaDC">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/rechazarNotaDC" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="informarFacturaAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/informarFacturaAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposRetenciones">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposRetenciones" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarObligadoRecepcion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarObligadoRecepcion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarFacturasAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarFacturasAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="informarCancelacionTotalFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/informarCancelacionTotalFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposMotivosRechazo">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposMotivosRechazo" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposFormasCancelacion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposFormasCancelacion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="aceptarFECred">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/aceptarFECred" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCtaCte">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCtaCte" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarCuentasEnAgtDptoCltv">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarCuentasEnAgtDptoCltv" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="obtenerRemitos">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/obtenerRemitos" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosComprobante">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarHistorialEstadosComprobante" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarHistorialEstadosCtaCte">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarHistorialEstadosCtaCte" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarTiposAjustesOperacion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarTiposAjustesOperacion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarMontoObligadoRecepcion">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/consultarMontoObligadoRecepcion" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modificarOpcionTransferencia">
+			<soap:operation soapAction="http://ar.gob.afip.wsfecred/FECredService/modificarOpcionTransferencia" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="FECredService">
+		<wsdl:port binding="tns:FECredServiceSOAP" name="FECredServiceSOAP">
+			<soap:address location="https://fwshomo.afip.gov.ar:443/wsfecred/FECredService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

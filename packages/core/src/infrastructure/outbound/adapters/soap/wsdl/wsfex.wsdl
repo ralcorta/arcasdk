@@ -1,0 +1,1330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://ar.gov.afip.dif.fexv1/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://ar.gov.afip.dif.fexv1/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de autorizacion de comprobantes de Exportacion electronicos</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ar.gov.afip.dif.fexv1/">
+      <s:element name="FEXAuthorize">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cmp" type="tns:ClsFEXRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEXAuthRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXRequest">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo_expo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permiso_existente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permisos" type="tns:ArrayOfPermiso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_cmp" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit_pais_cliente" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio_cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id_impositivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs_comerciales" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Imp_total" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmps_asoc" type="tns:ArrayOfCmp_asoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Forma_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms_Ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Idioma_cbte" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Permiso" nillable="true" type="tns:Permiso" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Permiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id_permiso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_merc" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCmp_asoc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cmp_asoc" nillable="true" type="tns:Cmp_asoc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cmp_asoc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_cuit" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" nillable="true" type="tns:Item" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Item">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Pro_codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pro_ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_qty" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_umed" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_precio_uni" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_bonificacion" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pro_total_item" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOpcional">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Opcional" nillable="true" type="tns:Opcional" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Opcional">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Valor" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Actividad" nillable="true" type="tns:Actividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Actividad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXAuthorizeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXAuthorizeResult" type="tns:FEXResponseAuthorize" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponseAuthorize">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultAuth" type="tns:ClsFEXOutAuthorize" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXOutAuthorize">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_venc_Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_cbte" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reproceso" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivos_Obs" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXErr">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ErrCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrMsg" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXEvents">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EventCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EventMsg" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetCMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Cmp" type="tns:ClsFEXGetCMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEXGetCMP">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetCMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetCMPResult" type="tns:FEXGetCMPResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXGetCMPResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXGetCMPR" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXGetCMPR">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_tipo" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="Punto_vta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tipo_expo" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permiso_existente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Permisos" type="tns:ArrayOfPermiso" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dst_cmp" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cliente" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit_pais_cliente" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Domicilio_cliente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id_impositivo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Moneda_Id" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Moneda_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CanMisMonExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs_comerciales" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Imp_total" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmps_asoc" type="tns:ArrayOfCmp_asoc" />
+          <s:element minOccurs="0" maxOccurs="1" name="Forma_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Incoterms_Ds" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Idioma_cbte" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_cbte_cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fch_venc_Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cae" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resultado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Motivos_Obs" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_pago" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Cbte_Tipo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_Cbte_TipoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_Cbte_TipoResult" type="tns:FEXResponse_Cbte_Tipo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Cbte_Tipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Cbte_Tipo" nillable="true" type="tns:ClsFEXResponse_Cbte_Tipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Cbte_Tipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Tipo_Expo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_Tipo_ExpoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_Tipo_ExpoResult" type="tns:FEXResponse_Tex" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Tex" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Tex" nillable="true" type="tns:ClsFEXResponse_Tex" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Tex">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Tex_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tex_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Incoterms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_IncotermsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_IncotermsResult" type="tns:FEXResponse_Inc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Inc" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Inc" nillable="true" type="tns:ClsFEXResponse_Inc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Inc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Inc_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Idiomas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_IdiomasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_IdiomasResult" type="tns:FEXResponse_Idi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Idi" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Idi" nillable="true" type="tns:ClsFEXResponse_Idi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Idi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Idi_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Idi_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_UMed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_UMedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_UMedResult" type="tns:FEXResponse_Umed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Umed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_UMed" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_UMed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_UMed" nillable="true" type="tns:ClsFEXResponse_UMed" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_UMed">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Umed_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Umed_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_DST_pais">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_DST_paisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_DST_paisResult" type="tns:FEXResponse_DST_pais" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_DST_pais" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_DST_pais" nillable="true" type="tns:ClsFEXResponse_DST_pais" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_DST_pais">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Ds" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_DST_CUIT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_DST_CUITResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_DST_CUITResult" type="tns:FEXResponse_DST_cuit" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_DST_cuit" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_DST_cuit" nillable="true" type="tns:ClsFEXResponse_DST_cuit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_DST_cuit">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DST_CUIT" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="DST_Ds" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_MON">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_MONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_MONResult" type="tns:FEXResponse_Mon" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Mon" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Mon" nillable="true" type="tns:ClsFEXResponse_Mon" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Mon">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_MON_CON_COTIZACION">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha_CTZ" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_MON_CON_COTIZACIONResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_MON_CON_COTIZACIONResult" type="tns:FEXResponse_Mon_CON_COTIZACION" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Mon_CON_COTIZACION">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Mon_CON_Cotizacion" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Mon_CON_Cotizacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Mon_CON_Cotizacion" nillable="true" type="tns:ClsFEXResponse_Mon_CON_Cotizacion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Mon_CON_Cotizacion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_ctz" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha_ctz" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_CMP">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEX_LastCMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ClsFEX_LastCMP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sign" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cuit" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pto_venta" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_Tipo" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_CMPResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetLast_CMPResult" type="tns:FEXResponseLast_CMP" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponseLast_CMP">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResult_LastCMP" type="tns:ClsFEX_LastCMP_Response" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEX_LastCMP_Response">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Cbte_nro" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cbte_fecha" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXDummy">
+        <s:complexType />
+      </s:element>
+      <s:element name="FEXDummyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXDummyResult" type="tns:DummyResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DummyResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AppServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DbServer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthServer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Ctz">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mon_id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="FchCotiz" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_CtzResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_CtzResult" type="tns:FEXResponse_Ctz" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Ctz">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_Ctz" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Ctz">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Mon_ctz" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mon_fecha" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetLast_ID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetLast_IDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetLast_IDResult" type="tns:FEXResponse_LastID" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_LastID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_LastID" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_LastID">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_PtoVenta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_PtoVentaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_PtoVentaResult" type="tns:FEXResponse_PtoVenta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_PtoVenta" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_PtoVenta" nillable="true" type="tns:ClsFEXResponse_PtoVenta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_PtoVenta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Pve_Nro" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pve_Bloqueado" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pve_FchBaja" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXCheck_Permiso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+            <s:element minOccurs="0" maxOccurs="1" name="ID_Permiso" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Dst_merc" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXCheck_PermisoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXCheck_PermisoResult" type="tns:FEXResponse_CheckPermiso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_CheckPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ClsFEXResponse_CheckPermiso" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_CheckPermiso">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Opcionales">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_OpcionalesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_OpcionalesResult" type="tns:FEXResponse_Opc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_Opc" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_Opc" nillable="true" type="tns:ClsFEXResponse_Opc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_Opc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Opc_Id" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_Ds" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_vig_desde" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Opc_vig_hasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FEXGetPARAM_Actividades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:ClsFEXAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEXGetPARAM_ActividadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEXGetPARAM_ActividadesResult" type="tns:FEXResponse_Actividades" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEXResponse_Actividades">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FEXResultGet" type="tns:ArrayOfClsFEXResponse_ActividadTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXErr" type="tns:ClsFEXErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="FEXEvents" type="tns:ClsFEXEvents" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClsFEXResponse_ActividadTipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClsFEXResponse_ActividadTipo" nillable="true" type="tns:ClsFEXResponse_ActividadTipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClsFEXResponse_ActividadTipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FEXAuthorizeSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXAuthorize" />
+  </wsdl:message>
+  <wsdl:message name="FEXAuthorizeSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXAuthorizeResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetCMPSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetCMP" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetCMPSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetCMPResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Cbte_TipoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Cbte_Tipo" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Cbte_TipoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Cbte_TipoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Tipo_ExpoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Tipo_Expo" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_Tipo_ExpoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Tipo_ExpoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IncotermsSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Incoterms" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IncotermsSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_IncotermsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IdiomasSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Idiomas" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_IdiomasSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_IdiomasResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_UMedSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_UMed" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_UMedSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_UMedResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_paisSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_pais" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_paisSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_paisResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_CUITSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_CUIT" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_DST_CUITSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_DST_CUITResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MONSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MONSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MONResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MON_CON_COTIZACIONSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON_CON_COTIZACION" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_MON_CON_COTIZACIONSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_MON_CON_COTIZACIONResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_CMPSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_CMP" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_CMPSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_CMPResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXDummySoapIn">
+    <wsdl:part name="parameters" element="tns:FEXDummy" />
+  </wsdl:message>
+  <wsdl:message name="FEXDummySoapOut">
+    <wsdl:part name="parameters" element="tns:FEXDummyResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_CtzSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Ctz" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_CtzSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_CtzResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_IDSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_ID" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetLast_IDSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetLast_IDResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_PtoVentaSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_PtoVenta" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_PtoVentaSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_PtoVentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXCheck_PermisoSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXCheck_Permiso" />
+  </wsdl:message>
+  <wsdl:message name="FEXCheck_PermisoSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXCheck_PermisoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_OpcionalesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Opcionales" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_OpcionalesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_OpcionalesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_ActividadesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_Actividades" />
+  </wsdl:message>
+  <wsdl:message name="FEXGetPARAM_ActividadesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEXGetPARAM_ActividadesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="FEXAuthorize">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Autoriza un comprobante, devolviendo  su CAE correspondiente</wsdl:documentation>
+      <wsdl:input message="tns:FEXAuthorizeSoapIn" />
+      <wsdl:output message="tns:FEXAuthorizeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera los datos completos de un comprobante ya autorizado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetCMPSoapIn" />
+      <wsdl:output message="tns:FEXGetCMPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los tipos de comprobante  y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_Cbte_TipoSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_Cbte_TipoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los tipos de exportacion  y sus codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_Tipo_ExpoSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_Tipo_ExpoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado Incoterms  utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_IncotermsSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_IncotermsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los idiomas  y sus codigos utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_IdiomasSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_IdiomasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las unidades de medida  y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_UMedSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_UMedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de paises</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_DST_paisSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_DST_paisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las cuits de los paises de destinacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_DST_CUITSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_DST_CUITSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de monedas y su codigo utilizables en servicio de autorizacion</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_MONSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_MONSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado  de monedas que tengan cotizacion de ADUANA a una fecha determinada, utilizables en el proceso de autorizacion de comprobantes de servicios</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_MON_CON_COTIZACIONSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_MON_CON_COTIZACIONSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el ultimos comprobante autorizado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetLast_CMPSoapIn" />
+      <wsdl:output message="tns:FEXGetLast_CMPSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Metodo dummy para verificacion de funcionamiento</wsdl:documentation>
+      <wsdl:input message="tns:FEXDummySoapIn" />
+      <wsdl:output message="tns:FEXDummySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera la cotizacion de la moneda consultada y su  fecha </wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_CtzSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_CtzSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el ultimo ID y su  fecha </wsdl:documentation>
+      <wsdl:input message="tns:FEXGetLast_IDSoapIn" />
+      <wsdl:output message="tns:FEXGetLast_IDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los puntos de venta registrados para Factura electronica de exportacion - WS y su estado</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_PtoVentaSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_PtoVentaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Verifica la  existencia de la permiso/pais de destinación  de embarque ingresado</wsdl:documentation>
+      <wsdl:input message="tns:FEXCheck_PermisoSoapIn" />
+      <wsdl:output message="tns:FEXCheck_PermisoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de identificadores para los campos Opcionales</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_OpcionalesSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_OpcionalesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las diferentes actividades habilitadas para el emisor</wsdl:documentation>
+      <wsdl:input message="tns:FEXGetPARAM_ActividadesSoapIn" />
+      <wsdl:output message="tns:FEXGetPARAM_ActividadesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FEXAuthorize">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXAuthorize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetCMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Cbte_Tipo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Tipo_Expo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Incoterms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Idiomas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_UMed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_pais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_CUIT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON_CON_COTIZACION" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_CMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXDummy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Ctz" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_ID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_PtoVenta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXCheck_Permiso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Opcionales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <soap:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Actividades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FEXAuthorize">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXAuthorize" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetCMP">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetCMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Cbte_Tipo">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Cbte_Tipo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Tipo_Expo">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Tipo_Expo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Incoterms">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Incoterms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Idiomas">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Idiomas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_UMed">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_UMed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_pais">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_pais" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_DST_CUIT">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_DST_CUIT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_MON_CON_COTIZACION">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_MON_CON_COTIZACION" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_CMP">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_CMP" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXDummy">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXDummy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Ctz">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Ctz" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetLast_ID">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetLast_ID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_PtoVenta">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_PtoVenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXCheck_Permiso">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXCheck_Permiso" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Opcionales">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Opcionales" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEXGetPARAM_Actividades">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.fexv1/FEXGetPARAM_Actividades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de autorizacion de comprobantes de Exportacion electronicos</wsdl:documentation>
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="https://wswhomo.afip.gov.ar/wsfexv1/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="https://wswhomo.afip.gov.ar/wsfexv1/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

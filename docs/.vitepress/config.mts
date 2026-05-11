@@ -72,6 +72,14 @@ export default withMermaid(
               link: "/facturacion_electronica",
             },
             {
+              text: "🌍 Facturación de exportación",
+              link: "/facturacion_electronica_exportacion",
+            },
+            {
+              text: "🏭 Factura de crédito MiPyMEs",
+              link: "/factura_credito_electronica",
+            },
+            {
               text: "🔍 Consultas de padron",
               collapsed: true,
               items: [

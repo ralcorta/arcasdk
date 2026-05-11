@@ -13,6 +13,7 @@
     "test:integration": "jest --config jest.integration.config.js",
     "test:integration:watch": "jest --config jest.integration.config.js --watch",
     "generate:wsdl-strings": "node scripts/generate-wsdl-strings.js",
+    "generate:soap-interfaces": "node scripts/generate-soap-interfaces.js",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
@@ -36,7 +37,8 @@
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wsdl-to-ts": "^0.2.3"
   },
   "author": "valiuLab",
   "license": "ISC",
