@@ -94,20 +94,14 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Version & Changelog
+      - name: Release & Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "📦 Calculating version and generating changelog..."
-          npx nx release version
-          npx nx release changelog
-
-      - name: Publish to NPM
-        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
         run: |
-          echo "🚀 Publishing to NPM with provenance..."
-          npx nx release publish
+          echo "🚀 Versioning, changelog & publishing to NPM..."
+          npx nx release --yes
 
       - name: Publish Summary
         if: success()
