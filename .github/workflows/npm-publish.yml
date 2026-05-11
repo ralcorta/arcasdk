@@ -99,7 +99,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "📦 Calculating version and generating changelog..."
-          npx nx release --skip-publish --yes
+          npx nx release version --yes
+          npx nx release changelog --yes
 
       - name: Publish to NPM
         env:
