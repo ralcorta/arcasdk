@@ -1,0 +1,61 @@
+{
+  "name": "@arcasdk/pdf",
+  "version": "0.1.0",
+  "description": "Arca TypeScript SDK - PDF invoice generator for ARCA electronic billing",
+  "source": "src/index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "npx tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && rsync -a --include='*/' --include='*.hbs' --exclude='*' src/ lib/",
+    "test": "jest --config jest.config.js",
+    "test:unit": "jest --config jest.config.js",
+    "test:coverage": "jest --config jest.config.js --coverage",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.9",
+    "html2pdf.js": "^0.14.0",
+    "jsdom": "^29.1.1",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.43.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.0.0",
+    "@types/handlebars": "^4.0.40",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "@types/qrcode": "^1.5.5",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.0.0",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.16",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^6.0.3"
+  },
+  "author": "valiuLab",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ralcorta/arcasdk.git",
+    "directory": "packages/pdf"
+  },
+  "bugs": {
+    "url": "https://github.com/ralcorta/arcasdk/issues"
+  },
+  "homepage": "https://github.com/ralcorta/arcasdk#readme",
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [
+    "factura-electronica",
+    "pdf",
+    "arca",
+    "afip",
+    "invoice",
+    "comprobante"
+  ]
+}

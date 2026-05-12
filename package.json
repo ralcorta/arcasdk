@@ -29,6 +29,11 @@
     "version:core:patch": "nx version:patch core",
     "version:core:minor": "nx version:minor core",
     "version:core:major": "nx version:major core",
+    "publish:pdf": "nx publish pdf",
+    "version:pdf": "nx version pdf --versionType=${VERSION:-patch}",
+    "version:pdf:patch": "nx version:patch pdf",
+    "version:pdf:minor": "nx version:minor pdf",
+    "version:pdf:major": "nx version:major pdf",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
@@ -41,6 +46,7 @@
     "@nx/eslint": "^22.1.3",
     "@nx/jest": "^22.1.3",
     "@nx/js": "^22.1.3",
+    "@types/jsdom": "^28.0.1",
     "@typescript-eslint/eslint-plugin": "^8.59.2",
     "@typescript-eslint/parser": "^8.59.2",
     "mermaid": "^11.12.1",
@@ -73,5 +79,8 @@
     "typescript",
     "soap",
     "wsaa"
-  ]
+  ],
+  "dependencies": {
+    "puppeteer": "^24.43.1"
+  }
 }

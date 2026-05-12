@@ -3,6 +3,15 @@ name: 📦 Publish to NPM
 on:
   workflow_dispatch:
     inputs:
+      package:
+        description: "Package to publish"
+        required: true
+        type: choice
+        options:
+          - all
+          - core
+          - pdf
+        default: "all"
       version:
         description: "Version to publish (optional, auto-calculated if empty)"
         required: false
@@ -100,18 +109,34 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
         run: |
+          PACKAGE="${{ inputs.package }}"
           echo "🚀 Versioning, changelog & publishing to NPM..."
-          npx nx release --yes
+          if [ "$PACKAGE" == "all" ]; then
+            npx nx release --yes
+          else
+            npx nx release --projects="$PACKAGE" --yes
+          fi
 
       - name: Publish Summary
         if: success()
         run: |
+          PACKAGE="${{ inputs.package }}"
           echo "## ✅ NPM Publishing Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Validation**: Lint, tests, coverage, audit, build" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Version Bump**: Automatic via Conventional Commits" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **Published**: Package released to NPM @arcasdk/core" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **GitHub Release**: Created with changelog" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "📦 [View on NPM](https://www.npmjs.com/package/@arcasdk/core)" >> $GITHUB_STEP_SUMMARY
+          if [ "$PACKAGE" == "all" ]; then
+            echo "✅ **Published**: @arcasdk/core + @arcasdk/pdf" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📦 [core on NPM](https://www.npmjs.com/package/@arcasdk/core)" >> $GITHUB_STEP_SUMMARY
+            echo "📦 [pdf on NPM](https://www.npmjs.com/package/@arcasdk/pdf)" >> $GITHUB_STEP_SUMMARY
+          elif [ "$PACKAGE" == "core" ]; then
+            echo "✅ **Published**: @arcasdk/core" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📦 [View on NPM](https://www.npmjs.com/package/@arcasdk/core)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **Published**: @arcasdk/pdf" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📦 [View on NPM](https://www.npmjs.com/package/@arcasdk/pdf)" >> $GITHUB_STEP_SUMMARY
+          fi
 

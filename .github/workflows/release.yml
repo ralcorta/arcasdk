@@ -18,8 +18,10 @@ jobs:
     env:
       NX_DAEMON: "false"
     outputs:
-      version: ${{ steps.version.outputs.version }}
-      published: ${{ steps.version.outputs.published }}
+      core_version: ${{ steps.core_version.outputs.version }}
+      core_published: ${{ steps.core_version.outputs.published }}
+      pdf_version: ${{ steps.pdf_version.outputs.version }}
+      pdf_published: ${{ steps.pdf_version.outputs.published }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -57,10 +59,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Calculate version with Conventional Commits
-        id: version
+      - name: Calculate core version
+        id: core_version
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          LAST_TAG=$(git tag -l 'core@*' --sort=-v:refname | head -n1 || echo "")
           CURRENT_VERSION=$(node -p "require('./packages/core/package.json').version")
 
           if [ -z "$LAST_TAG" ]; then
@@ -69,12 +71,16 @@ jobs:
             BASE_COMMIT="$LAST_TAG"
           fi
 
-          FEAT_COUNT=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -cE "^feat(\([^)]+\))?[!:]" || true)
-          FIX_COUNT=$(git log  "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -cE "^fix(\([^)]+\))?[!:]"  || true)
-          # Match only conventional commit footer or ! in subject — not arbitrary text mentioning "BREAKING CHANGE"
-          BREAKING_FOOTER=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%b" 2>/dev/null | grep -cE "^BREAKING[ -]CHANGE:" || true)
-          BREAKING_SUBJECT=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%s" 2>/dev/null | grep -cE "^[a-z]+(\([^)]+\))?!:" || true)
-          BREAKING=$((BREAKING_FOOTER + BREAKING_SUBJECT))
+          COMMITS=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%H" -- packages/core/)
+          FEAT_COUNT=0; FIX_COUNT=0; BREAKING=0
+          for SHA in $COMMITS; do
+            SUBJECT=$(git log -1 --pretty=format:"%s" "$SHA")
+            BODY=$(git log -1 --pretty=format:"%b" "$SHA")
+            echo "$SUBJECT" | grep -qE "^feat(\([^)]+\))?[!:]" && FEAT_COUNT=$((FEAT_COUNT + 1))
+            echo "$SUBJECT" | grep -qE "^fix(\([^)]+\))?[!:]"  && FIX_COUNT=$((FIX_COUNT + 1))
+            echo "$BODY"    | grep -qE "^BREAKING[ -]CHANGE:"   && BREAKING=$((BREAKING + 1))
+            echo "$SUBJECT" | grep -qE "^[a-z]+(\([^)]+\))?!:"  && BREAKING=$((BREAKING + 1))
+          done
 
           if [ "$FEAT_COUNT" -gt 0 ] || [ "$FIX_COUNT" -gt 0 ] || [ "$BREAKING" -gt 0 ]; then
             IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
@@ -85,34 +91,98 @@ jobs:
             else
               NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
             fi
-            echo "published=true"   >> $GITHUB_OUTPUT
+            echo "published=true"       >> $GITHUB_OUTPUT
             echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
-            echo "tag=v$NEW_VERSION"    >> $GITHUB_OUTPUT
-            echo "New version: v$NEW_VERSION"
+            echo "tag=core@$NEW_VERSION" >> $GITHUB_OUTPUT
+            echo "Core: v$NEW_VERSION (feat=$FEAT_COUNT fix=$FIX_COUNT breaking=$BREAKING)"
           else
             echo "published=false" >> $GITHUB_OUTPUT
-            echo "No new features, fixes, or breaking changes detected"
+            echo "Core: no changes detected"
           fi
 
-      - name: Create and push Git tag
-        if: steps.version.outputs.published == 'true'
+      - name: Calculate pdf version
+        id: pdf_version
         run: |
-          TAG="${{ steps.version.outputs.tag }}"
-          if git rev-parse "$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists, skipping creation"
+          LAST_TAG=$(git tag -l 'pdf@*' --sort=-v:refname | head -n1 || echo "")
+          CURRENT_VERSION=$(node -p "require('./packages/pdf/package.json').version")
+
+          if [ -z "$LAST_TAG" ]; then
+            BASE_COMMIT="$(git rev-list --max-parents=0 HEAD)"
           else
-            git tag "$TAG"
-            git push origin "$TAG"
+            BASE_COMMIT="$LAST_TAG"
+          fi
+
+          COMMITS=$(git log "$BASE_COMMIT"..HEAD --pretty=format:"%H" -- packages/pdf/)
+          FEAT_COUNT=0; FIX_COUNT=0; BREAKING=0
+          for SHA in $COMMITS; do
+            SUBJECT=$(git log -1 --pretty=format:"%s" "$SHA")
+            BODY=$(git log -1 --pretty=format:"%b" "$SHA")
+            echo "$SUBJECT" | grep -qE "^feat(\([^)]+\))?[!:]" && FEAT_COUNT=$((FEAT_COUNT + 1))
+            echo "$SUBJECT" | grep -qE "^fix(\([^)]+\))?[!:]"  && FIX_COUNT=$((FIX_COUNT + 1))
+            echo "$BODY"    | grep -qE "^BREAKING[ -]CHANGE:"   && BREAKING=$((BREAKING + 1))
+            echo "$SUBJECT" | grep -qE "^[a-z]+(\([^)]+\))?!:"  && BREAKING=$((BREAKING + 1))
+          done
+
+          if [ "$FEAT_COUNT" -gt 0 ] || [ "$FIX_COUNT" -gt 0 ] || [ "$BREAKING" -gt 0 ]; then
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+            if [ "$BREAKING" -gt 0 ]; then
+              NEW_VERSION="$((MAJOR + 1)).0.0"
+            elif [ "$FEAT_COUNT" -gt 0 ]; then
+              NEW_VERSION="$MAJOR.$((MINOR + 1)).0"
+            else
+              NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+            fi
+            echo "published=true"       >> $GITHUB_OUTPUT
+            echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+            echo "tag=pdf@$NEW_VERSION" >> $GITHUB_OUTPUT
+            echo "PDF: v$NEW_VERSION (feat=$FEAT_COUNT fix=$FIX_COUNT breaking=$BREAKING)"
+          else
+            echo "published=false" >> $GITHUB_OUTPUT
+            echo "PDF: no changes detected"
+          fi
+
+      - name: Create and push Git tags
+        if: steps.core_version.outputs.published == 'true' || steps.pdf_version.outputs.published == 'true'
+        run: |
+          push_tag() {
+            local TAG="$1"
+            if git rev-parse "$TAG" >/dev/null 2>&1; then
+              echo "Tag $TAG already exists, skipping"
+            else
+              git tag "$TAG"
+              git push origin "$TAG"
+              echo "Created tag $TAG"
+            fi
+          }
+
+          if [ "${{ steps.core_version.outputs.published }}" == "true" ]; then
+            push_tag "${{ steps.core_version.outputs.tag }}"
+          fi
+          if [ "${{ steps.pdf_version.outputs.published }}" == "true" ]; then
+            push_tag "${{ steps.pdf_version.outputs.tag }}"
           fi
 
       - name: Build Documentation
         run: npm run docs:build
 
-      - name: Create GitHub Release
-        if: steps.version.outputs.published == 'true'
+      - name: Create GitHub Release (core)
+        if: steps.core_version.outputs.published == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.version.outputs.tag }}
+          tag_name: ${{ steps.core_version.outputs.tag }}
+          name: "@arcasdk/core ${{ steps.core_version.outputs.version }}"
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release (pdf)
+        if: steps.pdf_version.outputs.published == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.pdf_version.outputs.tag }}
+          name: "@arcasdk/pdf ${{ steps.pdf_version.outputs.version }}"
           generate_release_notes: true
           draft: false
           prerelease: false
@@ -125,17 +195,29 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Documentation Built**: Documentation updated" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Code Built**: Packages built successfully" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ steps.version.outputs.published }}" == "true" ]; then
-            echo "✅ **Version Calculated**: Changes detected - ready for NPM publishing" >> $GITHUB_STEP_SUMMARY
-            echo "🚀 **Next Step**: Run 'Publish to NPM' workflow manually" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### @arcasdk/core" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.core_version.outputs.published }}" == "true" ]; then
+            echo "✅ **Version**: ${{ steps.core_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           else
-            echo "ℹ️ **No Changes**: No changes to publish in this version" >> $GITHUB_STEP_SUMMARY
+            echo "ℹ️ No changes detected" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### @arcasdk/pdf" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.pdf_version.outputs.published }}" == "true" ]; then
+            echo "✅ **Version**: ${{ steps.pdf_version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ No changes detected" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.core_version.outputs.published }}" == "true" ] || [ "${{ steps.pdf_version.outputs.published }}" == "true" ]; then
+            echo "🚀 **Next Step**: Run 'Publish to NPM' workflow manually" >> $GITHUB_STEP_SUMMARY
           fi
 
   publish-ready:
     name: Ready for NPM Publishing
     needs: release
-    if: needs.release.outputs.published == 'true'
+    if: needs.release.outputs.core_published == 'true' || needs.release.outputs.pdf_published == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Notify Ready

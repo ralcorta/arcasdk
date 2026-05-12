@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{descTipo data.cbteTipo data.cbteDescripcion}} {{data.cbteLetra}} {{voucherNumber data.puntoVenta data.cbteDesde}}</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:Arial,Helvetica,sans-serif;font-size:8pt;line-height:1.35;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  b{font-weight:bold}
+  table{border-collapse:collapse;width:100%}
+  .page{padding-right:1px}
+  .page{min-height:100vh;display:flex;flex-direction:column}
+  .content{flex:1;display:flex;flex-direction:column}
+  .banner{border:1pt solid #000;text-align:center;padding:5px 0;margin-bottom:6px}
+  .banner span{font-size:12pt;font-weight:bold}
+  .header{border:1pt solid #000;margin-bottom:6px}
+  .header-top{display:flex;min-height:75px}
+  .header-left{flex:1;border-right:1pt solid #000;padding:8px;display:flex;flex-direction:column;justify-content:center}
+  .header-left .emisor-rs{font-size:10pt;font-weight:bold;margin:2px 0}
+  .header-left .emisor-dom{font-size:7.5pt;margin-bottom:1px}
+  .header-left .emisor-extra{font-size:7.5pt;margin-top:3px}
+  .header-center{width:54px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:6px;border-bottom:1pt solid #000}
+  .letter-box{width:46px;height:46px;border:1pt solid #000;display:flex;align-items:center;justify-content:center;font-size:28pt;font-weight:bold}
+  .letter-cod{font-size:7pt;margin-top:2px;text-align:center}
+  .header-right{flex:1;border-left:1pt solid #000;padding:8px;display:flex;flex-direction:column;justify-content:center;text-align:right}
+  .header-right .voucher-type{font-size:13pt;font-weight:bold}
+  .header-right .voucher-nro{font-size:11pt;font-weight:bold;margin-top:3px}
+  .header-right .voucher-fecha{font-size:9pt;font-weight:bold;margin-top:6px}
+  .header-bottom{display:flex;min-height:36px}
+  .header-bottom-left{flex:1;border-right:1pt solid #000;padding:5px 8px;font-size:7.5pt;display:flex;align-items:center}
+  .header-bottom-right{flex:1;padding:4px 10px;display:flex;flex-direction:column;justify-content:center}
+  .info-row{display:flex;justify-content:flex-end;gap:6px;margin-bottom:1px}
+  .info-row .lbl{font-weight:bold;font-size:7.5pt}
+  .info-row .val{font-size:7.5pt}
+  .receptor{padding:6px 8px;margin-bottom:4px}
+  .receptor-row{margin-bottom:3px;font-size:8pt}
+  .receptor-sep{border-bottom:1pt solid #000;margin-top:4px}
+  .items-table{margin-bottom:4px}
+  .items-table .items-header td{background:#f2f2f2;font-weight:bold;font-size:7.5pt;padding:5px 4px;border:1pt solid #000}
+  .items-table .item-row td{font-size:7.5pt;padding:5px 4px;border-bottom:0.5pt solid #eee}
+  .summary-final{margin-top:auto}
+  .bottom-columns{display:flex;gap:10px;margin-bottom:6px}
+  .bottom-col-left{width:42%}
+  .bottom-col-right{width:52%;margin-left:auto}
+  .tributos-table{border:1pt solid #000;font-size:7.5pt;width:100%}
+  .tributos-table td{padding:3px 5px}
+  .tributos-header td{background:#f0f0f0;font-weight:bold;border-bottom:1pt solid #000}
+  .tributos-subheader td{font-weight:bold;border-bottom:0.5pt solid #ccc}
+  .tributos-subheader td:last-child{text-align:right}
+  .tributos-row td:last-child{text-align:right}
+  .tributos-total td{font-weight:bold;border-top:1pt solid #000}
+  .tributos-total td:last-child{text-align:right}
+  .moneda-label{font-weight:bold;font-size:8pt;text-align:right;margin-bottom:4px}
+  .conversion-line{border:1pt solid #000;padding:5px 8px;font-size:7.5pt;text-align:center;margin-top:6px}
+  .totals-row{display:flex;justify-content:flex-end;margin-bottom:1px}
+  .totals-label{text-align:right;font-size:8pt;padding-right:8px;width:60%}
+  .totals-value{text-align:right;font-size:8pt;width:40%}
+  .total-box{display:flex;border:1pt solid #000;padding:4px 6px;margin:4px 0}
+  .total-box-label{width:60%;text-align:right;font-size:11pt;font-weight:bold;padding-right:8px}
+  .total-box-value{width:40%;text-align:right;font-size:11pt;font-weight:bold}
+  .son-text{font-size:7pt;text-align:right;margin-top:2px}
+  .cae-section{display:flex;align-items:flex-start;gap:12px;margin-top:8px}
+  .qr-img{width:65px;height:65px}
+  .arca-block{display:flex;flex-direction:column;justify-content:center}
+  .arca-logo{width:120px;height:44px}
+  .arca-sub{font-size:8pt;margin-top:2px}
+  .arca-disclaimer{font-size:6.5pt;line-height:1.3;margin-top:3px}
+  .cae-line{font-size:8.5pt;font-weight:bold;margin-top:6px}
+  .observations{font-size:6.5pt;font-style:italic;color:#333;margin-top:3px}
+  .export-payment-table{border:1pt solid #000;font-size:7.5pt;margin-bottom:6px}
+  .export-payment-table td{padding:5px 8px;border-right:1pt solid #000}
+  .export-payment-table td:last-child{border-right:none}
+  .export-footer-row{display:flex;justify-content:space-between;border:1pt solid #000;padding:4px 8px;font-size:7.5pt;margin-bottom:4px}
+  .export-footer-left{text-align:left}
+  .export-footer-right{text-align:right;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="content">
+
+  <!-- Banner -->
+  <div class="banner"><span>{{default options.copy "ORIGINAL"}}</span></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="header-left">
+        {{#if options.logo}}<img src="{{options.logo}}" style="width:{{default options.logoWidth 60}}px;margin-bottom:4px">{{/if}}
+        <div class="emisor-dom">Razón social:</div>
+        <div class="emisor-rs">{{data.emisor.razonSocial}}</div>
+        <div class="emisor-dom">Domicilio:</div>
+        <div class="emisor-dom">{{data.emisor.domicilioComercial}}</div>
+        {{#if data.emisor.contacto}}<div class="emisor-extra">{{data.emisor.contacto}}</div>{{/if}}
+      </div>
+      <div class="header-center">
+        <div class="letter-box">{{data.cbteLetra}}</div>
+        <div class="letter-cod">COD.{{data.cbteTipo}}</div>
+      </div>
+      <div class="header-right">
+        <div class="voucher-type">{{descTipo data.cbteTipo data.cbteDescripcion}} {{data.cbteLetra}}</div>
+        <div class="voucher-nro">Nro.:{{voucherNumber data.puntoVenta data.cbteDesde}}</div>
+        <div class="voucher-fecha">Fecha: {{formatDate data.cbteFecha}}</div>
+      </div>
+    </div>
+    <div class="header-bottom">
+      <div class="header-bottom-left">
+        <span style="font-size:7.5pt"><b>Condición frente al IVA:</b> {{data.emisor.condicionIva}}</span>
+        {{#if data.condicionIvaExportacion}}<br><span style="font-size:7.5pt;font-weight:bold">{{data.condicionIvaExportacion}}</span>{{/if}}
+      </div>
+      <div class="header-bottom-right">
+        <div class="info-row"><span class="lbl">CUIT:</span><span class="val">{{formatCuit data.emisor.cuit}}</span></div>
+        <div class="info-row"><span class="lbl">Ingresos Brutos:</span><span class="val">{{data.emisor.iibb}}</span></div>
+        <div class="info-row"><span class="lbl">Fecha de Inicio de Actividades:</span><span class="val">{{formatDate data.emisor.fechaInicioActividades}}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receptor -->
+  {{#if (eq data.cbteLetra "E")}}
+  <div class="receptor">
+    <div class="receptor-row"><b>Señor(es):</b> {{data.receptor.razonSocial}}&nbsp;&nbsp;&nbsp;&nbsp;<b>Domicilio:</b> {{default data.receptor.domicilio "- -"}}</div>
+    {{#if data.receptor.cuitPais}}<div class="receptor-row"><b>CUIT País:</b> {{data.receptor.cuitPais}}</div>{{/if}}
+    {{#if data.receptor.idImpositivo}}<div class="receptor-row"><b>ID Impositivo:</b> {{data.receptor.idImpositivo}}</div>{{/if}}
+    {{#if data.divisa}}<div class="receptor-row"><b>Divisa:</b> {{data.divisa}}</div>{{/if}}
+    {{#if data.destinoComprobante}}<div class="receptor-row"><b>Destino del Comprobante:</b> {{data.destinoComprobante}}</div>{{/if}}
+    <div class="receptor-sep"></div>
+  </div>
+
+  {{#if (and data.formaPago true)}}
+  <table class="export-payment-table">
+    <tr>
+      <td><b>Forma de Pago:</b> {{default data.formaPago ""}}</td>
+      <td><b>Fecha de Pago:</b>{{#if data.fechaPago}}{{formatDate data.fechaPago}}{{/if}}</td>
+      <td><b>Incoterms:</b> {{default data.incoterms ""}}</td>
+    </tr>
+  </table>
+  {{/if}}
+  {{else}}
+  <div class="receptor">
+    <div class="receptor-row"><b>Apellido y nombre / Razón Social:</b> {{data.receptor.razonSocial}}</div>
+    <div class="receptor-row"><b>Domicilio:</b> {{default data.receptor.domicilio "- -"}}</div>
+    <div class="receptor-row"><b>{{data.receptor.documentoTipo}}:</b> {{docNumber data.receptor.documentoNro}}&nbsp;&nbsp;&nbsp;&nbsp;<b>Condición frente al IVA:</b> {{data.receptor.condicionIva}}{{#if data.condicionVenta}}&nbsp;&nbsp;&nbsp;&nbsp;<b>Cond. Venta:</b> {{data.condicionVenta}}{{#if data.fechaVtoPago}} (Vencimiento: {{formatDate data.fechaVtoPago}}){{/if}}{{/if}}</div>
+    {{#if (and (gte data.concepto 2) (and data.fechaServicioDesde data.fechaServicioHasta))}}
+    <div class="receptor-row"><b>Período facturado:</b> {{formatDate data.fechaServicioDesde}} al {{formatDate data.fechaServicioHasta}}</div>
+    {{/if}}
+    <div class="receptor-sep"></div>
+  </div>
+  {{/if}}
+
+  {{! Comprobantes asociados }}
+  {{#if data.cbtesAsociados}}
+  {{#if (len data.cbtesAsociados)}}
+  <div class="receptor-row" style="margin-bottom:4px;font-size:7.5pt"><b>Comprobantes asociados:</b> {{#each data.cbtesAsociados}}{{#unless @first}}, {{/unless}}{{voucherTypeDescription this.tipo}} {{padStart this.puntoVenta 5}}-{{padStart this.numero 8}}{{#if this.fecha}} ({{formatDate this.fecha}}){{/if}}{{/each}}</div>
+  {{/if}}
+  {{/if}}
+
+  <!-- Items -->
+  <table class="items-table">
+    <tr class="items-header">
+      {{#if (eq data.cbteLetra "A")}}
+      <td style="width:10%;text-align:left">Cantidad</td>
+      <td style="width:25%;text-align:left">Producto / Servicio</td>
+      <td style="width:13%;text-align:right">Precio unit</td>
+      <td style="width:8%;text-align:right">%Bonif.</td>
+      <td style="width:10%;text-align:right">$ Bonif.</td>
+      <td style="width:8%;text-align:right">%IVA</td>
+      <td style="width:26%;text-align:right">Subtotal s/IVA</td>
+      {{else if (eq data.cbteLetra "E")}}
+      <td style="width:7%;text-align:left">Ítem</td>
+      <td style="width:43%;text-align:left">Descripción</td>
+      <td style="width:15%;text-align:right">Cantidad</td>
+      <td style="width:17%;text-align:right">Precio Unit. ({{currencyCode data.moneda}})</td>
+      <td style="width:18%;text-align:right">Total por ítem ({{currencyCode data.moneda}})</td>
+      {{else if (eq data.cbteLetra "C")}}
+      <td style="width:10%;text-align:left">Cantidad</td>
+      <td style="width:30%;text-align:left">Producto / Servicio</td>
+      <td style="width:13%;text-align:right">Precio unit</td>
+      <td style="width:8%;text-align:right">%Bonif.</td>
+      <td style="width:10%;text-align:right">$ Bonif.</td>
+      <td style="width:29%;text-align:right">Subtotal</td>
+      {{else}}
+      <td style="width:11%;text-align:left">Cantidad</td>
+      <td style="width:29%;text-align:left">Producto / Servicio</td>
+      <td style="width:15%;text-align:right">Precio Unit.</td>
+      <td style="width:9%;text-align:right">%Bonif.</td>
+      <td style="width:12%;text-align:right">$ Bonif.</td>
+      <td style="width:24%;text-align:right">Subtotal</td>
+      {{/if}}
+    </tr>
+    {{#each data.items}}
+    <tr class="item-row">
+      {{#if (eq ../data.cbteLetra "A")}}
+      <td style="width:10%;text-align:left">{{this.cantidad}} {{this.unidadMedida}}</td>
+      <td style="width:25%;text-align:left">{{this.descripcion}}</td>
+      <td style="width:13%;text-align:right">{{formatUnitPrice this.precioUnitario}}</td>
+      <td style="width:8%;text-align:right">{{default this.bonificacion 0}}%</td>
+      <td style="width:10%;text-align:right">{{formatCurrency (bonAmount this.precioUnitario this.cantidad this.bonificacion this.importeBonificacion) ../data.moneda}}</td>
+      <td style="width:8%;text-align:right">{{#if (isNull this.alicuotaIva)}}-{{else}}{{this.alicuotaIva}}%{{/if}}</td>
+      <td style="width:26%;text-align:right">{{formatCurrency this.subtotal ../data.moneda}}</td>
+      {{else if (eq ../data.cbteLetra "E")}}
+      <td style="width:7%;text-align:left">{{padStart (default this.codigo @index) 4}}</td>
+      <td style="width:43%;text-align:left">{{this.descripcion}}{{#if this.unidadMedida}}<br><b>U. Medida:</b> {{this.unidadMedida}}{{/if}}</td>
+      <td style="width:15%;text-align:right">{{formatUnitPrice this.cantidad}}</td>
+      <td style="width:17%;text-align:right">{{formatUnitPrice this.precioUnitario}}</td>
+      <td style="width:18%;text-align:right">{{formatCurrency this.subtotal ../data.moneda}}</td>
+      {{else if (eq ../data.cbteLetra "C")}}
+      <td style="width:10%;text-align:left">{{this.cantidad}} {{this.unidadMedida}}</td>
+      <td style="width:30%;text-align:left">{{this.descripcion}}</td>
+      <td style="width:13%;text-align:right">{{formatUnitPrice this.precioUnitario}}</td>
+      <td style="width:8%;text-align:right">{{default this.bonificacion 0}}%</td>
+      <td style="width:10%;text-align:right">{{formatCurrency (bonAmount this.precioUnitario this.cantidad this.bonificacion this.importeBonificacion) ../data.moneda}}</td>
+      <td style="width:29%;text-align:right">{{formatCurrency this.subtotal ../data.moneda}}</td>
+      {{else}}
+      <td style="width:11%;text-align:left">{{this.cantidad}} {{this.unidadMedida}}</td>
+      <td style="width:29%;text-align:left">{{this.descripcion}}</td>
+      <td style="width:15%;text-align:right">{{formatUnitPrice this.precioUnitario}}</td>
+      <td style="width:9%;text-align:right">{{default this.bonificacion 0}}%</td>
+      <td style="width:12%;text-align:right">{{formatCurrency (bonAmount this.precioUnitario this.cantidad this.bonificacion this.importeBonificacion) ../data.moneda}}</td>
+      <td style="width:24%;text-align:right">{{formatCurrency this.subtotal ../data.moneda}}</td>
+      {{/if}}
+    </tr>
+    {{/each}}
+  </table>
+
+  <!-- Summary final -->
+  <div class="summary-final">
+    {{#if (eq data.cbteLetra "A")}}
+    <div class="bottom-columns">
+      <div class="bottom-col-left">
+        <table class="tributos-table">
+          <tr class="tributos-header"><td colspan="4">Otros Tributos</td></tr>
+          <tr class="tributos-subheader"><td>Descripción</td><td>Detalle</td><td style="text-align:right">Alic. %</td><td style="text-align:right">Importe</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de Impuesto a las Ganancias</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de Impuesto a las Ganancias") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de IVA</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de IVA") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. Ingresos Brutos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. Ingresos Brutos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Internos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Internos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Municipales</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Municipales") data.moneda}}</td></tr>
+          <tr class="tributos-total"><td colspan="3" style="text-align:right">Importe Otros Tributos: {{#if (neq data.moneda "PES")}}{{currencyShortName data.moneda}}{{/if}}</td><td>{{formatCurrency (default data.importeTributos 0) data.moneda}}</td></tr>
+        </table>
+      </div>
+      <div class="bottom-col-right">
+        {{#if (neq data.moneda "PES")}}
+        <div class="moneda-label">Moneda: {{currencyShortName data.moneda}}</div>
+        {{/if}}
+        <div class="totals-row"><span class="totals-label">Importe Neto Gravado:</span><span class="totals-value">{{formatCurrency data.importeNetoGravado data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">IVA 27%:</span><span class="totals-value">{{formatCurrency (ivaImporte data.iva "27%") data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">IVA 21%:</span><span class="totals-value">{{formatCurrency (ivaImporte data.iva "21%") data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">IVA 10.5%:</span><span class="totals-value">{{formatCurrency (ivaImporte data.iva "10.5%") data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">IVA 5%:</span><span class="totals-value">{{formatCurrency (ivaImporte data.iva "5%") data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">IVA 2.5%:</span><span class="totals-value">{{formatCurrency (ivaImporte data.iva "2.5%") data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">IVA 0%:</span><span class="totals-value">{{formatCurrency (ivaImporte data.iva "0%") data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">Importe Otros Tributos:</span><span class="totals-value">{{formatCurrency (default data.importeTributos 0) data.moneda}}</span></div>
+        <div class="total-box">
+          <span class="total-box-label">Importe Total:</span>
+          <span class="total-box-value">{{formatCurrency data.importeTotal data.moneda}}</span>
+        </div>
+        <div class="son-text">Son {{currencyName data.moneda}} {{numberToWords data.importeTotal}}</div>
+      </div>
+    </div>
+    {{else if (eq data.cbteLetra "B")}}
+    <div class="bottom-columns">
+      <div class="bottom-col-left">
+        <table class="tributos-table">
+          <tr class="tributos-header"><td colspan="4">Otros Tributos</td></tr>
+          <tr class="tributos-subheader"><td>Descripción</td><td>Detalle</td><td style="text-align:right">Alic. %</td><td style="text-align:right">Importe</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de Impuesto a las Ganancias</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de Impuesto a las Ganancias") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de IVA</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de IVA") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. Ingresos Brutos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. Ingresos Brutos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Internos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Internos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Municipales</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Municipales") data.moneda}}</td></tr>
+          <tr class="tributos-total"><td colspan="3" style="text-align:right">Importe Otros Tributos: {{#if (neq data.moneda "PES")}}{{currencyShortName data.moneda}}{{/if}}</td><td>{{formatCurrency (default data.importeTributos 0) data.moneda}}</td></tr>
+        </table>
+      </div>
+      <div class="bottom-col-right">
+        <div class="totals-row"><span class="totals-label">Subtotal:</span><span class="totals-value">{{formatCurrency data.importeNetoGravado data.moneda}}</span></div>
+        <div class="totals-row"><span class="totals-label">Importe Otros Tributos:</span><span class="totals-value">{{formatCurrency (default data.importeTributos 0) data.moneda}}</span></div>
+        <div class="total-box">
+          <span class="total-box-label">Importe Total:</span>
+          <span class="total-box-value">{{formatCurrency data.importeTotal data.moneda}}</span>
+        </div>
+        <div class="son-text">Son {{currencyName data.moneda}} {{numberToWords data.importeTotal}}</div>
+      </div>
+    </div>
+    {{else if (eq data.cbteLetra "E")}}
+    {{#if data.cotizacion}}
+    <div class="export-footer-row">
+      <span class="export-footer-left"><b>Tipo de Cambio:</b> {{formatUnitPrice data.cotizacion}}</span>
+      <span class="export-footer-right">{{#if data.divisa}}<b>Divisa:</b> {{data.divisa}}{{/if}}</span>
+    </div>
+    {{/if}}
+    <div class="bottom-col-right">
+      <div class="total-box">
+        <span class="total-box-label">Importe Total: {{currencyCode data.moneda}}</span>
+        <span class="total-box-value">{{formatCurrency data.importeTotal data.moneda}}</span>
+      </div>
+    </div>
+    {{else}}
+    <div class="bottom-col-right">
+      <div class="totals-row"><span class="totals-label">Importe Neto Gravado:</span><span class="totals-value">{{formatCurrency data.importeNetoGravado data.moneda}}</span></div>
+      <div class="total-box">
+        <span class="total-box-label">Importe Total:</span>
+        <span class="total-box-value">{{formatCurrency data.importeTotal data.moneda}}</span>
+      </div>
+      <div class="son-text">Son {{currencyName data.moneda}} {{numberToWords data.importeTotal}}</div>
+    </div>
+    {{/if}}
+
+    {{#if (neq data.cbteLetra "E")}}
+    {{#if (neq data.moneda "PES")}}
+    {{#if data.cotizacion}}
+    <div class="conversion-line">El total de este comprobante expresado en moneda de curso legal - Pesos Argentinos - considerándose un tipo de cambio consignado de {{formatCotizacion data.cotizacion}} asciende a: <b>$ {{formatCurrency (default data.importeTotalPesos (multiply data.importeTotal data.cotizacion))}}</b></div>
+    {{/if}}
+    {{/if}}
+    {{/if}}
+
+    <div class="cae-section">
+      {{#if qrDataUrl}}<img src="{{qrDataUrl}}" class="qr-img">{{/if}}
+      <div class="arca-block">
+        <svg class="arca-logo" viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg">
+          <text x="110" y="48" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="52" font-weight="bold" fill="#3d3d3d" letter-spacing="2">ARCA</text>
+          <text x="110" y="64" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="9.5" fill="#3d3d3d" letter-spacing="0.8">AGENCIA DE RECAUDACIÓN</text>
+          <text x="110" y="76" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="9.5" fill="#3d3d3d" letter-spacing="0.8">Y CONTROL ADUANERO</text>
+        </svg>
+        <div class="arca-sub"><i>Comprobante Autorizado</i></div>
+        <div class="arca-disclaimer"><i>Esta Administración Federal no se responsabiliza por los datos ingresados en el detalle de la operación.</i></div>
+      </div>
+    </div>
+    <div class="cae-line">CAE N°: {{data.cae}}&nbsp;&nbsp;&nbsp;&nbsp;Fecha de Vto. de CAE: {{formatDate data.caeFechaVencimiento}}</div>
+    {{#if data.observaciones}}<div class="observations">Observaciones: {{data.observaciones}}</div>{{/if}}
+  </div>
+
+</div>
+</div>
+</body>
+</html>
