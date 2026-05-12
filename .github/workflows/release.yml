@@ -167,7 +167,7 @@ jobs:
 
       - name: Create GitHub Release (core)
         if: steps.core_version.outputs.published == 'true'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.core_version.outputs.tag }}
           name: "@arcasdk/core ${{ steps.core_version.outputs.version }}"
@@ -179,7 +179,7 @@ jobs:
 
       - name: Create GitHub Release (pdf)
         if: steps.pdf_version.outputs.published == 'true'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.pdf_version.outputs.tag }}
           name: "@arcasdk/pdf ${{ steps.pdf_version.outputs.version }}"
