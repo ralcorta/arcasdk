@@ -88,3 +88,13 @@ export const CURRENCY_NAME: Record<string, string> = {
   "002": "DÓLARES ESTADOUNIDENSES (USD)",
   "000": "PESOS ARGENTINOS (ARS)",
 };
+
+/**
+ * Mapeo de moneda ID a código ISO
+ */
+export const CURRENCY_CODE: Record<string, string> = {
+  PES: "ARS",
+  DOL: "USD",
+  "002": "USD",
+  "000": "ARS",
+};

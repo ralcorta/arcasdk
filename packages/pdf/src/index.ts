@@ -1,5 +1,6 @@
 export { InvoicePdfGenerator } from "./generator";
 export { InvoiceDocument } from "./templates";
+export { compileTemplate } from "./templates/engine";
 export type {
   InvoiceData,
   PdfGeneratorOptions,

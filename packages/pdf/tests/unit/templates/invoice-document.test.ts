@@ -1,4 +1,8 @@
-import { InvoiceDocument } from "@src/templates/arca-default";
+import {
+  InvoiceDocument,
+  defaultTemplateSource,
+} from "@src/templates/arca-default";
+import { compileTemplate } from "@src/templates/engine";
 import { InvoiceData, ResolvedPdfOptions } from "@src/types/invoice-data.types";
 
 // ── Shared test data ──
@@ -344,7 +348,7 @@ describe("InvoiceDocument", () => {
       expect(html).toContain("Período facturado:");
     });
 
-    it("should render divisa and tipo de cambio in period line", () => {
+    it("should render period without divisa in period line", () => {
       const data = makeInvoice({
         concepto: 2,
         moneda: "PES",
@@ -353,8 +357,9 @@ describe("InvoiceDocument", () => {
         fechaServicioHasta: "20260430",
       });
       const html = InvoiceDocument({ data, options: baseOptions });
-      expect(html).toContain("Divisa:");
-      expect(html).toContain("1,000");
+      expect(html).toContain("Período facturado:");
+      expect(html).toContain("01/04/2026");
+      expect(html).toContain("30/04/2026");
     });
   });
 
@@ -439,6 +444,43 @@ describe("InvoiceDocument", () => {
       expect(html).toContain("15%");
     });
 
+    it("should use importeBonificacion override when provided", () => {
+      const data = makeInvoice({
+        items: [
+          {
+            descripcion: "Item override",
+            cantidad: 5,
+            unidadMedida: "unidades",
+            precioUnitario: 1000,
+            bonificacion: 10,
+            importeBonificacion: 999.99,
+            subtotal: 4000.01,
+            alicuotaIva: 21,
+          },
+        ],
+      });
+      const html = InvoiceDocument({ data, options: baseOptions });
+      expect(html).toContain("$ 999,99");
+    });
+
+    it("should calculate bonificacion when importeBonificacion is not provided", () => {
+      const data = makeInvoice({
+        items: [
+          {
+            descripcion: "Item sin override",
+            cantidad: 10,
+            unidadMedida: "unidades",
+            precioUnitario: 1000,
+            bonificacion: 15,
+            subtotal: 8500,
+            alicuotaIva: 21,
+          },
+        ],
+      });
+      const html = InvoiceDocument({ data, options: baseOptions });
+      expect(html).toContain("$ 1.500,00");
+    });
+
     it("should render IVA alicuota for Factura A", () => {
       const html = InvoiceDocument({
         data: makeInvoice(),
@@ -452,7 +494,7 @@ describe("InvoiceDocument", () => {
         data: makeInvoice(),
         options: baseOptions,
       });
-      expect(html).toContain("$ 50.000,00");
+      expect(html).toContain("$ 50.000,00");
     });
 
     it("should render multiple items", () => {
@@ -502,8 +544,8 @@ describe("InvoiceDocument", () => {
           data: makeInvoice(),
           options: baseOptions,
         });
-        expect(html).toContain("Importe neto gravado");
-        expect(html).toContain("$ 50.000,00");
+        expect(html).toContain("Importe Neto Gravado:");
+        expect(html).toContain("$ 50.000,00");
       });
 
       it("should show IVA breakdown by alicuota", () => {
@@ -523,24 +565,29 @@ describe("InvoiceDocument", () => {
         expect(html).toContain("IVA 10.5%");
       });
 
-      it("should show generic IVA when no iva detail but importeIva > 0", () => {
+      it("should show all standard IVA aliquots", () => {
         const data = makeInvoice({ iva: undefined, importeIva: 10500 });
         const html = InvoiceDocument({ data, options: baseOptions });
-        expect(html).toContain(">IVA<");
+        expect(html).toContain("IVA 27%:");
+        expect(html).toContain("IVA 21%:");
+        expect(html).toContain("IVA 10.5%:");
+        expect(html).toContain("IVA 5%:");
+        expect(html).toContain("IVA 2.5%:");
+        expect(html).toContain("IVA 0%:");
       });
 
-      it("should show No gravados", () => {
-        const data = makeInvoice({ importeNetoNoGravado: 5000 });
+      it("should show IVA 21% amount from iva array", () => {
+        const data = makeInvoice();
         const html = InvoiceDocument({ data, options: baseOptions });
-        expect(html).toContain("No gravados");
-        expect(html).toContain("$ 5.000,00");
+        expect(html).toContain("IVA 21%:");
+        expect(html).toContain("$ 10.500,00");
       });
 
-      it("should show Exentos", () => {
-        const data = makeInvoice({ importeExento: 3000 });
+      it("should show IVA 0 for aliquots not in iva array", () => {
+        const data = makeInvoice();
         const html = InvoiceDocument({ data, options: baseOptions });
-        expect(html).toContain("Exentos");
-        expect(html).toContain("$ 3.000,00");
+        // 27% not in iva array, should show $ 0,00 for it
+        expect(html).toContain("IVA 27%:");
       });
 
       it("should show $ 0,00 for No gravados/Exentos when not set", () => {
@@ -548,7 +595,7 @@ describe("InvoiceDocument", () => {
           data: makeInvoice(),
           options: baseOptions,
         });
-        const matches = html.match(/\$ 0,00/g);
+        const matches = html.match(/\$[\s\u00a0]0,00/g);
         // Bonificación General + No gravados + Exentos + Otros Tributos = at least 4
         expect(matches!.length).toBeGreaterThanOrEqual(4);
       });
@@ -579,14 +626,24 @@ describe("InvoiceDocument", () => {
     });
 
     describe("Factura C totals", () => {
-      it("should show Importe neto gravado", () => {
+      it("should show Importe Neto Gravado", () => {
         const data = makeInvoice({
           cbteLetra: "C",
           cbteTipo: 11,
           importeIva: 0,
         });
         const html = InvoiceDocument({ data, options: baseOptions });
-        expect(html).toContain("Importe neto gravado");
+        expect(html).toContain("Importe Neto Gravado:");
+      });
+
+      it("should NOT show Otros Tributos table", () => {
+        const data = makeInvoice({
+          cbteLetra: "C",
+          cbteTipo: 11,
+          importeIva: 0,
+        });
+        const html = InvoiceDocument({ data, options: baseOptions });
+        expect(html).not.toContain("Otros Tributos");
       });
     });
 
@@ -594,7 +651,7 @@ describe("InvoiceDocument", () => {
       const data = makeInvoice({ importeTributos: 15000 });
       const html = InvoiceDocument({ data, options: baseOptions });
       expect(html).toContain("Importe Otros Tributos");
-      expect(html).toContain("$ 15.000,00");
+      expect(html).toContain("$ 15.000,00");
     });
 
     it("should show Importe Total", () => {
@@ -603,7 +660,7 @@ describe("InvoiceDocument", () => {
         options: baseOptions,
       });
       expect(html).toContain("Importe Total");
-      expect(html).toContain("$ 60.500,00");
+      expect(html).toContain("$ 60.500,00");
     });
 
     it("should show number in words (Son ...)", () => {
@@ -627,12 +684,12 @@ describe("InvoiceDocument", () => {
       expect(html).not.toContain("Detalle de otros tributos");
     });
 
-    it("should render tributos table when present", () => {
+    it("should render tributos table with fixed rows", () => {
       const data = makeInvoice({
         tributos: [
           {
             id: 99,
-            descripcion: "Percepción IIBB",
+            descripcion: "Per./Ret. Ingresos Brutos",
             baseImponible: 50000,
             alicuota: 3,
             importe: 1500,
@@ -641,34 +698,21 @@ describe("InvoiceDocument", () => {
         importeTributos: 1500,
       });
       const html = InvoiceDocument({ data, options: baseOptions });
-      expect(html).toContain("Detalle de otros tributos");
-      expect(html).toContain("Percepción IIBB");
-      expect(html).toContain("$ 1.500,00");
+      expect(html).toContain("Otros Tributos");
+      expect(html).toContain("Per./Ret. Ingresos Brutos");
+      expect(html).toContain("$ 1.500,00");
     });
 
-    it("should render multiple tributos", () => {
-      const data = makeInvoice({
-        tributos: [
-          {
-            id: 99,
-            descripcion: "Percepción IIBB",
-            baseImponible: 50000,
-            alicuota: 3,
-            importe: 1500,
-          },
-          {
-            id: 6,
-            descripcion: "Percepción IVA",
-            baseImponible: 50000,
-            alicuota: 1,
-            importe: 500,
-          },
-        ],
-        importeTributos: 2000,
+    it("should show all 5 fixed tributo rows", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice(),
+        options: baseOptions,
       });
-      const html = InvoiceDocument({ data, options: baseOptions });
-      expect(html).toContain("Percepción IIBB");
-      expect(html).toContain("Percepción IVA");
+      expect(html).toContain("Per./Ret. de Impuesto a las Ganancias");
+      expect(html).toContain("Per./Ret. de IVA");
+      expect(html).toContain("Per./Ret. Ingresos Brutos");
+      expect(html).toContain("Impuestos Internos");
+      expect(html).toContain("Impuestos Municipales");
     });
   });
 
@@ -790,7 +834,7 @@ describe("InvoiceDocument", () => {
         data: makeInvoice({ moneda: "PES" }),
         options: baseOptions,
       });
-      expect(html).toContain("$ 60.500,00");
+      expect(html).toContain("$ 60.500,00");
     });
 
     it("should use US$ for DOL", () => {
@@ -843,6 +887,240 @@ describe("InvoiceDocument", () => {
       const data = makeInvoice({ importeTotal: 1000000 });
       const html = InvoiceDocument({ data, options: baseOptions });
       expect(html).toContain("UN MILLÓN CON 00/100");
+    });
+  });
+
+  // ── Factura E (Exportación) ──
+
+  describe("Factura E", () => {
+    const makeExportInvoice = (overrides: Partial<InvoiceData> = {}) =>
+      makeInvoice({
+        cbteTipo: 19,
+        cbteLetra: "E",
+        moneda: "DOL",
+        cotizacion: 1391.5,
+        condicionIvaExportacion: "IVA EXENTO OPERACIÓN DE EXPORTACIÓN",
+        divisa: "USD - Dólar Estadounidense",
+        destinoComprobante: "ESTADOS UNIDOS",
+        formaPago: "Transferencia SWIFT - Moneda Extranjera",
+        fechaPago: "20260610",
+        importeIva: 0,
+        ...overrides,
+        receptor: {
+          razonSocial: "EMPRESA EXTERIOR DE PRUEBA",
+          domicilio: "1234 Market St, San Francisco, CA 94103, USA",
+          condicionIva: "Cliente del Exterior",
+          documentoTipo: "CUIT",
+          documentoNro: "55000000000",
+          cuitPais: "55000002126 (ESTADOS UNIDOS - Persona Jurídica)",
+          idImpositivo: "261907945",
+          ...(overrides.receptor || {}),
+        },
+      });
+
+    it("should show Señor(es) instead of Razón Social in receptor", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Señor(es):");
+      expect(html).toContain("EMPRESA EXTERIOR DE PRUEBA");
+    });
+
+    it("should show CUIT País", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("CUIT País:");
+      expect(html).toContain("55000002126 (ESTADOS UNIDOS - Persona Jurídica)");
+    });
+
+    it("should show ID Impositivo", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("ID Impositivo:");
+      expect(html).toContain("261907945");
+    });
+
+    it("should show Divisa", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Divisa:");
+      expect(html).toContain("USD - Dólar Estadounidense");
+    });
+
+    it("should show Destino del Comprobante", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Destino del Comprobante:");
+      expect(html).toContain("ESTADOS UNIDOS");
+    });
+
+    it("should show Forma de Pago row", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Forma de Pago:");
+      expect(html).toContain("Transferencia SWIFT");
+    });
+
+    it("should show Fecha de Pago", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Fecha de Pago:");
+      expect(html).toContain("10/06/2026");
+    });
+
+    it("should show Incoterms label", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Incoterms:");
+    });
+
+    it("should show export items table with Ítem column", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Ítem");
+      expect(html).toContain("Descripción");
+      expect(html).toContain("Precio Unit. (USD)");
+      expect(html).toContain("Total por ítem (USD)");
+    });
+
+    it("should show Tipo de Cambio in footer", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Tipo de Cambio:");
+    });
+
+    it("should show condicionIvaExportacion in header", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("IVA EXENTO OPERACIÓN DE EXPORTACIÓN");
+    });
+
+    it("should NOT show tributos table", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("Otros Tributos");
+    });
+
+    it("should NOT show IVA breakdown", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("IVA 21%");
+    });
+
+    it("should show Importe Total with currency shortname", () => {
+      const html = InvoiceDocument({
+        data: makeExportInvoice(),
+        options: baseOptions,
+      });
+      expect(html).toContain("Importe Total: USD");
+    });
+  });
+
+  // ── Default template source ──
+
+  describe("defaultTemplateSource", () => {
+    it("should export the raw Handlebars source", () => {
+      expect(typeof defaultTemplateSource).toBe("string");
+      expect(defaultTemplateSource).toContain("{{");
+      expect(defaultTemplateSource).toContain("data.emisor.razonSocial");
+    });
+
+    it("should be compilable and produce same output as InvoiceDocument", () => {
+      const render = compileTemplate(defaultTemplateSource);
+      const props = { data: makeInvoice(), options: baseOptions };
+      const fromExport = InvoiceDocument(props);
+      const fromCompiled = render(props);
+      expect(fromCompiled).toBe(fromExport);
+    });
+  });
+
+  // ── Logo ──
+
+  describe("logo", () => {
+    it("should render logo img when provided", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice(),
+        options: { ...baseOptions, logo: "data:image/png;base64,LOGO123" },
+      });
+      expect(html).toContain('src="data:image/png;base64,LOGO123"');
+    });
+
+    it("should not render logo img when not provided", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice(),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("<img");
+    });
+
+    it("should use custom logoWidth", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice(),
+        options: {
+          ...baseOptions,
+          logo: "data:image/png;base64,X",
+          logoWidth: 100,
+        },
+      });
+      expect(html).toContain("width:100px");
+    });
+
+    it("should default logoWidth to 60", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice(),
+        options: { ...baseOptions, logo: "data:image/png;base64,X" },
+      });
+      expect(html).toContain("width:60px");
+    });
+  });
+
+  // ── importeTotalPesos override ──
+
+  describe("importeTotalPesos override", () => {
+    it("should use importeTotalPesos when provided for foreign currency", () => {
+      const data = makeInvoice({
+        moneda: "DOL",
+        cotizacion: 1200,
+        importeTotal: 100,
+        importeTotalPesos: 125000,
+      });
+      const html = InvoiceDocument({ data, options: baseOptions });
+      expect(html).toContain("$ 125.000,00");
+    });
+
+    it("should fallback to importeTotal * cotizacion when importeTotalPesos is not provided", () => {
+      const data = makeInvoice({
+        moneda: "DOL",
+        cotizacion: 1200,
+        importeTotal: 100,
+      });
+      const html = InvoiceDocument({ data, options: baseOptions });
+      expect(html).toContain("$ 120.000,00");
     });
   });
 });

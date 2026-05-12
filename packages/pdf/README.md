@@ -78,10 +78,10 @@ writeFileSync("factura.pdf", pdfBuffer);
 
 ```ts
 const generator = new InvoicePdfGenerator({
-  pageSize: "A4",           // "A4" | "LETTER" | "LEGAL"
-  margin: 10,               // Márgenes en puntos
-  includeQr: true,          // Código QR de verificación ARCA
-  copy: "ORIGINAL",         // Banner de copia
+  pageSize: "A4", // "A4" | "LETTER" | "LEGAL"
+  margin: 10, // Márgenes en puntos
+  includeQr: true, // Código QR de verificación ARCA
+  copy: "ORIGINAL", // Banner de copia
   footerText: "Pie custom", // Texto en el footer
 });
 ```

@@ -64,7 +64,7 @@ export default withMermaid(
           ],
         },
         {
-          text: "🛠️ Servicios",
+          text: "Servicios",
           base: "/services",
           items: [
             {
@@ -108,7 +108,16 @@ export default withMermaid(
           ],
         },
         {
-          text: "📚 Obtener certificados",
+          text: "Paquetes",
+          items: [
+            {
+              text: "📄 Generador de PDF",
+              link: "/packages/pdf",
+            },
+          ],
+        },
+        {
+          text: "Obtener certificados",
           base: "tutorial",
           items: [
             {
@@ -138,21 +147,12 @@ export default withMermaid(
           ],
         },
         {
-          text: "💬 FAQ",
+          text: "FAQ",
           base: "faq",
           items: [
             {
               text: "❗Errores",
               link: "/errors",
-            },
-          ],
-        },
-        {
-          text: "📦 Paquetes",
-          items: [
-            {
-              text: "📄 Generador de PDF",
-              link: "/packages/pdf",
             },
           ],
         },

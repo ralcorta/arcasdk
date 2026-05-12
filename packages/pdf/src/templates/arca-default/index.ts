@@ -1,1 +1,1 @@
-export { InvoiceDocument } from "./invoice-document";
+export { InvoiceDocument, defaultTemplateSource } from "./invoice-document";

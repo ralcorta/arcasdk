@@ -4,17 +4,30 @@ import { Readable } from "stream";
 import {
   CopyType,
   InvoiceData,
+  InvoiceTemplateProps,
   PdfGeneratorOptions,
   ResolvedPdfOptions,
 } from "@src/types/invoice-data.types";
 import { buildArcaQrUrl } from "@src/utils/qr.utils";
 import { InvoiceDocument } from "@src/templates/arca-default";
+import { compileTemplate } from "@src/templates/engine";
 
 const DEFAULT_MARGIN = 10;
 
+import type { PaperFormat } from "puppeteer";
+
+const PAGE_DIMENSIONS: Record<
+  string,
+  { format: PaperFormat; width: number; height: number }
+> = {
+  A4: { format: "A4", width: 210, height: 297 },
+  LETTER: { format: "Letter", width: 215.9, height: 279.4 },
+  LEGAL: { format: "Legal", width: 215.9, height: 355.6 },
+};
+
 export class InvoicePdfGenerator {
   private readonly opts: ResolvedPdfOptions;
-  private readonly template: PdfGeneratorOptions["template"];
+  private readonly renderTemplate: (props: InvoiceTemplateProps) => string;
 
   constructor(options?: PdfGeneratorOptions) {
     const { template, ...rest } = options ?? {};
@@ -24,7 +37,11 @@ export class InvoicePdfGenerator {
       includeQr: true,
       ...rest,
     };
-    this.template = template;
+    if (typeof template === "string") {
+      this.renderTemplate = compileTemplate(template);
+    } else {
+      this.renderTemplate = template ?? InvoiceDocument;
+    }
   }
 
   async generate(data: InvoiceData): Promise<Buffer> {
@@ -64,7 +81,7 @@ export class InvoicePdfGenerator {
       }
     }
 
-    const renderTemplate = this.template ?? InvoiceDocument;
+    const renderTemplate = this.renderTemplate;
     const optsWithCopy = { ...this.opts, copy };
     const html = renderTemplate({ data, options: optsWithCopy, qrDataUrl });
 
@@ -72,23 +89,11 @@ export class InvoicePdfGenerator {
     try {
       const page = await browser.newPage();
 
-      const pageFormat =
-        this.opts.pageSize === "LETTER"
-          ? "Letter"
-          : this.opts.pageSize === "LEGAL"
-            ? "Legal"
-            : "A4";
-
-      const pageWidthMm =
-        this.opts.pageSize === "LETTER" || this.opts.pageSize === "LEGAL"
-          ? 215.9
-          : 210;
-      const pageHeightMm =
-        this.opts.pageSize === "LETTER"
-          ? 279.4
-          : this.opts.pageSize === "LEGAL"
-            ? 355.6
-            : 297;
+      const {
+        format: pageFormat,
+        width: pageWidthMm,
+        height: pageHeightMm,
+      } = PAGE_DIMENSIONS[this.opts.pageSize || "A4"] || PAGE_DIMENSIONS.A4;
       const marginTopMm = this.opts.margin;
       const marginBottomMm = this.opts.margin + 8;
 
@@ -117,19 +122,16 @@ export class InvoicePdfGenerator {
 
           if (summaryHeight >= printableHeightPx) return;
 
-          const topInPage = summaryTop % printableHeightPx;
-
-          let pushDownPx: number;
-          if (topInPage + summaryHeight <= printableHeightPx) {
-            // Summary fits on its current virtual page — push to bottom
-            pushDownPx = Math.floor(
-              printableHeightPx - topInPage - summaryHeight,
-            );
-          } else {
-            // Summary won't fit — Puppeteer will push it to the next page top
-            // so we need to push it to the bottom of that next page
-            pushDownPx = Math.floor(printableHeightPx - summaryHeight);
-          }
+          // Calculate which page the content ends on and push summary to its bottom
+          // Subtract a small buffer to prevent rounding differences from
+          // pushing the summary past the page boundary
+          const contentEnd = summaryTop + summaryHeight;
+          const numPages = Math.ceil(contentEnd / printableHeightPx);
+          const lastPageBottom = numPages * printableHeightPx;
+          const pushDownPx = Math.max(
+            0,
+            Math.floor(lastPageBottom - contentEnd) - 5,
+          );
 
           if (pushDownPx > 1) {
             // Use a spacer div — margin-top gets suppressed at page tops in paged media

@@ -1,6 +1,6 @@
 # Generador de PDF
 
-El paquete `@arcasdk/pdf` permite generar comprobantes electrónicos en formato PDF con el diseño oficial de ARCA (ex AFIP). Soporta Facturas, Notas de Crédito, Notas de Débito y comprobantes MiPyME en letras A, B y C.
+El paquete `@arcasdk/pdf` permite generar comprobantes electrónicos en formato PDF con el diseño oficial de ARCA (ex AFIP). Soporta Facturas, Notas de Crédito, Notas de Débito y comprobantes MiPyME en letras A, B, C, E y M.
 
 ::: tip Paquete independiente
 `@arcasdk/pdf` es un paquete independiente de `@arcasdk/core`. Podés usarlo sin el SDK core construyendo los datos manualmente, o combinarlo con `@arcasdk/core` para generar PDFs a partir de comprobantes ya emitidos.
@@ -38,22 +38,23 @@ Este paquete usa [Puppeteer](https://pptr.dev/) para renderizar el HTML a PDF. P
 
 ```ts
 import { InvoicePdfGenerator, InvoiceData } from "@arcasdk/pdf";
+import { writeFileSync } from "fs";
 
 const data: InvoiceData = {
   emisor: {
-    razonSocial: "Mi Empresa S.A.",
+    razonSocial: "Empresa de Prueba S.A.",
     domicilioComercial: "Av. Corrientes 1234, CABA",
     condicionIva: "IVA Responsable Inscripto",
-    cuit: "20304050607",
+    cuit: "20111111117",
     iibb: "12-3456789-0",
     fechaInicioActividades: "20180301",
   },
   receptor: {
-    razonSocial: "Cliente S.R.L.",
+    razonSocial: "Cliente de Prueba S.R.L.",
     domicilio: "Calle Falsa 456, Rosario",
     condicionIva: "IVA Responsable Inscripto",
     documentoTipo: "CUIT",
-    documentoNro: "30712345678",
+    documentoNro: "30111111118",
   },
   cbteTipo: 1,
   cbteLetra: "A",
@@ -84,9 +85,6 @@ const data: InvoiceData = {
 
 const generator = new InvoicePdfGenerator();
 const pdfBuffer = await generator.generate(data);
-
-// Guardar a archivo
-import { writeFileSync } from "fs";
 writeFileSync("factura.pdf", pdfBuffer);
 ```
 
@@ -102,20 +100,22 @@ const generator = new InvoicePdfGenerator({
   margin: 10,
   includeQr: true,
   footerText: "Documento no válido como factura",
+  logo: "data:image/png;base64,...",
+  logoWidth: 80,
 });
 ```
 
-| Opción       | Tipo                                     | Default      | Descripción                                        |
-| ------------ | ---------------------------------------- | ------------ | -------------------------------------------------- |
-| `pageSize`   | `"A4"` \| `"LETTER"` \| `"LEGAL"`       | `"A4"`       | Tamaño de página                                   |
-| `margin`     | `number`                                 | `10`         | Márgenes en puntos                                 |
-| `includeQr`  | `boolean`                                | `true`       | Incluir código QR de verificación ARCA             |
-| `copy`       | `CopyType`                               | `"ORIGINAL"` | Banner de copia (ORIGINAL, DUPLICADO, etc.)        |
-| `copies`     | `CopyType[]`                             | —            | Generar múltiples copias en un solo PDF            |
-| `logo`       | `Buffer`                                 | —            | Logo del emisor (PNG/JPG)                          |
-| `logoWidth`  | `number`                                 | `80`         | Ancho del logo en puntos                           |
-| `footerText` | `string`                                 | —            | Texto adicional en el pie de página                |
-| `template`   | `(props: InvoiceTemplateProps) => string` | —            | Template HTML personalizado                        |
+| Opción       | Tipo                                                  | Default      | Descripción                                                 |
+| ------------ | ----------------------------------------------------- | ------------ | ----------------------------------------------------------- |
+| `pageSize`   | `"A4"` \| `"LETTER"` \| `"LEGAL"`                     | `"A4"`       | Tamaño de página                                            |
+| `margin`     | `number`                                              | `10`         | Márgenes en mm                                              |
+| `includeQr`  | `boolean`                                             | `true`       | Incluir código QR de verificación ARCA                      |
+| `copy`       | `CopyType`                                            | `"ORIGINAL"` | Banner de copia (ORIGINAL, DUPLICADO, etc.)                 |
+| `copies`     | `CopyType[]`                                          | —            | Generar múltiples copias en un solo PDF                     |
+| `logo`       | `string`                                              | —            | Logo del emisor como data URL (`data:image/png;base64,...`) |
+| `logoWidth`  | `number`                                              | `60`         | Ancho del logo en px                                        |
+| `footerText` | `string`                                              | —            | Texto adicional en el pie de cada página                    |
+| `template`   | `string \| ((props: InvoiceTemplateProps) => string)` | —            | Template personalizado (Handlebars string o función)        |
 
 ### CopyType
 
@@ -125,7 +125,7 @@ type CopyType = "ORIGINAL" | "DUPLICADO" | "TRIPLICADO" | "CUADRUPLICADO";
 
 ---
 
-## Generar múltiples copias
+## Múltiples copias
 
 Para generar ORIGINAL + DUPLICADO + TRIPLICADO en un solo PDF:
 
@@ -135,50 +135,22 @@ const generator = new InvoicePdfGenerator({
 });
 
 const pdfBuffer = await generator.generate(data);
-// Resultado: un PDF con 3 páginas (o más si el comprobante tiene varias páginas)
 ```
 
 ---
 
 ## Stream
 
-Para generar el PDF como un `Readable` stream:
+Para obtener un `Readable` stream en lugar de un `Buffer`:
 
 ```ts
 const generator = new InvoicePdfGenerator();
 const stream = await generator.generateStream(data);
 
-// Ejemplo: enviar como respuesta HTTP en Express
+// Ejemplo con Express
 res.setHeader("Content-Type", "application/pdf");
 stream.pipe(res);
 ```
-
----
-
-## Tipos de comprobante soportados
-
-El template detecta automáticamente el tipo de comprobante por `cbteTipo` y adapta el diseño:
-
-| `cbteTipo` | Comprobante                           | Letra | Columna %IVA | Desglose IVA |
-| ---------- | ------------------------------------- | ----- | ------------- | ------------ |
-| 1          | Factura A                             | A     | ✅            | ✅           |
-| 2          | Nota de Débito A                      | A     | ✅            | ✅           |
-| 3          | Nota de Crédito A                     | A     | ✅            | ✅           |
-| 6          | Factura B                             | B     | ❌            | ❌           |
-| 7          | Nota de Débito B                      | B     | ❌            | ❌           |
-| 8          | Nota de Crédito B                     | B     | ❌            | ❌           |
-| 11         | Factura C                             | C     | ❌            | ❌           |
-| 12         | Nota de Débito C                      | C     | ❌            | ❌           |
-| 13         | Nota de Crédito C                     | C     | ❌            | ❌           |
-| 201        | Factura de Crédito MiPyMEs (FCE) A    | A     | ✅            | ✅           |
-| 206        | Factura de Crédito MiPyMEs (FCE) B    | B     | ❌            | ❌           |
-| 211        | Factura de Crédito MiPyMEs (FCE) C    | C     | ❌            | ❌           |
-
-### Diferencias por letra
-
-- **Factura A**: 7 columnas en items (incluye %IVA y Subtotal s/IVA), muestra desglose de IVA, No gravados y Exentos en totales
-- **Factura B**: 6 columnas (sin %IVA), muestra "Subtotal" en totales, sin desglose de IVA
-- **Factura C**: 6 columnas (sin %IVA), muestra "Importe neto gravado" en totales, sin desglose de IVA
 
 ---
 
@@ -186,152 +158,341 @@ El template detecta automáticamente el tipo de comprobante por `cbteTipo` y ada
 
 ### `InvoiceData`
 
-| Campo                  | Tipo                 | Requerido | Descripción                                     |
-| ---------------------- | -------------------- | --------- | ----------------------------------------------- |
-| `emisor`               | `EmisorData`         | ✅        | Datos del emisor                                |
-| `receptor`             | `ReceptorData`       | ✅        | Datos del receptor                              |
-| `cbteTipo`             | `number`             | ✅        | Tipo de comprobante                             |
-| `cbteLetra`            | `string`             | ✅        | Letra del comprobante (A, B, C)                 |
-| `puntoVenta`           | `number`             | ✅        | Punto de venta                                  |
-| `cbteDesde`            | `number`             | ✅        | Número de comprobante                           |
-| `cbteHasta`            | `number`             | ✅        | Número de comprobante hasta                     |
-| `cbteFecha`            | `string`             | ✅        | Fecha (YYYYMMDD)                                |
-| `concepto`             | `number`             | ✅        | 1=Productos, 2=Servicios, 3=Ambos              |
-| `items`                | `InvoiceItem[]`      | ✅        | Items de la factura                             |
-| `importeNetoGravado`   | `number`             | ✅        | Importe neto gravado                            |
-| `importeIva`           | `number`             | ✅        | Importe total de IVA                            |
-| `importeTotal`         | `number`             | ✅        | Importe total                                   |
-| `cae`                  | `string`             | ✅        | CAE                                             |
-| `caeFechaVencimiento`  | `string`             | ✅        | Vencimiento del CAE (YYYYMMDD)                  |
-| `moneda`               | `string`             | —         | Moneda ("PES", "DOL")                           |
-| `cotizacion`           | `number`             | —         | Cotización de la moneda                         |
-| `condicionVenta`       | `string`             | —         | Condición de venta                              |
-| `fechaServicioDesde`   | `string`             | —         | Período desde (conceptos 2 y 3)                 |
-| `fechaServicioHasta`   | `string`             | —         | Período hasta (conceptos 2 y 3)                 |
-| `fechaVtoPago`         | `string`             | —         | Vencimiento de pago                             |
-| `importeNetoNoGravado` | `number`             | —         | Importe no gravado                              |
-| `importeExento`        | `number`             | —         | Importe exento                                  |
-| `iva`                  | `IvaDetail[]`        | —         | Desglose de IVA por alícuota                    |
-| `tributos`             | `TributoDetail[]`    | —         | Otros tributos                                  |
-| `importeTributos`      | `number`             | —         | Importe total de tributos                       |
-| `cbtesAsociados`       | `ComprobanteAsociado[]` | —      | Comprobantes asociados (NC/ND)                  |
-| `observaciones`        | `string`             | —         | Observaciones                                   |
-| `cbteDescripcion`      | `string`             | —         | Descripción personalizada del comprobante       |
+| Campo                     | Tipo                    | Requerido | Descripción                                    |
+| ------------------------- | ----------------------- | --------- | ---------------------------------------------- |
+| `emisor`                  | `EmisorData`            | ✅        | Datos del emisor                               |
+| `receptor`                | `ReceptorData`          | ✅        | Datos del receptor                             |
+| `cbteTipo`                | `number`                | ✅        | Tipo de comprobante (1, 6, 11, 19, etc.)       |
+| `cbteLetra`               | `string`                | ✅        | Letra del comprobante (A, B, C, E, M)          |
+| `puntoVenta`              | `number`                | ✅        | Punto de venta                                 |
+| `cbteDesde`               | `number`                | ✅        | Número de comprobante                          |
+| `cbteHasta`               | `number`                | ✅        | Número de comprobante hasta                    |
+| `cbteFecha`               | `string`                | ✅        | Fecha (YYYYMMDD)                               |
+| `concepto`                | `number`                | ✅        | 1=Productos, 2=Servicios, 3=Ambos              |
+| `items`                   | `InvoiceItem[]`         | ✅        | Items de la factura                            |
+| `importeNetoGravado`      | `number`                | ✅        | Importe neto gravado                           |
+| `importeIva`              | `number`                | ✅        | Importe total de IVA                           |
+| `importeTotal`            | `number`                | ✅        | Importe total                                  |
+| `cae`                     | `string`                | ✅        | CAE                                            |
+| `caeFechaVencimiento`     | `string`                | ✅        | Vencimiento del CAE (YYYYMMDD)                 |
+| `moneda`                  | `string`                | —         | Moneda (`"PES"`, `"DOL"`)                      |
+| `cotizacion`              | `number`                | —         | Cotización de la moneda                        |
+| `condicionVenta`          | `string`                | —         | Condición de venta                             |
+| `fechaServicioDesde`      | `string`                | —         | Período desde (conceptos 2 y 3)                |
+| `fechaServicioHasta`      | `string`                | —         | Período hasta (conceptos 2 y 3)                |
+| `fechaVtoPago`            | `string`                | —         | Vencimiento de pago                            |
+| `importeNetoNoGravado`    | `number`                | —         | Importe no gravado                             |
+| `importeExento`           | `number`                | —         | Importe exento                                 |
+| `iva`                     | `IvaDetail[]`           | —         | Desglose de IVA por alícuota                   |
+| `tributos`                | `TributoDetail[]`       | —         | Otros tributos                                 |
+| `importeTributos`         | `number`                | —         | Importe total de tributos                      |
+| `cbtesAsociados`          | `ComprobanteAsociado[]` | —         | Comprobantes asociados (NC/ND)                 |
+| `observaciones`           | `string`                | —         | Observaciones                                  |
+| `cbteDescripcion`         | `string`                | —         | Descripción personalizada del comprobante      |
+| `importeTotalPesos`       | `number`                | —         | Total en ARS pre-calculado (moneda extranjera) |
+| `divisa`                  | `string`                | —         | Divisa (Factura E)                             |
+| `destinoComprobante`      | `string`                | —         | País destino (Factura E)                       |
+| `formaPago`               | `string`                | —         | Forma de pago (Factura E)                      |
+| `incoterms`               | `string`                | —         | Incoterms (Factura E)                          |
+| `fechaPago`               | `string`                | —         | Fecha de pago YYYYMMDD (Factura E)             |
+| `condicionIvaExportacion` | `string`                | —         | Leyenda IVA exportación (Factura E)            |
+
+### `EmisorData`
+
+| Campo                    | Tipo     | Requerido | Descripción                         |
+| ------------------------ | -------- | --------- | ----------------------------------- |
+| `razonSocial`            | `string` | ✅        | Razón social                        |
+| `domicilioComercial`     | `string` | ✅        | Domicilio comercial                 |
+| `condicionIva`           | `string` | ✅        | Condición frente al IVA             |
+| `cuit`                   | `string` | ✅        | CUIT (11 dígitos sin guiones)       |
+| `iibb`                   | `string` | ✅        | Ingresos Brutos                     |
+| `fechaInicioActividades` | `string` | ✅        | Fecha inicio actividades (YYYYMMDD) |
+| `contacto`               | `string` | —         | Contacto (email, teléfono, web)     |
+
+### `ReceptorData`
+
+| Campo           | Tipo     | Requerido | Descripción                           |
+| --------------- | -------- | --------- | ------------------------------------- |
+| `razonSocial`   | `string` | ✅        | Razón social                          |
+| `condicionIva`  | `string` | ✅        | Condición frente al IVA               |
+| `documentoTipo` | `string` | ✅        | Tipo de documento (`"CUIT"`, `"DNI"`) |
+| `documentoNro`  | `string` | ✅        | Número de documento                   |
+| `domicilio`     | `string` | —         | Domicilio                             |
+| `cuitPais`      | `string` | —         | CUIT país destino (Factura E)         |
+| `idImpositivo`  | `string` | —         | ID impositivo exterior (Factura E)    |
 
 ### `InvoiceItem`
 
-| Campo            | Tipo     | Requerido | Descripción                        |
-| ---------------- | -------- | --------- | ---------------------------------- |
-| `descripcion`    | `string` | ✅        | Descripción del producto/servicio  |
-| `cantidad`       | `number` | ✅        | Cantidad                           |
-| `unidadMedida`   | `string` | ✅        | Unidad de medida                   |
-| `precioUnitario` | `number` | ✅        | Precio unitario                    |
-| `subtotal`       | `number` | ✅        | Subtotal del item                  |
-| `codigo`         | `string` | —         | Código del producto                |
-| `bonificacion`   | `number` | —         | Porcentaje de bonificación         |
-| `alicuotaIva`    | `number` | —         | Alícuota de IVA (solo Factura A)   |
+| Campo                 | Tipo     | Requerido | Descripción                                                      |
+| --------------------- | -------- | --------- | ---------------------------------------------------------------- |
+| `descripcion`         | `string` | ✅        | Descripción del producto/servicio                                |
+| `cantidad`            | `number` | ✅        | Cantidad                                                         |
+| `unidadMedida`        | `string` | ✅        | Unidad de medida                                                 |
+| `precioUnitario`      | `number` | ✅        | Precio unitario                                                  |
+| `subtotal`            | `number` | ✅        | Subtotal del item                                                |
+| `codigo`              | `string` | —         | Código del producto                                              |
+| `bonificacion`        | `number` | —         | Porcentaje de bonificación                                       |
+| `importeBonificacion` | `number` | —         | Importe bonificación pre-calculado (si no se provee, se calcula) |
+| `alicuotaIva`         | `number` | —         | Alícuota de IVA (solo Factura A)                                 |
+
+### `IvaDetail`
+
+| Campo           | Tipo     | Requerido | Descripción                            |
+| --------------- | -------- | --------- | -------------------------------------- |
+| `id`            | `number` | ✅        | ID de la alícuota                      |
+| `descripcion`   | `string` | ✅        | Descripción (`"21%"`, `"10.5%"`, etc.) |
+| `baseImponible` | `number` | ✅        | Base imponible                         |
+| `importe`       | `number` | ✅        | Importe del IVA                        |
+
+### `TributoDetail`
+
+| Campo           | Tipo     | Requerido | Descripción             |
+| --------------- | -------- | --------- | ----------------------- |
+| `id`            | `number` | ✅        | ID del tributo          |
+| `descripcion`   | `string` | ✅        | Descripción del tributo |
+| `baseImponible` | `number` | ✅        | Base imponible          |
+| `alicuota`      | `number` | ✅        | Alícuota en porcentaje  |
+| `importe`       | `number` | ✅        | Importe del tributo     |
+
+### `ComprobanteAsociado`
+
+| Campo        | Tipo     | Requerido | Descripción              |
+| ------------ | -------- | --------- | ------------------------ |
+| `tipo`       | `number` | ✅        | Tipo de comprobante      |
+| `puntoVenta` | `number` | ✅        | Punto de venta           |
+| `numero`     | `number` | ✅        | Número de comprobante    |
+| `cuit`       | `string` | —         | CUIT del emisor original |
+| `fecha`      | `string` | —         | Fecha del comprobante    |
+
+---
+
+## Diferencias por letra
+
+### Factura A
+
+- 7 columnas: Cantidad, Producto/Servicio, Precio unit, %Bonif., $ Bonif., %IVA, Subtotal s/IVA
+- Tabla de Otros Tributos con 5 filas fijas
+- Desglose de IVA por alícuota (27%, 21%, 10.5%, 5%, 2.5%, 0%)
+- Leyenda "Son PESOS ARGENTINOS..."
+
+### Factura B
+
+- 6 columnas (sin %IVA)
+- Tabla de Otros Tributos con 5 filas fijas
+- Subtotal + Importe Otros Tributos + Importe Total
+- Leyenda "Son PESOS ARGENTINOS..."
+
+### Factura C
+
+- 6 columnas (sin %IVA)
+- Sin tabla de tributos
+- Importe Neto Gravado + Importe Total
+- Leyenda "Son PESOS ARGENTINOS..."
+
+### Factura E (Exportación)
+
+- 5 columnas: Ítem, Descripción, Cantidad, Precio Unit. (USD), Total por ítem (USD)
+- Sección receptor con "Señor(es)", CUIT País, ID Impositivo, Divisa, Destino del Comprobante
+- Tabla de Forma de Pago / Fecha de Pago / Incoterms
+- Tipo de Cambio + Divisa en el footer
+- Importe Total en moneda extranjera
+
+### Factura M
+
+- Mismo layout que Factura B (6 columnas, sin desglose IVA)
+
+---
+
+## Cálculos automáticos
+
+El template muestra los valores que le pasás, sin recalcular totales. Hay dos excepciones con override opcional:
+
+| Cálculo                    | Se calcula como                                    | Override                   |
+| -------------------------- | -------------------------------------------------- | -------------------------- |
+| Bonificación ($) por item  | `precioUnitario × cantidad × (bonificacion / 100)` | `item.importeBonificacion` |
+| Total en ARS (moneda ext.) | `importeTotal × cotizacion`                        | `importeTotalPesos`        |
+
+Si proveés el campo de override, se usa directamente sin calcular.
+
+---
+
+## Ejemplo Factura B
+
+```ts
+const facturaB: InvoiceData = {
+  emisor: {
+    razonSocial: "Emisor de Prueba",
+    domicilioComercial: "Av. Belgrano 789, CABA",
+    condicionIva: "IVA Responsable Inscripto",
+    cuit: "20111111117",
+    iibb: "901-234567-0",
+    fechaInicioActividades: "20150601",
+  },
+  receptor: {
+    razonSocial: "Receptor de Prueba",
+    condicionIva: "Consumidor Final",
+    documentoTipo: "DNI",
+    documentoNro: "31456789",
+  },
+  cbteTipo: 6,
+  cbteLetra: "B",
+  puntoVenta: 1,
+  cbteDesde: 500,
+  cbteHasta: 500,
+  cbteFecha: "20240610",
+  concepto: 2,
+  fechaServicioDesde: "20240501",
+  fechaServicioHasta: "20240531",
+  fechaVtoPago: "20240625",
+  items: [
+    {
+      descripcion: "Liquidación de sueldos - Mayo 2024",
+      cantidad: 1,
+      unidadMedida: "servicio",
+      precioUnitario: 25000,
+      subtotal: 25000,
+    },
+  ],
+  importeNetoGravado: 25000,
+  importeIva: 0,
+  importeTotal: 25000,
+  cae: "74512345678902",
+  caeFechaVencimiento: "20240620",
+};
+```
+
+## Ejemplo Factura E (Exportación)
+
+```ts
+const facturaE: InvoiceData = {
+  emisor: {
+    razonSocial: "Exportadora de Prueba S.A.",
+    domicilioComercial: "Puerto Madero 100, CABA",
+    condicionIva: "IVA Responsable Inscripto",
+    cuit: "30111111118",
+    iibb: "12-3456789-0",
+    fechaInicioActividades: "20200101",
+  },
+  receptor: {
+    razonSocial: "Empresa Exterior de Prueba",
+    domicilio: "1234 Market St, San Francisco, CA, USA",
+    condicionIva: "Cliente del Exterior",
+    documentoTipo: "CUIT",
+    documentoNro: "55000000000",
+    cuitPais: "55000002126 (ESTADOS UNIDOS - Persona Jurídica)",
+    idImpositivo: "261907945",
+  },
+  cbteTipo: 19,
+  cbteLetra: "E",
+  puntoVenta: 5,
+  cbteDesde: 10,
+  cbteHasta: 10,
+  cbteFecha: "20240701",
+  concepto: 1,
+  moneda: "DOL",
+  cotizacion: 1391.5,
+  condicionIvaExportacion: "IVA EXENTO OPERACIÓN DE EXPORTACIÓN",
+  divisa: "USD - Dólar Estadounidense",
+  destinoComprobante: "ESTADOS UNIDOS",
+  formaPago: "Transferencia SWIFT - Moneda Extranjera",
+  fechaPago: "20240715",
+  incoterms: "FOB",
+  items: [
+    {
+      descripcion: "Consulting services",
+      cantidad: 40,
+      unidadMedida: "horas",
+      precioUnitario: 150,
+      subtotal: 6000,
+    },
+  ],
+  importeNetoGravado: 6000,
+  importeIva: 0,
+  importeTotal: 6000,
+  cae: "74512345678903",
+  caeFechaVencimiento: "20240711",
+};
+```
 
 ---
 
 ## Template personalizado
 
-Podés reemplazar el template HTML por defecto con uno propio:
+### Template Handlebars (string)
 
 ```ts
-import {
-  InvoicePdfGenerator,
-  InvoiceTemplateProps,
-} from "@arcasdk/pdf";
+const miTemplate = `
+<html>
+<body>
+  <h1>{{data.emisor.razonSocial}}</h1>
+  <p>{{descTipo data.cbteTipo}} {{data.cbteLetra}}</p>
+  <p>Nro: {{voucherNumber data.puntoVenta data.cbteDesde}}</p>
+  <p>Fecha: {{formatDate data.cbteFecha}}</p>
+  <p>Total: {{formatCurrency data.importeTotal data.moneda}}</p>
+  {{#if qrDataUrl}}<img src="{{qrDataUrl}}" width="100" />{{/if}}
+</body>
+</html>
+`;
 
+const generator = new InvoicePdfGenerator({ template: miTemplate });
+```
+
+### Template función
+
+```ts
 function MiTemplate({ data, options, qrDataUrl }: InvoiceTemplateProps): string {
   return `
     <html>
       <body>
         <h1>${data.emisor.razonSocial}</h1>
-        <p>Factura ${data.cbteLetra} Nro ${data.puntoVenta}-${data.cbteDesde}</p>
         <p>Total: $${data.importeTotal}</p>
-        ${qrDataUrl ? `<img src="${qrDataUrl}" width="100" />` : ""}
       </body>
     </html>
   `;
 }
 
 const generator = new InvoicePdfGenerator({ template: MiTemplate });
-const pdf = await generator.generate(data);
 ```
 
-El template recibe:
-- `data`: los datos del comprobante (`InvoiceData`)
-- `options`: las opciones resueltas (`ResolvedPdfOptions`)
-- `qrDataUrl`: data URL del QR (si `includeQr` es `true`)
+### Helpers Handlebars disponibles
 
----
+<div v-pre>
 
-## Uso con `@arcasdk/core`
+| Helper              | Descripción                                   | Ejemplo                                            |
+| ------------------- | --------------------------------------------- | -------------------------------------------------- |
+| `formatDate`        | YYYYMMDD → DD/MM/YYYY                         | `{{formatDate data.cbteFecha}}`                    |
+| `formatCuit`        | CUIT con guiones                              | `{{formatCuit data.emisor.cuit}}`                  |
+| `formatCurrency`    | Importe con símbolo de moneda                 | `{{formatCurrency data.importeTotal data.moneda}}` |
+| `formatUnitPrice`   | Precio unitario formateado                    | `{{formatUnitPrice item.precioUnitario}}`          |
+| `formatCotizacion`  | Cotización con 3 decimales                    | `{{formatCotizacion data.cotizacion}}`             |
+| `voucherNumber`     | Nro comprobante (00003-00000152)              | `{{voucherNumber data.puntoVenta data.cbteDesde}}` |
+| `descTipo`          | Descripción del tipo de comprobante           | `{{descTipo data.cbteTipo}}`                       |
+| `currencyName`      | Nombre completo de la moneda                  | `{{currencyName data.moneda}}`                     |
+| `currencyCode`      | Código ISO de la moneda (ARS, USD)            | `{{currencyCode data.moneda}}`                     |
+| `currencyShortName` | Nombre corto de la moneda                     | `{{currencyShortName data.moneda}}`                |
+| `numberToWords`     | Importe en letras (español)                   | `{{numberToWords data.importeTotal}}`              |
+| `docNumber`         | Formatea doc (CUIT con guiones si 11 dígitos) | `{{docNumber data.receptor.documentoNro}}`         |
+| `padStart`          | Rellena con ceros                             | `{{padStart data.puntoVenta 5}}`                   |
+| `bonAmount`         | Calcula bonificación (con override)           | `{{bonAmount precio cant bonif importeBonif}}`     |
+| `ivaImporte`        | Busca importe de IVA por descripción          | `{{ivaImporte data.iva "21%"}}`                    |
+| `tributoImporte`    | Busca importe de tributo por descripción      | `{{tributoImporte data.tributos "..."}}`           |
+| `multiply`          | Multiplicación                                | `{{multiply data.importeTotal data.cotizacion}}`   |
+| `eq`, `neq`         | Igualdad / desigualdad                        | `{{#if (eq data.cbteLetra "A")}}`                  |
+| `gt`, `gte`         | Mayor / mayor o igual                         | `{{#if (gt data.importeTotal 1000)}}`              |
+| `or`, `and`, `not`  | Operadores lógicos                            | `{{#or condA condB}}...{{/or}}`                    |
+| `default`           | Valor por defecto si falsy                    | `{{default data.moneda "PES"}}`                    |
+| `isNull`            | Comprueba si es null/undefined                | `{{#if (isNull val)}}`                             |
+| `len`               | Largo de un array                             | `{{len data.tributos}}`                            |
 
-Ejemplo de cómo generar un PDF a partir de un comprobante emitido con el SDK core:
-
-```ts
-import { Arca } from "@arcasdk/core";
-import { InvoicePdfGenerator, InvoiceData } from "@arcasdk/pdf";
-
-const arca = new Arca({ key: "...", cert: "...", cuit: 20111111112 });
-
-// 1. Emitir el comprobante
-const result = await arca.electronicBillingService.createInvoice({
-  CantReg: 1,
-  PtoVta: 3,
-  CbteTipo: 1,
-  // ... resto de los parámetros
-});
-
-// 2. Construir los datos para el PDF
-const invoiceData: InvoiceData = {
-  emisor: {
-    razonSocial: "Mi Empresa S.A.",
-    domicilioComercial: "Av. Corrientes 1234, CABA",
-    condicionIva: "IVA Responsable Inscripto",
-    cuit: "20111111112",
-    iibb: "12-3456789-0",
-    fechaInicioActividades: "20180301",
-  },
-  receptor: {
-    razonSocial: "Cliente S.R.L.",
-    domicilio: "Calle Falsa 456",
-    condicionIva: "IVA Responsable Inscripto",
-    documentoTipo: "CUIT",
-    documentoNro: "30712345678",
-  },
-  cbteTipo: 1,
-  cbteLetra: "A",
-  puntoVenta: 3,
-  cbteDesde: result.CbteDesde,
-  cbteHasta: result.CbteHasta,
-  cbteFecha: result.CbteFch,
-  concepto: 1,
-  items: [
-    /* ... tus items ... */
-  ],
-  importeNetoGravado: 100,
-  importeIva: 21,
-  iva: [{ id: 5, descripcion: "21%", baseImponible: 100, importe: 21 }],
-  importeTotal: 121,
-  cae: result.CAE,
-  caeFechaVencimiento: result.CAEFchVto,
-};
-
-// 3. Generar el PDF
-const generator = new InvoicePdfGenerator();
-const pdfBuffer = await generator.generate(invoiceData);
-```
+</div>
 
 ---
 
 ## Monedas soportadas
 
-| Código | Moneda                       | Símbolo |
-| ------ | ---------------------------- | ------- |
-| `PES`  | Pesos Argentinos (ARS)       | $       |
-| `DOL`  | Dólares Estadounidenses (USD)| US$     |
+| Código | Moneda                        | Símbolo |
+| ------ | ----------------------------- | ------- |
+| `PES`  | Pesos Argentinos (ARS)        | $       |
+| `DOL`  | Dólares Estadounidenses (USD) | US$     |
 
-La moneda se refleja en el símbolo de todos los importes y en la leyenda "Son PESOS ARGENTINOS (ARS) ..." al pie.
+Cuando la moneda no es `PES` y se provee `cotizacion`, el PDF muestra una línea de conversión a pesos argentinos al pie del comprobante.

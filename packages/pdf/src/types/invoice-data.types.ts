@@ -21,6 +21,14 @@ export interface ReceptorData {
   condicionIva: string;
   documentoTipo: string;
   documentoNro: string;
+
+  // ── Campos de exportación (Factura E) ──
+
+  /** CUIT del país destino con descripción (ej: "55000002126 (ESTADOS UNIDOS - Persona Jurídica)") */
+  cuitPais?: string;
+
+  /** ID impositivo del receptor en el país destino */
+  idImpositivo?: string;
 }
 
 /**
@@ -33,6 +41,8 @@ export interface InvoiceItem {
   unidadMedida: string;
   precioUnitario: number;
   bonificacion?: number;
+  /** Importe de bonificación pre-calculado. Si no se provee, se calcula como precioUnitario * cantidad * (bonificacion / 100) */
+  importeBonificacion?: number;
   subtotal: number;
   alicuotaIva?: number;
 }
@@ -161,6 +171,30 @@ export interface InvoiceData {
 
   /** Observaciones */
   observaciones?: string;
+
+  // ── Campos de exportación (Factura E) ──
+
+  /** Divisa con descripción completa (ej: "USD - Dólar Estadounidense") */
+  divisa?: string;
+
+  /** País destino del comprobante */
+  destinoComprobante?: string;
+
+  /** Forma de pago (ej: "Transferencia SWIFT - Moneda Extranjera") */
+  formaPago?: string;
+
+  /** Incoterms */
+  incoterms?: string;
+
+  /** Fecha de pago (formato YYYYMMDD) */
+  fechaPago?: string;
+
+  /** Leyenda de condición IVA en exportación (ej: "IVA EXENTO OPERACIÓN DE EXPORTACIÓN") */
+  condicionIvaExportacion?: string;
+
+  /** Importe total expresado en pesos argentinos (para comprobantes en moneda extranjera).
+   *  Si no se provee, se calcula como importeTotal * cotizacion */
+  importeTotalPesos?: number;
 }
 
 /**
@@ -187,7 +221,7 @@ export interface ResolvedPdfOptions {
   pageSize: "A4" | "LETTER" | "LEGAL";
   margin: number;
   includeQr: boolean;
-  logo?: Buffer;
+  logo?: string;
   logoWidth?: number;
   footerText?: string;
   copy?: CopyType;
@@ -201,16 +235,16 @@ export interface PdfGeneratorOptions {
   /** Tamaño de página (default: "A4") */
   pageSize?: "A4" | "LETTER" | "LEGAL";
 
-  /** Márgenes en puntos (default: 40) */
+  /** Márgenes en puntos (default: 10) */
   margin?: number;
 
   /** Incluir QR code de ARCA (default: true) */
   includeQr?: boolean;
 
-  /** Logo del emisor (buffer de imagen PNG/JPG) */
-  logo?: Buffer;
+  /** Logo del emisor como data URL (ej: "data:image/png;base64,...") */
+  logo?: string;
 
-  /** Ancho del logo en puntos (default: 80) */
+  /** Ancho del logo en puntos (default: 60) */
   logoWidth?: number;
 
   /** Texto adicional en el pie de página */
@@ -230,23 +264,25 @@ export interface PdfGeneratorOptions {
   copies?: CopyType[];
 
   /**
-   * Template personalizado. Debe ser una función que reciba
-   * InvoiceTemplateProps y retorne un string HTML.
-   * Si no se provee, se usa el template oficial ARCA.
+   * Template personalizado. Puede ser:
+   * - Una función que reciba InvoiceTemplateProps y retorne HTML string
+   * - Un string con template Handlebars (se compila automáticamente)
+   *
+   * Los templates Handlebars tienen acceso a helpers integrados:
+   * formatDate, formatCuit, formatCurrency, formatUnitPrice,
+   * voucherNumber, descTipo, numberToWords, currencyName, etc.
    *
    * @example
-   * function MiTemplate({ data, options, qrDataUrl }: InvoiceTemplateProps): string {
-   *   return `
-   *     <html>
-   *       <body>
-   *         <h1>${data.emisor.razonSocial}</h1>
-   *         <img src="${qrDataUrl}" />
-   *       </body>
-   *     </html>
-   *   `;
-   * }
+   * // Como función
+   * const generator = new InvoicePdfGenerator({
+   *   template: ({ data }) => `<h1>${data.emisor.razonSocial}</h1>`,
+   * });
    *
-   * const generator = new InvoicePdfGenerator({ template: MiTemplate });
+   * @example
+   * // Como template Handlebars
+   * const generator = new InvoicePdfGenerator({
+   *   template: "<h1>{{data.emisor.razonSocial}}</h1>",
+   * });
    */
-  template?: (props: InvoiceTemplateProps) => string;
+  template?: ((props: InvoiceTemplateProps) => string) | string;
 }

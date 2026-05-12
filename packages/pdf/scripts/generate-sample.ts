@@ -5,57 +5,57 @@ import { resolve } from "path";
 
 // ── Emisores ──
 const emisorTech = {
-  razonSocial: "TECNOLOGÍA MODERNA S.A.",
-  domicilioComercial: "Av. Corrientes 1234 Piso 5 Of. B - C1043AAZ - CABA",
+  razonSocial: "EMPRESA DE PRUEBA S.A.",
+  domicilioComercial: "Av. Siempreviva 1234 Piso 3 Of. D - C1001AAZ - CABA",
   condicionIva: "IVA Responsable Inscripto",
-  cuit: "30714578902",
-  iibb: "901-234567-3",
-  fechaInicioActividades: "20150315",
-  contacto: "info@tecmoderna.com.ar / www.tecmoderna.com.ar",
+  cuit: "30501234567",
+  iibb: "902-345678-1",
+  fechaInicioActividades: "20160420",
+  contacto: "info@empresa-prueba.com.ar / www.empresa-prueba.com.ar",
 };
 
 const emisorConstructora = {
-  razonSocial: "CONSTRUCTORA PAMPEANA S.R.L.",
-  domicilioComercial: "Ruta 5 Km 302 - L6300 - Santa Rosa - La Pampa",
+  razonSocial: "CONSTRUCTORA DE PRUEBA S.R.L.",
+  domicilioComercial: "Ruta 7 Km 150 - M5500 - Mendoza",
   condicionIva: "IVA Responsable Inscripto",
-  cuit: "30709876543",
-  iibb: "LP-45678-9",
-  fechaInicioActividades: "20080612",
+  cuit: "30601987654",
+  iibb: "MZ-56789-0",
+  fechaInicioActividades: "20090715",
 };
 
 const emisorEstudio = {
-  razonSocial: "ESTUDIO CONTABLE RODRÍGUEZ & ASOCIADOS",
-  domicilioComercial: "San Martín 890 Piso 3 Of. A - C1004AAR - CABA",
+  razonSocial: "ESTUDIO CONTABLE DE PRUEBA",
+  domicilioComercial: "Mitre 456 Piso 2 Of. C - C1036AAR - CABA",
   condicionIva: "IVA Responsable Inscripto",
-  cuit: "30711223344",
-  iibb: "901-112233-4",
-  fechaInicioActividades: "20100101",
-  contacto: "contacto@estudiorodriguez.com.ar",
+  cuit: "30702345678",
+  iibb: "903-223344-5",
+  fechaInicioActividades: "20110301",
+  contacto: "contacto@estudio-prueba.com.ar",
 };
 
 // ── Receptores ──
 const receptorDistribuidora = {
-  razonSocial: "DISTRIBUIDORA DEL SUR S.R.L.",
-  domicilio: "Av. San Martín 567 - S2000BFA - Rosario - Santa Fe",
+  razonSocial: "DISTRIBUIDORA DE PRUEBA S.R.L.",
+  domicilio: "Av. Pellegrini 890 - S2000BFA - Rosario - Santa Fe",
   condicionIva: "IVA Responsable Inscripto",
   documentoTipo: "CUIT",
-  documentoNro: "30712345678",
+  documentoNro: "30801234567",
 };
 
 const receptorFarmacia = {
-  razonSocial: "FARMACIA CENTRAL S.A.",
-  domicilio: "Bv. Oroño 1200 - S2000DSR - Rosario - Santa Fe",
+  razonSocial: "FARMACIA DE PRUEBA S.A.",
+  domicilio: "Bv. España 2300 - S2000DSR - Rosario - Santa Fe",
   condicionIva: "IVA Responsable Inscripto",
   documentoTipo: "CUIT",
-  documentoNro: "30698765432",
+  documentoNro: "30901876543",
 };
 
 const receptorMunicipio = {
-  razonSocial: "MUNICIPALIDAD DE JUNÍN",
-  domicilio: "Rivadavia 100 - B6000 - Junín - Buenos Aires",
+  razonSocial: "MUNICIPALIDAD DE PRUEBA",
+  domicilio: "San Martín 200 - B6500 - Ciudad de Prueba - Buenos Aires",
   condicionIva: "IVA Sujeto Exento",
   documentoTipo: "CUIT",
-  documentoNro: "30999888777",
+  documentoNro: "30551122334",
 };
 
 // ══════════════════════════════════════════════
@@ -455,11 +455,11 @@ const facturaA5: InvoiceData = {
 const facturaB1: InvoiceData = {
   emisor: emisorTech,
   receptor: {
-    razonSocial: "GARCÍA MARÍA LAURA",
-    domicilio: "Av. Rivadavia 3200 - C1203AAQ - CABA",
+    razonSocial: "PERSONA DE PRUEBA",
+    domicilio: "Av. Belgrano 1500 - C1093AAQ - CABA",
     condicionIva: "Consumidor Final",
     documentoTipo: "DNI",
-    documentoNro: "32456789",
+    documentoNro: "34567890",
   },
   cbteTipo: 6,
   cbteLetra: "B",
@@ -508,12 +508,12 @@ const facturaB1: InvoiceData = {
 // ── Factura C: monotributo, sin IVA ──
 const facturaC1: InvoiceData = {
   emisor: {
-    razonSocial: "MARTÍNEZ PABLO ANDRÉS",
-    domicilioComercial: "Belgrano 450 - X5000JHJ - Córdoba",
+    razonSocial: "MONOTRIBUTISTA DE PRUEBA",
+    domicilioComercial: "Colón 780 - X5000JHJ - Córdoba",
     condicionIva: "Responsable Monotributo",
-    cuit: "20284567890",
+    cuit: "27301234567",
     iibb: "Exento",
-    fechaInicioActividades: "20190801",
+    fechaInicioActividades: "20200301",
   },
   receptor: receptorDistribuidora,
   cbteTipo: 11,
@@ -552,7 +552,6 @@ const facturaC1: InvoiceData = {
   importeTotal: 430000,
   cae: "72643218903456",
   caeFechaVencimiento: "20260518",
-  observaciones: "Monotributo categoría H",
 };
 
 // ── Nota de Crédito A: con comprobante asociado ──
@@ -577,7 +576,7 @@ const notaCreditoA1: InvoiceData = {
       tipo: 1,
       puntoVenta: 1,
       numero: 487,
-      cuit: "30711223344",
+      cuit: "30702345678",
       fecha: "20260501",
     },
   ],
@@ -636,7 +635,7 @@ const facturaB2: InvoiceData = {
 };
 
 async function main() {
-  const generator = new InvoicePdfGenerator({ copy: "ORIGINAL" });
+  const generator = new InvoicePdfGenerator();
 
   const facturas: { name: string; data: InvoiceData }[] = [
     { name: "factura-a-1item", data: facturaA1 },
@@ -650,6 +649,471 @@ async function main() {
     { name: "nota-credito-a", data: notaCreditoA1 },
   ];
 
+  // ── Nota de Débito A ──
+  facturas.push({
+    name: "nota-debito-a",
+    data: {
+      ...facturaA1,
+      cbteTipo: 2,
+      cbteDesde: 80,
+      cbteHasta: 80,
+      cbtesAsociados: [
+        {
+          tipo: 1,
+          puntoVenta: 3,
+          numero: 1001,
+          cuit: "30801234567",
+          fecha: "20260510",
+        },
+      ],
+      items: [
+        {
+          descripcion: "Ajuste por diferencia de precio",
+          cantidad: 1,
+          unidadMedida: "unidades",
+          precioUnitario: 25000,
+          subtotal: 25000,
+          alicuotaIva: 21,
+        },
+      ],
+      importeNetoGravado: 25000,
+      importeIva: 5250,
+      iva: [{ id: 5, descripcion: "21%", baseImponible: 25000, importe: 5250 }],
+      importeTotal: 30250,
+      cae: "72643218900020",
+      caeFechaVencimiento: "20260522",
+    },
+  });
+
+  // ── Nota de Crédito B ──
+  facturas.push({
+    name: "nota-credito-b",
+    data: {
+      emisor: emisorTech,
+      receptor: {
+        razonSocial: "CONSUMIDOR DE PRUEBA",
+        domicilio: "Tucumán 350 - CABA",
+        condicionIva: "Consumidor Final",
+        documentoTipo: "DNI",
+        documentoNro: "29876543",
+      },
+      cbteTipo: 8,
+      cbteLetra: "B",
+      puntoVenta: 3,
+      cbteDesde: 15,
+      cbteHasta: 15,
+      cbteFecha: "20260512",
+      concepto: 1,
+      moneda: "PES",
+      cotizacion: 1,
+      condicionVenta: "Contado",
+      cbtesAsociados: [
+        { tipo: 6, puntoVenta: 3, numero: 892, fecha: "20260510" },
+      ],
+      items: [
+        {
+          descripcion: "Devolución - Funda protectora 14 pulgadas",
+          cantidad: 1,
+          unidadMedida: "unidades",
+          precioUnitario: 38115,
+          subtotal: 38115,
+        },
+      ],
+      importeNetoGravado: 38115,
+      importeIva: 0,
+      importeTotal: 38115,
+      cae: "72643218900021",
+      caeFechaVencimiento: "20260522",
+    },
+  });
+
+  // ── Nota de Débito B ──
+  facturas.push({
+    name: "nota-debito-b",
+    data: {
+      ...facturaB1,
+      cbteTipo: 7,
+      cbteDesde: 30,
+      cbteHasta: 30,
+      items: [
+        {
+          descripcion: "Interés por mora",
+          cantidad: 1,
+          unidadMedida: "unidades",
+          precioUnitario: 15000,
+          subtotal: 15000,
+        },
+      ],
+      importeNetoGravado: 15000,
+      importeIva: 0,
+      importeTotal: 15000,
+      cae: "72643218900022",
+      caeFechaVencimiento: "20260522",
+    },
+  });
+
+  // ── Nota de Crédito C ──
+  facturas.push({
+    name: "nota-credito-c",
+    data: {
+      ...facturaC1,
+      cbteTipo: 13,
+      cbteDesde: 5,
+      cbteHasta: 5,
+      cbtesAsociados: [
+        { tipo: 11, puntoVenta: 1, numero: 45, fecha: "20260508" },
+      ],
+      items: [
+        {
+          descripcion: "Descuento por fidelidad",
+          cantidad: 1,
+          unidadMedida: "unidades",
+          precioUnitario: 43000,
+          subtotal: 43000,
+        },
+      ],
+      importeNetoGravado: 43000,
+      importeTotal: 43000,
+      cae: "72643218900023",
+      caeFechaVencimiento: "20260518",
+    },
+  });
+
+  // ── Nota de Débito C ──
+  facturas.push({
+    name: "nota-debito-c",
+    data: {
+      ...facturaC1,
+      cbteTipo: 12,
+      cbteDesde: 8,
+      cbteHasta: 8,
+      items: [
+        {
+          descripcion: "Recargo por servicio adicional",
+          cantidad: 1,
+          unidadMedida: "unidades",
+          precioUnitario: 20000,
+          subtotal: 20000,
+        },
+      ],
+      importeNetoGravado: 20000,
+      importeTotal: 20000,
+      cae: "72643218900024",
+      caeFechaVencimiento: "20260518",
+    },
+  });
+
+  // ── Factura E (Exportación) ──
+  facturas.push({
+    name: "factura-e-exportacion",
+    data: {
+      emisor: emisorTech,
+      receptor: {
+        razonSocial: "EMPRESA EXTERIOR DE PRUEBA",
+        domicilio: "742 Evergreen Terrace, Portland, OR 97201, USA",
+        condicionIva: "Cliente del Exterior",
+        documentoTipo: "CUIT",
+        documentoNro: "55000000000",
+        cuitPais: "55000002126 (ESTADOS UNIDOS - Persona Jurídica)",
+        idImpositivo: "845209317",
+      },
+      cbteTipo: 19,
+      cbteLetra: "E",
+      puntoVenta: 3,
+      cbteDesde: 12,
+      cbteHasta: 12,
+      cbteFecha: "20260510",
+      concepto: 2,
+      moneda: "DOL",
+      cotizacion: 1391.5,
+      condicionVenta: "Transferencia bancaria 30 días",
+      fechaServicioDesde: "20260401",
+      fechaServicioHasta: "20260430",
+      fechaVtoPago: "20260610",
+      condicionIvaExportacion: "IVA EXENTO OPERACIÓN DE EXPORTACIÓN",
+      divisa: "USD - Dólar Estadounidense",
+      destinoComprobante: "ESTADOS UNIDOS",
+      formaPago: "Transferencia SWIFT - Moneda Extranjera",
+      fechaPago: "20260610",
+      incoterms: "",
+      items: [
+        {
+          codigo: "0001",
+          descripcion:
+            "Servicio: S13 - Servicios de informática (armado de páginas web, soporte web, mantenimiento de sistemas, programación, desarrollo full stack)",
+          cantidad: 1,
+          unidadMedida: "",
+          precioUnitario: 7560,
+          subtotal: 7560,
+        },
+      ],
+      importeNetoGravado: 7560,
+      importeIva: 0,
+      importeTotal: 7560,
+      cae: "72643218900030",
+      caeFechaVencimiento: "20260520",
+    },
+  });
+
+  // ── Nota de Crédito E ──
+  facturas.push({
+    name: "nota-credito-e",
+    data: {
+      emisor: emisorTech,
+      receptor: {
+        razonSocial: "EMPRESA EXTERIOR DE PRUEBA",
+        domicilio: "742 Evergreen Terrace, Portland, OR 97201, USA",
+        condicionIva: "Cliente del Exterior",
+        documentoTipo: "CUIT",
+        documentoNro: "55000000000",
+        cuitPais: "55000002126 (ESTADOS UNIDOS - Persona Jurídica)",
+        idImpositivo: "845209317",
+      },
+      cbteTipo: 21,
+      cbteLetra: "E",
+      puntoVenta: 3,
+      cbteDesde: 3,
+      cbteHasta: 3,
+      cbteFecha: "20260512",
+      concepto: 2,
+      moneda: "DOL",
+      cotizacion: 1391.5,
+      condicionVenta: "Transferencia bancaria",
+      fechaServicioDesde: "20260401",
+      fechaServicioHasta: "20260430",
+      condicionIvaExportacion: "IVA EXENTO OPERACIÓN DE EXPORTACIÓN",
+      divisa: "USD - Dólar Estadounidense",
+      destinoComprobante: "ESTADOS UNIDOS",
+      formaPago: "Transferencia SWIFT - Moneda Extranjera",
+      cbtesAsociados: [
+        { tipo: 19, puntoVenta: 3, numero: 12, fecha: "20260510" },
+      ],
+      items: [
+        {
+          codigo: "0001",
+          descripcion: "Credit - Scope reduction April 2026",
+          cantidad: 20,
+          unidadMedida: "horas",
+          precioUnitario: 85,
+          subtotal: 1700,
+        },
+      ],
+      importeNetoGravado: 1700,
+      importeIva: 0,
+      importeTotal: 1700,
+      cae: "72643218900031",
+      caeFechaVencimiento: "20260522",
+    },
+  });
+
+  // ── Factura M ──
+  facturas.push({
+    name: "factura-m",
+    data: {
+      emisor: {
+        razonSocial: "EMPRESA NUEVA DE PRUEBA S.A.",
+        domicilioComercial: "Florida 300 - C1005ABA - CABA",
+        condicionIva: "IVA Responsable Inscripto",
+        cuit: "30401567890",
+        iibb: "904-567890-1",
+        fechaInicioActividades: "20260201",
+      },
+      receptor: receptorDistribuidora,
+      cbteTipo: 51,
+      cbteLetra: "M",
+      puntoVenta: 1,
+      cbteDesde: 3,
+      cbteHasta: 3,
+      cbteFecha: "20260510",
+      concepto: 1,
+      moneda: "PES",
+      cotizacion: 1,
+      condicionVenta: "Contado",
+      items: [
+        {
+          descripcion: "Servicio de limpieza industrial",
+          cantidad: 1,
+          unidadMedida: "unidades",
+          precioUnitario: 200000,
+          subtotal: 200000,
+        },
+      ],
+      importeNetoGravado: 200000,
+      importeIva: 0,
+      importeTotal: 200000,
+      cae: "72643218900040",
+      caeFechaVencimiento: "20260520",
+    },
+  });
+
+  // ── Factura de Crédito MiPyME A (FCE) ──
+  facturas.push({
+    name: "fce-factura-a",
+    data: {
+      emisor: emisorConstructora,
+      receptor: receptorDistribuidora,
+      cbteTipo: 201,
+      cbteLetra: "A",
+      puntoVenta: 5,
+      cbteDesde: 10,
+      cbteHasta: 10,
+      cbteFecha: "20260510",
+      concepto: 1,
+      moneda: "PES",
+      cotizacion: 1,
+      condicionVenta: "Cuenta Corriente - 90 días",
+      fechaVtoPago: "20260810",
+      items: [
+        {
+          descripcion: "Provisión de materiales para obra",
+          cantidad: 100,
+          unidadMedida: "m²",
+          precioUnitario: 15000,
+          subtotal: 1500000,
+          alicuotaIva: 21,
+        },
+        {
+          descripcion: "Mano de obra instalación",
+          cantidad: 200,
+          unidadMedida: "horas",
+          precioUnitario: 4500,
+          subtotal: 900000,
+          alicuotaIva: 21,
+        },
+      ],
+      importeNetoGravado: 2400000,
+      importeIva: 504000,
+      iva: [
+        { id: 5, descripcion: "21%", baseImponible: 2400000, importe: 504000 },
+      ],
+      importeTotal: 2904000,
+      cae: "72643218900050",
+      caeFechaVencimiento: "20260520",
+    },
+  });
+
+  // ── FCE Nota de Crédito B ──
+  facturas.push({
+    name: "fce-nota-credito-b",
+    data: {
+      emisor: emisorTech,
+      receptor: {
+        razonSocial: "CLIENTE MAYORISTA DE PRUEBA S.A.",
+        domicilio: "Ruta 8 Km 250 - Córdoba",
+        condicionIva: "Consumidor Final",
+        documentoTipo: "CUIT",
+        documentoNro: "30601778899",
+      },
+      cbteTipo: 208,
+      cbteLetra: "B",
+      puntoVenta: 3,
+      cbteDesde: 2,
+      cbteHasta: 2,
+      cbteFecha: "20260512",
+      concepto: 1,
+      moneda: "PES",
+      cotizacion: 1,
+      condicionVenta: "Contado",
+      cbtesAsociados: [
+        { tipo: 206, puntoVenta: 3, numero: 5, fecha: "20260505" },
+      ],
+      items: [
+        {
+          descripcion: "Devolución parcial - Equipamiento informático",
+          cantidad: 2,
+          unidadMedida: "unidades",
+          precioUnitario: 120000,
+          subtotal: 240000,
+        },
+      ],
+      importeNetoGravado: 240000,
+      importeIva: 0,
+      importeTotal: 240000,
+      cae: "72643218900051",
+      caeFechaVencimiento: "20260522",
+    },
+  });
+
+  // ── FCE Factura C ──
+  facturas.push({
+    name: "fce-factura-c",
+    data: {
+      emisor: {
+        razonSocial: "MONOTRIBUTISTA DE PRUEBA",
+        domicilioComercial: "Colón 780 - X5000JHJ - Córdoba",
+        condicionIva: "Responsable Monotributo",
+        cuit: "27301234567",
+        iibb: "Exento",
+        fechaInicioActividades: "20200301",
+      },
+      receptor: receptorFarmacia,
+      cbteTipo: 211,
+      cbteLetra: "C",
+      puntoVenta: 1,
+      cbteDesde: 1,
+      cbteHasta: 1,
+      cbteFecha: "20260510",
+      concepto: 2,
+      moneda: "PES",
+      cotizacion: 1,
+      condicionVenta: "Cuenta Corriente - 60 días",
+      fechaServicioDesde: "20260401",
+      fechaServicioHasta: "20260430",
+      fechaVtoPago: "20260710",
+      items: [
+        {
+          descripcion: "Desarrollo web - Landing page",
+          cantidad: 1,
+          unidadMedida: "unidades",
+          precioUnitario: 350000,
+          subtotal: 350000,
+        },
+      ],
+      importeNetoGravado: 350000,
+      importeIva: 0,
+      importeTotal: 350000,
+      cae: "72643218900052",
+      caeFechaVencimiento: "20260520",
+    },
+  });
+
+  // ── Factura A en dólares ──
+  facturas.push({
+    name: "factura-a-dolares",
+    data: {
+      emisor: emisorTech,
+      receptor: receptorDistribuidora,
+      cbteTipo: 1,
+      cbteLetra: "A",
+      puntoVenta: 3,
+      cbteDesde: 1530,
+      cbteHasta: 1530,
+      cbteFecha: "20260512",
+      concepto: 2,
+      moneda: "DOL",
+      cotizacion: 1250.5,
+      condicionVenta: "Contado",
+      fechaServicioDesde: "20260401",
+      fechaServicioHasta: "20260430",
+      items: [
+        {
+          descripcion: "Licencia de software anual",
+          cantidad: 5,
+          unidadMedida: "unidades",
+          precioUnitario: 2400,
+          subtotal: 12000,
+          alicuotaIva: 21,
+        },
+      ],
+      importeNetoGravado: 12000,
+      importeIva: 2520,
+      iva: [{ id: 5, descripcion: "21%", baseImponible: 12000, importe: 2520 }],
+      importeTotal: 14520,
+      cae: "72643218900060",
+      caeFechaVencimiento: "20260522",
+    },
+  });
+
   for (const f of facturas) {
     const buf = await generator.generate(f.data);
     const out = resolve(__dirname, `${f.name}.pdf`);
@@ -662,6 +1126,16 @@ async function main() {
   });
   const bufCopies = await generatorCopies.generate(facturaA1);
   writeFileSync(resolve(__dirname, "factura-a-copias.pdf"), bufCopies);
+
+  // ── Factura con logo ──
+  const generatorLogo = new InvoicePdfGenerator({
+    logo: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iNDAiPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iNDAiIGZpbGw9IiMzMzY2Y2MiIHJ4PSI1Ii8+PHRleHQgeD0iNTAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MT0dPPC90ZXh0Pjwvc3ZnPg==",
+    logoWidth: 80,
+  });
+  const bufLogo = await generatorLogo.generate(facturaA1);
+  writeFileSync(resolve(__dirname, "factura-a-con-logo.pdf"), bufLogo);
+
+  console.log(`✓ ${facturas.length + 2} PDFs generados en ${__dirname}`);
 }
 
 main().catch(console.error);

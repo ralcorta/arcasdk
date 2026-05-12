@@ -47,27 +47,27 @@ describe("format.utils", () => {
 
   describe("formatCurrency", () => {
     it("should format with $ by default and Argentine number format", () => {
-      expect(formatCurrency(1500.5)).toBe("$ 1.500,50");
+      expect(formatCurrency(1500.5)).toBe("$ 1.500,50");
     });
 
     it("should use US$ for DOL", () => {
-      expect(formatCurrency(100, "DOL")).toBe("US$ 100,00");
+      expect(formatCurrency(100, "DOL")).toBe("US$ 100,00");
     });
 
     it("should use $ for PES", () => {
-      expect(formatCurrency(200, "PES")).toBe("$ 200,00");
+      expect(formatCurrency(200, "PES")).toBe("$ 200,00");
     });
 
     it("should format large numbers with thousand separators", () => {
-      expect(formatCurrency(1234567.89, "PES")).toBe("$ 1.234.567,89");
+      expect(formatCurrency(1234567.89, "PES")).toBe("$ 1.234.567,89");
     });
 
     it("should format zero", () => {
-      expect(formatCurrency(0)).toBe("$ 0,00");
+      expect(formatCurrency(0)).toBe("$ 0,00");
     });
 
     it("should use $ when monedaId is undefined", () => {
-      expect(formatCurrency(100)).toBe("$ 100,00");
+      expect(formatCurrency(100)).toBe("$ 100,00");
     });
   });
 

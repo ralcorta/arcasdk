@@ -3,8 +3,18 @@
  * Returns a minimal but valid PDF buffer
  */
 
-// Minimal valid PDF header
-const MINIMAL_PDF = Buffer.from("%PDF-1.4\n%EOF", "ascii");
+import { PDFDocument } from "pdf-lib";
+
+let cachedPdf: Buffer | null = null;
+
+async function getMinimalPdf(): Promise<Buffer> {
+  if (cachedPdf) return cachedPdf;
+  const doc = await PDFDocument.create();
+  doc.addPage();
+  const bytes = await doc.save();
+  cachedPdf = Buffer.from(bytes);
+  return cachedPdf;
+}
 
 export default {
   launch: async (options?: any) => ({
@@ -12,7 +22,7 @@ export default {
       setViewport: async (viewport: any) => {},
       setContent: async (html: string, opts?: any) => {},
       evaluate: async (fn: Function, ...args: any[]) => {},
-      pdf: async (options?: any) => MINIMAL_PDF,
+      pdf: async (options?: any) => getMinimalPdf(),
     }),
     close: async () => {},
   }),

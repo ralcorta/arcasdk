@@ -40,7 +40,7 @@ export function formatCuit(cuit: string): string {
 export function formatCurrency(amount: number, monedaId?: string): string {
   const symbol = (monedaId && CURRENCY_SYMBOL[monedaId]) || "$";
   const formatted = formatNumber(amount);
-  return `${symbol} ${formatted}`;
+  return `${symbol}\u00a0${formatted}`;
 }
 
 /**
