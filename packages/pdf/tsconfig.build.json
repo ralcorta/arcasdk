@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "jsx": "react-jsx",
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "useUnknownInCatchVariables": false,
+    "skipLibCheck": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "incremental": true,
+    "composite": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/*", "tests"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

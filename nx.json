@@ -65,8 +65,10 @@
     }
   },
   "release": {
+    "projectsRelationship": "independent",
     "projects": [
-      "core"
+      "core",
+      "pdf"
     ],
     "version": {
       "conventionalCommits": true
@@ -75,7 +77,8 @@
       "workspaceChangelog": {
         "createRelease": "github"
       }
-    }
+    },
+    "releaseTagPattern": "{projectName}@{version}"
   },
   "analytics": false
 }
