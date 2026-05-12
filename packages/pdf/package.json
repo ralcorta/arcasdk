@@ -24,7 +24,7 @@
     "@jest/globals": "^30.0.0",
     "@types/handlebars": "^4.0.40",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.10.1",
+    "@types/node": "^25.7.0",
     "@types/qrcode": "^1.5.5",
     "jest": "^30.0.0",
     "ts-jest": "^29.0.0",
