@@ -80,6 +80,10 @@ export default withMermaid(
               link: "/factura_credito_electronica",
             },
             {
+              text: "📄 Generador de PDF",
+              link: "/pdf",
+            },
+            {
               text: "🔍 Consultas de padron",
               collapsed: true,
               items: [
