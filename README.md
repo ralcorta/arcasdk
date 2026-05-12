@@ -1,14 +1,3 @@
-> ### ⚠️ AVISO DE MIGRACIÓN
->
-> **Este proyecto ha evolucionado de `afip.ts` a Arca SDK.**
->
-> El repositorio ha sido renombrado y el paquete ahora se publica como [`@arcasdk/core`](https://www.npmjs.com/package/@arcasdk/core).
->
-> **¿Cómo seguir usando la versión anterior?**
-> El código original de `afip.ts` se encuentra preservado en la rama [`afip.ts`](../../tree/afip.ts) y el paquete sigue disponible en npm como [`afip.ts`](https://www.npmjs.com/package/afip.ts).
->
-> Todo el desarrollo futuro continuará en la rama `main` bajo el nuevo nombre.
-
 # 🚀 Arca SDK
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -46,34 +35,41 @@
 <a href='https://cafecito.app/rodrigoalcorta' rel='noopener' target='_blank'><img srcset='https://cdn.cafecito.app/imgs/buttons/button_5.png 1x, https://cdn.cafecito.app/imgs/buttons/button_5_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_5_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_5.png' alt='Invitame un café en cafecito.app' /></a>
 </p>
 
-## Guia
+---
 
-### Instalación
+> ### ⚠️ AVISO DE MIGRACIÓN
+>
+> **Este proyecto ha evolucionado de `afip.ts` a Arca SDK.**
+>
+> El repositorio ha sido renombrado y el paquete ahora se publica como [`@arcasdk/core`](https://www.npmjs.com/package/@arcasdk/core).
+>
+> **¿Cómo seguir usando la versión anterior?**
+> El código original de `afip.ts` se encuentra preservado en la rama [`afip.ts`](../../tree/afip.ts) y el paquete sigue disponible en npm como [`afip.ts`](https://www.npmjs.com/package/afip.ts).
+>
+> Todo el desarrollo futuro continuará en la rama `main` bajo el nuevo nombre.
 
-##### NPM
+## Paquetes
+
+| Paquete                          | Descripción                                                           |                                                                                                                     |
+| :------------------------------- | :-------------------------------------------------------------------- | :-----------------------------------------------------------------------------------------------------------------: |
+| [`@arcasdk/core`](packages/core) | SDK para Web Services de ARCA: facturación electrónica, padrones, FCE | [![npm](https://img.shields.io/npm/v/@arcasdk/core.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/core) |
+| [`@arcasdk/pdf`](packages/pdf)   | Generador de PDFs para comprobantes electrónicos (A, B, C, E, M)      |  [![npm](https://img.shields.io/npm/v/@arcasdk/pdf.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/pdf)  |
+
+---
+
+## Instalación
 
 ```sh
-npm i @arcasdk/core --save
+# Core (Web Services)
+npm i @arcasdk/core
+
+# PDF (generador de comprobantes)
+npm i @arcasdk/pdf
 ```
 
-##### Yarn
+## Uso rápido
 
-```sh
-yarn add @arcasdk/core
-```
-
-### Uso de la SDK
-
-##### Requisitos previos
-
-Se debe tener los certificados emitidos por ARCA/AFIP, ya sean para los servidores de homologacion (test) o produccion, para poder pasarselos como parametro al paquete y que este haga uso de ellos para comunicarse con los web services.
-
-- [Guia de como obtenerlos](https://ralcorta.github.io/arcasdk/tutorial/enable_testing_certificates.html)
-- [Documentacion oficial de certificados](https://www.afip.gob.ar/ws/documentacion/certificados.asp)
-
-##### Ejemplo basico
-
-Ejemplo de como generar factura electronica:
+### Facturación electrónica
 
 ```ts
 import { Arca } from "@arcasdk/core";
@@ -118,28 +114,31 @@ const payload = {
 const invoice = await arca.electronicBillingService.createInvoice(payload);
 ```
 
-Ejemplo de otros endpoints:
+### Generar PDF
 
 ```ts
-const points = await arca.electronicBillingService.getSalesPoints();
+import { InvoicePdfGenerator } from "@arcasdk/pdf";
+
+const generator = new InvoicePdfGenerator();
+const pdfBuffer = await generator.generate(invoiceData);
 ```
 
-## Caracteristicas
+> Ver la [documentación de `@arcasdk/pdf`](https://ralcorta.github.io/arcasdk/packages/pdf) para más detalles.
 
-Toda configuracion del package es pasada por el constructor de la clase `Arca` la cual recibe [Context](https://www.arcasdk.com/guide/config.html).
+## Características
 
-Caracteristicas:
+- 100% **TypeScript**
+- Soporte **Serverless** — manejo aislado de tokens de autenticación
+- Múltiples [engines SOAP](https://ralcorta.github.io/arcasdk/soap-engines) (Node.js, Universal, custom)
 
-- Escrito enteramente con `Typescript`
-- Soporte para `Serverless`. El package permite manejar los token de autenticacion de manera aislada.
+## Requisitos
 
-### Runtimes SOAP y engines
+Certificados emitidos por ARCA para homologación o producción:
 
-Toda la documentación de engines SOAP (Node.js, Universal e inyección de engine personalizado) está en:
+- [Guía de obtención](https://ralcorta.github.io/arcasdk/tutorial/enable_testing_certificates.html)
+- [Documentación oficial](https://www.afip.gob.ar/ws/documentacion/certificados.asp)
 
-- [Engines SOAP y runtimes](https://ralcorta.github.io/arcasdk/soap-engines)
-
-Para mas <strong>documentacion</strong>, ir al [sitio oficial](https://ralcorta.github.io/arcasdk).
+Para más documentación, ir al [sitio oficial](https://ralcorta.github.io/arcasdk).
 
 ## Desarrollo y Contribuciones
 
