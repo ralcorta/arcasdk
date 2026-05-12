@@ -101,7 +101,6 @@ const generator = new InvoicePdfGenerator({
   pageSize: "A4",
   margin: 10,
   includeQr: true,
-  copy: "ORIGINAL",
   footerText: "Documento no válido como factura",
 });
 ```
