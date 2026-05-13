@@ -24,7 +24,6 @@ export class Cryptography {
         },
         {
           type: forge.pki.oids.signingTime,
-          value: new Date() as any,
         },
       ],
       certificate: this.cert,

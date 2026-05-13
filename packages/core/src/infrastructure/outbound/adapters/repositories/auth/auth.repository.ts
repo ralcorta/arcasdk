@@ -106,7 +106,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     const client = await this.createAuthClient();
 
     const [{ loginCmsReturn }] = await this.soapClient.call<
-      [IloginCmsOutput, string, { [k: string]: any }, string]
+      [IloginCmsOutput, string, Record<string, unknown>, string]
     >(client, "loginCmsAsync", { in0: signedTRA });
 
     const loginPayload = await this.parseLoginTicketResponse(loginCmsReturn);

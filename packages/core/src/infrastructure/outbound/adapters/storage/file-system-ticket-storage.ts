@@ -4,6 +4,11 @@ import { promises as fs } from "fs";
 import { resolve } from "path";
 import { FileSystemTicketStorageConfig } from "@infrastructure/types/ticket-storage.types";
 
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message;
+  return String(error);
+}
+
 export class FileSystemTicketStorage implements ITicketStoragePort {
   private ticketPath: string;
   private cuit: number;
@@ -34,8 +39,10 @@ export class FileSystemTicketStorage implements ITicketStoragePort {
   async save(ticket: AccessTicket, serviceName: string): Promise<void> {
     try {
       await fs.mkdir(this.ticketPath, { recursive: true });
-    } catch (error: any) {
-      throw new Error(`Failed to create tickets directory: ${error.message}`);
+    } catch (error) {
+      throw new Error(
+        `Failed to create tickets directory: ${getErrorMessage(error)}`,
+      );
     }
 
     const filePath = this.getTicketFilePath(serviceName);
@@ -72,8 +79,10 @@ export class FileSystemTicketStorage implements ITicketStoragePort {
     try {
       const ticketData = JSON.parse(fileData);
       return AccessTicket.create(ticketData);
-    } catch (error: any) {
-      throw new Error(`Invalid access ticket format: ${error.message}`);
+    } catch (error) {
+      throw new Error(
+        `Invalid access ticket format: ${getErrorMessage(error)}`,
+      );
     }
   }
 
@@ -82,11 +91,8 @@ export class FileSystemTicketStorage implements ITicketStoragePort {
 
     try {
       await fs.unlink(filePath);
-    } catch (error: any) {
-      if (error.code !== "ENOENT") {
-        throw new Error(`Failed to delete ticket file: ${error.message}`);
-      }
-      // File doesn't exist, that's okay
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     }
   }
 }

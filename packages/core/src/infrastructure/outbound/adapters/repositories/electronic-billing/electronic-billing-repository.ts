@@ -117,7 +117,7 @@ export class ElectronicBillingRepository
    * Map SOAP Errors to the DTO format. Calls mapSoapErrors only once.
    */
   private mapErrors(
-    errors: any,
+    errors: { Err?: Array<{ Code: number; Msg: string }> } | undefined,
   ): { err: NonNullable<ReturnType<typeof mapSoapErrors>> } | undefined {
     const mapped = mapSoapErrors(errors);
     return mapped ? { err: mapped } : undefined;
@@ -259,7 +259,7 @@ export class ElectronicBillingRepository
         ...voucherInfo,
         errors: this.mapErrors(result.Errors),
       };
-    } catch (error: any) {
+    } catch (error) {
       if (isAfipNotFoundError(error)) {
         return null;
       }
@@ -465,7 +465,11 @@ export class ElectronicBillingRepository
     const result = output.FECAEARegInformativoResult;
     return {
       resultGet: result.FeDetResp?.FECAEADetResponse?.[0]
-        ? mapCaeaUsage(result.FeDetResp.FECAEADetResponse[0] as any)
+        ? mapCaeaUsage(
+            result.FeDetResp.FECAEADetResponse[0] as Parameters<
+              typeof mapCaeaUsage
+            >[0],
+          )
         : undefined,
       errors: this.mapErrors(result.Errors),
     };

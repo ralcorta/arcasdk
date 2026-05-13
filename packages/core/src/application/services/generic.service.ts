@@ -14,9 +14,9 @@ export class GenericService {
   async call(
     serviceName: ServiceNamesEnum,
     methodName: string,
-    params: any,
+    params: Record<string, unknown>,
     options?: { wsdlContent?: string },
-  ): Promise<any> {
+  ): Promise<unknown> {
     return this.repository.call(serviceName, methodName, params, options);
   }
 }

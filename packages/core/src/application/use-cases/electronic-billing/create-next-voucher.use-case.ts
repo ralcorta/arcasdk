@@ -5,11 +5,14 @@
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
 import { Voucher } from "@domain/entities/voucher.entity";
 import { ICreateVoucherResult } from "@application/types/result.types";
-import { INextVoucher } from "@domain/types/voucher.types";
+import {
+  INextVoucher,
+  IVoucher as IVoucherData,
+} from "@domain/types/voucher.types";
 
 export class CreateNextVoucherUseCase {
   constructor(
-    private readonly electronicBillingRepository: IElectronicBillingRepositoryPort
+    private readonly electronicBillingRepository: IElectronicBillingRepositoryPort,
   ) {}
 
   /**
@@ -20,19 +23,19 @@ export class CreateNextVoucherUseCase {
   async execute(nextVoucherData: INextVoucher): Promise<ICreateVoucherResult> {
     const lastVoucher = await this.electronicBillingRepository.getLastVoucher(
       nextVoucherData.PtoVta!,
-      nextVoucherData.CbteTipo
+      nextVoucherData.CbteTipo,
     );
 
     const lastVoucherNumber = lastVoucher.cbteNro || 0;
     const nextVoucherNumber = lastVoucherNumber + 1;
 
-    const voucherData: INextVoucher = {
+    const voucherData: IVoucherData = {
       ...nextVoucherData,
       CbteDesde: nextVoucherNumber,
       CbteHasta: nextVoucherNumber,
     };
 
-    const voucher = Voucher.create(voucherData as any);
+    const voucher = Voucher.create(voucherData);
 
     return this.electronicBillingRepository.createVoucher(voucher);
   }

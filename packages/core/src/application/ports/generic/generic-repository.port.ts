@@ -11,7 +11,7 @@ export interface IGenericRepositoryPort {
   call(
     serviceName: ServiceNamesEnum,
     methodName: string,
-    params: any,
+    params: Record<string, unknown>,
     options?: { wsdlContent?: string },
-  ): Promise<any>;
+  ): Promise<unknown>;
 }

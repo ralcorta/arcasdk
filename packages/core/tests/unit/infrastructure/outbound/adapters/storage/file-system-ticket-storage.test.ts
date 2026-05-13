@@ -241,13 +241,13 @@ describe("FileSystemTicketStorage", () => {
     it("should throw error if deletion fails for other reasons", async () => {
       const serviceName = ServiceNamesEnum.WSFE;
 
-      (fs.unlink as jest.Mock).mockRejectedValue({
+      const error = Object.assign(new Error("Permission denied"), {
         code: "EACCES",
-        message: "Permission denied",
       });
+      (fs.unlink as jest.Mock).mockRejectedValue(error);
 
       await expect(storage.delete(serviceName)).rejects.toThrow(
-        "Failed to delete ticket file: Permission denied"
+        "Permission denied"
       );
     });
   });
