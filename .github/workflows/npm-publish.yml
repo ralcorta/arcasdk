@@ -108,9 +108,9 @@ jobs:
           PACKAGE="${{ inputs.package }}"
           echo "📦 Calculating versions from conventional commits..."
           if [ "$PACKAGE" == "all" ]; then
-            npx nx release version --yes
+            npx nx release version
           else
-            npx nx release version --yes --projects="$PACKAGE"
+            npx nx release version --projects="$PACKAGE"
           fi
 
       - name: Build packages
@@ -124,9 +124,9 @@ jobs:
           PACKAGE="${{ inputs.package }}"
           echo "🚀 Publishing to NPM..."
           if [ "$PACKAGE" == "all" ]; then
-            npx nx release publish --yes
+            npx nx release publish
           else
-            npx nx release publish --yes --projects="$PACKAGE"
+            npx nx release publish --projects="$PACKAGE"
           fi
 
       - name: Create and push tags
