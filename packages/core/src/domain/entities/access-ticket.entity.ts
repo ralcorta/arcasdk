@@ -136,7 +136,7 @@ export class AccessTicket {
     try {
       const expiration = this.getExpiration();
       return expiration.getTime() < Date.now();
-    } catch (error) {
+    } catch {
       return true; // If we can't determine expiration, consider it expired
     }
   }

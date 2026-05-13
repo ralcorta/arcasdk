@@ -10,7 +10,7 @@ export class Cryptography {
     p7.content = forge.util.createBuffer(data, "utf8");
     try {
       p7.addCertificate(this.cert);
-    } catch (error) {
+    } catch {
       throw new Error("Invalid PEM formatted message. Check your cert.");
     }
     p7.addSigner({

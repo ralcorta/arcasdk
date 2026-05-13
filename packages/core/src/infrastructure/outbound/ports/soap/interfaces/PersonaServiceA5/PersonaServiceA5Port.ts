@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
 import { Client } from "soap";
 import { SoapAsyncFunc } from "@infrastructure/types";
 /* tslint:disable:max-line-length no-empty-interface */
@@ -75,10 +74,10 @@ export interface IPersonaServiceA5PortSoap extends Client {
       err: any | null,
       result: IgetPersonaOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   getPersonaAsync: SoapAsyncFunc<IgetPersonaInput, IgetPersonaOutput>;
   getPersonaList: (
@@ -87,10 +86,10 @@ export interface IPersonaServiceA5PortSoap extends Client {
       err: any | null,
       result: IgetPersonaListOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   getPersonaListAsync: SoapAsyncFunc<
     IgetPersonaListInput,
@@ -102,10 +101,10 @@ export interface IPersonaServiceA5PortSoap extends Client {
       err: any | null,
       result: IgetPersona_v2Output,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   getPersona_v2Async: SoapAsyncFunc<IgetPersona_v2Input, IgetPersona_v2Output>;
   dummy: (
@@ -114,10 +113,10 @@ export interface IPersonaServiceA5PortSoap extends Client {
       err: any | null,
       result: IdummyOutput,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   dummyAsync: SoapAsyncFunc<IdummyInput, IdummyOutput>;
   getPersonaList_v2: (
@@ -126,10 +125,10 @@ export interface IPersonaServiceA5PortSoap extends Client {
       err: any | null,
       result: IgetPersonaList_v2Output,
       raw: string,
-      soapHeader: { [k: string]: any }
+      soapHeader: { [k: string]: any },
     ) => any,
     options?: any,
-    extraHeaders?: any
+    extraHeaders?: any,
   ) => void;
   getPersonaList_v2Async: SoapAsyncFunc<
     IgetPersonaList_v2Input,

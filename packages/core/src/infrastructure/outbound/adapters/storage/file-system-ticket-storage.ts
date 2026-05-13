@@ -58,7 +58,7 @@ export class FileSystemTicketStorage implements ITicketStoragePort {
 
     try {
       await fs.access(filePath, fs.constants.R_OK);
-    } catch (error: any) {
+    } catch {
       throw new Error(`Access denied to ticket file: ${filePath}`);
     }
 
