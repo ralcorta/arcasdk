@@ -85,13 +85,11 @@ export abstract class BaseSoapRepository {
               const ticket = await this.authRepository.login(serviceName);
               const auth = this.authRepository.getAuthParams(ticket, this.cuit);
 
-              let authParams: Record<string, unknown> = injectAuthProperty
-                ? (auth.Auth as unknown as Record<string, unknown>)
-                : (auth as unknown as Record<string, unknown>);
-
-              if (options.authMapper) {
-                authParams = options.authMapper(auth);
-              }
+              const authParams = options.authMapper
+                ? options.authMapper(auth)
+                : injectAuthProperty
+                  ? auth.Auth
+                  : auth;
 
               const paramsWithAuth = { ...authParams, ...params };
               return original.call(target, paramsWithAuth);

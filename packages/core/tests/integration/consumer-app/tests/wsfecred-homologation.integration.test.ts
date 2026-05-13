@@ -1,7 +1,6 @@
 import { describe, expect, it, beforeAll } from "@jest/globals";
 import type { Arca } from "@arcasdk/core";
 import { createArcaForWsfecredHomologation } from "./utils/homologation-arca-register";
-import { expectNonEmptyString } from "./utils/wsfe-expect";
 
 const enableIntegration = process.env.ENABLE_INTEGRATION_TESTS === "true";
 const describeOrSkip = enableIntegration ? describe : describe.skip;
@@ -13,19 +12,6 @@ describeOrSkip(
 
     beforeAll(() => {
       arca = createArcaForWsfecredHomologation();
-    });
-
-    describe("dummy / estado de servidores", () => {
-      // WSFECred dummy tiene inconsistencia en AFIP: el WSDL define dummyRequest
-      // sin body (sin wsdl:part), pero el servidor exige auth. Imposible satisfacer ambas.
-      it.skip("dummy responde con texto no vacío en cada servidor (AFIP WSDL bug)", async () => {
-        const result = await arca.wsfecredService.dummy();
-        expect(result).toBeDefined();
-        expect(result.dummyReturn).toBeDefined();
-        expectNonEmptyString("appserver", result.dummyReturn.appserver);
-        expectNonEmptyString("authserver", result.dummyReturn.authserver);
-        expectNonEmptyString("dbserver", result.dummyReturn.dbserver);
-      });
     });
 
     describe("consultarTiposRetenciones", () => {

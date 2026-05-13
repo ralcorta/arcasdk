@@ -26,7 +26,7 @@ export class RegisterScopeThirteenRepository
     try {
       const [output] = await client.getIdPersonaListByDocumentoAsync({
         documento: documentNumber,
-      } as any);
+      });
 
       const idPersonaListReturn = output.idPersonaListReturn;
 
@@ -40,7 +40,7 @@ export class RegisterScopeThirteenRepository
         idPersona,
         errorConstancia: undefined,
       };
-    } catch (error: any) {
+    } catch (error) {
       if (isAfipNotFoundError(error)) {
         return {
           idPersona: [],

@@ -21,16 +21,16 @@ export interface TaxpayerDetailsDto {
     codPostal?: string;
     tipoDomicilio?: string;
     domicilio?: string;
-    dataFiscal?: any;
-    [key: string]: any;
+    dataFiscal?: Record<string, unknown>;
+    [key: string]: unknown;
   };
-  datosMonotributo?: any;
-  datosRegimenGeneral?: any;
+  datosMonotributo?: Record<string, unknown>;
+  datosRegimenGeneral?: Record<string, unknown>;
   errorConstancia?: {
     error?: string;
     codigo?: number;
   };
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -43,7 +43,7 @@ export interface TaxpayersDetailsDto {
     error?: string;
     codigo?: number;
   };
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -55,5 +55,5 @@ export interface TaxIDByDocumentResultDto {
     error?: string;
     codigo?: number;
   };
-  [key: string]: any;
+  [key: string]: unknown;
 }

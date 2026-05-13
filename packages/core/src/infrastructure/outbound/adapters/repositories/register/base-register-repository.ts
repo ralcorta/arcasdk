@@ -11,10 +11,10 @@ import {
 
 import { Client } from "soap";
 import { isAfipNotFoundError } from "@infrastructure/utils/afip-errors";
+import { WSAuthParam } from "@application/types";
+import { PersonaReturnRaw } from "@infrastructure/types/register.types";
 
-export abstract class BaseRegisterRepository<
-  TClient extends Client & { dummyAsync: (args: any) => Promise<any> },
->
+export abstract class BaseRegisterRepository<TClient extends Client>
   extends BaseSoapRepository
   implements IRegisterBaseRepositoryPort
 {
@@ -55,7 +55,7 @@ export abstract class BaseRegisterRepository<
       serviceName: this.serviceName,
       injectAuthProperty: true,
       soapVersion,
-      authMapper: (auth: any) => ({
+      authMapper: (auth: WSAuthParam) => ({
         token: auth.Auth.Token,
         sign: auth.Auth.Sign,
         cuitRepresentada: auth.Auth.Cuit,
@@ -111,7 +111,7 @@ export abstract class BaseRegisterRepository<
       }
 
       return this.mapPersonaReturnToDto(personaReturn);
-    } catch (error: any) {
+    } catch (error) {
       if (isAfipNotFoundError(error)) {
         return null;
       }
@@ -119,20 +119,22 @@ export abstract class BaseRegisterRepository<
     }
   }
 
-  protected mapPersonaReturnToDto(personaReturn: any): TaxpayerDetailsDto {
-    const persona = personaReturn.persona || personaReturn;
+  protected mapPersonaReturnToDto(
+    personaReturn: PersonaReturnRaw,
+  ): TaxpayerDetailsDto {
+    const persona = personaReturn.persona ?? personaReturn;
     const datosGenerales = persona.datosGenerales;
 
     return {
       idPersona: persona.idPersona ?? datosGenerales?.idPersona,
       tipoPersona: persona.tipoPersona ?? datosGenerales?.tipoPersona,
       estadoClave: persona.estadoClave ?? datosGenerales?.estadoClave,
-      datosGenerales: datosGenerales || persona,
+      datosGenerales: datosGenerales ?? persona,
       datosMonotributo: persona.datosMonotributo,
       datosRegimenGeneral: persona.datosRegimenGeneral,
       errorConstancia: persona.errorConstancia
         ? {
-            error: persona.errorConstancia.error || "",
+            error: persona.errorConstancia.error ?? "",
             codigo: persona.errorConstancia.codigo,
           }
         : undefined,

@@ -15,9 +15,9 @@ export class GenericRepository
   async call(
     serviceName: ServiceNamesEnum,
     methodName: string,
-    params: any,
+    params: Record<string, unknown>,
     options?: { wsdlContent?: string },
-  ): Promise<any> {
+  ): Promise<unknown> {
     const wsdlName = serviceName;
 
     const { client, soapVersion } = await this.createSoapClient(wsdlName, {
@@ -31,9 +31,7 @@ export class GenericRepository
     });
 
     const methodAsync = `${methodName}Async`;
-    const asyncMethod = (
-      authenticatedClient as Client & Record<string, unknown>
-    )[methodAsync];
+    const asyncMethod = authenticatedClient[methodAsync];
 
     if (typeof asyncMethod !== "function") {
       throw new Error(
@@ -41,9 +39,7 @@ export class GenericRepository
       );
     }
 
-    const [result] = await (asyncMethod as (args: any) => Promise<any[]>)(
-      params,
-    );
+    const [result] = await asyncMethod(params);
     return result;
   }
 }

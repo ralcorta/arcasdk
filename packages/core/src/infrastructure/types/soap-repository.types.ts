@@ -47,7 +47,7 @@ export interface AuthenticatedProxyOptions {
   /**
    * Optional function to map auth parameters before injection
    */
-  authMapper?: (auth: WSAuthParam) => any;
+  authMapper?: (auth: WSAuthParam) => Record<string, unknown>;
   /**
    * List of methods to exclude from authentication injection
    */

@@ -8,15 +8,15 @@ export type SoapAsyncResultTuple<O = unknown, H = unknown> = [
 ];
 
 export type SoapAsyncFunc<I, O> = (
-  input: I,
-  options?: any,
-  extraHeaders?: any,
-) => Promise<SoapAsyncResultTuple<O, { [k: string]: any }>>;
+  input: Partial<I>,
+  options?: Record<string, unknown>,
+  extraHeaders?: Record<string, unknown>,
+) => Promise<SoapAsyncResultTuple<O, Record<string, unknown>>>;
 
 export type SoapServices<T> = Record<
   "Service",
   Record<
     SoapServiceVersion,
-    Record<keyof T, Record<"input" | "output", Record<string, any>>>
+    Record<keyof T, Record<"input" | "output", Record<string, unknown>>>
   >
 >;
