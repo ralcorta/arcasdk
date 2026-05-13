@@ -103,18 +103,80 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
-      - name: Release & Publish
+      - name: Calculate versions
+        run: |
+          PACKAGE="${{ inputs.package }}"
+          echo "📦 Calculating versions from conventional commits..."
+          if [ "$PACKAGE" == "all" ]; then
+            npx nx release version
+          else
+            npx nx release version --projects="$PACKAGE"
+          fi
+
+      - name: Build packages
+        run: npm run build
+
+      - name: Publish to NPM
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
         run: |
           PACKAGE="${{ inputs.package }}"
-          echo "🚀 Versioning, changelog & publishing to NPM..."
+          echo "🚀 Publishing to NPM..."
           if [ "$PACKAGE" == "all" ]; then
-            npx nx release --yes
+            npx nx release publish
           else
-            npx nx release --projects="$PACKAGE" --yes
+            npx nx release publish --projects="$PACKAGE"
+          fi
+
+      - name: Create and push tags
+        run: |
+          PACKAGE="${{ inputs.package }}"
+          create_and_push_tag() {
+            local PROJECT=$1 PKG_DIR=$2
+            local VERSION TAG
+            VERSION=$(node -p "require('./${PKG_DIR}/package.json').version")
+            TAG="${PROJECT}@${VERSION}"
+            if git rev-parse "$TAG" >/dev/null 2>&1; then
+              echo "Tag $TAG already exists, skipping"
+            else
+              git tag "$TAG"
+              git push origin "$TAG"
+              echo "✅ Created and pushed tag $TAG"
+            fi
+          }
+          if [ "$PACKAGE" == "all" ] || [ "$PACKAGE" == "core" ]; then
+            create_and_push_tag "core" "packages/core"
+          fi
+          if [ "$PACKAGE" == "all" ] || [ "$PACKAGE" == "pdf" ]; then
+            create_and_push_tag "pdf" "packages/pdf"
+          fi
+
+      - name: Create GitHub Releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PACKAGE="${{ inputs.package }}"
+          create_release() {
+            local PROJECT=$1 PKG_DIR=$2
+            local VERSION TAG
+            VERSION=$(node -p "require('./${PKG_DIR}/package.json').version")
+            TAG="${PROJECT}@${VERSION}"
+            if gh release view "$TAG" >/dev/null 2>&1; then
+              echo "Release $TAG already exists, skipping"
+            else
+              gh release create "$TAG" \
+                --title "@arcasdk/${PROJECT} ${VERSION}" \
+                --generate-notes \
+                --latest
+              echo "✅ Created GitHub release $TAG"
+            fi
+          }
+          if [ "$PACKAGE" == "all" ] || [ "$PACKAGE" == "core" ]; then
+            create_release "core" "packages/core"
+          fi
+          if [ "$PACKAGE" == "all" ] || [ "$PACKAGE" == "pdf" ]; then
+            create_release "pdf" "packages/pdf"
           fi
 
       - name: Publish Summary
