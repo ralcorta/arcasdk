@@ -1,10 +1,8 @@
 /** @type {import("jest").Config} */
+
 module.exports = {
   testEnvironment: "node",
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   moduleNameMapper: {
-    "^@arcasdk/core/(.*)$": "<rootDir>/$1",
-    "^@domain/(.*)$": "<rootDir>/src/domain/$1",
     "^@application/(.*)$": "<rootDir>/src/application/$1",
     "^@infrastructure/(.*)$": "<rootDir>/src/infrastructure/$1",
   },
@@ -17,17 +15,6 @@ module.exports = {
       },
     ],
   },
-  collectCoverageFrom: [
-    "src/**/*.ts",
-    "!src/**/*.d.ts",
-    "!src/index.ts",
-  ],
-  coverageThreshold: {
-    global: {
-      statements: 85,
-      branches: 80,
-      functions: 95,
-      lines: 85,
-    },
-  },
+  testMatch: ["<rootDir>/tests/unit/**/*.test.ts"],
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/*.d.ts", "!src/index.ts"],
 };

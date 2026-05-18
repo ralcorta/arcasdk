@@ -5,12 +5,10 @@
     "types": ["jest", "node"],
     "baseUrl": "./",
     "paths": {
-      "@arcasdk/core/*": ["./*"],
-      "@domain/*": ["src/domain/*"],
       "@application/*": ["src/application/*"],
       "@infrastructure/*": ["src/infrastructure/*"]
     }
   },
-  "include": ["src/**/*", "tests/**/*", "jest.setup.integration.ts"],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "lib"]
 }

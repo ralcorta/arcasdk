@@ -8,7 +8,9 @@
       "@arcasdk/core": ["./packages/core/src"],
       "@arcasdk/core/*": ["./packages/core/src/*"],
       "@arcasdk/pdf": ["./packages/pdf/src"],
-      "@arcasdk/pdf/*": ["./packages/pdf/src/*"]
+      "@arcasdk/pdf/*": ["./packages/pdf/src/*"],
+      "@arcasdk/automatization": ["./packages/automatization/src"],
+      "@arcasdk/automatization/*": ["./packages/automatization/src/*"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -32,6 +34,9 @@
     },
     {
       "path": "./packages/pdf"
+    },
+    {
+      "path": "./packages/automatization"
     }
   ]
 }
