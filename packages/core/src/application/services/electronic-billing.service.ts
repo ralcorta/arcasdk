@@ -1,6 +1,6 @@
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
 import { IVoucher, INextVoucher } from "@domain/types/voucher.types";
-import { ICreateVoucherResult } from "@application/types/result.types";
+import { ICreateVoucherResult } from "@application/dto/electronic-billing";
 import {
   ServerStatusDto,
   SalesPointsResultDto,
@@ -21,7 +21,7 @@ import {
   ActivitiesResultDto,
   QuotationResultDto,
   MaxRecordsResultDto,
-} from "@application/dto/electronic-billing.dto";
+} from "@application/dto/electronic-billing";
 import { GetServerStatusUseCase } from "@application/use-cases/electronic-billing/get-server-status.use-case";
 import { GetSalesPointsUseCase } from "@application/use-cases/electronic-billing/get-sales-points.use-case";
 import { GetLastVoucherUseCase } from "@application/use-cases/electronic-billing/get-last-voucher.use-case";

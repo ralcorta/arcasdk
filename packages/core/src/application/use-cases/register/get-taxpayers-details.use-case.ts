@@ -1,5 +1,5 @@
 import { IRegisterBatchRepositoryPort } from "@application/ports/register/register-repository.ports";
-import { TaxpayersDetailsDto } from "@application/dto/register.dto";
+import { TaxpayersDetailsDto } from "@application/dto/register";
 
 export class GetTaxpayersDetailsUseCase {
   constructor(private readonly repository: IRegisterBatchRepositoryPort) {}

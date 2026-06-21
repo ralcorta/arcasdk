@@ -3,7 +3,7 @@
  * Retrieves available voucher types from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { VoucherTypesResultDto } from "@application/dto/electronic-billing.dto";
+import { VoucherTypesResultDto } from "@application/dto/electronic-billing";
 
 export class GetVoucherTypesUseCase {
   constructor(

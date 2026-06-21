@@ -3,7 +3,7 @@
  * Retrieves the quotation for a specific currency
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { QuotationResultDto } from "@application/dto/electronic-billing.dto";
+import { QuotationResultDto } from "@application/dto/electronic-billing";
 
 export class GetQuotationUseCase {
   constructor(

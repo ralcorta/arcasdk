@@ -1,5 +1,5 @@
 import { Voucher } from "@domain/entities/voucher.entity";
-import { ICreateVoucherResult } from "@application/types/result.types";
+import { ICreateVoucherResult } from "@application/dto/electronic-billing";
 import {
   ServerStatusDto,
   SalesPointsResultDto,
@@ -20,7 +20,7 @@ import {
   ActivitiesResultDto,
   QuotationResultDto,
   MaxRecordsResultDto,
-} from "@application/dto/electronic-billing.dto";
+} from "@application/dto/electronic-billing";
 
 export interface IElectronicBillingRepositoryPort {
   /**

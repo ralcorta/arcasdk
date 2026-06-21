@@ -3,12 +3,11 @@ import { IRegisterScopeThirteenRepositoryPort } from "@arcasdk/core/src/applicat
 import {
   scopeThirteenDummyAsyncReturnMocks,
   scopeThirteenGetPersonaAsyncReturnMocks,
-  getTaxIDByDocumentAsyncReturnMocks,
 } from "../../../mocks/data/soapClient.mock";
 import {
   TaxIDByDocumentResultDto,
   TaxpayerDetailsDto,
-} from "@arcasdk/core/src/application/dto/register.dto";
+} from "@application/dto/register";
 import {
   mapServerStatus,
   REGISTER_TEST_CUIT,
@@ -43,7 +42,7 @@ describe("Register Scope Thirteen Service", () => {
     mockRepository.getTaxpayerDetails.mockResolvedValue(taxpayerDetails);
 
     const taxIDByDocument: TaxIDByDocumentResultDto = {
-      taxID: getTaxIDByDocumentAsyncReturnMocks[0].return.taxID,
+      idPersona: [20111111111],
     };
     mockRepository.getTaxIDByDocument.mockResolvedValue(taxIDByDocument);
   });
@@ -75,9 +74,7 @@ describe("Register Scope Thirteen Service", () => {
     const result =
       await registerScopeThirteenService.getTaxIDByDocument(documentNumber);
     expect(result).not.toBeNull();
-    expect(result.taxID).toEqual(
-      getTaxIDByDocumentAsyncReturnMocks[0].return.taxID,
-    );
+    expect(result.idPersona).toEqual([20111111111]);
     expect(mockRepository.getTaxIDByDocument).toHaveBeenCalledWith(
       documentNumber,
     );

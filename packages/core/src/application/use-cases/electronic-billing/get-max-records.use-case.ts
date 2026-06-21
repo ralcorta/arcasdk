@@ -3,7 +3,7 @@
  * Retrieves the maximum number of records allowed per request
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { MaxRecordsResultDto } from "@application/dto/electronic-billing.dto";
+import { MaxRecordsResultDto } from "@application/dto/electronic-billing";
 
 export class GetMaxRecordsUseCase {
   constructor(

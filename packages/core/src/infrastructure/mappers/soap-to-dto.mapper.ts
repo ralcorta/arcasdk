@@ -1,6 +1,6 @@
+import { ServerStatus } from "@application/dto/common";
 import {
   SalesPoint,
-  ServerStatus,
   LastVoucher,
   VoucherInfo,
   AliquotType,
@@ -29,7 +29,7 @@ export function mapSoapErrors(errors?: {
 }
 
 /**
- * Map SOAP server status to Domain ServerStatus
+ * Map SOAP server status to ServerStatus DTO
  */
 export function mapServerStatus(soapResult: {
   AppServer: string;

@@ -20,13 +20,13 @@ describeOrSkip("Register services integration (consumidor npm)", () => {
   }
 
   function expectServerStatus(status: {
-    appserver: string;
-    dbserver: string;
-    authserver: string;
+    appServer: string;
+    dbServer: string;
+    authServer: string;
   }): void {
-    expectNonEmptyString("appserver", status.appserver);
-    expectNonEmptyString("dbserver", status.dbserver);
-    expectNonEmptyString("authserver", status.authserver);
+    expectNonEmptyString("appServer", status.appServer);
+    expectNonEmptyString("dbServer", status.dbServer);
+    expectNonEmptyString("authServer", status.authServer);
   }
 
   it("scope four responde server status y taxpayer details", async () => {

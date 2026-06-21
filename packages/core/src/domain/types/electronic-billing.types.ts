@@ -9,15 +9,6 @@ export interface SalesPoint {
 }
 
 /**
- * Server Status
- */
-export interface ServerStatus {
-  appServer: string;
-  dbServer: string;
-  authServer: string;
-}
-
-/**
  * Last Voucher Information
  */
 export interface LastVoucher {

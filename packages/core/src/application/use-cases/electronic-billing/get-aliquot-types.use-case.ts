@@ -3,7 +3,7 @@
  * Retrieves available aliquot (IVA) types from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { AliquotTypesResultDto } from "@application/dto/electronic-billing.dto";
+import { AliquotTypesResultDto } from "@application/dto/electronic-billing";
 
 export class GetAliquotTypesUseCase {
   constructor(

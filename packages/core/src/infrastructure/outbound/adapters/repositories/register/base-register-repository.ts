@@ -5,9 +5,9 @@ import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-pat
 import { EndpointsEnum } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
 import {
-  RegisterServerStatusDto,
+  ServerStatus,
   TaxpayerDetailsDto,
-} from "@application/dto/register.dto";
+} from "@application/dto/register";
 
 import { Client } from "soap";
 import { isAfipNotFoundError } from "@infrastructure/utils/afip-errors";
@@ -66,15 +66,15 @@ export abstract class BaseRegisterRepository<TClient extends Client>
     return this.client;
   }
 
-  async getServerStatus(): Promise<RegisterServerStatusDto> {
+  async getServerStatus(): Promise<ServerStatus> {
     const client = await this.getClient();
     const [output] = await client.dummyAsync({});
     const result = output.return;
 
     return {
-      appserver: result.appserver,
-      dbserver: result.dbserver,
-      authserver: result.authserver,
+      appServer: result.appserver,
+      dbServer: result.dbserver,
+      authServer: result.authserver,
     };
   }
 

@@ -3,7 +3,7 @@
  * Retrieves available currency types from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { CurrencyTypesResultDto } from "@application/dto/electronic-billing.dto";
+import { CurrencyTypesResultDto } from "@application/dto/electronic-billing";
 
 export class GetCurrencyTypesUseCase {
   constructor(

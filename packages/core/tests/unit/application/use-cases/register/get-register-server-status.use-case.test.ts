@@ -3,7 +3,7 @@ import { IRegisterBaseRepositoryPort } from "@application/ports/register/registe
 
 describe("GetRegisterServerStatusUseCase", () => {
   it("delegates getServerStatus to repository", async () => {
-    const status = { appserver: "OK", dbserver: "OK", authserver: "OK" };
+    const status = { appServer: "OK", dbServer: "OK", authServer: "OK" };
     const repository: jest.Mocked<IRegisterBaseRepositoryPort> = {
       getServerStatus: jest.fn().mockResolvedValue(status),
     } as any;

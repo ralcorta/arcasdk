@@ -3,7 +3,7 @@
  * Retrieves available sales points from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { SalesPointsResultDto } from "@application/dto/electronic-billing.dto";
+import { SalesPointsResultDto } from "@application/dto/electronic-billing";
 
 export class GetSalesPointsUseCase {
   constructor(

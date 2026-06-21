@@ -3,7 +3,7 @@
  * Retrieves available IVA receptor types from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { IvaReceptorTypesResultDto } from "@application/dto/electronic-billing.dto";
+import { IvaReceptorTypesResultDto } from "@application/dto/electronic-billing";
 
 export class GetIvaReceptorTypesUseCase {
   constructor(

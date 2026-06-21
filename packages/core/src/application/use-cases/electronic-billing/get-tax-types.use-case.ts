@@ -3,7 +3,7 @@
  * Retrieves available tax types from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { TaxTypesResultDto } from "@application/dto/electronic-billing.dto";
+import { TaxTypesResultDto } from "@application/dto/electronic-billing";
 
 export class GetTaxTypesUseCase {
   constructor(

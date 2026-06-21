@@ -3,7 +3,7 @@
  * Informs that a CAEA had no movements
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { CaeaNoMovementResultDto } from "@application/dto/electronic-billing.dto";
+import { CaeaNoMovementResultDto } from "@application/dto/electronic-billing";
 
 export class InformCaeaNoMovementUseCase {
   constructor(

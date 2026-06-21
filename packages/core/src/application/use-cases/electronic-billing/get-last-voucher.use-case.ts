@@ -3,8 +3,8 @@
  * Retrieves the last authorized voucher number for a sales point and voucher type
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { LastVoucherResultDto } from "@application/dto/electronic-billing.dto";
-import { GetLastVoucherInput } from "@application/types";
+import { LastVoucherResultDto } from "@application/dto/electronic-billing";
+import { GetLastVoucherInput } from "@application/dto/electronic-billing";
 
 export class GetLastVoucherUseCase {
   constructor(

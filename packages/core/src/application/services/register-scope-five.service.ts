@@ -1,9 +1,9 @@
 import { IRegisterScopeFiveRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
-  RegisterServerStatusDto,
+  ServerStatus,
   TaxpayerDetailsDto,
   TaxpayersDetailsDto,
-} from "@application/dto/register.dto";
+} from "@application/dto/register";
 import { GetRegisterServerStatusUseCase } from "@application/use-cases/register/get-register-server-status.use-case";
 import { GetTaxpayerDetailsUseCase } from "@application/use-cases/register/get-taxpayer-details.use-case";
 import { GetTaxpayersDetailsUseCase } from "@application/use-cases/register/get-taxpayers-details.use-case";
@@ -28,7 +28,7 @@ export class RegisterScopeFiveService {
   /**
    * Asks to web service for servers status
    **/
-  async getServerStatus(): Promise<RegisterServerStatusDto> {
+  async getServerStatus(): Promise<ServerStatus> {
     return this.getRegisterServerStatusUseCase.execute();
   }
 

@@ -1,6 +1,6 @@
 import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { BaseRegisterRepository } from "./base-register-repository";
-import { TaxIDByDocumentResultDto } from "@application/dto/register.dto";
+import { TaxIDByDocumentResultDto } from "@application/dto/register";
 import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
 import { WsdlPathEnum } from "@infrastructure/outbound/ports/soap/enums/wsdl-path.enum";
 import { EndpointsEnum } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";

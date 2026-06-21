@@ -7,7 +7,7 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
-} from "@application/dto/electronic-billing.dto";
+} from "@application/dto/electronic-billing";
 
 describe("GetParameterTypesUseCase", () => {
   let useCase: GetParameterTypesUseCase;

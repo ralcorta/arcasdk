@@ -10,7 +10,7 @@ import {
   CurrencyTypesResultDto,
   OptionalTypesResultDto,
   TaxTypesResultDto,
-} from "@application/dto/electronic-billing.dto";
+} from "@application/dto/electronic-billing";
 
 export class GetParameterTypesUseCase {
   constructor(

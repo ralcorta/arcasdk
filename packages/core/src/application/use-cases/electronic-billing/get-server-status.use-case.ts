@@ -3,7 +3,7 @@
  * Retrieves the status of AFIP/ARCA servers
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { ServerStatusDto } from "@application/dto/electronic-billing.dto";
+import { ServerStatusDto } from "@application/dto/electronic-billing";
 
 export class GetServerStatusUseCase {
   constructor(

@@ -5,7 +5,7 @@ import { IRegisterBatchRepositoryPort } from "@application/ports/register/regist
 import {
   TaxpayersDetailsDto,
   TaxpayerDetailsDto,
-} from "@application/dto/register.dto";
+} from "@application/dto/register";
 
 export abstract class BaseBatchRegisterRepository<TClient extends Client>
   extends BaseRegisterRepository<TClient>

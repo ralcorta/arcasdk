@@ -54,9 +54,9 @@ describe("RegisterScopeTenRepository", () => {
       const result = await repository.getServerStatus();
 
       expect(result).toEqual({
-        appserver: "OK",
-        dbserver: "OK",
-        authserver: "OK",
+        appServer: "OK",
+        dbServer: "OK",
+        authServer: "OK",
       });
     });
   });

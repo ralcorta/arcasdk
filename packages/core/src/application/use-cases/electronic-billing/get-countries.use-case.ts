@@ -3,7 +3,7 @@
  * Retrieves the list of available countries
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { CountriesResultDto } from "@application/dto/electronic-billing.dto";
+import { CountriesResultDto } from "@application/dto/electronic-billing";
 
 export class GetCountriesUseCase {
   constructor(

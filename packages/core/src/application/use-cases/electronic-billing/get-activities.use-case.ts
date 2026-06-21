@@ -3,7 +3,7 @@
  * Retrieves the list of available activities
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { ActivitiesResultDto } from "@application/dto/electronic-billing.dto";
+import { ActivitiesResultDto } from "@application/dto/electronic-billing";
 
 export class GetActivitiesUseCase {
   constructor(

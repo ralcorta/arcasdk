@@ -1,5 +1,6 @@
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
-import { WSAuthParam, GetAuthParamsInput } from "@application/types";
+import { GetAuthParamsInput } from "@application/dto/authentication";
+import { WSAuthParam } from "@application/types";
 
 export class GetAuthParamsUseCase {
   constructor(

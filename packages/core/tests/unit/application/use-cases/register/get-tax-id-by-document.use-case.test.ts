@@ -1,6 +1,6 @@
 import { GetTaxIDByDocumentUseCase } from "@application/use-cases/register/get-tax-id-by-document.use-case";
 import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
-import { TaxIDByDocumentResultDto } from "@application/dto/register.dto";
+import { TaxIDByDocumentResultDto } from "@application/dto/register";
 
 describe("GetTaxIDByDocumentUseCase", () => {
   it("delegates getTaxIDByDocument to repository", async () => {

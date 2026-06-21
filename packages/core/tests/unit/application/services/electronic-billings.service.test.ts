@@ -34,8 +34,8 @@ import {
   OptionalTypesResultDto,
   TaxTypesResultDto,
   IvaReceptorTypesResultDto,
-} from "@arcasdk/core/src/application/dto/electronic-billing.dto";
-import { ICreateVoucherResult } from "@arcasdk/core/src/application/types/result.types";
+} from "@application/dto/electronic-billing";
+import { ICreateVoucherResult } from "@application/dto/electronic-billing";
 
 describe("Electronic Billings Service", () => {
   let electronicBillingService: ElectronicBillingService;

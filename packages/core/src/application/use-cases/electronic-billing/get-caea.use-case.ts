@@ -3,7 +3,7 @@
  * Requests an Anticipated Electronic Authorization Code (CAEA)
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { CaeaResultDto } from "@application/dto/electronic-billing.dto";
+import { CaeaResultDto } from "@application/dto/electronic-billing";
 
 export class GetCaeaUseCase {
   constructor(

@@ -4,7 +4,7 @@ import {
   dummyAsyncReturnMocks,
   getPersona_v2AsyncReturnMocks,
 } from "../../../mocks/data/soapClient.mock";
-import { TaxpayerDetailsDto } from "@arcasdk/core/src/application/dto/register.dto";
+import { TaxpayerDetailsDto } from "@application/dto/register";
 import {
   mapServerStatus,
   REGISTER_TEST_CUIT,

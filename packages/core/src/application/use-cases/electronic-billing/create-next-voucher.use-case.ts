@@ -4,7 +4,7 @@
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
 import { Voucher } from "@domain/entities/voucher.entity";
-import { ICreateVoucherResult } from "@application/types/result.types";
+import { ICreateVoucherResult } from "@application/dto/electronic-billing";
 import {
   INextVoucher,
   IVoucher as IVoucherData,

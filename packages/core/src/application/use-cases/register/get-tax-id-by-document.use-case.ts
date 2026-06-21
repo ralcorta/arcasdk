@@ -1,5 +1,5 @@
 import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
-import { TaxIDByDocumentResultDto } from "@application/dto/register.dto";
+import { TaxIDByDocumentResultDto } from "@application/dto/register";
 
 export class GetTaxIDByDocumentUseCase {
   constructor(

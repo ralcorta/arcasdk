@@ -3,7 +3,7 @@
  * Retrieves available concept types from AFIP/ARCA
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { ConceptTypesResultDto } from "@application/dto/electronic-billing.dto";
+import { ConceptTypesResultDto } from "@application/dto/electronic-billing";
 
 export class GetConceptTypesUseCase {
   constructor(

@@ -2,7 +2,7 @@ import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-
 import { BaseSoapRepository } from "../../soap/base-soap-repository";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
 import { Voucher } from "@domain/entities/voucher.entity";
-import { ICreateVoucherResult } from "@application/types/result.types";
+import { ICreateVoucherResult } from "@application/dto/electronic-billing";
 import {
   ServerStatusDto,
   SalesPointsResultDto,
@@ -23,7 +23,7 @@ import {
   ActivitiesResultDto,
   QuotationResultDto,
   MaxRecordsResultDto,
-} from "@application/dto/electronic-billing.dto";
+} from "@application/dto/electronic-billing";
 import {
   IServiceSoap12Soap,
   ServiceSoap12Types,
