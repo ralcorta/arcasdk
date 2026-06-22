@@ -10,6 +10,7 @@ packages/core/.ticket-cache/
 .env.development
 .DS_Store
 .cursor/*
+.cursor
 .vscode
 !.vscode/settings.json
 !.vscode/extensions.json
