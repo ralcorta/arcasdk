@@ -35,7 +35,7 @@ import {
   ImodificarOpcionTransferenciaInput,
   ImodificarOpcionTransferenciaOutput,
   // IdummyOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+} from "@application/dto/fecred";
 
 export interface IFecredRepositoryPort {
   /**

@@ -83,7 +83,7 @@ En modo manual, el flujo correcto es:
 4. Guardar esas credenciales en tu storage
 
 ```ts
-import { AuthRepository, ServiceNamesEnum } from "@arcasdk/core";
+import { AuthRepository, ArcaServiceNames } from "@arcasdk/core";
 
 const authRepository = new AuthRepository({
   cuit: 20111111112,
@@ -93,7 +93,7 @@ const authRepository = new AuthRepository({
   handleTicket: true,
 });
 
-const ticket = await authRepository.requestLogin(ServiceNamesEnum.WSFE);
+const ticket = await authRepository.requestLogin(ArcaServiceNames.WSFE);
 const credentials = ticket.toLoginCredentials();
 ```
 
@@ -179,7 +179,7 @@ async function ensureValidCredentials(cuit: number) {
       handleTicket: true,
     });
 
-    const ticket = await authRepository.requestLogin(ServiceNamesEnum.WSFE);
+    const ticket = await authRepository.requestLogin(ArcaServiceNames.WSFE);
     credentials = ticket.toLoginCredentials();
     await saveCredentials(cuit, credentials);
   }

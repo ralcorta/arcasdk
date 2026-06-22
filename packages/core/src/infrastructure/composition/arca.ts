@@ -1,8 +1,8 @@
 import { resolve } from "path";
 import { Context } from "@application/types";
-import { FileSystemTicketStorage } from "@infrastructure/outbound/adapters/storage/file-system-ticket-storage";
-import { MemoryTicketStorage } from "@infrastructure/outbound/adapters/storage/memory-ticket-storage";
-import { AuthRepository } from "@infrastructure/outbound/adapters/repositories/auth/auth.repository";
+import { FileSystemTicketStorage } from "@infrastructure/storage/file-system-ticket-storage";
+import { MemoryTicketStorage } from "@infrastructure/storage/memory-ticket-storage";
+import { AuthRepository } from "@infrastructure/repositories/auth/auth.repository";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
 import { ElectronicBillingService } from "@application/services/electronic-billing.service";
 import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
@@ -10,20 +10,20 @@ import { RegisterScopeFiveService } from "@application/services/register-scope-f
 import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
 import { RegisterScopeThirteenService } from "@application/services/register-scope-thirteen.service";
 import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
-import { ElectronicBillingRepository } from "@infrastructure/outbound/adapters/repositories/electronic-billing/electronic-billing-repository";
-import { RegisterScopeFourRepository } from "@infrastructure/outbound/adapters/repositories/register/register-scope-four.repository";
-import { RegisterScopeFiveRepository } from "@infrastructure/outbound/adapters/repositories/register/register-scope-five.repository";
-import { RegisterScopeTenRepository } from "@infrastructure/outbound/adapters/repositories/register/register-scope-ten.repository";
-import { RegisterScopeThirteenRepository } from "@infrastructure/outbound/adapters/repositories/register/register-scope-thirteen.repository";
-import { RegisterInscriptionProofRepository } from "@infrastructure/outbound/adapters/repositories/register/register-inscription-proof.repository";
+import { ElectronicBillingRepository } from "@infrastructure/repositories/electronic-billing/electronic-billing-repository";
+import { RegisterScopeFourRepository } from "@infrastructure/repositories/register/register-scope-four.repository";
+import { RegisterScopeFiveRepository } from "@infrastructure/repositories/register/register-scope-five.repository";
+import { RegisterScopeTenRepository } from "@infrastructure/repositories/register/register-scope-ten.repository";
+import { RegisterScopeThirteenRepository } from "@infrastructure/repositories/register/register-scope-thirteen.repository";
+import { RegisterInscriptionProofRepository } from "@infrastructure/repositories/register/register-inscription-proof.repository";
 import { GenericService } from "@application/services/generic.service";
-import { GenericRepository } from "@infrastructure/outbound/adapters/repositories/generic/generic-repository";
+import { GenericRepository } from "@infrastructure/repositories/generic/generic-repository";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 import { isNode } from "std-env";
 import { WsfecredService } from "@application/services/wsfecred.service";
 import { WsfexService } from "@application/services/wsfex.service";
-import { FecredRepository } from "@infrastructure/outbound/adapters/repositories/fecred/fecred.repository";
-import { FexRepository } from "@infrastructure/outbound/adapters/repositories/fex/fex.repository";
+import { FecredRepository } from "@infrastructure/repositories/fecred/fecred.repository";
+import { FexRepository } from "@infrastructure/repositories/fex/fex.repository";
 
 export class Arca {
   private readonly _electronicBillingService: ElectronicBillingService;

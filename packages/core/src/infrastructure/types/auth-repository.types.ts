@@ -1,6 +1,6 @@
-import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
-import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
-import { ILoginCredentials } from "@domain/entities/access-ticket.entity";
+import { ITicketStoragePort } from "@application/ports/storage";
+import { ISoapClientPort } from "@infrastructure/soap/soap-client.port";
+import { ILoginCredentials } from "@domain/types/auth.types";
 
 export interface AuthRepositoryConfig {
   soapClient?: ISoapClientPort;

@@ -12,12 +12,12 @@ const path = require("path");
 
 const wsdlDir = path.join(
   __dirname,
-  "../src/infrastructure/outbound/adapters/soap/wsdl",
+  "../src/infrastructure/soap/wsdl",
 );
 
 const interfacesDir = path.join(
   __dirname,
-  "../src/infrastructure/outbound/ports/soap/interfaces",
+  "../src/infrastructure/soap/contracts",
 );
 
 // WSDL file → output folder/file mapping.

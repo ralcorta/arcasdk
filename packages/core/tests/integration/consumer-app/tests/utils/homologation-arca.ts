@@ -4,7 +4,7 @@ import {
   Arca,
   AuthRepository,
   FileSystemTicketStorage,
-  ServiceNamesEnum,
+  ArcaServiceNames,
 } from "@arcasdk/core";
 import { buildContext, getCertPath, getKeyPath } from "./test-credentials";
 
@@ -53,7 +53,7 @@ export async function createArcaForWsfeHomologation(): Promise<Arca> {
     }),
   });
 
-  const ticket = await authRepository.login(ServiceNamesEnum.WSFE);
+  const ticket = await authRepository.login(ArcaServiceNames.WSFE);
   if (!ticket) throw new Error("No se pudo obtener access ticket");
 
   return new Arca(

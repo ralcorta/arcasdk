@@ -1,5 +1,5 @@
 import { IFexRepositoryPort } from "@application/ports/fex/fex-repository.port";
-import { IFEXDummyOutput } from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+import { IFEXDummyOutput } from "@application/dto/fex";
 
 export class FexDummyUseCase {
   constructor(private readonly repository: IFexRepositoryPort) {}

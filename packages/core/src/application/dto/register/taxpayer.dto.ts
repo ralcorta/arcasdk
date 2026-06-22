@@ -1,3 +1,15 @@
+export interface RegisterMonotributoDto {
+  categoriaMonotributo?: string;
+  actividadMonotributista?: string;
+  [key: string]: unknown;
+}
+
+export interface RegisterRegimenGeneralDto {
+  actividad?: Array<{ idActividad?: number; descripcionActividad?: string }>;
+  impuesto?: Array<{ idImpuesto?: number; descripcionImpuesto?: string }>;
+  [key: string]: unknown;
+}
+
 export interface RegisterErrorConstanciaDto {
   error?: string;
   codigo?: number;
@@ -21,8 +33,8 @@ export interface TaxpayerDetailsDto {
   tipoPersona?: string;
   estadoClave?: string;
   datosGenerales?: TaxpayerGeneralDataDto;
-  datosMonotributo?: Record<string, unknown>;
-  datosRegimenGeneral?: Record<string, unknown>;
+  datosMonotributo?: RegisterMonotributoDto;
+  datosRegimenGeneral?: RegisterRegimenGeneralDto;
   errorConstancia?: RegisterErrorConstanciaDto;
 }
 

@@ -1,18 +1,11 @@
 import { IGenericRepositoryPort } from "@application/ports/generic/generic-repository.port";
-import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
+import { ArcaServiceName } from "@application/types/service-name.types";
 
 export class GenericService {
   constructor(private readonly repository: IGenericRepositoryPort) {}
 
-  /**
-   * Call a SOAP method on a service
-   * @param serviceName AFIP/ARCA SOAP service (WSDL key)
-   * @param methodName Method name to call (e.g., 'FECompUltimoAutorizado')
-   * @param params Parameters for the method
-   * @returns Promise with the result
-   */
   async call(
-    serviceName: ServiceNamesEnum,
+    serviceName: ArcaServiceName,
     methodName: string,
     params: Record<string, unknown>,
     options?: { wsdlContent?: string },

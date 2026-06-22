@@ -1,5 +1,5 @@
-import { RegisterScopeThirteenService } from "@arcasdk/core/src/application/services/register-scope-thirteen.service";
-import { IRegisterScopeThirteenRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
+import { RegisterScopeThirteenService } from "@application/services/register-scope-thirteen.service";
+import { IRegisterScopeThirteenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   scopeThirteenDummyAsyncReturnMocks,
   scopeThirteenGetPersonaAsyncReturnMocks,

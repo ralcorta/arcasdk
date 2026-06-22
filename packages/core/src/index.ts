@@ -1,10 +1,11 @@
 export * from "./application";
 export * from "./domain";
-export * from "./infrastructure";
 
 export { Arca } from "./infrastructure/composition/arca";
-export { FileSystemTicketStorage } from "./infrastructure/outbound/adapters/storage/file-system-ticket-storage";
-export { AuthRepository } from "./infrastructure/outbound/adapters/repositories/auth/auth.repository";
+export { SoapClient } from "./infrastructure/soap/soap-client";
+export { FileSystemTicketStorage } from "./infrastructure/storage/file-system-ticket-storage";
+export { MemoryTicketStorage } from "./infrastructure/storage/memory-ticket-storage";
+export { AuthRepository } from "./infrastructure/repositories/auth/auth.repository";
 export { SoapRuntime } from "./infrastructure/utils/soap-runtime";
 export { DateTimeRef } from "./infrastructure/utils/datetime-ref";
 export {
@@ -13,4 +14,8 @@ export {
   WSAA_TRA_VALIDITY_WINDOW_MS,
 } from "./infrastructure/constants/time.constants";
 export { Context } from "./application/types";
-export { ServiceNamesEnum } from "./infrastructure/constants/service-names.enum";
+export {
+  ArcaServiceNames,
+  type ArcaServiceName,
+} from "./application/types/service-name.types";
+export type { ILoginCredentials } from "./domain/types/auth.types";

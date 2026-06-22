@@ -3,7 +3,7 @@
  * Retrieves the status of AFIP/ARCA servers
  */
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
-import { ServerStatusDto } from "@application/dto/electronic-billing";
+import { ServerStatus } from "@application/dto/common";
 
 export class GetServerStatusUseCase {
   constructor(
@@ -14,7 +14,7 @@ export class GetServerStatusUseCase {
    * Execute the use case
    * @returns Server status information
    */
-  async execute(): Promise<ServerStatusDto> {
+  async execute(): Promise<ServerStatus> {
     return this.electronicBillingRepository.getServerStatus();
   }
 }

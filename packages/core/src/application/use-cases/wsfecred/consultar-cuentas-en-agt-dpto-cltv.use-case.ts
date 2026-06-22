@@ -1,5 +1,5 @@
 import { IFecredRepositoryPort } from "@application/ports/fecred/fecred-repository.port";
-import { IconsultarCuentasEnAgtDptoCltvOutput } from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+import { IconsultarCuentasEnAgtDptoCltvOutput } from "@application/dto/fecred";
 
 export class ConsultarCuentasEnAgtDptoCltvUseCase {
   constructor(private readonly repository: IFecredRepositoryPort) {}

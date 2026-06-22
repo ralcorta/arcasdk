@@ -5,7 +5,7 @@
   "description": "Smoke / integration tests against the published @arcasdk/core tarball (npm pack), not workspace source.",
   "scripts": {
     "test": "jest --config jest.config.cjs",
-    "test:integration": "ENABLE_INTEGRATION_TESTS=true jest --config jest.config.cjs"
+    "test:integration": "ENABLE_INTEGRATION_TESTS=true jest --config jest.config.cjs --runInBand"
   },
   "dependencies": {
     "@arcasdk/core": "file:vendor/core.tgz"

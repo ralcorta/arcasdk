@@ -1,9 +1,9 @@
 import type { IHttpClient, IOptions } from "soap";
-import type { SoapRuntime } from "@infrastructure/utils/soap-runtime";
+import type { SoapRuntimeValue } from "@infrastructure/utils/soap-runtime";
 
 export interface EngineConfig {
   useHttpsAgent?: boolean;
-  runtime: SoapRuntime;
+  runtime: SoapRuntimeValue;
   /**
    * Options for `soap`'s Node `HttpClient` constructor (`IOptions` in node-soap typings).
    */

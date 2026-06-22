@@ -1,8 +1,8 @@
 import { IElectronicBillingRepositoryPort } from "@application/ports/electronic-billing/electronic-billing-repository.port";
 import { IVoucher, INextVoucher } from "@domain/types/voucher.types";
-import { ICreateVoucherResult } from "@application/dto/electronic-billing";
+import { CreateVoucherResultDto } from "@application/dto/electronic-billing";
+import { ServerStatus } from "@application/dto/common";
 import {
-  ServerStatusDto,
   SalesPointsResultDto,
   LastVoucherResultDto,
   VoucherInfoResultDto,
@@ -150,7 +150,7 @@ export class ElectronicBillingService {
    * DbServer : Database status, AuthServer : Autentication
    * server status}
    **/
-  async getServerStatus(): Promise<ServerStatusDto> {
+  async getServerStatus(): Promise<ServerStatus> {
     return this.getServerStatusUseCase.execute();
   }
 
@@ -190,7 +190,7 @@ export class ElectronicBillingService {
    *
    * @param req data Voucher parameter
    **/
-  public async createVoucher(req: IVoucher): Promise<ICreateVoucherResult> {
+  public async createVoucher(req: IVoucher): Promise<CreateVoucherResultDto> {
     return this.createVoucherUseCase.execute(req);
   }
 
@@ -203,7 +203,7 @@ export class ElectronicBillingService {
    * @param req data Same to data in Arca.createVoucher except that
    * 	don't need CbteDesde and CbteHasta attributes
    **/
-  async createNextVoucher(req: INextVoucher): Promise<ICreateVoucherResult> {
+  async createNextVoucher(req: INextVoucher): Promise<CreateVoucherResultDto> {
     return this.createNextVoucherUseCase.execute(req);
   }
 
@@ -269,16 +269,11 @@ export class ElectronicBillingService {
    *
    * @return data with array of all currencies availables
    **/
-  async getCurrenciesTypes(): Promise<CurrencyTypesResultDto> {
+  async getCurrencyTypes(): Promise<CurrencyTypesResultDto> {
     return this.getCurrencyTypesUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for voucher optional data available
-   *
-   * @return data with array of all voucher optional data available
-   **/
-  async getOptionsTypes(): Promise<OptionalTypesResultDto> {
+  async getOptionalTypes(): Promise<OptionalTypesResultDto> {
     return this.getOptionalTypesUseCase.execute();
   }
 

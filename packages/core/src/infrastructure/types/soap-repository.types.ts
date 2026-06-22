@@ -2,9 +2,9 @@ import { Client } from "soap";
 import { WSAuthParam } from "@application/types/auth.types";
 
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
-import { ISoapClientPort } from "@infrastructure/outbound/ports/soap/soap-client.port";
-import { ServiceNamesEnum } from "@infrastructure/constants/service-names.enum";
-import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
+import { ISoapClientPort } from "@infrastructure/soap/soap-client.port";
+import { ArcaServiceName } from "@application/types/service-name.types";
+import { type SoapServiceVersion } from "@infrastructure/soap/config/soap-service-version.types";
 
 export interface SoapClientResult<T extends Client> {
   client: T;
@@ -33,7 +33,7 @@ export interface AuthenticatedProxyOptions {
   /**
    * Service name to use for authentication
    */
-  serviceName: ServiceNamesEnum;
+  serviceName: ArcaServiceName;
   /**
    * Whether to inject auth.Auth instead of auth directly
    * @default false

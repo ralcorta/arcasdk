@@ -35,7 +35,7 @@ import {
   IconsultarMontoObligadoRecepcionOutput,
   ImodificarOpcionTransferenciaInput,
   ImodificarOpcionTransferenciaOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+} from "@application/dto/fecred";
 import { AceptarFECredUseCase } from "@application/use-cases/wsfecred/aceptar-fecred.use-case";
 import { RechazarFECredUseCase } from "@application/use-cases/wsfecred/rechazar-fecred.use-case";
 import { ConsultarComprobantesUseCase } from "@application/use-cases/wsfecred/consultar-comprobantes.use-case";

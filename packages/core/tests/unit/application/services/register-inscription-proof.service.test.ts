@@ -1,5 +1,5 @@
-import { RegisterInscriptionProofService } from "@arcasdk/core/src/application/services/register-inscription-proof.service";
-import { IRegisterInscriptionProofRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
+import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
+import { IRegisterInscriptionProofRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   dummyAsyncReturnMocks,
   getPersona_v2AsyncReturnMocks,

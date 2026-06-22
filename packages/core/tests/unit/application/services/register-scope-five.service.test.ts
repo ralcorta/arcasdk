@@ -1,5 +1,5 @@
-import { RegisterScopeFiveService } from "@arcasdk/core/src/application/services/register-scope-five.service";
-import { IRegisterScopeFiveRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
+import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
+import { IRegisterScopeFiveRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   dummyAsyncReturnMocks,
   getPersonaList_v2AsyncReturnMocks,

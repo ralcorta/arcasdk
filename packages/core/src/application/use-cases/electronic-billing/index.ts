@@ -15,5 +15,3 @@ export * from "./get-aliquot-types.use-case";
 export * from "./get-currency-types.use-case";
 export * from "./get-optional-types.use-case";
 export * from "./get-tax-types.use-case";
-// Keep get-parameter-types for backward compatibility (deprecated)
-export * from "./get-parameter-types.use-case";

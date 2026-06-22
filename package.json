@@ -22,7 +22,7 @@
     "pack:core": "node ./packages/core/tests/integration/scripts/pack-package-for-consumer.js packages/core --out packages/core/tests/integration/consumer-app/vendor/core.tgz",
     "install:consumer": "npm install ./packages/core/tests/integration/consumer-app/vendor/core.tgz --prefix packages/core/tests/integration/consumer-app",
     "test:consumer": "npm run pack:core && npm run install:consumer && env ENABLE_INTEGRATION_TESTS=false npm test --prefix packages/core/tests/integration/consumer-app",
-    "test:consumer:integration": "npm run pack:core && npm run install:consumer && env ENABLE_INTEGRATION_TESTS=true npm run test:integration --prefix packages/core/tests/integration/consumer-app",
+    "test:consumer:integration": "npm run pack:core && npm run install:consumer && env NODE_USE_SYSTEM_CA=1 ENABLE_INTEGRATION_TESTS=true npm run test:integration --prefix packages/core/tests/integration/consumer-app",
     "lint:core": "nx lint core",
     "publish:core": "nx publish core",
     "version:core": "nx version core --versionType=${VERSION:-patch}",

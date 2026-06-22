@@ -1,4 +1,5 @@
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
+import { ArcaServiceName } from "@application/types/service-name.types";
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 
 export class RequestLoginUseCase {
@@ -11,7 +12,7 @@ export class RequestLoginUseCase {
    * @param serviceName Service name to authenticate for
    * @returns AccessTicket (newly requested)
    */
-  async execute(serviceName: string): Promise<AccessTicket> {
+  async execute(serviceName: ArcaServiceName): Promise<AccessTicket> {
     return this.authenticationRepository.requestLogin(serviceName);
   }
 }

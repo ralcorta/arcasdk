@@ -1,5 +1,5 @@
-import { ILoginCredentials } from "@domain/entities/access-ticket.entity";
-import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
+import { ILoginCredentials } from "@domain/types/auth.types";
+import { ITicketStoragePort } from "@application/ports/storage";
 
 export interface Context {
   /**

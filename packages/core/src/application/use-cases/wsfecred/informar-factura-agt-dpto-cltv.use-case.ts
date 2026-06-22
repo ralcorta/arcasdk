@@ -2,7 +2,7 @@ import { IFecredRepositoryPort } from "@application/ports/fecred/fecred-reposito
 import {
   IinformarFacturaAgtDptoCltvInput,
   IinformarFacturaAgtDptoCltvOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+} from "@application/dto/fecred";
 
 export class InformarFacturaAgtDptoCltvUseCase {
   constructor(private readonly repository: IFecredRepositoryPort) {}

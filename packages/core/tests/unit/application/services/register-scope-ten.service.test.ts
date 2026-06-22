@@ -1,5 +1,5 @@
-import { RegisterScopeTenService } from "@arcasdk/core/src/application/services/register-scope-ten.service";
-import { IRegisterScopeTenRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
+import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
+import { IRegisterScopeTenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   scopeTenDummyAsyncReturnMocks,
   scopeTenGetPersonaAsyncReturnMocks,

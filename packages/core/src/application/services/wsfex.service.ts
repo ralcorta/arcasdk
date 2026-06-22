@@ -37,7 +37,7 @@ import {
   IFEXGetPARAM_ActividadesInput,
   IFEXGetPARAM_ActividadesOutput,
   IFEXDummyOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 import { AuthorizeUseCase } from "@application/use-cases/wsfex/authorize.use-case";
 import { GetCmpUseCase } from "@application/use-cases/wsfex/get-cmp.use-case";
 import { GetLastCmpUseCase } from "@application/use-cases/wsfex/get-last-cmp.use-case";

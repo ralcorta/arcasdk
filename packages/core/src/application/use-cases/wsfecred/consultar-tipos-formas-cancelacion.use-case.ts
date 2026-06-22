@@ -1,5 +1,5 @@
 import { IFecredRepositoryPort } from "@application/ports/fecred/fecred-repository.port";
-import { IconsultarTiposFormasCancelacionOutput } from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+import { IconsultarTiposFormasCancelacionOutput } from "@application/dto/fecred";
 
 export class ConsultarTiposFormasCancelacionUseCase {
   constructor(private readonly repository: IFecredRepositoryPort) {}

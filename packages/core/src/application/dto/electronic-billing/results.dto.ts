@@ -1,4 +1,3 @@
-import { ServerStatus } from "@application/dto/common";
 import {
   SalesPoint,
   LastVoucher,
@@ -19,8 +18,6 @@ import {
   CotizacionType,
 } from "@domain/types/electronic-billing.types";
 import { AfipResultDto, ResultWithAfipErrors } from "./common.dto";
-
-export type ServerStatusDto = ServerStatus;
 
 export type SalesPointsResultDto = AfipResultDto<{
   ptoVenta?: SalesPoint[];

@@ -46,6 +46,3 @@ export interface CreateVoucherResultDto {
   cae: string;
   caeFchVto: string;
 }
-
-/** @deprecated Use {@link CreateVoucherResultDto} */
-export type ICreateVoucherResult = CreateVoucherResultDto;

@@ -36,7 +36,7 @@ import {
   IFEXGetPARAM_ActividadesInput,
   IFEXGetPARAM_ActividadesOutput,
   IFEXDummyOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 
 export interface IFexRepositoryPort {
   /**

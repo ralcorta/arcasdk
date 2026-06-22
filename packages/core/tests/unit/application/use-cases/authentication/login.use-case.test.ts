@@ -1,5 +1,6 @@
 import { LoginUseCase } from "@application/use-cases/authentication/login.use-case";
 import { IAuthenticationRepositoryPort } from "@application/ports/authentication/authentication-repository.port";
+import { ArcaServiceNames } from "@application/types/service-name.types";
 import { AccessTicket } from "@domain/entities/access-ticket.entity";
 
 describe("LoginUseCase", () => {
@@ -12,9 +13,9 @@ describe("LoginUseCase", () => {
     };
 
     const useCase = new LoginUseCase(repository);
-    const result = await useCase.execute("wsfe");
+    const result = await useCase.execute(ArcaServiceNames.WSFE);
 
-    expect(repository.login).toHaveBeenCalledWith("wsfe");
+    expect(repository.login).toHaveBeenCalledWith(ArcaServiceNames.WSFE);
     expect(result).toBe(ticket);
   });
 
@@ -27,6 +28,6 @@ describe("LoginUseCase", () => {
 
     const useCase = new LoginUseCase(repository);
 
-    await expect(useCase.execute("wsfe")).rejects.toThrow("boom");
+    await expect(useCase.execute(ArcaServiceNames.WSFE)).rejects.toThrow("boom");
   });
 });

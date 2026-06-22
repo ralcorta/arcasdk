@@ -1,4 +1,4 @@
-import { ILoginCredentials } from "@arcasdk/core/src/domain/entities/access-ticket.entity";
+import { ILoginCredentials } from "@domain/types/auth.types";
 import { MS_PER_DAY } from "../../utils/time.constants";
 
 const now = new Date();

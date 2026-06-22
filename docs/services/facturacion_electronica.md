@@ -239,7 +239,7 @@ const aliquotTypes = await arca.electronicBillingService.getAliquotTypes();
 ```
 
 ```ts [Monedas]
-const currencies = await arca.electronicBillingService.getCurrenciesTypes();
+const currencies = await arca.electronicBillingService.getCurrencyTypes();
 ```
 
 ```ts [Tributos]

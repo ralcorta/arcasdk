@@ -1,15 +1,8 @@
-import {
-  ILoginCmsReturnHeaders,
-  ILoginCmsReturnCredentials,
-} from "@infrastructure/outbound/ports/soap/interfaces/LoginCMSService/LoginCms";
-import { WSAuthParam } from "@application/types";
-
-export type { WSAuthParam };
-
-export interface ILoginCredentials {
-  header: ILoginCmsReturnHeaders;
-  credentials: ILoginCmsReturnCredentials;
-}
+import type {
+  ILoginCredentials,
+  LoginTicketCredentials,
+  LoginTicketHeaders,
+} from "@domain/types/auth.types";
 
 /**
  * AccessTicket Entity
@@ -17,25 +10,16 @@ export interface ILoginCredentials {
  */
 export class AccessTicket {
   private constructor(
-    private readonly header: ILoginCmsReturnHeaders,
-    private readonly credentials: ILoginCmsReturnCredentials,
+    private readonly header: LoginTicketHeaders,
+    private readonly credentials: LoginTicketCredentials,
   ) {
     this.validate();
   }
 
-  /**
-   * Factory method to create an AccessTicket
-   * @param data Login credentials data
-   * @returns AccessTicket instance
-   */
   static create(data: ILoginCredentials): AccessTicket {
     return new AccessTicket(data.header, data.credentials);
   }
 
-  /**
-   * Validates the ticket structure
-   * @throws Error if ticket is invalid
-   */
   private validate(): void {
     if (!this.header || !Array.isArray(this.header)) {
       throw new Error("Invalid ticket header structure");
@@ -55,23 +39,14 @@ export class AccessTicket {
     }
   }
 
-  /**
-   * Gets the sign from credentials
-   */
   getSign(): string {
     return this.credentials.sign;
   }
 
-  /**
-   * Gets the token from credentials
-   */
   getToken(): string {
     return this.credentials.token;
   }
 
-  /**
-   * Gets the expiration date
-   */
   getExpiration(): Date {
     const expirationTime = this.header[1].expirationtime;
     if (!expirationTime) {
@@ -84,24 +59,14 @@ export class AccessTicket {
     return d;
   }
 
-  /**
-   * Gets the headers
-   */
-  getHeaders(): ILoginCmsReturnHeaders {
+  getHeaders(): LoginTicketHeaders {
     return this.header;
   }
 
-  /**
-   * Gets the credentials
-   */
-  getCredentials(): ILoginCmsReturnCredentials {
+  getCredentials(): LoginTicketCredentials {
     return this.credentials;
   }
 
-  /**
-   * Gets the full login credentials (header + credentials)
-   * Useful for storing and reusing tickets
-   */
   toLoginCredentials(): ILoginCredentials {
     return {
       header: this.header,
@@ -109,50 +74,19 @@ export class AccessTicket {
     };
   }
 
-  /**
-   * Formats the ticket for SOAP authentication
-   * @param cuit CUIT to include in auth
-   * @returns WSAuthParam formatted for SOAP
-   */
-  getWSAuthFormat(cuit: number): WSAuthParam {
-    if (!cuit || cuit <= 0) {
-      throw new Error("Invalid CUIT provided");
-    }
-
-    return {
-      Auth: {
-        Token: this.getToken(),
-        Sign: this.getSign(),
-        Cuit: cuit,
-      },
-    };
-  }
-
-  /**
-   * Checks if the ticket is expired
-   * @returns true if expired, false otherwise
-   */
   isExpired(): boolean {
     try {
       const expiration = this.getExpiration();
       return expiration.getTime() < Date.now();
     } catch {
-      return true; // If we can't determine expiration, consider it expired
+      return true;
     }
   }
 
-  /**
-   * Checks if the ticket is valid (not expired)
-   * @returns true if valid, false otherwise
-   */
   isValid(): boolean {
     return !this.isExpired();
   }
 
-  /**
-   * Gets the time remaining until expiration in milliseconds
-   * @returns milliseconds until expiration, or 0 if expired
-   */
   getTimeUntilExpiration(): number {
     if (this.isExpired()) {
       return 0;

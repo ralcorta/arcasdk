@@ -1,5 +1,5 @@
-import { RegisterScopeFourService } from "@arcasdk/core/src/application/services/register-scope-four.service";
-import { IRegisterScopeFourRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
+import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
+import { IRegisterScopeFourRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   dummyAsyncReturnMocks,
   getPersona_v2AsyncReturnMocks,

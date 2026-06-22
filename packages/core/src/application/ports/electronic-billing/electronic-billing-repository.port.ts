@@ -1,7 +1,7 @@
 import { Voucher } from "@domain/entities/voucher.entity";
-import { ICreateVoucherResult } from "@application/dto/electronic-billing";
+import { CreateVoucherResultDto } from "@application/dto/electronic-billing";
+import { ServerStatus } from "@application/dto/common";
 import {
-  ServerStatusDto,
   SalesPointsResultDto,
   LastVoucherResultDto,
   VoucherInfoResultDto,
@@ -27,7 +27,7 @@ export interface IElectronicBillingRepositoryPort {
    * Get server status
    * @returns Server status information
    */
-  getServerStatus(): Promise<ServerStatusDto>;
+  getServerStatus(): Promise<ServerStatus>;
 
   /**
    * Get available sales points
@@ -51,7 +51,7 @@ export interface IElectronicBillingRepositoryPort {
    * @param voucher Voucher entity
    * @returns Created voucher result with CAE
    */
-  createVoucher(voucher: Voucher): Promise<ICreateVoucherResult>;
+  createVoucher(voucher: Voucher): Promise<CreateVoucherResultDto>;
 
   /**
    * Get voucher information

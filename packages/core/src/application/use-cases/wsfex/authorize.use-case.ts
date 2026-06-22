@@ -2,7 +2,7 @@ import { IFexRepositoryPort } from "@application/ports/fex/fex-repository.port";
 import {
   IFEXAuthorizeInput,
   IFEXAuthorizeOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 
 export class AuthorizeUseCase {
   constructor(private readonly repository: IFexRepositoryPort) {}

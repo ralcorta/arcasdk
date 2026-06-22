@@ -1,4 +1,4 @@
-import { type SoapRuntime } from "@infrastructure/utils/soap-runtime";
+import { type SoapRuntimeValue } from "@infrastructure/utils/soap-runtime";
 import { type IHttpClient } from "soap";
 import type { SoapAsyncResultTuple } from "./soap.types";
 
@@ -13,7 +13,7 @@ export interface ISoapOptions {
    * Optional runtime override to force a specific internal engine.
    * If omitted, runtime is auto-detected.
    */
-  runtime?: SoapRuntime;
+  runtime?: SoapRuntimeValue;
   /**
    * Optional custom SOAP transport engine.
    * When defined, internal engine selection is skipped.
