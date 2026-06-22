@@ -15,7 +15,7 @@ Para utilizar el servicio genérico, se accede a través de la propiedad `generi
 Si el servicio ya tiene su WSDL incluido en el SDK (ver `wsdl-strings.ts`), puedes llamarlo simplemente por su nombre.
 
 ```typescript
-import { Arca } from "arcasdk";
+import { Arca } from "@arcasdk/core";
 
 const arca = new Arca({
   cuit: 20111111112,
@@ -44,7 +44,7 @@ Si necesitas utilizar un servicio cuyo WSDL no está incluido en el SDK, puedes 
 Debes proporcionar el contenido XML del WSDL en la opción `wsdlContent`.
 
 ```typescript
-import { Arca } from "arcasdk";
+import { Arca } from "@arcasdk/core";
 import * as fs from "fs";
 
 const arca = new Arca({

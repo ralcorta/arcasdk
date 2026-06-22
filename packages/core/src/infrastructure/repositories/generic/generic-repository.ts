@@ -1,4 +1,3 @@
-import { Client } from "soap";
 import { IGenericRepositoryPort } from "@application/ports/generic/generic-repository.port";
 import { BaseSoapRepository } from "../../soap/base-soap-repository";
 import { ArcaServiceName } from "@application/types/service-name.types";

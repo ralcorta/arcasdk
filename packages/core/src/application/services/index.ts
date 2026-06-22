@@ -6,3 +6,4 @@ export * from "./register-scope-thirteen.service";
 export * from "./register-inscription-proof.service";
 export * from "./wsfecred.service";
 export * from "./wsfex.service";
+export * from "./generic.service";

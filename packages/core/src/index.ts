@@ -13,7 +13,6 @@ export {
   MS_PER_SECOND,
   WSAA_TRA_VALIDITY_WINDOW_MS,
 } from "./infrastructure/constants/time.constants";
-export { Context } from "./application/types";
 export {
   ArcaServiceNames,
   type ArcaServiceName,

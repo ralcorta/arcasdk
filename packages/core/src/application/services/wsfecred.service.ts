@@ -228,10 +228,4 @@ export class WsfecredService {
   ): Promise<ImodificarOpcionTransferenciaOutput> {
     return this.modificarOpcionTransferenciaUseCase.execute(input);
   }
-
-  // dummy() no expuesto: el WSDL de AFIP define dummyRequest sin body,
-  // pero el servidor exige auth → incompatibilidad que impide su uso.
-  // async dummy(): Promise<IdummyOutput> {
-  //   return this.dummyUseCase.execute();
-  // }
 }
