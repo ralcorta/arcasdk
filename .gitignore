@@ -29,6 +29,7 @@ docs/.vitepress/cache
 
 # WSDL codegen intermediate output
 .tmp-wsdl-types/
+/wsdl/
 packages/core/wsdl/
 
 # Coverage reports

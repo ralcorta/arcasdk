@@ -354,7 +354,10 @@ function generate() {
 
     console.log(`Processing ${config.wsdl}`);
 
-    const raw = execSync(`npx wsdl-to-ts "${wsdlPath}"`, { encoding: "utf-8" });
+    const raw = execSync(`npx wsdl-to-ts "${wsdlPath}"`, {
+      encoding: "utf-8",
+      cwd: coreRoot,
+    });
     const sections = parseSections(raw);
 
     for (const [sectionName, target] of Object.entries(config.sections)) {
@@ -405,6 +408,7 @@ function cleanup() {
   const tmpDirs = [
     path.join(coreRoot, ".tmp-wsdl-types"),
     path.join(coreRoot, "wsdl"),
+    path.join(coreRoot, "..", "wsdl"),
   ];
   for (const dir of tmpDirs) {
     if (fs.existsSync(dir)) {
