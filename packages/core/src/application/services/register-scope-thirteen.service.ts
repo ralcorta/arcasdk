@@ -27,25 +27,19 @@ export class RegisterScopeThirteenService {
     );
   }
 
-  /**
-   * Asks to web service for servers status
-   **/
+  
   async getServerStatus(): Promise<ServerStatus> {
     return this.getRegisterServerStatusUseCase.execute();
   }
 
-  /**
-   * Asks to web service for taxpayer details
-   **/
+  
   async getTaxpayerDetails(
     identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {
     return this.getTaxpayerDetailsUseCase.execute(identifier);
   }
 
-  /**
-   * Asks to web service for tax id by document number
-   **/
+  
   async getTaxIDByDocument(
     documentNumber: string,
   ): Promise<TaxIDByDocumentResultDto> {

@@ -4,10 +4,6 @@ import type {
   LoginTicketHeaders,
 } from "@domain/types/auth.types";
 
-/**
- * AccessTicket Entity
- * Represents an authentication ticket with business logic
- */
 export class AccessTicket {
   private constructor(
     private readonly header: LoginTicketHeaders,

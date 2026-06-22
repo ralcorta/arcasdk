@@ -27,25 +27,19 @@ export class RegisterInscriptionProofService {
     );
   }
 
-  /**
-   * Asks to web service for servers status
-   **/
+  
   async getServerStatus(): Promise<ServerStatus> {
     return this.getRegisterServerStatusUseCase.execute();
   }
 
-  /**
-   * Asks to web service for taxpayer details
-   **/
+  
   async getTaxpayerDetails(
     identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {
     return this.getTaxpayerDetailsUseCase.execute(identifier);
   }
 
-  /**
-   * Asks to web service for taxpayers details
-   **/
+  
   async getTaxpayersDetails(
     identifiers: number[],
   ): Promise<TaxpayersDetailsDto> {

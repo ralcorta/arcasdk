@@ -28,12 +28,7 @@ export abstract class BaseSoapRepository {
     this.useSoap12 = config.useSoap12 ?? true; // Default to SOAP 1.2
   }
 
-  /**
-   * Helper to create a SOAP client with the correct version-specific headers
-   * @param wsdl WSDL path or name
-   * @param options Additional SOAP client options
-   * @returns Object containing the created client and the soap version used
-   */
+  
   protected async createSoapClient<T extends Client>(
     wsdl: string,
     options: ISoapOptions = {},
@@ -51,13 +46,7 @@ export abstract class BaseSoapRepository {
     return { client, soapVersion };
   }
 
-  /**
-   * Create a proxy that automatically injects Auth into SOAP method calls
-   * Only intercepts methods that actually require Auth (checked via client.describe())
-   * @param client SOAP client to proxy
-   * @param options Configuration options for the proxy
-   * @returns Proxied client with automatic authentication injection
-   */
+  
   protected createAuthenticatedProxy<T extends Client>(
     client: T,
     options: AuthenticatedProxyOptions,

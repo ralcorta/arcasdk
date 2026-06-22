@@ -166,11 +166,9 @@ describe("ElectronicBillingRepository", () => {
     it("should return CAEA no movement result", async () => {
       const mockResponse = {
         FECAEASinMovimientoInformarResult: {
-          ResultGet: {
-            CAEA: "12345678901234",
-            FchProceso: "20231001100000",
-            PtoVta: 1,
-          },
+          CAEA: "12345678901234",
+          FchProceso: "20231001100000",
+          PtoVta: 1,
           Errors: undefined,
         },
       };
@@ -201,13 +199,15 @@ describe("ElectronicBillingRepository", () => {
     it("should return CAEA no movement result", async () => {
       const mockResponse = {
         FECAEASinMovimientoConsultarResult: {
-          ResultGet: [
-            {
-              CAEA: "12345678901234",
-              FchProceso: "20231001100000",
-              PtoVta: 1,
-            },
-          ],
+          ResultGet: {
+            FECAEASinMov: [
+              {
+                CAEA: "12345678901234",
+                FchProceso: "20231001100000",
+                PtoVta: 1,
+              },
+            ],
+          },
           Errors: undefined,
         },
       };
@@ -1037,9 +1037,7 @@ describe("ElectronicBillingRepository", () => {
       ]);
       expect(
         mockSoapClient.FEParamGetCondicionIvaReceptorAsync,
-      ).toHaveBeenCalledWith({
-        ClaseCmp: undefined,
-      });
+      ).toHaveBeenCalledWith({});
     });
 
     it("should pass claseCmp filter when provided", async () => {

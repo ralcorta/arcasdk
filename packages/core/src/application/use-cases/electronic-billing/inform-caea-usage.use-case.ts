@@ -8,12 +8,7 @@ export class InformCaeaUsageUseCase {
     private readonly electronicBillingRepository: IElectronicBillingRepositoryPort
   ) {}
 
-  /**
-   * Inform CAEA Usage
-   * @param voucherData Voucher data
-   * @param caea CAEA number
-   * @returns CAEA Usage information
-   */
+  
   async execute(
     voucherData: IVoucher,
     caea: string

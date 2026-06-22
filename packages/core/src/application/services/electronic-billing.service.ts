@@ -143,35 +143,17 @@ export class ElectronicBillingService {
     );
   }
 
-  /**
-   * Asks to web service for servers status
-   *
-   * @return object { AppServer : Web Service status,
-   * DbServer : Database status, AuthServer : Autentication
-   * server status}
-   **/
+  
   async getServerStatus(): Promise<ServerStatus> {
     return this.getServerStatusUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for sales points availables {@see WS
-   * Specification item 4.11}
-   *
-   * @return array All sales points availables
-   **/
+  
   public async getSalesPoints(): Promise<SalesPointsResultDto> {
     return this.getSalesPointsUseCase.execute();
   }
 
-  /**
-   * Asks to Arca servers for number of the last voucher created for
-   * certain sales point and voucher type
-   *
-   * @param salesPoint Sales point to ask for last voucher
-   * @param type Voucher type to ask for last voucher
-   * @returns
-   */
+  
   async getLastVoucher(
     salesPoint: number,
     type: number
@@ -182,42 +164,17 @@ export class ElectronicBillingService {
     });
   }
 
-  /**
-   * Create a voucher from ARCA
-   *
-   * Send to ARCA servers request for create a voucher and assign
-   * CAE to them
-   *
-   * @param req data Voucher parameter
-   **/
+  
   public async createVoucher(req: IVoucher): Promise<CreateVoucherResultDto> {
     return this.createVoucherUseCase.execute(req);
   }
 
-  /**
-   * Create next voucher from ARCA
-   *
-   * This method combines getLastVoucher and createVoucher
-   * for create the next voucher
-   *
-   * @param req data Same to data in Arca.createVoucher except that
-   * 	don't need CbteDesde and CbteHasta attributes
-   **/
+  
   async createNextVoucher(req: INextVoucher): Promise<CreateVoucherResultDto> {
     return this.createNextVoucherUseCase.execute(req);
   }
 
-  /**
-   * Get voucher information
-   *
-   * Asks to ARCA servers for complete information of voucher
-   *
-   * @param number 		Number of voucher to get information
-   * @param salesPoint 	Sales point of voucher to get information
-   * @param type 			Type of voucher to get information
-   *
-   * @return data with array | null returns array with complete voucher information
-   **/
+  
   async getVoucherInfo(
     number: number,
     salesPoint: number,
@@ -230,45 +187,27 @@ export class ElectronicBillingService {
     });
   }
 
-  /**
-   * Asks to ARCA Servers for voucher types availables
-   **/
+  
   async getVoucherTypes(): Promise<VoucherTypesResultDto> {
     return this.getVoucherTypesUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for voucher concepts availables
-   *
-   * @return data with array of all voucher concepts availables
-   **/
+  
   async getConceptTypes(): Promise<ConceptTypesResultDto> {
     return this.getConceptTypesUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for document types availables
-   *
-   * @return data with array of all document types availables
-   **/
+  
   async getDocumentTypes(): Promise<DocumentTypesResultDto> {
     return this.getDocumentTypesUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for aliquot availables
-   *
-   * @return data with array of all aliquot availables
-   **/
+  
   async getAliquotTypes(): Promise<AliquotTypesResultDto> {
     return this.getAliquotTypesUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for currencies availables
-   *
-   * @return data with array of all currencies availables
-   **/
+  
   async getCurrencyTypes(): Promise<CurrencyTypesResultDto> {
     return this.getCurrencyTypesUseCase.execute();
   }
@@ -277,53 +216,29 @@ export class ElectronicBillingService {
     return this.getOptionalTypesUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for tax availables
-   *
-   * @return data with array of all tax availables
-   **/
+  
   async getTaxTypes(): Promise<TaxTypesResultDto> {
     return this.getTaxTypesUseCase.execute();
   }
 
-  /**
-   * Asks to ARCA Servers for IVA receptor types availables
-   *
-   * @param claseCmp Voucher class (optional)
-   * @return data with array of all IVA receptor types availables
-   **/
+  
   async getIvaReceptorTypes(
     claseCmp?: string
   ): Promise<IvaReceptorTypesResultDto> {
     return this.getIvaReceptorTypesUseCase.execute(claseCmp);
   }
 
-  /**
-   * Request CAEA (Anticipated Electronic Authorization Code)
-   * @param period Period (YYYYMM)
-   * @param order Fortnight (1 or 2)
-   * @returns CAEA information
-   */
+  
   async getCaea(period: number, order: number): Promise<CaeaResultDto> {
     return this.getCaeaUseCase.execute(period, order);
   }
 
-  /**
-   * Consult CAEA
-   * @param period Period (YYYYMM)
-   * @param order Fortnight (1 or 2)
-   * @returns CAEA information
-   */
+  
   async consultCaea(period: number, order: number): Promise<CaeaResultDto> {
     return this.consultCaeaUseCase.execute(period, order);
   }
 
-  /**
-   * Inform CAEA No Movement
-   * @param caea CAEA number
-   * @param salesPoint Sales point number
-   * @returns CAEA No Movement information
-   */
+  
   async informCaeaNoMovement(
     caea: string,
     salesPoint: number
@@ -331,12 +246,7 @@ export class ElectronicBillingService {
     return this.informCaeaNoMovementUseCase.execute(caea, salesPoint);
   }
 
-  /**
-   * Consult CAEA No Movement
-   * @param caea CAEA number
-   * @param salesPoint Sales point number
-   * @returns CAEA No Movement information
-   */
+  
   async consultCaeaNoMovement(
     caea: string,
     salesPoint: number
@@ -344,12 +254,7 @@ export class ElectronicBillingService {
     return this.consultCaeaNoMovementUseCase.execute(caea, salesPoint);
   }
 
-  /**
-   * Inform CAEA Usage (Regimen Informativo)
-   * @param caea CAEA number
-   * @param salesPoint Sales point number
-   * @returns CAEA Usage information
-   */
+  
   async informCaeaUsage(
     voucher: IVoucher,
     caea: string
@@ -357,49 +262,32 @@ export class ElectronicBillingService {
     return this.informCaeaUsageUseCase.execute(voucher, caea);
   }
 
-  /**
-   * Get Quotation
-   * @param currencyId Currency ID
-   * @returns Quotation information
-   */
+  
   async getQuotation(currencyId: string): Promise<QuotationResultDto> {
     return this.getQuotationUseCase.execute(currencyId);
   }
 
-  /**
-   * Get Countries
-   * @returns Countries information
-   */
+  
   async getCountries(): Promise<CountriesResultDto> {
     return this.getCountriesUseCase.execute();
   }
 
-  /**
-   * Get Activities
-   * @returns Activities information
-   */
+  
   async getActivities(): Promise<ActivitiesResultDto> {
     return this.getActivitiesUseCase.execute();
   }
 
-  /**
-   * Get Max Records per Request
-   * @returns Max records number
-   */
+  
   async getMaxRecordsPerRequest(): Promise<MaxRecordsResultDto> {
     return this.getMaxRecordsUseCase.execute();
   }
 
-  /**
-   * Alias for createVoucher method.
-   */
+  
   async createInvoice(req: IVoucher) {
     return this.createVoucher(req);
   }
 
-  /**
-   * Alias for createVoucher method.
-   */
+  
   async createNextInvoice(req: INextVoucher) {
     return this.createNextVoucher(req);
   }

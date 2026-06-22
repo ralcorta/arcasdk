@@ -4,11 +4,7 @@ import { TaxpayersDetailsDto } from "@application/dto/register";
 export class GetTaxpayersDetailsUseCase {
   constructor(private readonly repository: IRegisterBatchRepositoryPort) {}
 
-  /**
-   * Execute the use case
-   * @param identifiers Array of taxpayer identifiers (CUITs)
-   * @returns Taxpayers details
-   */
+  
   async execute(identifiers: number[]): Promise<TaxpayersDetailsDto> {
     return this.repository.getTaxpayersDetails(identifiers);
   }

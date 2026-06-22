@@ -11,8 +11,8 @@ import { ILoginCredentials } from "@domain/types/auth.types";
 import {
   ILoginCmsSoap,
   IloginCmsOutput,
-  LoginTicketResponse,
 } from "@infrastructure/soap/contracts/LoginCMSService/LoginCms";
+import { LoginTicketResponse } from "@application/dto/authentication/login-ticket-response.types";
 import { WsdlPaths } from "@infrastructure/soap/config/wsdl-path.types";
 import { Endpoints } from "@infrastructure/soap/config/endpoints.types";
 import { AuthRepositoryConfig } from "@infrastructure/types/auth-repository.types";
@@ -43,11 +43,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     this.manualCredentials = config.credentials;
   }
 
-  /**
-   * Get a valid ticket from storage if available
-   * @param serviceName Service name to get ticket for
-   * @returns AccessTicket if found and valid, null otherwise
-   */
+  
   private async getValidTicketFromStorage(
     serviceName: ArcaServiceName,
   ): Promise<AccessTicket | null> {
@@ -59,11 +55,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     return null;
   }
 
-  /**
-   * Login and get access ticket for a service
-   * @param serviceName Service name to authenticate for
-   * @returns AccessTicket
-   */
+  
   async login(serviceName: ArcaServiceName): Promise<AccessTicket> {
     // If handleTicket is true and we have manual credentials, use them directly
     if (this.handleTicket && this.manualCredentials) {
@@ -76,9 +68,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     return this.requestLogin(serviceName);
   }
 
-  /**
-   * Create and configure WSAA SOAP client
-   */
+  
   private async createAuthClient(): Promise<ILoginCmsSoap> {
     const client = await this.soapClient.createClient<ILoginCmsSoap>(
       WsdlPaths.WSAA,
@@ -91,11 +81,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     return client;
   }
 
-  /**
-   * Request a new login ticket for a service
-   * @param serviceName Service name to authenticate for
-   * @returns AccessTicket
-   */
+  
   async requestLogin(serviceName: ArcaServiceName): Promise<AccessTicket> {
     const existingTicket = await this.getValidTicketFromStorage(serviceName);
     if (existingTicket) return existingTicket;
@@ -120,21 +106,12 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     return ticket;
   }
 
-  /**
-   * Get authentication parameters formatted for SOAP requests
-   * @param ticket Access ticket
-   * @param cuit CUIT number
-   * @returns WSAuthParam formatted for SOAP
-   */
+  
   getAuthParams(ticket: AccessTicket, cuit: number): WSAuthParam {
     return accessTicketToWSAuthParam(ticket, cuit);
   }
 
-  /**
-   * Create TRA (Token Request Authorization) JSON
-   * @param serviceName Service name to create TRA for
-   * @returns TRA JSON
-   */
+  
   private getTRA(serviceName: ArcaServiceName) {
     const traTimes = DateTimeRef.now();
     return {
@@ -160,11 +137,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     return mapLoginTicketResponse(parsed);
   }
 
-  /**
-   * Sign TRA (Token Request Authorization) XML
-   * @param traXml TRA XML to sign
-   * @returns Signed TRA XML
-   */
+  
   private signTRA(traXml: string): string {
     const crypto = new Cryptography(this.cert, this.key);
     return crypto.sign(traXml);

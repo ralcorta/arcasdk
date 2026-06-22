@@ -26,12 +26,16 @@ import {
 } from "@application/dto/electronic-billing";
 import {
   IServiceSoap12Soap,
-  ServiceSoap12Types,
 } from "@infrastructure/soap/contracts/Service/ServiceSoap12";
 import {
   IServiceSoapSoap,
-  ServiceSoapTypes,
 } from "@infrastructure/soap/contracts/Service/ServiceSoap";
+import { ServiceSoap12Types } from "@application/dto/electronic-billing/wsfe-service-soap12.types";
+import {
+  ServiceSoapTypes,
+  IFEParamGetCotizacionInput,
+  IFEParamGetCondicionIvaReceptorInput,
+} from "@application/dto/electronic-billing/wsfe-service-soap.types";
 import { ArcaServiceNames } from "@application/types/service-name.types";
 import { WsdlPaths } from "@infrastructure/soap/config/wsdl-path.types";
 import { Endpoints } from "@infrastructure/soap/config/endpoints.types";
@@ -80,12 +84,7 @@ export class ElectronicBillingRepository
     this.serviceClient = undefined;
   }
 
-  // ── Private helpers ────────────────────────────────────────────────────────
-
-  /**
-   * Get or create SOAP client with authentication proxy.
-   * Creates SOAP 1.1 or 1.2 client based on useSoap12 configuration.
-   */
+  
   private async getClient(): Promise<IServiceSoapSoap | IServiceSoap12Soap> {
     if (this.serviceClient) {
       return this.serviceClient;
@@ -113,9 +112,7 @@ export class ElectronicBillingRepository
     return this.serviceClient;
   }
 
-  /**
-   * Map SOAP Errors to the DTO format. Calls mapSoapErrors only once.
-   */
+  
   private mapErrors(
     errors: { Err?: Array<{ Code: number; Msg: string }> } | undefined,
   ): { err: NonNullable<ReturnType<typeof mapSoapErrors>> } | undefined {
@@ -123,9 +120,7 @@ export class ElectronicBillingRepository
     return mapped ? { err: mapped } : undefined;
   }
 
-  /**
-   * Build the common det request object shared by createVoucher and informCaeaUsage.
-   */
+  
   private buildVoucherDetRequest(voucherData: ReturnType<Voucher["toDTO"]>) {
     return {
       Concepto: voucherData.Concepto,
@@ -162,8 +157,6 @@ export class ElectronicBillingRepository
         : undefined,
     };
   }
-
-  // ── Public repository methods ──────────────────────────────────────────────
 
   async getServerStatus(): Promise<ServerStatus> {
     const client = await this.getClient();
@@ -355,9 +348,9 @@ export class ElectronicBillingRepository
     claseCmp?: string,
   ): Promise<IvaReceptorTypesResultDto> {
     const client = await this.getClient();
-    const [output] = await client.FEParamGetCondicionIvaReceptorAsync({
-      ClaseCmp: claseCmp,
-    });
+    const [output] = await client.FEParamGetCondicionIvaReceptorAsync(
+      (claseCmp ? { ClaseCmp: claseCmp } : {}) as IFEParamGetCondicionIvaReceptorInput,
+    );
     const result = output.FEParamGetCondicionIvaReceptorResult;
     return {
       resultGet: {
@@ -404,12 +397,12 @@ export class ElectronicBillingRepository
     });
     const result = output.FECAEASinMovimientoInformarResult;
     return {
-      resultGet: result.ResultGet
+      resultGet: result.CAEA
         ? [
             {
-              caea: result.ResultGet.CAEA,
-              fchProceso: result.ResultGet.FchProceso,
-              ptoVta: result.ResultGet.PtoVta,
+              caea: result.CAEA,
+              fchProceso: result.FchProceso,
+              ptoVta: result.PtoVta,
             },
           ]
         : undefined,
@@ -479,7 +472,7 @@ export class ElectronicBillingRepository
     const client = await this.getClient();
     const [output] = await client.FEParamGetCotizacionAsync({
       MonId: currencyId,
-    });
+    } as IFEParamGetCotizacionInput);
     const result = output.FEParamGetCotizacionResult;
     return {
       resultGet: mapQuotation(result),

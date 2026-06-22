@@ -3,89 +3,134 @@
 /**
  * Generate TypeScript SOAP interfaces from WSDL files using wsdl-to-ts.
  *
- * Usage: npm run generate:soap-interfaces
+ * Splits each section into:
+ * - application/dto/<pkg>/<dtoFile> — Input/Output interfaces + namespace (no soap Client)
+ * - infrastructure/soap/contracts/<folder>/<file> — client interface extends Client + *Async
+ *
+ * Usage (from packages/core): npm run generate:soap-interfaces
  */
 
 const { execSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
-const wsdlDir = path.join(
-  __dirname,
-  "../src/infrastructure/soap/wsdl",
-);
+const coreRoot = path.join(__dirname, "..");
+const wsdlDir = path.join(coreRoot, "src/infrastructure/soap/wsdl");
+const interfacesDir = path.join(coreRoot, "src/infrastructure/soap/contracts");
+const applicationDtoDir = path.join(coreRoot, "src/application/dto");
 
-const interfacesDir = path.join(
-  __dirname,
-  "../src/infrastructure/soap/contracts",
-);
+const CLIENT_INTERFACE_REGEX = /^export interface (I[\w]+(?:Soap|PortSoap))\s*\{/;
 
-// WSDL file → output folder/file mapping.
-// Only test WSDLs (production ones generate identical interfaces).
-// `sections` maps wsdl-to-ts `-- Section --` headers to output targets.
 const WSDL_CONFIGS = [
-  // {
-  //   wsdl: "wsfe.wsdl",
-  //   sections: {
-  //     "Service/ServiceSoap": { folder: "Service", file: "ServiceSoap.ts" },
-  //     "Service/ServiceSoap12": { folder: "Service", file: "ServiceSoap12.ts" },
-  //   },
-  // },
+  {
+    wsdl: "wsfe.wsdl",
+    dtoPackage: "electronic-billing",
+    sections: {
+      "Service/ServiceSoap": {
+        folder: "Service",
+        file: "ServiceSoap.ts",
+        dtoFile: "wsfe-service-soap.types.ts",
+      },
+      "Service/ServiceSoap12": {
+        folder: "Service",
+        file: "ServiceSoap12.ts",
+        dtoFile: "wsfe-service-soap12.types.ts",
+      },
+    },
+  },
   {
     wsdl: "wsfex.wsdl",
+    dtoPackage: "fex",
     sections: {
-      "Service/ServiceSoap": { folder: "FEXService", file: "ServiceSoap.ts" },
+      "Service/ServiceSoap": {
+        folder: "FEXService",
+        file: "ServiceSoap.ts",
+        dtoFile: "service-soap.types.ts",
+      },
       "Service/ServiceSoap12": {
         folder: "FEXService",
         file: "ServiceSoap12.ts",
+        dtoFile: "service-soap12.types.ts",
       },
     },
   },
   {
     wsdl: "wsfecred.wsdl",
+    dtoPackage: "fecred",
     sections: {
       "FECredService/FECredServiceSOAP": {
         folder: "FECredService",
         file: "ServiceSoap.ts",
+        dtoFile: "service-soap.types.ts",
       },
     },
   },
-  // {
-  //   wsdl: "wsaa.wsdl",
-  //   sections: {
-  //     "LoginCMSService/LoginCms": { folder: "LoginCMSService", file: "LoginCms.ts" },
-  //   },
-  // },
-  // {
-  //   wsdl: "ws_sr_padron_a4.wsdl",
-  //   sections: {
-  //     "PersonaServiceA4/PersonaServiceA4Port": { folder: "PersonaServiceA4", file: "PersonaServiceA4Port.ts" },
-  //   },
-  // },
-  // {
-  //   wsdl: "ws_sr_padron_a5.wsdl",
-  //   sections: {
-  //     "PersonaServiceA5/PersonaServiceA5Port": { folder: "PersonaServiceA5", file: "PersonaServiceA5Port.ts" },
-  //   },
-  // },
-  // {
-  //   wsdl: "ws_sr_inscription_proof.wsdl",
-  //   sections: {
-  //     "PersonaServiceA5/PersonaServiceA5Port": { folder: "PersonaServiceInscriptionProof", file: "PersonaServiceInscriptionProofPort.ts" },
-  //   },
-  // },
-  // {
-  //   wsdl: "ws_sr_padron_a10.wsdl",
-  //   sections: {
-  //     "PersonaServiceA10/PersonaServiceA10Port": { folder: "PersonaServiceA10", file: "PersonaServiceA10Port.ts" },
-  //   },
-  // },
-  // {
-  //   wsdl: "ws_sr_padron_a13.wsdl",
-  //   sections: {
-  //     "PersonaServiceA13/PersonaServiceA13Port": { folder: "PersonaServiceA13", file: "PersonaServiceA13Port.ts" },
-  //   },
-  // },
+  {
+    wsdl: "wsaa.wsdl",
+    dtoPackage: "authentication",
+    sections: {
+      "LoginCMSService/LoginCms": {
+        folder: "LoginCMSService",
+        file: "LoginCms.ts",
+        dtoFile: "login-cms.types.ts",
+      },
+    },
+  },
+  {
+    wsdl: "ws_sr_padron_a4.wsdl",
+    dtoPackage: "register",
+    sections: {
+      "PersonaServiceA4/PersonaServiceA4Port": {
+        folder: "PersonaServiceA4",
+        file: "PersonaServiceA4Port.ts",
+        dtoFile: "persona-service-a4.types.ts",
+      },
+    },
+  },
+  {
+    wsdl: "ws_sr_padron_a5.wsdl",
+    dtoPackage: "register",
+    sections: {
+      "PersonaServiceA5/PersonaServiceA5Port": {
+        folder: "PersonaServiceA5",
+        file: "PersonaServiceA5Port.ts",
+        dtoFile: "persona-service-a5.types.ts",
+      },
+    },
+  },
+  {
+    wsdl: "ws_sr_inscription_proof.wsdl",
+    dtoPackage: "register",
+    sections: {
+      "PersonaServiceA5/PersonaServiceA5Port": {
+        folder: "PersonaServiceInscriptionProof",
+        file: "PersonaServiceInscriptionProofPort.ts",
+        dtoFile: "persona-service-inscription-proof.types.ts",
+      },
+    },
+  },
+  {
+    wsdl: "ws_sr_padron_a10.wsdl",
+    dtoPackage: "register",
+    sections: {
+      "PersonaServiceA10/PersonaServiceA10Port": {
+        folder: "PersonaServiceA10",
+        file: "PersonaServiceA10Port.ts",
+        dtoFile: "persona-service-a10.types.ts",
+      },
+    },
+  },
+  {
+    wsdl: "ws_sr_padron_a13.wsdl",
+    dtoPackage: "register",
+    sections: {
+      "PersonaServiceA13/PersonaServiceA13Port": {
+        folder: "PersonaServiceA13",
+        file: "PersonaServiceA13Port.ts",
+        dtoFile: "persona-service-a13.types.ts",
+      },
+    },
+  },
 ];
 
 function parseSections(raw) {
@@ -111,7 +156,7 @@ function parseSections(raw) {
   }
   return sections;
 }
-// XML Schema types that don't exist in TypeScript → number
+
 const XSD_NUMBER_TYPES = [
   "long",
   "short",
@@ -127,7 +172,6 @@ const XSD_NUMBER_TYPES = [
 ];
 const XSD_REGEX = new RegExp(`:\\s*(${XSD_NUMBER_TYPES.join("|")})\\s*>?`, "g");
 
-// XSD types that map to string
 const XSD_STRING_TYPES = ["date", "dateTime", "time"];
 const XSD_STRING_REGEX = new RegExp(
   `:\\s*(${XSD_STRING_TYPES.join("|")})\\b`,
@@ -140,9 +184,8 @@ function removeAuthFields(content) {
   let i = 0;
 
   while (i < lines.length) {
-    if (/^\s+(Auth|authRequest)\s*:/.test(lines[i])) {
+    if (/^\s+(Auth|authRequest|token|sign|cuitRepresentada)\s*:/.test(lines[i])) {
       if (lines[i].includes("{")) {
-        // Multiline block — skip until matching closing brace
         let braceCount = 0;
         do {
           for (const ch of lines[i]) {
@@ -152,7 +195,6 @@ function removeAuthFields(content) {
           i++;
         } while (braceCount > 0 && i < lines.length);
       } else {
-        // Single-line field — skip this line
         i++;
       }
     } else {
@@ -164,53 +206,106 @@ function removeAuthFields(content) {
   return result.join("\n");
 }
 
-function fixTypes(content) {
-  let fixed = content
+function fixWsdlTypes(content) {
+  return content
     .replace(XSD_REGEX, ": number")
     .replace(XSD_STRING_REGEX, ": string")
-    // Fix trailing '>' on valid TS types (wsdl-to-ts artifact from XSD restrictions)
     .replace(/:\s*(string|number|boolean)>/g, ": $1");
+}
 
-  // Make the main client interface extend Client and add *Async methods
-  fixed = fixed.replace(
-    /export interface (I\w+Soap)\s*\{/,
-    (match, ifaceName) => {
-      return `export interface ${ifaceName} extends Client {`;
-    },
+function stripWsdlFieldComments(content) {
+  return content
+    .replace(/^\s*\/\*\* http:\/\/[^\n]+\*\/\s*\n/gm, "")
+    .replace(
+      /^\s*\/\*\* (?:xsd|s):\s*(?:string|number|boolean)\(undefined\) \*\/\s*\n/gm,
+      "",
+    );
+}
+
+function findClientInterfaceBounds(lines) {
+  const clientIndex = lines.findIndex((line) =>
+    CLIENT_INTERFACE_REGEX.test(line),
+  );
+  if (clientIndex === -1) {
+    throw new Error("SOAP client interface not found in WSDL section");
+  }
+
+  let braceCount = 0;
+  let clientEnd = -1;
+  for (let i = clientIndex; i < lines.length; i++) {
+    for (const ch of lines[i]) {
+      if (ch === "{") braceCount++;
+      if (ch === "}") braceCount--;
+    }
+    if (braceCount === 0 && i > clientIndex) {
+      clientEnd = i;
+      break;
+    }
+  }
+  if (clientEnd === -1) {
+    throw new Error("Could not find end of SOAP client interface");
+  }
+
+  return { clientIndex, clientEnd };
+}
+
+function splitDtoAndClient(content) {
+  const lines = content.split("\n");
+  const { clientIndex, clientEnd } = findClientInterfaceBounds(lines);
+
+  const dtoBody = [
+    ...lines.slice(0, clientIndex),
+    ...lines.slice(clientEnd + 1),
+  ]
+    .join("\n")
+    .trimEnd();
+
+  const clientBody = lines.slice(clientIndex, clientEnd + 1).join("\n");
+
+  return { dtoBody, clientBody };
+}
+
+function collectReferencedTypes(clientContent) {
+  const types = new Set();
+  for (const match of clientContent.matchAll(/\b(I[A-Za-z0-9_]+)\b/g)) {
+    const name = match[1];
+    if (name.endsWith("Input") || name.endsWith("Output")) {
+      types.add(name);
+    }
+  }
+  return [...types].sort();
+}
+
+function buildClientInterface(clientBody, dtoImportPath) {
+  const withExtends = clientBody.replace(
+    CLIENT_INTERFACE_REGEX,
+    "export interface $1 extends Client {",
   );
 
-  // For each callback method, add an Async version that returns Promise
-  // Pattern: methodName: (input: IType, cb: ...) => void;
   const asyncMethods = [];
   const methodRegex =
     /^\s{4}(\w+):\s*\(input:\s*([\w.]+),\s*cb:.*?\)\s*=>\s*void;/gm;
-  let m;
-  while ((m = methodRegex.exec(fixed)) !== null) {
-    const [, methodName, inputType] = m;
+  let match;
+  while ((match = methodRegex.exec(withExtends)) !== null) {
+    const [, methodName, inputType] = match;
     const outputType = inputType.replace("Input", "Output");
     asyncMethods.push(
       `    ${methodName}Async: (input: ${inputType}) => Promise<[${outputType}, string, {[k: string]: any}, any]>;`,
     );
   }
 
+  let clientWithAsync = withExtends;
   if (asyncMethods.length > 0) {
-    // Insert async methods before the closing brace of the client interface
-    const lastBrace = fixed.lastIndexOf("}");
-    const beforeNamespace = fixed.lastIndexOf("export namespace");
-    const insertPos =
-      beforeNamespace > 0 ? fixed.lastIndexOf("}", beforeNamespace) : lastBrace;
-
-    // Find the correct closing brace of the client interface
-    const ifaceMatch = fixed.match(
-      /export interface I\w+Soap extends Client \{/,
+    const ifaceMatch = clientWithAsync.match(
+      /export interface I[\w]+(?:Soap|PortSoap) extends Client \{/,
     );
     if (ifaceMatch) {
-      const ifaceStart = fixed.indexOf(ifaceMatch[0]);
+      const ifaceStart = clientWithAsync.indexOf(ifaceMatch[0]);
       let braceCount = 0;
       let ifaceEnd = -1;
-      for (let i = ifaceStart; i < fixed.length; i++) {
-        if (fixed[i] === "{") braceCount++;
-        if (fixed[i] === "}") {
+      for (let i = ifaceStart; i < clientWithAsync.length; i++) {
+        if (clientWithAsync[i] === "{") braceCount++;
+        if (clientWithAsync[i] === "}") {
           braceCount--;
           if (braceCount === 0) {
             ifaceEnd = i;
@@ -219,24 +314,34 @@ function fixTypes(content) {
         }
       }
       if (ifaceEnd > 0) {
-        fixed =
-          fixed.slice(0, ifaceEnd) +
+        clientWithAsync =
+          clientWithAsync.slice(0, ifaceEnd) +
           "\n" +
           asyncMethods.join("\n") +
           "\n" +
-          fixed.slice(ifaceEnd);
+          clientWithAsync.slice(ifaceEnd);
       }
     }
   }
 
-  // Add imports at top
-  const hasClient = fixed.includes("extends Client");
-  if (hasClient) {
-    fixed = 'import { Client } from "soap";\n' + fixed;
-  }
+  const referencedTypes = collectReferencedTypes(clientWithAsync);
+  const typeImports =
+    referencedTypes.length > 0
+      ? `import type {\n  ${referencedTypes.join(",\n  ")},\n} from "${dtoImportPath}";\n\n`
+      : "";
 
-  return fixed;
+  return `${typeImports}import { Client } from "soap";\n\n${clientWithAsync}\n`;
 }
+
+function writeGeneratedFile(filePath, header, body) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, `${header}\n${body}\n`, "utf-8");
+}
+
+const DTO_HEADER = `/**
+ * SOAP DTOs generated from WSDL. Do not edit manually.
+ * Regenerate: npm run generate:soap-interfaces
+ */`;
 
 function generate() {
   for (const config of WSDL_CONFIGS) {
@@ -259,27 +364,52 @@ function generate() {
         continue;
       }
 
-      const outDir = path.join(interfacesDir, target.folder);
-      fs.mkdirSync(outDir, { recursive: true });
+      const normalized = stripWsdlFieldComments(
+        fixWsdlTypes(removeAuthFields(content)),
+      );
+      const { dtoBody, clientBody } = splitDtoAndClient(normalized);
 
-      const outFile = path.join(outDir, target.file);
-      const fixed = removeAuthFields(fixTypes(content));
-      fs.writeFileSync(outFile, fixed, "utf-8");
+      const dtoImportPath = `@application/dto/${config.dtoPackage}/${target.dtoFile.replace(/\.ts$/, "")}`;
+      const dtoOutFile = path.join(
+        applicationDtoDir,
+        config.dtoPackage,
+        target.dtoFile,
+      );
+      writeGeneratedFile(dtoOutFile, DTO_HEADER, dtoBody);
+      console.log(
+        `  -> application/dto/${config.dtoPackage}/${target.dtoFile}`,
+      );
+
+      const clientHeader = `/**
+ * SOAP client interface (generated). DTOs: ${dtoImportPath}
+ * Regenerate: npm run generate:soap-interfaces
+ */
+export * from "${dtoImportPath}";
+
+`;
+      const clientOutFile = path.join(
+        interfacesDir,
+        target.folder,
+        target.file,
+      );
+      const clientContent =
+        clientHeader + buildClientInterface(clientBody, dtoImportPath);
+      fs.mkdirSync(path.dirname(clientOutFile), { recursive: true });
+      fs.writeFileSync(clientOutFile, clientContent, "utf-8");
       console.log(`  -> ${target.folder}/${target.file}`);
     }
   }
 }
 
 function cleanup() {
-  const rootDir = path.join(__dirname, "..");
   const tmpDirs = [
-    path.join(rootDir, ".tmp-wsdl-types"),
-    path.join(rootDir, "wsdl"),
+    path.join(coreRoot, ".tmp-wsdl-types"),
+    path.join(coreRoot, "wsdl"),
   ];
   for (const dir of tmpDirs) {
     if (fs.existsSync(dir)) {
       fs.rmSync(dir, { recursive: true, force: true });
-      console.log(`Cleaned up ${path.relative(rootDir, dir)}/`);
+      console.log(`Cleaned up ${path.relative(coreRoot, dir)}/`);
     }
   }
 }

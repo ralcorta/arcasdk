@@ -1,11 +1,7 @@
 import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants";
 
 export async function createLegacyHttpsAgent() {
-  /**
-   * IMPORTANT: We use dynamic imports (import()) here to ensure this file
-   * can be loaded in non-Node.js environments (like Cloudflare Workers)
-   * without throwing errors for missing built-in modules like 'https' or 'crypto'.
-   */
+  
   const [https, crypto] = await Promise.all([
     import("https"),
     import("crypto"),

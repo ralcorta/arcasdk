@@ -1,6 +1,4 @@
-/**
- * Sales Point (Punto de Venta)
- */
+
 export interface SalesPoint {
   nro: number;
   emisionTipo: string;
@@ -8,18 +6,12 @@ export interface SalesPoint {
   fechaBaja?: string;
 }
 
-/**
- * Last Voucher Information
- */
 export interface LastVoucher {
   cbteNro: number;
   cbteTipo: number;
   ptoVta: number;
 }
 
-/**
- * Voucher Information
- */
 export interface VoucherInfo {
   codAutorizacion?: string;
   emisionTipo?: string;
@@ -43,9 +35,6 @@ export interface VoucherInfo {
   monCotiz?: number;
 }
 
-/**
- * Parameter Type (base for all parameter types)
- */
 export interface ParameterType {
   id: number | string;
   desc: string;
@@ -53,91 +42,55 @@ export interface ParameterType {
   fchHasta: string;
 }
 
-/**
- * Voucher Type
- */
 export interface VoucherType extends ParameterType {
   id: number;
 }
 
-/**
- * Concept Type
- */
 export interface ConceptType extends ParameterType {
   id: number;
 }
 
-/**
- * Document Type
- */
 export interface DocumentType extends ParameterType {
   id: number;
 }
 
-/**
- * Aliquot Type (IVA)
- */
 export interface AliquotType extends ParameterType {
   id: number;
 }
 
-/**
- * Currency Type
- */
 export interface CurrencyType extends ParameterType {
   id: string;
 }
 
-/**
- * Optional Type
- */
 export interface OptionalType extends ParameterType {
   id: string;
 }
 
-/**
- * Tax Type
- */
 export interface TaxType extends ParameterType {
   id: number;
 }
 
-/**
- * IVA Receptor Type
- */
 export interface IvaReceptorType {
   id: number;
   desc: string;
   cmp_Clase: string;
 }
 
-/**
- * Error Information
- */
 export interface ErrorInfo {
   code: number;
   msg: string;
 }
 
-/**
- * Result with optional errors
- */
 export interface ResultWithErrors<T> {
   result?: T;
   errors?: ErrorInfo[];
 }
 
-/**
- * CAEA Request
- */
 export interface CaeaRequest {
   periodo: number;
   orden: number;
 }
 
-/**
- * CAEA Response
- */
 export interface CaeaResponse {
   caea: string;
   periodo: number;
@@ -149,9 +102,6 @@ export interface CaeaResponse {
   observaciones?: string;
 }
 
-/**
- * CAEA Usage Response
- */
 export interface CaeaUsageResponse {
   caea: string;
   concepto: number;
@@ -164,35 +114,23 @@ export interface CaeaUsageResponse {
   observaciones?: string;
 }
 
-/**
- * CAEA No Movement Information
- */
 export interface CaeaNoMovement {
   caea: string;
   fchProceso: string;
   ptoVta: number;
 }
 
-/**
- * Country Type
- */
 export interface PaisType {
   id: number;
   desc: string;
 }
 
-/**
- * Activity Type
- */
 export interface ActividadType {
   id: number;
   orden: number;
   desc: string;
 }
 
-/**
- * Quotation Type
- */
 export interface CotizacionType {
   monId: string;
   monCotiz: number;

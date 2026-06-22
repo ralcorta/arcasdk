@@ -1,1 +1,1 @@
-export * from "./fecred-types";
+export * from "./service-soap.types";

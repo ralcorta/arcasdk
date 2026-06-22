@@ -1,7 +1,4 @@
-/**
- * Electronic Billing Use Cases
- * Exports all electronic billing-related use cases
- */
+
 export * from "./get-server-status.use-case";
 export * from "./get-sales-points.use-case";
 export * from "./get-last-voucher.use-case";

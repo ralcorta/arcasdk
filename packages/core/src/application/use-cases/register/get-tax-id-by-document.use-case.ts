@@ -6,11 +6,7 @@ export class GetTaxIDByDocumentUseCase {
     private readonly repository: IRegisterScopeThirteenRepositoryPort,
   ) {}
 
-  /**
-   * Execute the use case
-   * @param documentNumber Document number
-   * @returns Tax ID information
-   */
+  
   async execute(documentNumber: string): Promise<TaxIDByDocumentResultDto> {
     return this.repository.getTaxIDByDocument(documentNumber);
   }

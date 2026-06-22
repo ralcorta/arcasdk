@@ -1,7 +1,7 @@
 import { RegisterInscriptionProofRepository } from "@infrastructure/repositories/register/register-inscription-proof.repository";
 import { SoapClient } from "@infrastructure/soap/soap-client";
 import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-repository.types";
-import { IPersonaServiceInscriptionProofPortSoap } from "@infrastructure/soap/contracts/PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
+import { IPersonaServiceA5PortSoap } from "@infrastructure/soap/contracts/PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
 import {
   createRepositoryConfig,
   createServerStatusResponse,
@@ -14,7 +14,7 @@ jest.mock("@infrastructure/soap/soap-client");
 
 describe("RegisterInscriptionProofRepository", () => {
   let repository: RegisterInscriptionProofRepository;
-  let mockSoapClient: jest.Mocked<IPersonaServiceInscriptionProofPortSoap>;
+  let mockSoapClient: jest.Mocked<IPersonaServiceA5PortSoap>;
   let mockConfig: BaseSoapRepositoryConstructorConfig;
 
   beforeEach(() => {

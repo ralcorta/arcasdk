@@ -20,7 +20,6 @@ export abstract class BaseRegisterRepository<TClient extends Client>
 {
   protected client?: TClient;
 
-  // Subclasses need to define these for soapClient initialization
   protected abstract get serviceName(): ArcaServiceName;
   protected abstract get wsdlProduction(): WsdlPath;
   protected abstract get wsdlTesting(): WsdlPath;

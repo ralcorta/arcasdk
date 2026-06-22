@@ -1,1 +1,1 @@
-export * from "./fex-types";
+export * from "./service-soap.types";

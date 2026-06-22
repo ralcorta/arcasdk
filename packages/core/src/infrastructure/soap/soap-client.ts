@@ -31,11 +31,7 @@ export class SoapClient implements ISoapClientPort {
     };
 
     if (!finalOptions.httpClient) {
-      /**
-       * We use dynamic import here to avoid loading the entire engines module
-       * (which might include Node-specific or Universal-specific code)
-       * until we absolutely need it during client creation.
-       */
+      
       const { createSoapEngine, detectSoapRuntime } = await import("./engines");
       finalOptions.httpClient = await createSoapEngine({
         runtime: options.runtime ?? detectSoapRuntime(isNode),

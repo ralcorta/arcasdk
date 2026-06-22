@@ -1,12 +1,3 @@
-/**
- * SOAP Interfaces
- * Re-export interfaces with namespaces to avoid naming conflicts
- *
- * Note: Direct imports from specific files are recommended to avoid conflicts
- * Example: import { ILoginCmsSoap } from "@infrastructure/soap/contracts/LoginCMSService/LoginCms"
- */
-
-// Export as namespaces to avoid conflicts
 export * as LoginCMSService from "./LoginCMSService/LoginCms";
 export * as PersonaServiceA10 from "./PersonaServiceA10/PersonaServiceA10Port";
 export * as PersonaServiceA13 from "./PersonaServiceA13/PersonaServiceA13Port";
@@ -16,5 +7,5 @@ export * as PersonaServiceInscriptionProof from "./PersonaServiceInscriptionProo
 export * as FECredServiceSoap from "./FECredService/ServiceSoap";
 export * as FEXServiceSoap from "./FEXService/ServiceSoap";
 export * as FEXServiceSoap12 from "./FEXService/ServiceSoap12";
-export * as ServiceSoapTypes from "./Service/ServiceSoap";
-export * as ServiceSoap12Types from "./Service/ServiceSoap12";
+export * as ServiceSoapTypes from "@application/dto/electronic-billing/wsfe-service-soap.types";
+export * as ServiceSoap12Types from "@application/dto/electronic-billing/wsfe-service-soap12.types";

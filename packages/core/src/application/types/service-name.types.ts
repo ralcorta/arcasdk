@@ -1,6 +1,4 @@
-/**
- * Canonical ARCA/AFIP WSAA service identifiers (application boundary).
- */
+
 export const ArcaServiceNames = {
   FE_DUMMY: "FEDummy",
   WSFE: "wsfe",

@@ -7,11 +7,7 @@ export class RequestLoginUseCase {
     private readonly authenticationRepository: IAuthenticationRepositoryPort,
   ) {}
 
-  /**
-   * Execute the use case
-   * @param serviceName Service name to authenticate for
-   * @returns AccessTicket (newly requested)
-   */
+  
   async execute(serviceName: ArcaServiceName): Promise<AccessTicket> {
     return this.authenticationRepository.requestLogin(serviceName);
   }

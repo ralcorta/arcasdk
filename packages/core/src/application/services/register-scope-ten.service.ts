@@ -19,16 +19,12 @@ export class RegisterScopeTenService {
     );
   }
 
-  /**
-   * Asks to web service for servers status
-   **/
+  
   async getServerStatus(): Promise<ServerStatus> {
     return this.getRegisterServerStatusUseCase.execute();
   }
 
-  /**
-   * Asks to web service for taxpayer details
-   **/
+  
   async getTaxpayerDetails(
     identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {

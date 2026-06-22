@@ -21,18 +21,14 @@ export class FileSystemTicketStorage implements ITicketStoragePort {
     this.production = config.production ?? false;
   }
 
-  /**
-   * Create file name for ticket
-   */
+  
   private createFileName(serviceName: string): string {
     return `TA-${this.cuit.toString()}-${serviceName}${
       this.production ? "-production" : ""
     }.json`;
   }
 
-  /**
-   * Get path to ticket file
-   */
+  
   private getTicketFilePath(serviceName: string): string {
     return resolve(this.ticketPath, this.createFileName(serviceName));
   }

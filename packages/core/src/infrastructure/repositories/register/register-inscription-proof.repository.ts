@@ -3,10 +3,10 @@ import { BaseBatchRegisterRepository } from "./base-batch-register-repository";
 import { ArcaServiceNames } from "@application/types/service-name.types";
 import { WsdlPaths } from "@infrastructure/soap/config/wsdl-path.types";
 import { Endpoints } from "@infrastructure/soap/config/endpoints.types";
-import { IPersonaServiceInscriptionProofPortSoap } from "@infrastructure/soap/contracts/PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
+import { IPersonaServiceA5PortSoap } from "@infrastructure/soap/contracts/PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
 
 export class RegisterInscriptionProofRepository
-  extends BaseBatchRegisterRepository<IPersonaServiceInscriptionProofPortSoap>
+  extends BaseBatchRegisterRepository<IPersonaServiceA5PortSoap>
   implements IRegisterInscriptionProofRepositoryPort
 {
   protected serviceName = ArcaServiceNames.WSSR_INSCRIPTION_PROOF;

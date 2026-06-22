@@ -7,11 +7,7 @@ export class GetAuthParamsUseCase {
     private readonly authenticationRepository: IAuthenticationRepositoryPort,
   ) {}
 
-  /**
-   * Execute the use case
-   * @param input Ticket and CUIT
-   * @returns WSAuthParam formatted for SOAP
-   */
+  
   async execute(input: GetAuthParamsInput): Promise<WSAuthParam> {
     return this.authenticationRepository.getAuthParams(
       input.ticket,

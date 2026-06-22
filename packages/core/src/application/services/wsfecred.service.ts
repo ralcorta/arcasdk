@@ -56,7 +56,6 @@ import { ConsultarHistorialEstadosCtaCteUseCase } from "@application/use-cases/w
 import { ConsultarTiposAjustesOperacionUseCase } from "@application/use-cases/wsfecred/consultar-tipos-ajustes-operacion.use-case";
 import { ConsultarMontoObligadoRecepcionUseCase } from "@application/use-cases/wsfecred/consultar-monto-obligado-recepcion.use-case";
 import { ModificarOpcionTransferenciaUseCase } from "@application/use-cases/wsfecred/modificar-opcion-transferencia.use-case";
-// import { FecredDummyUseCase } from "@application/use-cases/wsfecred/dummy.use-case";
 
 export class WsfecredService {
   private readonly aceptarFECredUseCase: AceptarFECredUseCase;

@@ -1,5 +1,5 @@
 import { ILoginCredentials } from "@domain/types/auth.types";
-import { LoginTicketResponse } from "@infrastructure/soap/contracts/LoginCMSService/LoginCms";
+import { LoginTicketResponse } from "@application/dto/authentication/login-ticket-response.types";
 
 export function mapLoginTicketResponse(
   parsed: LoginTicketResponse,

@@ -19,22 +19,12 @@ export class RegisterScopeFourService {
     );
   }
 
-  /**
-   * Asks to web service for servers status
-   *
-   * @return object { appServer: Web Service status,
-   * dbServer: Database status, authServer: Authentication server status }
-   **/
+  
   async getServerStatus(): Promise<ServerStatus> {
     return this.getRegisterServerStatusUseCase.execute();
   }
 
-  /**
-   * Asks to web service for taxpayer details
-   *
-   * @return object|null if taxpayer does not exists, return null,
-   * if it exists, returns full response
-   **/
+  
   async getTaxpayerDetails(
     identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {
