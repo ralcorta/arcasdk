@@ -107,9 +107,9 @@ console.log(status);
 
 ```json
 {
-  "appserver": "OK",
-  "dbserver": "OK",
-  "authserver": "OK"
+  "appServer": "OK",
+  "dbServer": "OK",
+  "authServer": "OK"
 }
 ```
 

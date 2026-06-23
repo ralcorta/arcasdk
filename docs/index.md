@@ -100,15 +100,35 @@ Explora la suite completa de herramientas diseñadas para potenciar tu negocio.
     <h3>Facturación Electrónica</h3>
     <p>Emisión y autorización de comprobantes (CAE) automatizada. Soporte para facturas A, B, C, notas de crédito y más.</p>
   </a>
+  <a href="/services/facturacion_electronica_exportacion" class="service-card">
+    <div class="card-icon">🌍</div>
+    <h3>Facturación de Exportación</h3>
+    <p>Comprobantes WSFEX: autorización, parámetros y consultas de exportación.</p>
+  </a>
+  <a href="/services/factura_credito_electronica" class="service-card">
+    <div class="card-icon">🏭</div>
+    <h3>Factura de Crédito MiPyMEs</h3>
+    <p>WSFECred: aceptación, rechazo, cuentas corrientes y parámetros FCE.</p>
+  </a>
   <a href="/services/consulta_padron_alcance_4" class="service-card">
     <div class="card-icon">🔍</div>
     <h3>Consulta de Padrón</h3>
     <p>Accede a la base de datos de contribuyentes más actualizada. Valida CUITs y obtén datos fiscales en tiempo real.</p>
   </a>
-   <a href="/services/consulta_padron_constancia_inscripcion" class="service-card">
+  <a href="/services/consulta_padron_constancia_inscripcion" class="service-card">
     <div class="card-icon">📄</div>
     <h3>Constancia de Inscripción</h3>
     <p>Obtén y verifica las constancias de inscripción de forma programática y segura.</p>
+  </a>
+  <a href="/referencia-api" class="service-card">
+    <div class="card-icon">📘</div>
+    <h3>Referencia API</h3>
+    <p>Servicios de Arca, ArcaServiceNames, storages, DTOs y composición avanzada.</p>
+  </a>
+  <a href="/services/generic-service" class="service-card">
+    <div class="card-icon">🔧</div>
+    <h3>Servicio Genérico</h3>
+    <p>Llamadas SOAP a cualquier WSDL de ARCA, con o sin wrapper dedicado en el SDK.</p>
   </a>
 </div>
 

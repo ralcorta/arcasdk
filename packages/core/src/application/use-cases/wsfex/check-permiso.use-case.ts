@@ -2,7 +2,7 @@ import { IFexRepositoryPort } from "@application/ports/fex/fex-repository.port";
 import {
   IFEXCheck_PermisoInput,
   IFEXCheck_PermisoOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 
 export class CheckPermisoUseCase {
   constructor(private readonly repository: IFexRepositoryPort) {}

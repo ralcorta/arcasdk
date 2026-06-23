@@ -1,4 +1,4 @@
-import { CAE } from "@arcasdk/core/src/domain/value-objects/cae.vo";
+import { CAE } from "@domain/value-objects/cae.vo";
 
 describe("CAE Value Object", () => {
   describe("create", () => {

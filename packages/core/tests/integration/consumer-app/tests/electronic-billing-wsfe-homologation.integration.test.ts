@@ -144,9 +144,9 @@ describeOrSkip(
     });
 
     describe("FEParamGetTiposMonedas", () => {
-      it("getCurrenciesTypes sin errores y primera fila válida", async () => {
-        const r = await arca.electronicBillingService.getCurrenciesTypes();
-        expectWsfeWithoutErrors("getCurrenciesTypes", r);
+      it("getCurrencyTypes sin errores y primera fila válida", async () => {
+        const r = await arca.electronicBillingService.getCurrencyTypes();
+        expectWsfeWithoutErrors("getCurrencyTypes", r);
         expect(r.resultGet).toBeDefined();
         expectNonEmptyArray("moneda", r.resultGet!.moneda);
         expectSampleStringIdParamRow("moneda[0]", r.resultGet!.moneda![0]!);
@@ -167,9 +167,9 @@ describeOrSkip(
     });
 
     describe("FEParamGetTiposOpcional", () => {
-      it("getOptionsTypes sin errores y primera fila válida", async () => {
-        const r = await arca.electronicBillingService.getOptionsTypes();
-        expectWsfeWithoutErrors("getOptionsTypes", r);
+      it("getOptionalTypes sin errores y primera fila válida", async () => {
+        const r = await arca.electronicBillingService.getOptionalTypes();
+        expectWsfeWithoutErrors("getOptionalTypes", r);
         expect(r.resultGet).toBeDefined();
         expectNonEmptyArray("opcionalTipo", r.resultGet!.opcionalTipo);
         expectSampleStringIdParamRow(
@@ -518,8 +518,8 @@ describeOrSkip(
 
         // Obtener opcionalId desde FEParamGetTiposOpcional
         const opcionales =
-          await arca.electronicBillingService.getOptionsTypes();
-        expectWsfeWithoutErrors("getOptionsTypes para multi-IVA", opcionales);
+          await arca.electronicBillingService.getOptionalTypes();
+        expectWsfeWithoutErrors("getOptionalTypes para multi-IVA", opcionales);
         const opcionalList = opcionales.resultGet?.opcionalTipo ?? [];
         if (opcionalList.length === 0) {
           console.info(

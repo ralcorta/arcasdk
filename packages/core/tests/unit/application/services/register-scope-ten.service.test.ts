@@ -1,10 +1,10 @@
-import { RegisterScopeTenService } from "@arcasdk/core/src/application/services/register-scope-ten.service";
-import { IRegisterScopeTenRepositoryPort } from "@arcasdk/core/src/application/ports/register/register-repository.ports";
+import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
+import { IRegisterScopeTenRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
   scopeTenDummyAsyncReturnMocks,
   scopeTenGetPersonaAsyncReturnMocks,
 } from "../../../mocks/data/soapClient.mock";
-import { TaxpayerDetailsDto } from "@arcasdk/core/src/application/dto/register.dto";
+import { TaxpayerDetailsDto } from "@application/dto/register";
 import {
   mapServerStatus,
   REGISTER_TEST_CUIT,

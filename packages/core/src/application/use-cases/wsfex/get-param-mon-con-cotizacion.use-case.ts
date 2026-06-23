@@ -2,7 +2,7 @@ import { IFexRepositoryPort } from "@application/ports/fex/fex-repository.port";
 import {
   IFEXGetPARAM_MON_CON_COTIZACIONInput,
   IFEXGetPARAM_MON_CON_COTIZACIONOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 
 export class GetParamMonConCotizacionUseCase {
   constructor(private readonly repository: IFexRepositoryPort) {}

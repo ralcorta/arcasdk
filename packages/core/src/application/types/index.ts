@@ -1,4 +1,3 @@
 export * from "./context.types";
-export * from "./result.types";
 export * from "./auth.types";
-export * from "./use-case-inputs.types";
+export * from "./service-name.types";

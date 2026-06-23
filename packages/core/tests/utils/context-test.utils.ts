@@ -4,7 +4,7 @@ import { config } from "dotenv";
 import { promises as fs } from "fs";
 import EnvTest from "../utils/env-test";
 import { Context } from "../../src/application/types";
-import { ILoginCredentials } from "../../src/domain/entities/access-ticket.entity";
+import { ILoginCredentials } from "../../src/domain/types/auth.types";
 
 // Load .env from project root (two levels up from tests/utils)
 const envPath = resolve(__dirname, "../../../.env");

@@ -5,7 +5,7 @@ import {
   Arca,
   AuthRepository,
   AccessTicket,
-  ServiceNamesEnum,
+  ArcaServiceNames,
   type ILoginCredentials,
 } from "@arcasdk/core";
 import { buildContext, getCertPath, getKeyPath } from "./test-credentials";
@@ -39,7 +39,7 @@ export async function createArcaForWsfeHomologationManualTicket(): Promise<Arca>
     10,
   );
   const production = false;
-  const serviceName = ServiceNamesEnum.WSFE;
+  const serviceName = ArcaServiceNames.WSFE;
 
   const baseContext = buildContext({ cuit });
   const dir = ticketsDir();

@@ -9,6 +9,8 @@ packages/core/.ticket-cache/
 .env.production
 .env.development
 .DS_Store
+.cursor/*
+.cursor
 .vscode
 !.vscode/settings.json
 !.vscode/extensions.json
@@ -27,6 +29,7 @@ docs/.vitepress/cache
 
 # WSDL codegen intermediate output
 .tmp-wsdl-types/
+/wsdl/
 packages/core/wsdl/
 
 # Coverage reports

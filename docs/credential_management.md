@@ -6,10 +6,11 @@
 
 Cuando usas la SDK, necesitas **autenticarte con ARCA (WSAA)** para obtener un token de acceso. Este token es válido por 12 horas y tiene restricciones de solicitud (máximo 1 cada 2 minutos en producción).
 
-La SDK ofrece dos formas de gestionar estos tokens:
+La SDK ofrece tres estrategias para gestionar estos tokens:
 
-1. **Automática (por defecto):** La SDK se encarga de todo
-2. **Manual:** Tú controlas dónde y cuándo guardar/reutilizar tokens
+1. **Automática en disco (por defecto):** La SDK se encarga de todo y persiste en filesystem (Node.js)
+2. **Manual con `credentials`:** Tú guardás y pasás `ILoginCredentials` en cada instancia de `Arca`
+3. **Almacenamiento personalizado (`ticketStorage`):** Implementás `ITicketStoragePort` (Redis, BD, etc.) y la SDK reutiliza tickets sin filesystem local
 
 ---
 
@@ -27,7 +28,7 @@ const arca = new Arca({
   production: false,
   // Automáticamente:
   // 1. Obtiene token de WSAA
-  // 2. Lo almacena en: lib/infrastructure/storage/auth/tickets
+  // 2. Lo almacena en disco (por defecto dentro de node_modules/@arcasdk/core/lib/...)
   // 3. Lo reutiliza durante 12 horas
 });
 
@@ -42,9 +43,62 @@ const arca = new Arca({
   cuit: 20111111112,
   cert: "...",
   key: "...",
-  ticketPath: "/mi/ruta/personalizada/tickets", // Cambiar dónde guardar tokens
+  ticketPath: "/var/lib/mi-app/arca/tickets", // Ruta absoluta en tu servidor
 });
 ```
+
+---
+
+## Opción 3: Almacenamiento personalizado (`ticketStorage`)
+
+Ideal para **serverless** o cuando querés centralizar tickets en Redis, PostgreSQL, S3, etc., **sin** pasar `credentials` manualmente en cada request.
+
+Implementá la interfaz `ITicketStoragePort` o usá `MemoryTicketStorage` en procesos de corta vida (tests, scripts):
+
+```ts
+import {
+  Arca,
+  MemoryTicketStorage,
+  FileSystemTicketStorage,
+  type ITicketStoragePort,
+} from "@arcasdk/core";
+
+// Ejemplo: memoria (útil en tests; no persiste entre invocaciones Lambda)
+const ticketStorage: ITicketStoragePort = new MemoryTicketStorage({
+  cuit: 20111111112,
+  production: false,
+});
+
+// Ejemplo: filesystem en ruta controlada por vos
+const ticketStorageFs = new FileSystemTicketStorage({
+  ticketPath: "/tmp/arca-tickets",
+  cuit: 20111111112,
+  production: false,
+});
+
+const arca = new Arca({
+  cuit: 20111111112,
+  cert: "...",
+  key: "...",
+  ticketStorage: ticketStorageFs,
+});
+```
+
+La interfaz expone tres métodos:
+
+```ts
+interface ITicketStoragePort {
+  save(ticket: AccessTicket, serviceName: ArcaServiceName): Promise<void>;
+  get(serviceName: ArcaServiceName): Promise<AccessTicket | null>;
+  delete(serviceName: ArcaServiceName): Promise<void>;
+}
+```
+
+Para Redis o una base de datos, creá una clase que implemente estos métodos y pasala en `ticketStorage`. La SDK seguirá renovando tickets automáticamente cuando expiren.
+
+::: tip Diferencia con modo manual
+Con `ticketStorage` no necesitás `handleTicket: true` ni pasar `credentials` en cada `new Arca()`. La SDK lee y escribe tickets a través de tu adapter.
+:::
 
 ---
 
@@ -83,7 +137,7 @@ En modo manual, el flujo correcto es:
 4. Guardar esas credenciales en tu storage
 
 ```ts
-import { AuthRepository, ServiceNamesEnum } from "@arcasdk/core";
+import { AuthRepository, ArcaServiceNames } from "@arcasdk/core";
 
 const authRepository = new AuthRepository({
   cuit: 20111111112,
@@ -93,7 +147,7 @@ const authRepository = new AuthRepository({
   handleTicket: true,
 });
 
-const ticket = await authRepository.requestLogin(ServiceNamesEnum.WSFE);
+const ticket = await authRepository.requestLogin(ArcaServiceNames.WSFE);
 const credentials = ticket.toLoginCredentials();
 ```
 
@@ -179,7 +233,7 @@ async function ensureValidCredentials(cuit: number) {
       handleTicket: true,
     });
 
-    const ticket = await authRepository.requestLogin(ServiceNamesEnum.WSFE);
+    const ticket = await authRepository.requestLogin(ArcaServiceNames.WSFE);
     credentials = ticket.toLoginCredentials();
     await saveCredentials(cuit, credentials);
   }
@@ -264,23 +318,23 @@ sequenceDiagram
 
 ## Comparativa Rápida
 
-| Aspecto                  | Automático       | Manual                            |
-| ------------------------ | ---------------- | --------------------------------- |
-| **Configuración**        | Simple           | Requiere setup                    |
-| **Almacenamiento**       | Archivos locales | Tu elección (BD, S3, Redis, etc.) |
-| **Renovación de tokens** | Automática       | Manual                            |
-| **Uso en serverless**    | No               | Sí                                |
-| **Flexibilidad**         | Baja             | Alta                              |
+| Aspecto                  | Automático (disco) | `ticketStorage` custom | Manual (`credentials`) |
+| ------------------------ | ------------------ | ---------------------- | ---------------------- |
+| **Configuración**        | Simple             | Implementar adapter    | Requiere setup         |
+| **Almacenamiento**       | FS local           | Tu elección            | Tu elección            |
+| **Renovación de tokens** | Automática         | Automática             | Manual                 |
+| **Uso en serverless**    | No                 | Sí                     | Sí                     |
+| **Flexibilidad**         | Baja               | Alta                   | Alta                   |
 
 **Cuándo usar cada uno:**
 
-| Escenario                                | Usar           |
-| ---------------------------------------- | -------------- |
-| Servidor tradicional, desarrollo local   | **Automático** |
-| AWS Lambda, Vercel, Cloudflare Workers   | **Manual**     |
-| Necesitas persistencia personalizada     | **Manual**     |
-| Quieres la solución más simple           | **Automático** |
-| Múltiples instancias compartiendo tokens | **Manual**     |
+| Escenario                                | Usar                              |
+| ---------------------------------------- | --------------------------------- |
+| Servidor tradicional, desarrollo local   | **Automático** (`ticketPath`)     |
+| AWS Lambda, Vercel, Cloudflare Workers   | **`ticketStorage`** o **Manual**  |
+| Necesitas persistencia en Redis/BD       | **`ticketStorage`**               |
+| Múltiples instancias compartiendo tokens | **`ticketStorage`** o **Manual**  |
+| Quieres la solución más simple           | **Automático**                    |
 
 ---
 

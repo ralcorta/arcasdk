@@ -1,12 +1,12 @@
 import {
-  RegisterServerStatusDto,
+  ServerStatus,
   TaxpayerDetailsDto,
   TaxpayersDetailsDto,
   TaxIDByDocumentResultDto,
-} from "@application/dto/register.dto";
+} from "@application/dto/register";
 
 export interface IRegisterBaseRepositoryPort {
-  getServerStatus(): Promise<RegisterServerStatusDto>;
+  getServerStatus(): Promise<ServerStatus>;
   getTaxpayerDetails(identifier: number): Promise<TaxpayerDetailsDto | null>;
 }
 

@@ -2,7 +2,7 @@ import { IFexRepositoryPort } from "@application/ports/fex/fex-repository.port";
 import {
   IFEXGetPARAM_UMedInput,
   IFEXGetPARAM_UMedOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 
 export class GetParamUMedUseCase {
   constructor(private readonly repository: IFexRepositoryPort) {}

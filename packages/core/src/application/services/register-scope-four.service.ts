@@ -1,8 +1,8 @@
 import { IRegisterScopeFourRepositoryPort } from "@application/ports/register/register-repository.ports";
 import {
-  RegisterServerStatusDto,
+  ServerStatus,
   TaxpayerDetailsDto,
-} from "@application/dto/register.dto";
+} from "@application/dto/register";
 import { GetRegisterServerStatusUseCase } from "@application/use-cases/register/get-register-server-status.use-case";
 import { GetTaxpayerDetailsUseCase } from "@application/use-cases/register/get-taxpayer-details.use-case";
 
@@ -19,23 +19,12 @@ export class RegisterScopeFourService {
     );
   }
 
-  /**
-   * Asks to web service for servers status
-   *
-   * @return object { appserver : Web Service status,
-   * dbserver : Database status, authserver : Autentication
-   * server status}
-   **/
-  async getServerStatus(): Promise<RegisterServerStatusDto> {
+  
+  async getServerStatus(): Promise<ServerStatus> {
     return this.getRegisterServerStatusUseCase.execute();
   }
 
-  /**
-   * Asks to web service for taxpayer details
-   *
-   * @return object|null if taxpayer does not exists, return null,
-   * if it exists, returns full response
-   **/
+  
   async getTaxpayerDetails(
     identifier: number,
   ): Promise<TaxpayerDetailsDto | null> {

@@ -2,7 +2,7 @@ import { IFexRepositoryPort } from "@application/ports/fex/fex-repository.port";
 import {
   IFEXGetPARAM_DST_CUITInput,
   IFEXGetPARAM_DST_CUITOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 
 export class GetParamDstCuitUseCase {
   constructor(private readonly repository: IFexRepositoryPort) {}

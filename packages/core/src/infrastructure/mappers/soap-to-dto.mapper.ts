@@ -1,6 +1,6 @@
+import { ServerStatus } from "@application/dto/common";
 import {
   SalesPoint,
-  ServerStatus,
   LastVoucher,
   VoucherInfo,
   AliquotType,
@@ -15,9 +15,6 @@ import {
   ErrorInfo,
 } from "@domain/types/electronic-billing.types";
 
-/**
- * Map SOAP errors to Domain ErrorInfo
- */
 export function mapSoapErrors(errors?: {
   Err?: Array<{ Code: number; Msg: string }>;
 }): ErrorInfo[] | undefined {
@@ -28,9 +25,6 @@ export function mapSoapErrors(errors?: {
   }));
 }
 
-/**
- * Map SOAP server status to Domain ServerStatus
- */
 export function mapServerStatus(soapResult: {
   AppServer: string;
   DbServer: string;
@@ -43,9 +37,6 @@ export function mapServerStatus(soapResult: {
   };
 }
 
-/**
- * Map SOAP sales points to Domain SalesPoint array
- */
 export function mapSalesPoints(soapResult: {
   ResultGet?: {
     PtoVenta?: Array<{
@@ -68,9 +59,6 @@ export function mapSalesPoints(soapResult: {
   );
 }
 
-/**
- * Map SOAP last voucher to Domain LastVoucher
- */
 export function mapLastVoucher(soapResult: {
   CbteNro: number;
   CbteTipo: number;
@@ -140,9 +128,6 @@ export function mapVoucherInfo(soapResult: {
   };
 }
 
-/**
- * Map SOAP parameter types to Domain ParameterType array (generic for all parameter types)
- */
 export function mapParameterTypes<T extends ParameterType>(
   soapResult: {
     ResultGet?: {
@@ -194,9 +179,6 @@ export function mapAliquotTypes(soapResult: {
   );
 }
 
-/**
- * Map SOAP IVA receptor types to Domain IvaReceptorType array
- */
 export function mapIvaReceptorTypes(soapResult: {
   ResultGet?: {
     CondicionIvaReceptor?: Array<{
@@ -216,9 +198,7 @@ export function mapIvaReceptorTypes(soapResult: {
     ) || []
   );
 }
-/**
- * Map SOAP CAEA to Domain CaeaResponse
- */
+
 export function mapCaea(soapResult: {
   CAEA: string;
   Periodo: number;
@@ -241,9 +221,6 @@ export function mapCaea(soapResult: {
   };
 }
 
-/**
- * Map SOAP CAEA Usage to Domain CaeaUsageResponse
- */
 export function mapCaeaUsage(soapResult: {
   CAEA: string;
   Concepto: number;
@@ -268,18 +245,17 @@ export function mapCaeaUsage(soapResult: {
   };
 }
 
-/**
- * Map SOAP CAEA No Movement to Domain CaeaNoMovement array
- */
 export function mapCaeaNoMovement(soapResult: {
-  ResultGet?: Array<{
-    CAEA: string;
-    FchProceso: string;
-    PtoVta: number;
-  }>;
+  ResultGet?: {
+    FECAEASinMov?: Array<{
+      CAEA: string;
+      FchProceso: string;
+      PtoVta: number;
+    }>;
+  };
 }): CaeaNoMovement[] {
   return (
-    soapResult.ResultGet?.map(
+    soapResult.ResultGet?.FECAEASinMov?.map(
       (c): CaeaNoMovement => ({
         caea: c.CAEA,
         fchProceso: c.FchProceso,
@@ -289,9 +265,6 @@ export function mapCaeaNoMovement(soapResult: {
   );
 }
 
-/**
- * Map SOAP Countries to Domain PaisType array
- */
 export function mapCountries(soapResult: {
   ResultGet?: {
     PaisTipo?: Array<{
@@ -310,9 +283,6 @@ export function mapCountries(soapResult: {
   );
 }
 
-/**
- * Map SOAP Activities to Domain ActividadType array
- */
 export function mapActivities(soapResult: {
   ResultGet?: {
     ActividadesTipo?: Array<{
@@ -333,9 +303,6 @@ export function mapActivities(soapResult: {
   );
 }
 
-/**
- * Map SOAP Quotation to Domain CotizacionType
- */
 export function mapQuotation(soapResult: {
   ResultGet?: {
     MonId: string;
@@ -351,9 +318,6 @@ export function mapQuotation(soapResult: {
   };
 }
 
-/**
- * Map SOAP Max Records to number
- */
 export function mapMaxRecords(soapResult: { RegXReq: number }): number {
   return soapResult.RegXReq;
 }

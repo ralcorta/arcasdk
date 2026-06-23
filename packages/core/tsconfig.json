@@ -2,7 +2,14 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "rootDir": ".",
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": "./",
+    "paths": {
+      "@domain/*": ["src/domain/*"],
+      "@application/*": ["src/application/*"],
+      "@infrastructure/*": ["src/infrastructure/*"]
+    },
+    "types": ["jest", "node"]
   },
   "include": ["src", "tests"],
   "exclude": ["node_modules"]

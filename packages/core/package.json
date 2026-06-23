@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "npx tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "build": "rimraf lib tsconfig.build.tsbuildinfo && npx tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "test": "jest --config jest.config.js",
     "test:unit": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",

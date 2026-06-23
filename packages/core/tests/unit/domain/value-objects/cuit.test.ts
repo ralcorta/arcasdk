@@ -1,4 +1,4 @@
-import { CUIT } from "@arcasdk/core/src/domain/value-objects/cuit.vo";
+import { CUIT } from "@domain/value-objects/cuit.vo";
 
 describe("CUIT Value Object", () => {
   const validCuitNumber = 20111111111;

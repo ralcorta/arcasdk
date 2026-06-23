@@ -2,7 +2,7 @@ import { IFecredRepositoryPort } from "@application/ports/fecred/fecred-reposito
 import {
   IconsultarHistorialEstadosCtaCteInput,
   IconsultarHistorialEstadosCtaCteOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+} from "@application/dto/fecred";
 
 export class ConsultarHistorialEstadosCtaCteUseCase {
   constructor(private readonly repository: IFecredRepositoryPort) {}

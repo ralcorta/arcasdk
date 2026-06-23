@@ -96,18 +96,23 @@ El método principal para generar una factura y obtener el CAE.
 | 7   | 5%    |
 | 8   | 2.5%  |
 
-### Respuesta
+### Respuesta (`CreateVoucherResultDto`)
+
+`createVoucher` y `createNextVoucher` devuelven un `CreateVoucherResultDto` con los campos principales del CAE y, si AFIP los informa, errores u observaciones estructurados.
 
 ```ts
-{
-  CAE: string; // Código de Autorización Electrónica
-  CAEFchVto: string; // Vencimiento del CAE (YYYYMMDD)
-  Resultado: "A" | "R" | "P"; // Aceptado, Rechazado, Parcial
-  Reproceso: "S" | "N";
-  PtoVta: number;
-  CbteTipo: number;
+interface CreateVoucherResultDto {
+  CAE?: string;
+  CAEFchVto?: string;
+  Resultado?: "A" | "R" | "P";
+  Reproceso?: "S" | "N";
+  PtoVta?: number;
+  CbteTipo?: number;
+  // ... FECAEDetResponse, errors, etc.
 }
 ```
+
+Los mismos métodos existen como `createInvoice` y `createNextInvoice` (equivalentes a `createVoucher` y `createNextVoucher`).
 
 ### Ejemplo Básico
 
@@ -190,7 +195,11 @@ Obtiene el número del último comprobante autorizado para un punto de venta y t
 
 ```ts
 const lastVoucher = await arca.electronicBillingService.getLastVoucher(1, 6);
-console.log(`Último comprobante: ${lastVoucher}`);
+// getLastVoucher(puntoVenta, tipoComprobante)
+
+if (lastVoucher.cbteNro !== undefined) {
+  console.log(`Último comprobante: ${lastVoucher.cbteNro}`);
+}
 ```
 
 ---
@@ -239,13 +248,113 @@ const aliquotTypes = await arca.electronicBillingService.getAliquotTypes();
 ```
 
 ```ts [Monedas]
-const currencies = await arca.electronicBillingService.getCurrenciesTypes();
+const currencies = await arca.electronicBillingService.getCurrencyTypes();
 ```
 
 ```ts [Tributos]
 const taxTypes = await arca.electronicBillingService.getTaxTypes();
 ```
 
+```ts [Opcionales]
+const optionalTypes = await arca.electronicBillingService.getOptionalTypes();
+```
+
+```ts [IVA Receptor]
+const ivaReceptorTypes =
+  await arca.electronicBillingService.getIvaReceptorTypes();
+// Parámetro opcional: claseCmp (string)
+```
+
+```ts [Países]
+const countries = await arca.electronicBillingService.getCountries();
+```
+
+```ts [Actividades]
+const activities = await arca.electronicBillingService.getActivities();
+```
+
+```ts [Cotización]
+const quotation = await arca.electronicBillingService.getQuotation("DOL");
+```
+
+```ts [Máx. registros]
+const maxRecords =
+  await arca.electronicBillingService.getMaxRecordsPerRequest();
+```
+
+:::
+
+---
+
+## CAEA (Código de Autorización Electrónico Anticipado)
+
+El flujo CAEA permite emitir comprobantes sin solicitar CAE en cada operación, usando un código anticipado por quincena.
+
+### Periodo y orden
+
+- `period`: entero `YYYYMM` (ej. `202406` para junio 2024).
+- `order`: `1` (1.ª quincena) o `2` (2.ª quincena).
+
+```ts
+const period = 202406;
+const order = 1;
+
+const caeaResponse = await arca.electronicBillingService.getCaea(period, order);
+const caea = caeaResponse.resultGet?.caea;
+```
+
+### Consultar CAEA vigente
+
+```ts
+const consulted = await arca.electronicBillingService.consultCaea(period, order);
+```
+
+### Sin movimiento en un punto de venta
+
+```ts
+const informed = await arca.electronicBillingService.informCaeaNoMovement(
+  caea,
+  puntoVenta,
+);
+
+const status = await arca.electronicBillingService.consultCaeaNoMovement(
+  caea,
+  puntoVenta,
+);
+```
+
+### Informar comprobante con CAEA
+
+`informCaeaUsage` recibe el payload del comprobante (misma forma que `createVoucher`) más el código CAEA:
+
+```ts
+const usage = await arca.electronicBillingService.informCaeaUsage(
+  {
+    CantReg: 1,
+    PtoVta: 1,
+    CbteTipo: 6,
+    Concepto: 1,
+    DocTipo: 99,
+    DocNro: 0,
+    CbteDesde: 1,
+    CbteHasta: 1,
+    CbteFch: "20240615",
+    ImpTotal: 121,
+    ImpTotConc: 0,
+    ImpNeto: 100,
+    ImpOpEx: 0,
+    ImpIVA: 21,
+    ImpTrib: 0,
+    MonId: "PES",
+    MonCotiz: 1,
+    Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }],
+  },
+  caea,
+);
+```
+
+::: info Disponibilidad en homologación
+CAEA puede no estar habilitado para todos los periodos en testing. La respuesta incluye `errors` estructurados de AFIP cuando el código no está disponible.
 :::
 
 ---

@@ -1,63 +1,75 @@
-import { Arca } from "@arcasdk/core/src/infrastructure/composition/arca";
-import { Context } from "@arcasdk/core/src/application/types";
-import { FileSystemTicketStorage } from "@arcasdk/core/src/infrastructure/outbound/adapters/storage/file-system-ticket-storage";
-import { MemoryTicketStorage } from "@arcasdk/core/src/infrastructure/outbound/adapters/storage/memory-ticket-storage";
-import { AuthRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/auth/auth.repository";
-import { ElectronicBillingRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/electronic-billing/electronic-billing-repository";
-import { RegisterScopeFourRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-four.repository";
-import { RegisterScopeFiveRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-five.repository";
-import { RegisterScopeTenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-ten.repository";
-import { RegisterScopeThirteenRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-thirteen.repository";
-import { RegisterInscriptionProofRepository } from "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-inscription-proof.repository";
-import { ElectronicBillingService } from "@arcasdk/core/src/application/services/electronic-billing.service";
-import { RegisterInscriptionProofService } from "@arcasdk/core/src/application/services/register-inscription-proof.service";
-import { RegisterScopeFourService } from "@arcasdk/core/src/application/services/register-scope-four.service";
-import { RegisterScopeFiveService } from "@arcasdk/core/src/application/services/register-scope-five.service";
-import { RegisterScopeTenService } from "@arcasdk/core/src/application/services/register-scope-ten.service";
-import { RegisterScopeThirteenService } from "@arcasdk/core/src/application/services/register-scope-thirteen.service";
-import { ITicketStoragePort } from "@infrastructure/outbound/ports/storage/ticket-storage.port";
+import { Arca } from "@infrastructure/composition/arca";
+import { Context } from "@application/types";
+import { FileSystemTicketStorage } from "@infrastructure/storage/file-system-ticket-storage";
+import { MemoryTicketStorage } from "@infrastructure/storage/memory-ticket-storage";
+import { AuthRepository } from "@infrastructure/repositories/auth/auth.repository";
+import { ElectronicBillingRepository } from "@infrastructure/repositories/electronic-billing/electronic-billing-repository";
+import { RegisterScopeFourRepository } from "@infrastructure/repositories/register/register-scope-four.repository";
+import { RegisterScopeFiveRepository } from "@infrastructure/repositories/register/register-scope-five.repository";
+import { RegisterScopeTenRepository } from "@infrastructure/repositories/register/register-scope-ten.repository";
+import { RegisterScopeThirteenRepository } from "@infrastructure/repositories/register/register-scope-thirteen.repository";
+import { RegisterInscriptionProofRepository } from "@infrastructure/repositories/register/register-inscription-proof.repository";
+import { ElectronicBillingService } from "@application/services/electronic-billing.service";
+import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
+import { RegisterScopeFourService } from "@application/services/register-scope-four.service";
+import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
+import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
+import { RegisterScopeThirteenService } from "@application/services/register-scope-thirteen.service";
+import { GenericService } from "@application/services/generic.service";
+import { WsfecredService } from "@application/services/wsfecred.service";
+import { WsfexService } from "@application/services/wsfex.service";
+import { GenericRepository } from "@infrastructure/repositories/generic/generic-repository";
+import { FecredRepository } from "@infrastructure/repositories/fecred/fecred.repository";
+import { FexRepository } from "@infrastructure/repositories/fex/fex.repository";
+import { ITicketStoragePort } from "@application/ports/storage";
 
 jest.mock("std-env", () => ({
   isNode: true,
 }));
 
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/storage/file-system-ticket-storage",
+  "@infrastructure/storage/file-system-ticket-storage",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/storage/memory-ticket-storage",
+  "@infrastructure/storage/memory-ticket-storage",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/auth/auth.repository",
+  "@infrastructure/repositories/auth/auth.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/electronic-billing/electronic-billing-repository",
+  "@infrastructure/repositories/electronic-billing/electronic-billing-repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-four.repository",
+  "@infrastructure/repositories/register/register-scope-four.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-five.repository",
+  "@infrastructure/repositories/register/register-scope-five.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-ten.repository",
+  "@infrastructure/repositories/register/register-scope-ten.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-scope-thirteen.repository",
+  "@infrastructure/repositories/register/register-scope-thirteen.repository",
 );
 jest.mock(
-  "@arcasdk/core/src/infrastructure/outbound/adapters/repositories/register/register-inscription-proof.repository",
+  "@infrastructure/repositories/register/register-inscription-proof.repository",
 );
-jest.mock("@arcasdk/core/src/application/services/electronic-billing.service");
+jest.mock("@application/services/electronic-billing.service");
 jest.mock(
-  "@arcasdk/core/src/application/services/register-inscription-proof.service",
+  "@application/services/register-inscription-proof.service",
 );
-jest.mock("@arcasdk/core/src/application/services/register-scope-four.service");
-jest.mock("@arcasdk/core/src/application/services/register-scope-five.service");
-jest.mock("@arcasdk/core/src/application/services/register-scope-ten.service");
+jest.mock("@application/services/register-scope-four.service");
+jest.mock("@application/services/register-scope-five.service");
+jest.mock("@application/services/register-scope-ten.service");
 jest.mock(
-  "@arcasdk/core/src/application/services/register-scope-thirteen.service",
+  "@application/services/register-scope-thirteen.service",
 );
+jest.mock("@application/services/generic.service");
+jest.mock("@application/services/wsfecred.service");
+jest.mock("@application/services/wsfex.service");
+jest.mock("@infrastructure/repositories/generic/generic-repository");
+jest.mock("@infrastructure/repositories/fecred/fecred.repository");
+jest.mock("@infrastructure/repositories/fex/fex.repository");
 
 // Cast mocks to their mocked versions for type-safe access
 const MockedFileSystemTicketStorage =
@@ -108,6 +120,20 @@ const MockedRegisterScopeThirteenService =
   RegisterScopeThirteenService as jest.MockedClass<
     typeof RegisterScopeThirteenService
   >;
+const MockedGenericService = GenericService as jest.MockedClass<
+  typeof GenericService
+>;
+const MockedWsfecredService = WsfecredService as jest.MockedClass<
+  typeof WsfecredService
+>;
+const MockedWsfexService = WsfexService as jest.MockedClass<typeof WsfexService>;
+const MockedGenericRepository = GenericRepository as jest.MockedClass<
+  typeof GenericRepository
+>;
+const MockedFecredRepository = FecredRepository as jest.MockedClass<
+  typeof FecredRepository
+>;
+const MockedFexRepository = FexRepository as jest.MockedClass<typeof FexRepository>;
 
 describe("Arca", () => {
   const mockContext: Context = {
@@ -164,6 +190,14 @@ describe("Arca", () => {
     MockedRegisterScopeThirteenService.mockImplementation(
       () => ({}) as RegisterScopeThirteenService,
     );
+    MockedGenericRepository.mockImplementation(
+      () => ({}) as GenericRepository,
+    );
+    MockedFecredRepository.mockImplementation(() => ({}) as FecredRepository);
+    MockedFexRepository.mockImplementation(() => ({}) as FexRepository);
+    MockedGenericService.mockImplementation(() => ({}) as GenericService);
+    MockedWsfecredService.mockImplementation(() => ({}) as WsfecredService);
+    MockedWsfexService.mockImplementation(() => ({}) as WsfexService);
   });
 
   describe("constructor", () => {
@@ -184,6 +218,12 @@ describe("Arca", () => {
       expect(MockedRegisterScopeFiveService).toHaveBeenCalled();
       expect(MockedRegisterScopeTenService).toHaveBeenCalled();
       expect(MockedRegisterScopeThirteenService).toHaveBeenCalled();
+      expect(MockedGenericRepository).toHaveBeenCalled();
+      expect(MockedFecredRepository).toHaveBeenCalled();
+      expect(MockedFexRepository).toHaveBeenCalled();
+      expect(MockedGenericService).toHaveBeenCalled();
+      expect(MockedWsfecredService).toHaveBeenCalled();
+      expect(MockedWsfexService).toHaveBeenCalled();
     });
 
     it("should create FileSystemTicketStorage with correct parameters", () => {
@@ -279,6 +319,21 @@ describe("Arca", () => {
       );
     });
 
+    it("should create Generic, FECRED and FEX repositories with soap config", () => {
+      new Arca(mockContext);
+      const expectedSoapConfig = {
+        authRepository: expect.anything(),
+        cuit: mockContext.cuit,
+        production: false,
+        useSoap12: true,
+        useHttpsAgent: false,
+      };
+
+      expect(MockedGenericRepository).toHaveBeenCalledWith(expectedSoapConfig);
+      expect(MockedFecredRepository).toHaveBeenCalledWith(expectedSoapConfig);
+      expect(MockedFexRepository).toHaveBeenCalledWith(expectedSoapConfig);
+    });
+
     it("should create Arca instance with production true", () => {
       const productionContext: Context = {
         ...mockContext,
@@ -304,6 +359,9 @@ describe("Arca", () => {
       scopeFive: {} as RegisterScopeFiveService,
       scopeTen: {} as RegisterScopeTenService,
       scopeThirteen: {} as RegisterScopeThirteenService,
+      generic: {} as GenericService,
+      wsfecred: {} as WsfecredService,
+      wsfex: {} as WsfexService,
     };
 
     beforeEach(() => {
@@ -319,6 +377,9 @@ describe("Arca", () => {
       MockedRegisterScopeThirteenService.mockReturnValue(
         mockServices.scopeThirteen,
       );
+      MockedGenericService.mockReturnValue(mockServices.generic);
+      MockedWsfecredService.mockReturnValue(mockServices.wsfecred);
+      MockedWsfexService.mockReturnValue(mockServices.wsfex);
 
       arca = new Arca(mockContext);
     });
@@ -351,6 +412,18 @@ describe("Arca", () => {
       expect(arca.registerScopeThirteenService).toBe(
         mockServices.scopeThirteen,
       );
+    });
+
+    it("should return genericService", () => {
+      expect(arca.genericService).toBe(mockServices.generic);
+    });
+
+    it("should return wsfecredService", () => {
+      expect(arca.wsfecredService).toBe(mockServices.wsfecred);
+    });
+
+    it("should return wsfexService", () => {
+      expect(arca.wsfexService).toBe(mockServices.wsfex);
     });
   });
 

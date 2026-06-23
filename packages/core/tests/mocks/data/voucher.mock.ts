@@ -1,4 +1,4 @@
-import { IVoucher } from "@arcasdk/core/src/domain/types/voucher.types";
+import { IVoucher } from "@domain/types/voucher.types";
 import EnvTest from "../../utils/env-test";
 
 export const testCuit = parseInt(EnvTest.cuit);

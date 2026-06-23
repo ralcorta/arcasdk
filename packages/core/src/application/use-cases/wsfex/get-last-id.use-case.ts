@@ -2,7 +2,7 @@ import { IFexRepositoryPort } from "@application/ports/fex/fex-repository.port";
 import {
   IFEXGetLast_IDInput,
   IFEXGetLast_IDOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FEXService/ServiceSoap";
+} from "@application/dto/fex";
 
 export class GetLastIdUseCase {
   constructor(private readonly repository: IFexRepositoryPort) {}

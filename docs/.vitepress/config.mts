@@ -54,6 +54,7 @@ export default withMermaid(
           items: [
             { text: "🎉 Introducción", link: "/introduction" },
             { text: "🚀 Uso basico", link: "/basic-use" },
+            { text: "📘 Referencia API", link: "/referencia-api" },
             { text: "⚙️ Configuración", link: "/config" },
             { text: "🧩 Engines SOAP", link: "/soap-engines" },
             {
@@ -78,6 +79,10 @@ export default withMermaid(
             {
               text: "🏭 Factura de crédito MiPyMEs",
               link: "/factura_credito_electronica",
+            },
+            {
+              text: "🔧 Servicio genérico",
+              link: "/generic-service",
             },
             {
               text: "🔍 Consultas de padron",

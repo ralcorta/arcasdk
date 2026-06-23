@@ -1,7 +1,4 @@
-/**
- * Electronic Billing Use Cases
- * Exports all electronic billing-related use cases
- */
+
 export * from "./get-server-status.use-case";
 export * from "./get-sales-points.use-case";
 export * from "./get-last-voucher.use-case";
@@ -15,5 +12,13 @@ export * from "./get-aliquot-types.use-case";
 export * from "./get-currency-types.use-case";
 export * from "./get-optional-types.use-case";
 export * from "./get-tax-types.use-case";
-// Keep get-parameter-types for backward compatibility (deprecated)
-export * from "./get-parameter-types.use-case";
+export * from "./get-iva-receptor-types.use-case";
+export * from "./get-quotation.use-case";
+export * from "./get-countries.use-case";
+export * from "./get-activities.use-case";
+export * from "./get-max-records.use-case";
+export * from "./get-caea.use-case";
+export * from "./consult-caea.use-case";
+export * from "./inform-caea-no-movement.use-case";
+export * from "./consult-caea-no-movement.use-case";
+export * from "./inform-caea-usage.use-case";

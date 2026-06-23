@@ -1,5 +1,5 @@
 import { IFecredRepositoryPort } from "@application/ports/fecred/fecred-repository.port";
-import { IconsultarTiposAjustesOperacionOutput } from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+import { IconsultarTiposAjustesOperacionOutput } from "@application/dto/fecred";
 
 export class ConsultarTiposAjustesOperacionUseCase {
   constructor(private readonly repository: IFecredRepositoryPort) {}

@@ -1,0 +1,11 @@
+export * as LoginCMSService from "./LoginCMSService/LoginCms";
+export * as PersonaServiceA10 from "./PersonaServiceA10/PersonaServiceA10Port";
+export * as PersonaServiceA13 from "./PersonaServiceA13/PersonaServiceA13Port";
+export * as PersonaServiceA4 from "./PersonaServiceA4/PersonaServiceA4Port";
+export * as PersonaServiceA5 from "./PersonaServiceA5/PersonaServiceA5Port";
+export * as PersonaServiceInscriptionProof from "./PersonaServiceInscriptionProof/PersonaServiceInscriptionProofPort";
+export * as FECredServiceSoap from "./FECredService/ServiceSoap";
+export * as FEXServiceSoap from "./FEXService/ServiceSoap";
+export * as FEXServiceSoap12 from "./FEXService/ServiceSoap12";
+export * as ServiceSoapTypes from "@application/dto/electronic-billing/wsfe-service-soap.types";
+export * as ServiceSoap12Types from "@application/dto/electronic-billing/wsfe-service-soap12.types";

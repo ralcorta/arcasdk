@@ -1,4 +1,4 @@
-import { SoapServiceVersion } from "@infrastructure/outbound/ports/soap/enums/endpoints.enum";
+import { type SoapServiceVersion } from "@infrastructure/soap/config/soap-service-version.types";
 
 export type SoapAsyncResultTuple<O = unknown, H = unknown> = [
   O,

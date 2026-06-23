@@ -1,7 +1,5 @@
-import {
-  AccessTicket,
-  ILoginCredentials,
-} from "@domain/entities/access-ticket.entity";
+import { AccessTicket } from "@domain/entities/access-ticket.entity";
+import type { ILoginCredentials } from "@domain/types/auth.types";
 import { MS_PER_DAY } from "../../../utils/time.constants";
 
 describe("AccessTicket Entity", () => {
@@ -16,12 +14,16 @@ describe("AccessTicket Entity", () => {
         generationtime: new Date().toISOString(),
         expirationtime: futureExpiration,
       },
-    ] as any,
+    ],
     credentials: {
       token: "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4...",
       sign: "signature123",
     },
   };
+
+  function invalidLoginCredentials(value: unknown): ILoginCredentials {
+    return value as ILoginCredentials;
+  }
 
   describe("create", () => {
     it("creates a valid access ticket", () => {
@@ -30,59 +32,84 @@ describe("AccessTicket Entity", () => {
     });
 
     it("throws error when header is invalid", () => {
-      const invalidData = {
-        ...validLoginCredentials,
-        header: null as any,
-      };
-      expect(() => AccessTicket.create(invalidData)).toThrow(/header|Invalid/i);
+      expect(() =>
+        AccessTicket.create(
+          invalidLoginCredentials({
+            ...validLoginCredentials,
+            header: null,
+          }),
+        ),
+      ).toThrow(/header|Invalid/i);
     });
 
     it("throws error when header is not an array", () => {
-      const invalidData = {
-        ...validLoginCredentials,
-        header: {} as any,
-      };
-      expect(() => AccessTicket.create(invalidData)).toThrow(/header/i);
+      expect(() =>
+        AccessTicket.create(
+          invalidLoginCredentials({
+            ...validLoginCredentials,
+            header: {},
+          }),
+        ),
+      ).toThrow(/header/i);
     });
 
     it("throws error when credentials are missing", () => {
-      const invalidData = {
-        ...validLoginCredentials,
-        credentials: null as any,
-      };
-      expect(() => AccessTicket.create(invalidData)).toThrow(/credentials/i);
+      expect(() =>
+        AccessTicket.create(
+          invalidLoginCredentials({
+            ...validLoginCredentials,
+            credentials: null,
+          }),
+        ),
+      ).toThrow(/credentials/i);
     });
 
     it("throws error when sign is missing", () => {
-      const invalidData = {
-        ...validLoginCredentials,
-        credentials: {
-          token: "token123",
-          sign: "",
-          cuit: 20111111112,
-        },
-      };
-      expect(() => AccessTicket.create(invalidData)).toThrow(/credentials/i);
+      expect(() =>
+        AccessTicket.create(
+          invalidLoginCredentials({
+            ...validLoginCredentials,
+            credentials: {
+              token: "token123",
+              sign: "",
+            },
+          }),
+        ),
+      ).toThrow(/credentials/i);
     });
 
     it("throws error when token is missing", () => {
-      const invalidData = {
-        ...validLoginCredentials,
-        credentials: {
-          token: "",
-          sign: "signature123",
-          cuit: 20111111112,
-        },
-      };
-      expect(() => AccessTicket.create(invalidData)).toThrow(/credentials/i);
+      expect(() =>
+        AccessTicket.create(
+          invalidLoginCredentials({
+            ...validLoginCredentials,
+            credentials: {
+              token: "",
+              sign: "signature123",
+            },
+          }),
+        ),
+      ).toThrow(/credentials/i);
     });
 
     it("throws error when expiration time is missing", () => {
-      const invalidData = {
-        ...validLoginCredentials,
-        header: [null, { uniqueId: "12345" }] as any,
-      };
-      expect(() => AccessTicket.create(invalidData)).toThrow(/expiration/i);
+      expect(() =>
+        AccessTicket.create(
+          invalidLoginCredentials({
+            ...validLoginCredentials,
+            header: [
+              { version: "1.0" },
+              {
+                source: "WSAA",
+                destination: "CN=wsfe",
+                uniqueid: "12345",
+                generationtime: new Date().toISOString(),
+                expirationtime: "",
+              },
+            ],
+          }),
+        ),
+      ).toThrow(/expiration/i);
     });
   });
 
@@ -128,34 +155,6 @@ describe("AccessTicket Entity", () => {
     });
   });
 
-  describe("getWSAuthFormat", () => {
-    it("formats ticket for SOAP authentication with valid CUIT", () => {
-      const ticket = AccessTicket.create(validLoginCredentials);
-      const wsAuth = ticket.getWSAuthFormat(20111111112);
-
-      expect(wsAuth).toHaveProperty("Auth");
-      expect(wsAuth.Auth).toHaveProperty("Token");
-      expect(wsAuth.Auth).toHaveProperty("Sign");
-      expect(wsAuth.Auth).toHaveProperty("Cuit");
-      expect(wsAuth.Auth.Cuit).toBe(20111111112);
-    });
-
-    it("throws error with invalid CUIT", () => {
-      const ticket = AccessTicket.create(validLoginCredentials);
-      expect(() => ticket.getWSAuthFormat(0)).toThrow(/CUIT/i);
-    });
-
-    it("throws error with negative CUIT", () => {
-      const ticket = AccessTicket.create(validLoginCredentials);
-      expect(() => ticket.getWSAuthFormat(-1)).toThrow(/CUIT/i);
-    });
-
-    it("throws error with null CUIT", () => {
-      const ticket = AccessTicket.create(validLoginCredentials);
-      expect(() => ticket.getWSAuthFormat(null as any)).toThrow(/CUIT/i);
-    });
-  });
-
   describe("isExpired", () => {
     it("returns true when expiration time is in the past", () => {
       const expiredCredentials: ILoginCredentials = {
@@ -168,7 +167,7 @@ describe("AccessTicket Entity", () => {
             generationtime: new Date().toISOString(),
             expirationtime: new Date(Date.now() - MS_PER_DAY).toISOString(),
           },
-        ] as any,
+        ],
         credentials: {
           token: "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4...",
           sign: "signature123",

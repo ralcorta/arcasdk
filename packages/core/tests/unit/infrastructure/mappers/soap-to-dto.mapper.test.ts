@@ -292,11 +292,13 @@ describe("soap-to-dto.mapper", () => {
   });
 
   describe("mapCaeaNoMovement", () => {
-    it("should map ResultGet array to domain CaeaNoMovement array", () => {
+    it("should map FECAEASinMov array to domain CaeaNoMovement array", () => {
       const result = mapCaeaNoMovement({
-        ResultGet: [
-          { CAEA: "12345678901234", FchProceso: "20231001100000", PtoVta: 1 },
-        ],
+        ResultGet: {
+          FECAEASinMov: [
+            { CAEA: "12345678901234", FchProceso: "20231001100000", PtoVta: 1 },
+          ],
+        },
       });
 
       expect(result).toEqual([

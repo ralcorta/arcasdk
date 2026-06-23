@@ -1,4 +1,4 @@
-import { VoucherNumber } from "@arcasdk/core/src/domain/value-objects/voucher-number.vo";
+import { VoucherNumber } from "@domain/value-objects/voucher-number.vo";
 
 describe("VoucherNumber Value Object", () => {
   describe("create", () => {

@@ -212,8 +212,8 @@ describeOrSkip("WSFE homologación — TA manual (consumidor npm)", () => {
       const tributoId = tributoList[0]!.id;
 
       // Obtener opcionalId desde FEParamGetTiposOpcional
-      const opcionales = await arca.electronicBillingService.getOptionsTypes();
-      expectWsfeWithoutErrors("getOptionsTypes para multi-IVA", opcionales);
+      const opcionales = await arca.electronicBillingService.getOptionalTypes();
+      expectWsfeWithoutErrors("getOptionalTypes para multi-IVA", opcionales);
       const opcionalList = opcionales.resultGet?.opcionalTipo ?? [];
       if (opcionalList.length === 0) {
         console.info(

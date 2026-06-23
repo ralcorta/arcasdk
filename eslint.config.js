@@ -47,4 +47,38 @@ module.exports = [
       "@typescript-eslint/no-unused-vars": "warn",
     },
   },
+  {
+    files: ["packages/core/src/domain/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@application/*", "@infrastructure/*"],
+              message:
+                "Domain layer must not depend on application or infrastructure.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["packages/core/src/application/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@infrastructure/*"],
+              message:
+                "Application layer must not import infrastructure. Use ports and DTOs instead.",
+            },
+          ],
+        },
+      ],
+    },
+  },
 ];

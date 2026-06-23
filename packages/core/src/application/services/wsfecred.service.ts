@@ -35,7 +35,7 @@ import {
   IconsultarMontoObligadoRecepcionOutput,
   ImodificarOpcionTransferenciaInput,
   ImodificarOpcionTransferenciaOutput,
-} from "@infrastructure/outbound/ports/soap/interfaces/FECredService/ServiceSoap";
+} from "@application/dto/fecred";
 import { AceptarFECredUseCase } from "@application/use-cases/wsfecred/aceptar-fecred.use-case";
 import { RechazarFECredUseCase } from "@application/use-cases/wsfecred/rechazar-fecred.use-case";
 import { ConsultarComprobantesUseCase } from "@application/use-cases/wsfecred/consultar-comprobantes.use-case";
@@ -56,7 +56,6 @@ import { ConsultarHistorialEstadosCtaCteUseCase } from "@application/use-cases/w
 import { ConsultarTiposAjustesOperacionUseCase } from "@application/use-cases/wsfecred/consultar-tipos-ajustes-operacion.use-case";
 import { ConsultarMontoObligadoRecepcionUseCase } from "@application/use-cases/wsfecred/consultar-monto-obligado-recepcion.use-case";
 import { ModificarOpcionTransferenciaUseCase } from "@application/use-cases/wsfecred/modificar-opcion-transferencia.use-case";
-// import { FecredDummyUseCase } from "@application/use-cases/wsfecred/dummy.use-case";
 
 export class WsfecredService {
   private readonly aceptarFECredUseCase: AceptarFECredUseCase;
@@ -229,10 +228,4 @@ export class WsfecredService {
   ): Promise<ImodificarOpcionTransferenciaOutput> {
     return this.modificarOpcionTransferenciaUseCase.execute(input);
   }
-
-  // dummy() no expuesto: el WSDL de AFIP define dummyRequest sin body,
-  // pero el servidor exige auth → incompatibilidad que impide su uso.
-  // async dummy(): Promise<IdummyOutput> {
-  //   return this.dummyUseCase.execute();
-  // }
 }

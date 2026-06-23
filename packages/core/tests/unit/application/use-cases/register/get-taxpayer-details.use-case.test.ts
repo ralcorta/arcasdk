@@ -1,13 +1,15 @@
 import { GetTaxpayerDetailsUseCase } from "@application/use-cases/register/get-taxpayer-details.use-case";
 import { IRegisterBaseRepositoryPort } from "@application/ports/register/register-repository.ports";
-import { TaxpayerDetailsDto } from "@application/dto/register.dto";
+import { TaxpayerDetailsDto } from "@application/dto/register";
 
 describe("GetTaxpayerDetailsUseCase", () => {
   it("delegates getTaxpayerDetails to repository", async () => {
     const details: TaxpayerDetailsDto = {
-      nombre: "Test Company",
-      cuit: 20111111112,
+      idPersona: 20111111112,
       estadoClave: "AC",
+      datosGenerales: {
+        idPersona: 20111111112,
+      },
     };
     const repository: jest.Mocked<IRegisterBaseRepositoryPort> = {
       getTaxpayerDetails: jest.fn().mockResolvedValue(details),
