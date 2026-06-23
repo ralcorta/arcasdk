@@ -25,10 +25,10 @@ Esta SDK ofrece **dos estrategias complementarias**:
 
 #### 1. Automática (por defecto)
 
-La SDK genera, almacena y reutiliza tokens internamente. Los guarda en:
+La SDK genera, almacena y reutiliza tokens internamente. En Node.js los guarda en disco:
 
-- Local: `lib/infrastructure/storage/auth/tickets` (predeterminado)
-- O en una ubicación personalizada con `ticketPath`
+- Por defecto: `node_modules/@arcasdk/core/lib/infrastructure/storage/auth/tickets` (relativo a la instalación del paquete)
+- Personalizable con `ticketPath` (ruta absoluta recomendada en servidores)
 
 **Ideal para:** Servidores tradicionales, desarrollo local.
 
@@ -49,14 +49,14 @@ Luego reutilizas ese token en próximos requests pasándolo a la SDK.
 
 ## Resumen Conceptual
 
-| Aspecto                | Automática                | Manual                     |
-| ---------------------- | ------------------------- | -------------------------- |
-| **Ubicación de token** | FS local (predeterminado) | Tu BD/Redis/S3             |
-| **Generación**         | SDK automática            | SDK + Extraes credenciales |
-| **Almacenamiento**     | SDK automático            | Tú guardas                 |
-| **Reutilización**      | SDK busca en FS           | Tú pasas al crear Arca     |
-| **Serverless**         | ✗ No funciona bien        | ✓ Funciona                 |
-| **Complejidad**        | Baja                      | Media                      |
+| Aspecto                | Automática (disco)        | `ticketStorage`            | Manual (`credentials`)     |
+| ---------------------- | ------------------------- | -------------------------- | -------------------------- |
+| **Ubicación de token** | FS (`ticketPath`)         | Tu Redis/BD/S3             | Tu BD/Redis/S3             |
+| **Generación**         | SDK automática            | SDK automática             | SDK + Extraes credenciales |
+| **Almacenamiento**     | SDK en disco              | Tu adapter                 | Tú guardas                 |
+| **Reutilización**      | SDK busca en FS           | SDK busca en adapter       | Tú pasas al crear Arca     |
+| **Serverless**         | ✗ No funciona bien        | ✓ Funciona                 | ✓ Funciona                 |
+| **Complejidad**        | Baja                      | Media                      | Media                      |
 
 ---
 

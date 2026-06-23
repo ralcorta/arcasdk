@@ -54,6 +54,7 @@ export default withMermaid(
           items: [
             { text: "🎉 Introducción", link: "/introduction" },
             { text: "🚀 Uso basico", link: "/basic-use" },
+            { text: "📘 Referencia API", link: "/referencia-api" },
             { text: "⚙️ Configuración", link: "/config" },
             { text: "🧩 Engines SOAP", link: "/soap-engines" },
             {

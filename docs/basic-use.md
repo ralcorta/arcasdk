@@ -105,6 +105,7 @@ La respuesta incluye el **CAE (Código de Autorización Electrónica)** que es e
 
 ## Próximos Pasos
 
+- [Referencia de la API](/referencia-api) — Todos los servicios y exports de `@arcasdk/core`
 - [Facturación Electrónica](/services/facturacion_electronica) — Explora todas las opciones de facturación
 - [Padrón Alcance 4](/services/consulta_padron_alcance_4) — Consulta datos de contribuyentes
 - [Configuración](/config) — Personaliza la SDK para tu entorno

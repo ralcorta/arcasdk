@@ -14,8 +14,9 @@ const instancia = new Arca(Contexto);
   - `key` <small>\*(cadena)</small>: Contenido de la llave privada.
   - `cuit` <small>\*(número)</small>: CUIT del usuario que se utilizará.
   - `credentials` <small>(ILoginCredentials)</small>: Un objeto de tipo `ILoginCredentials` que contiene las credenciales de autenticación si ya se tienen guardadas. Este objeto debe tener la estructura `{ header: {...}, credentials: {...} }` obtenida de un `AccessTicket` mediante el método `toLoginCredentials()`.
+  - `ticketStorage` <small>(ITicketStoragePort)</small>: Implementación custom de persistencia de tickets WSAA (Redis, BD, etc.). Si se define, la SDK usa este storage en lugar del filesystem por defecto. Ver [Gestión de Credenciales](/credential_management#opcion-3-almacenamiento-personalizado-ticketstorage).
   - `handleTicket` <small>(booleano)</small>: Flag que indica si los tickets de autenticación son gestionados automáticamente por el paquete o si serán proporcionados por el desarrollador (más adelante se explicará cómo hacer inicio de sesión y luego pasar los tokens antes de llamar al servicio web deseado). Esto es útil cuando se desea utilizar el paquete en una función `lambda` o en algun lugar que no se tenga almacenamiento.
-  - `ticketPath` <small>(cadena)</small>: La ruta preferida donde se desean guardar los tokens obtenidos del servicio WSAA si no se desea utilizar la carpeta predeterminada.
+  - `ticketPath` <small>(cadena)</small>: Ruta donde guardar los tickets WSAA cuando el modo es automático en Node.js (`handleTicket: false`, valor por defecto). Por defecto apunta a `lib/infrastructure/storage/auth/tickets` **dentro del paquete instalado** (`node_modules/@arcasdk/core/...`). Personalizala con una ruta absoluta en tu servidor.
   - `useSoap12` <small>(booleano, opcional)</small>: Flag que indica si se debe usar SOAP 1.2 en lugar de SOAP 1.1 para el servicio de Facturación Electrónica. Por defecto es `true` (usa SOAP 1.2).
   - `useHttpsAgent` <small>(booleano, opcional)</small>: Flag que habilita el uso de un agente HTTPS con configuración legacy para servidores ARCA/AFIP antiguos. **Por defecto es `false`** (deshabilitado). Ver más detalles abajo.
 
@@ -60,12 +61,17 @@ type Context = {
   credentials?: ILoginCredentials;
 
   /**
+   * Custom ticket persistence (Redis, DB, etc.). Overrides default FS storage.
+   */
+  ticketStorage?: ITicketStoragePort;
+
+  /**
    * Flag that if is true, the access tickets data is handled by the developer, otherwise is saved locally.
    */
   handleTicket?: boolean;
 
   /**
-   * The path of the auth obj if the package is auto managed
+   * Directory for WSAA tickets when auto-managed on Node.js (default: inside installed package)
    */
   ticketPath?: string;
 
@@ -91,10 +97,8 @@ type Context = {
 
 Este parámetro controla si se utiliza un agente HTTPS con configuración legacy para conectarse a los servidores de ARCA/AFIP.
 
-::: warning Cambio Importante
-**Desde la versión 0.3.5, el valor por defecto cambió de `true` a `false`.**
-
-Este cambio mejora la compatibilidad con entornos edge como Cloudflare Workers y otros runtimes modernos que no requieren configuración SSL legacy.
+::: warning Valor por defecto
+`useHttpsAgent` es **`false`** por defecto, para compatibilidad con Cloudflare Workers y runtimes modernos sin configuración SSL especial.
 :::
 
 #### Cuándo usar `useHttpsAgent: false` (por defecto)
