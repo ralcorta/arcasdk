@@ -92,6 +92,13 @@ La SDK ofrece soporte de primera clase para los servicios más críticos:
       <span>Cualquier WSDL de ARCA</span>
     </div>
   </a>
+  <a href="/packages/pdf" class="service-link-card">
+    <div class="service-link-icon">🧾</div>
+    <div class="service-link-content">
+      <strong>PDF de comprobantes</strong>
+      <span>Generador con diseño ARCA</span>
+    </div>
+  </a>
 </div>
 
 ---

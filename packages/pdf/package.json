@@ -10,6 +10,8 @@
     "test": "jest --config jest.config.js",
     "test:unit": "jest --config jest.config.js",
     "test:coverage": "jest --config jest.config.js --coverage",
+    "generate:docs-demo": "TS_NODE_TRANSPILE_ONLY=1 ts-node --project tsconfig.build.json -r tsconfig-paths/register scripts/generate-docs-demo.ts",
+    "generate:samples": "TS_NODE_TRANSPILE_ONLY=1 ts-node --project tsconfig.build.json -r tsconfig-paths/register scripts/generate-sample.ts",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {

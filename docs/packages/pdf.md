@@ -1,4 +1,4 @@
-# Generador de PDF
+# 🧾 Generador de PDF
 
 El paquete `@arcasdk/pdf` permite generar comprobantes electrónicos en formato PDF con el diseño oficial de ARCA (ex AFIP). Soporta Facturas, Notas de Crédito, Notas de Débito y comprobantes MiPyME en letras A, B, C, E y M.
 
@@ -7,6 +7,151 @@ El paquete `@arcasdk/pdf` permite generar comprobantes electrónicos en formato 
 :::
 
 [[toc]]
+
+---
+
+## Vista previa
+
+<div class="pdf-demo">
+  <div class="pdf-demo-header">
+    <span class="pdf-demo-badge">🧾 Factura A · datos de prueba</span>
+    <div class="pdf-demo-actions">
+      <a class="pdf-demo-link primary" href="/packages/pdf/factura-a-demo.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+      <a class="pdf-demo-link" href="/packages/pdf/factura-a-demo.pdf" download="factura-a-demo.pdf">Descargar ejemplo</a>
+    </div>
+  </div>
+
+  <a href="/packages/pdf/factura-a-demo.pdf" target="_blank" rel="noopener" class="pdf-demo-preview">
+    <img src="/packages/pdf/factura-a-demo.png" alt="Vista previa de Factura A generada con @arcasdk/pdf" loading="lazy" />
+  </a>
+  <p class="pdf-demo-caption">
+    Factura A con 3 ítems, desglose de IVA, tributos y código QR. Todos los datos son ficticios.
+  </p>
+
+  <div class="pdf-demo-data">
+    <div class="pdf-demo-data-item">
+      <strong>Comprobante</strong>
+      Factura A 00001-00000487
+    </div>
+    <div class="pdf-demo-data-item">
+      <strong>Emisor</strong>
+      Estudio Contable de Prueba
+    </div>
+    <div class="pdf-demo-data-item">
+      <strong>Receptor</strong>
+      Farmacia de Prueba S.A.
+    </div>
+    <div class="pdf-demo-data-item">
+      <strong>Importe total</strong>
+      $ 711.275,00
+    </div>
+  </div>
+
+  <details class="pdf-demo-viewer">
+    <summary>Ver PDF embebido</summary>
+    <iframe src="/packages/pdf/factura-a-demo.pdf" title="Factura A de ejemplo"></iframe>
+  </details>
+</div>
+
+Los datos de este ejemplo (ficticios) son los mismos que podés usar en tu código:
+
+```ts
+const data: InvoiceData = {
+  emisor: {
+    razonSocial: "ESTUDIO CONTABLE DE PRUEBA",
+    domicilioComercial: "Mitre 456 Piso 2 Of. C - C1036AAR - CABA",
+    condicionIva: "IVA Responsable Inscripto",
+    cuit: "30702345678",
+    iibb: "903-223344-5",
+    fechaInicioActividades: "20110301",
+    contacto: "contacto@estudio-prueba.com.ar",
+  },
+  receptor: {
+    razonSocial: "FARMACIA DE PRUEBA S.A.",
+    domicilio: "Bv. España 2300 - S2000DSR - Rosario - Santa Fe",
+    condicionIva: "IVA Responsable Inscripto",
+    documentoTipo: "CUIT",
+    documentoNro: "30901876543",
+  },
+  cbteTipo: 1,
+  cbteLetra: "A",
+  puntoVenta: 1,
+  cbteDesde: 487,
+  cbteHasta: 487,
+  cbteFecha: "20260501",
+  concepto: 2,
+  moneda: "PES",
+  condicionVenta: "Cuenta Corriente - 30 días",
+  fechaServicioDesde: "20260401",
+  fechaServicioHasta: "20260430",
+  fechaVtoPago: "20260531",
+  items: [
+    {
+      codigo: "HON-001",
+      descripcion: "Honorarios profesionales - Liquidación de sueldos abril 2026",
+      cantidad: 1,
+      unidadMedida: "unidades",
+      precioUnitario: 320000,
+      subtotal: 320000,
+      alicuotaIva: 21,
+    },
+    {
+      codigo: "HON-002",
+      descripcion: "Asesoramiento impositivo mensual",
+      cantidad: 1,
+      unidadMedida: "unidades",
+      precioUnitario: 180000,
+      bonificacion: 10,
+      subtotal: 162000,
+      alicuotaIva: 21,
+    },
+    {
+      codigo: "HON-003",
+      descripcion: "Certificación de balances",
+      cantidad: 1,
+      unidadMedida: "unidades",
+      precioUnitario: 95000,
+      subtotal: 95000,
+      alicuotaIva: 10.5,
+    },
+  ],
+  importeNetoGravado: 577000,
+  importeIva: 111195,
+  iva: [
+    { id: 5, descripcion: "21%", baseImponible: 482000, importe: 101220 },
+    { id: 4, descripcion: "10.5%", baseImponible: 95000, importe: 9975 },
+  ],
+  tributos: [
+    {
+      id: 99,
+      descripcion: "Percepción IIBB CABA",
+      baseImponible: 577000,
+      alicuota: 3,
+      importe: 17310,
+    },
+    {
+      id: 6,
+      descripcion: "Percepción IVA",
+      baseImponible: 577000,
+      alicuota: 1,
+      importe: 5770,
+    },
+  ],
+  importeTributos: 23080,
+  importeTotal: 711275,
+  cae: "72643218900002",
+  caeFechaVencimiento: "20260511",
+};
+
+const generator = new InvoicePdfGenerator();
+const pdfBuffer = await generator.generate(data);
+```
+
+Para regenerar la vista previa de la documentación después de cambiar el template:
+
+```bash
+npm run generate:docs-demo --workspace=@arcasdk/pdf
+```
 
 ---
 
