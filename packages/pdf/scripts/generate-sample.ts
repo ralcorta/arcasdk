@@ -1,3 +1,4 @@
+import "./setup-puppeteer";
 import { InvoicePdfGenerator } from "../src/generator/invoice-pdf-generator";
 import { InvoiceData } from "../src/types/invoice-data.types";
 import { writeFileSync } from "fs";

@@ -116,7 +116,7 @@ export default withMermaid(
           text: "Paquetes",
           items: [
             {
-              text: "📄 Generador de PDF",
+              text: "🧾 PDF de comprobantes",
               link: "/packages/pdf",
             },
           ],

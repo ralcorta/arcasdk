@@ -42,14 +42,19 @@
   .bottom-columns{display:flex;gap:10px;margin-bottom:6px}
   .bottom-col-left{width:42%}
   .bottom-col-right{width:52%;margin-left:auto}
-  .tributos-table{border:1pt solid #000;font-size:7.5pt;width:100%}
+  .tributos-table{border:1pt solid #000;font-size:7.5pt;width:100%;table-layout:fixed}
   .tributos-table td{padding:3px 5px}
+  .tributos-table .col-desc{width:40%}
+  .tributos-table .col-detalle{width:14%}
+  .tributos-table .col-alic{width:14%;white-space:nowrap;text-align:right}
+  .tributos-table .col-importe{width:32%;white-space:nowrap;text-align:right}
   .tributos-header td{background:#f0f0f0;font-weight:bold;border-bottom:1pt solid #000}
   .tributos-subheader td{font-weight:bold;border-bottom:0.5pt solid #ccc}
   .tributos-subheader td:last-child{text-align:right}
   .tributos-row td:last-child{text-align:right}
   .tributos-total td{font-weight:bold;border-top:1pt solid #000}
-  .tributos-total td:last-child{text-align:right}
+  .tributos-total .tributos-total-label{text-align:right;padding-right:2px}
+  .tributos-total td.col-importe{text-align:right}
   .moneda-label{font-weight:bold;font-size:8pt;text-align:right;margin-bottom:4px}
   .conversion-line{border:1pt solid #000;padding:5px 8px;font-size:7.5pt;text-align:center;margin-top:6px}
   .totals-row{display:flex;justify-content:flex-end;margin-bottom:1px}
@@ -229,14 +234,20 @@
     <div class="bottom-columns">
       <div class="bottom-col-left">
         <table class="tributos-table">
+          <colgroup>
+            <col class="col-desc" />
+            <col class="col-detalle" />
+            <col class="col-alic" />
+            <col class="col-importe" />
+          </colgroup>
           <tr class="tributos-header"><td colspan="4">Otros Tributos</td></tr>
-          <tr class="tributos-subheader"><td>Descripción</td><td>Detalle</td><td style="text-align:right">Alic. %</td><td style="text-align:right">Importe</td></tr>
-          <tr class="tributos-row"><td>Per./Ret. de Impuesto a las Ganancias</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de Impuesto a las Ganancias") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Per./Ret. de IVA</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de IVA") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Per./Ret. Ingresos Brutos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. Ingresos Brutos") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Impuestos Internos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Internos") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Impuestos Municipales</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Municipales") data.moneda}}</td></tr>
-          <tr class="tributos-total"><td colspan="3" style="text-align:right">Importe Otros Tributos: {{#if (neq data.moneda "PES")}}{{currencyShortName data.moneda}}{{/if}}</td><td>{{formatCurrency (default data.importeTributos 0) data.moneda}}</td></tr>
+          <tr class="tributos-subheader"><td>Descripción</td><td>Detalle</td><td class="col-alic">Alic.&nbsp;%</td><td class="col-importe">Importe</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de Impuesto a las Ganancias</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Per./Ret. de Impuesto a las Ganancias") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de IVA</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Per./Ret. de IVA") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. Ingresos Brutos</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Per./Ret. Ingresos Brutos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Internos</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Impuestos Internos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Municipales</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Impuestos Municipales") data.moneda}}</td></tr>
+          <tr class="tributos-total"><td colspan="3" class="tributos-total-label">Importe Otros Tributos:{{#if (neq data.moneda "PES")}} {{currencyShortName data.moneda}}{{/if}}</td><td class="col-importe">{{formatCurrency (default data.importeTributos 0) data.moneda}}</td></tr>
         </table>
       </div>
       <div class="bottom-col-right">
@@ -262,14 +273,20 @@
     <div class="bottom-columns">
       <div class="bottom-col-left">
         <table class="tributos-table">
+          <colgroup>
+            <col class="col-desc" />
+            <col class="col-detalle" />
+            <col class="col-alic" />
+            <col class="col-importe" />
+          </colgroup>
           <tr class="tributos-header"><td colspan="4">Otros Tributos</td></tr>
-          <tr class="tributos-subheader"><td>Descripción</td><td>Detalle</td><td style="text-align:right">Alic. %</td><td style="text-align:right">Importe</td></tr>
-          <tr class="tributos-row"><td>Per./Ret. de Impuesto a las Ganancias</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de Impuesto a las Ganancias") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Per./Ret. de IVA</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. de IVA") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Per./Ret. Ingresos Brutos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Per./Ret. Ingresos Brutos") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Impuestos Internos</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Internos") data.moneda}}</td></tr>
-          <tr class="tributos-row"><td>Impuestos Municipales</td><td></td><td></td><td>{{formatCurrency (tributoImporte data.tributos "Impuestos Municipales") data.moneda}}</td></tr>
-          <tr class="tributos-total"><td colspan="3" style="text-align:right">Importe Otros Tributos: {{#if (neq data.moneda "PES")}}{{currencyShortName data.moneda}}{{/if}}</td><td>{{formatCurrency (default data.importeTributos 0) data.moneda}}</td></tr>
+          <tr class="tributos-subheader"><td>Descripción</td><td>Detalle</td><td class="col-alic">Alic.&nbsp;%</td><td class="col-importe">Importe</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de Impuesto a las Ganancias</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Per./Ret. de Impuesto a las Ganancias") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. de IVA</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Per./Ret. de IVA") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Per./Ret. Ingresos Brutos</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Per./Ret. Ingresos Brutos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Internos</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Impuestos Internos") data.moneda}}</td></tr>
+          <tr class="tributos-row"><td>Impuestos Municipales</td><td></td><td></td><td class="col-importe">{{formatCurrency (tributoImporte data.tributos "Impuestos Municipales") data.moneda}}</td></tr>
+          <tr class="tributos-total"><td colspan="3" class="tributos-total-label">Importe Otros Tributos:{{#if (neq data.moneda "PES")}} {{currencyShortName data.moneda}}{{/if}}</td><td class="col-importe">{{formatCurrency (default data.importeTributos 0) data.moneda}}</td></tr>
         </table>
       </div>
       <div class="bottom-col-right">
