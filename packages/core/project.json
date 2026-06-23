@@ -11,7 +11,7 @@
             ],
             "options": {
                 "commands": [
-                    "npx rimraf lib",
+                    "npx rimraf lib tsconfig.build.tsbuildinfo",
                     "npx tsc --project tsconfig.build.json",
                     "npx tsc-alias -p tsconfig.build.json"
                 ],

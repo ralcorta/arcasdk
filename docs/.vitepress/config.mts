@@ -80,6 +80,10 @@ export default withMermaid(
               link: "/factura_credito_electronica",
             },
             {
+              text: "🔧 Servicio genérico",
+              link: "/generic-service",
+            },
+            {
               text: "🔍 Consultas de padron",
               collapsed: true,
               items: [

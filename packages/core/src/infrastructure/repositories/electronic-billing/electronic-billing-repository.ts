@@ -107,7 +107,7 @@ export class ElectronicBillingRepository
       serviceName: ArcaServiceNames.WSFE,
       injectAuthProperty: false,
       soapVersion,
-    }) as IServiceSoapSoap | IServiceSoap12Soap;
+    });
 
     return this.serviceClient;
   }

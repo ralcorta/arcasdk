@@ -11,8 +11,11 @@ import {
 
 import { Client } from "soap";
 import { isAfipNotFoundError } from "@infrastructure/utils/afip-errors";
-import { WSAuthParam } from "@application/types";
 import { PersonaReturnRaw } from "@infrastructure/types/register.types";
+import {
+  mapPadronAuth,
+  padronExcludeMethods,
+} from "@infrastructure/soap/config/auth-mappers";
 
 export abstract class BaseRegisterRepository<TClient extends Client>
   extends BaseSoapRepository
@@ -52,14 +55,9 @@ export abstract class BaseRegisterRepository<TClient extends Client>
 
     this.client = this.createAuthenticatedProxy(client, {
       serviceName: this.serviceName,
-      injectAuthProperty: true,
       soapVersion,
-      authMapper: (auth: WSAuthParam) => ({
-        token: auth.Auth.Token,
-        sign: auth.Auth.Sign,
-        cuitRepresentada: auth.Auth.Cuit,
-      }),
-      excludeMethods: ["dummy"],
+      authMapper: mapPadronAuth,
+      excludeMethods: padronExcludeMethods,
     });
 
     return this.client;

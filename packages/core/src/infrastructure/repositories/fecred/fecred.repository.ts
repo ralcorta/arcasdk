@@ -4,6 +4,7 @@ import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-
 import { ArcaServiceNames } from "@application/types/service-name.types";
 import { WsdlPaths } from "@infrastructure/soap/config/wsdl-path.types";
 import { Endpoints } from "@infrastructure/soap/config/endpoints.types";
+import { mapFecredAuth } from "@infrastructure/soap/config/auth-mappers";
 import {
   IFECredServiceSOAPSoap,
   IaceptarFECredInput,
@@ -75,14 +76,8 @@ export class FecredRepository
     this.serviceClient = this.createAuthenticatedProxy(client, {
       serviceName: ArcaServiceNames.WSFECRED,
       soapVersion,
-      authMapper: (auth) => ({
-        authRequest: {
-          token: auth.Auth.Token,
-          sign: auth.Auth.Sign,
-          cuitRepresentada: auth.Auth.Cuit,
-        },
-      }),
-    }) as IFECredServiceSOAPSoap;
+      authMapper: mapFecredAuth,
+    });
 
     return this.serviceClient;
   }

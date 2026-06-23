@@ -4,8 +4,12 @@ import { BaseSoapRepositoryConstructorConfig } from "@infrastructure/types/soap-
 import { ArcaServiceNames } from "@application/types/service-name.types";
 import { WsdlPaths } from "@infrastructure/soap/config/wsdl-path.types";
 import { Endpoints } from "@infrastructure/soap/config/endpoints.types";
+import { fexExcludeMethods } from "@infrastructure/soap/config/auth-mappers";
 import {
   IServiceSoapSoap,
+} from "@infrastructure/soap/contracts/FEXService/ServiceSoap";
+import { IServiceSoap12Soap } from "@infrastructure/soap/contracts/FEXService/ServiceSoap12";
+import {
   IFEXAuthorizeInput,
   IFEXAuthorizeOutput,
   IFEXGetCMPInput,
@@ -45,17 +49,19 @@ import {
   IFEXDummyOutput,
 } from "@infrastructure/soap/contracts/FEXService/ServiceSoap";
 
+type FexSoapClient = IServiceSoapSoap | IServiceSoap12Soap;
+
 export class FexRepository
   extends BaseSoapRepository
   implements IFexRepositoryPort
 {
-  private serviceClient?: IServiceSoapSoap;
+  private serviceClient?: FexSoapClient;
 
   constructor(config: BaseSoapRepositoryConstructorConfig) {
     super(config);
   }
 
-  private async getClient(): Promise<IServiceSoapSoap> {
+  private async getClient(): Promise<FexSoapClient> {
     if (this.serviceClient) {
       return this.serviceClient;
     }
@@ -68,15 +74,15 @@ export class FexRepository
       : Endpoints.WSFEX_TEST;
 
     const { client, soapVersion } =
-      await this.createSoapClient<IServiceSoapSoap>(wsdlName);
+      await this.createSoapClient<FexSoapClient>(wsdlName);
 
     this.soapClient.setEndpoint(client, endpoint);
 
     this.serviceClient = this.createAuthenticatedProxy(client, {
       serviceName: ArcaServiceNames.WSFEX,
       soapVersion,
-      excludeMethods: ["FEXDummy"],
-    }) as IServiceSoapSoap;
+      excludeMethods: fexExcludeMethods,
+    });
 
     return this.serviceClient;
   }
