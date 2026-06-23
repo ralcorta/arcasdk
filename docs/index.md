@@ -2,36 +2,56 @@
 layout: home
 
 hero:
-  name: "Arca SDK"
-  text: "Tu conexión directa con ARCA"
-  tagline: La biblioteca TypeScript más robusta y moderna para integrar los servicios de ARCA (ex AFIP) en tus aplicaciones Node.js.
+  name: "Tu conexión directa con ARCA"
+  text: ""
+  tagline: Biblioteca TypeScript moderna para integrar facturación electrónica, padrón y demás servicios de ARCA (ex AFIP) en Node.js — sin intermediarios, con tipos completos.
   image:
     src: /logo.png
     alt: Arca SDK Logo
   actions:
     - theme: brand
-      text: 🚀 Comenzar Ahora
+      text: Comenzar
       link: /introduction
     - theme: alt
-      text: 📖 Ver Documentación
+      text: Ver ejemplo
       link: /basic-use
     - theme: alt
-      text: 🐙 GitHub
+      text: GitHub
       link: https://github.com/ralcorta/arcasdk
 ---
 
 <div class="home-content">
 
-<div class="ide-window">
-  <div class="window-header">
-    <div class="dots">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-    </div>
-    <div class="title">quick-start.ts</div>
+<div class="home-stats">
+  <div class="home-stat">
+    <strong>TypeScript</strong>
+    <span>Tipado estático completo</span>
   </div>
-  <div class="window-content">
+  <div class="home-stat">
+    <strong>Open Source</strong>
+    <span>MIT · Sin costos</span>
+  </div>
+  <div class="home-stat">
+    <strong>Directo a ARCA</strong>
+    <span>Sin intermediarios</span>
+  </div>
+  <div class="home-stat">
+    <strong>Node & Edge</strong>
+    <span>Lambda, Vercel, Workers</span>
+  </div>
+</div>
+
+<div class="home-ide">
+  <div class="home-ide-header">
+    <div class="home-ide-dots">
+      <span class="home-ide-dot red"></span>
+      <span class="home-ide-dot yellow"></span>
+      <span class="home-ide-dot green"></span>
+    </div>
+    <div class="home-ide-title">quick-start.ts</div>
+    <span class="home-ide-badge">@arcasdk/core</span>
+  </div>
+  <div class="home-ide-body">
 
 ::: code-group
 
@@ -58,376 +78,178 @@ const arca = new Arca({
   key: process.env.AFIP_KEY,
 });
 
-// ¡Listo para facturar!
 const invoice = await arca.electronicBillingService.createVoucher({
-  // ... tu magia aquí
+  // ... tu comprobante
 });
 ```
 
   </div>
 </div>
 
-<div class="features-grid">
-  <div class="feature-item">
-    <div class="feature-icon">🛡️</div>
-    <h3>Type-Safe por Diseño</h3>
-    <p>Disfruta de una experiencia de desarrollo superior con tipos estáticos completos. Olvídate de los errores en tiempo de ejecución.</p>
+<div class="home-section">
+  <div class="home-section-header">
+    <span class="home-eyebrow">Por qué Arca SDK</span>
+    <h2 class="home-section-title">Hecho para producción</h2>
+    <p class="home-section-desc">Todo lo que necesitás para conectar tu app con ARCA: autenticación WSAA, servicios tipados y arquitectura lista para escalar.</p>
   </div>
-  <div class="feature-item">
-    <div class="feature-icon">⚡</div>
-    <h3>Serverless Ready</h3>
-    <p>Diseñada pensando en la nube. Funciona perfectamente en AWS Lambda, Vercel, Cloudflare Workers y contenedores.</p>
-  </div>
-  <div class="feature-item">
-    <div class="feature-icon">🆓</div>
-    <h3>100% Gratuito y Libre</h3>
-    <p>Sin costos, sin suscripciones y sin intermediarios. Conéctate directamente a ARCA usando tus propias credenciales. Siempre gratis.</p>
-  </div>
-  <div class="feature-item">
-    <div class="feature-icon">🌐</div>
-    <h3>Universal & Versátil</h3>
-    <p>Funciona donde lo necesites: Backend, Frontend (Next.js, Remix) o Scripts. Pensada para integrarse en cualquier arquitectura moderna.</p>
+
+  <div class="home-features">
+    <div class="home-feature">
+      <div class="home-feature-icon">🛡️</div>
+      <div>
+        <h3>Type-safe por diseño</h3>
+        <p>DTOs y respuestas tipadas en cada servicio. Autocompletado y errores en compile-time, no en producción.</p>
+      </div>
+    </div>
+    <div class="home-feature">
+      <div class="home-feature-icon">⚡</div>
+      <div>
+        <h3>Serverless ready</h3>
+        <p>Funciona en AWS Lambda, Vercel, Cloudflare Workers y contenedores. Sin dependencias pesadas ni estado global.</p>
+      </div>
+    </div>
+    <div class="home-feature">
+      <div class="home-feature-icon">🔑</div>
+      <div>
+        <h3>WSAA automático</h3>
+        <p>Gestión de tickets de acceso, renovación de tokens y cache configurable. Vos solo pasás cert y key.</p>
+      </div>
+    </div>
+    <div class="home-feature">
+      <div class="home-feature-icon">🧩</div>
+      <div>
+        <h3>Modular y extensible</h3>
+        <p>Servicios dedicados para cada WS de ARCA, más un cliente genérico SOAP para cualquier WSDL.</p>
+      </div>
+    </div>
   </div>
 </div>
 
-## 🌟 Servicios de Poder
+<div class="home-section">
+  <div class="home-section-header">
+    <span class="home-eyebrow">Cómo funciona</span>
+    <h2 class="home-section-title">De cero a facturar en minutos</h2>
+    <p class="home-section-desc">Tres pasos para emitir tu primer comprobante con CAE.</p>
+  </div>
 
-Explora la suite completa de herramientas diseñadas para potenciar tu negocio.
-
-<div class="services-grid">
-  <a href="/services/facturacion_electronica" class="service-card">
-    <div class="card-icon">💸</div>
-    <h3>Facturación Electrónica</h3>
-    <p>Emisión y autorización de comprobantes (CAE) automatizada. Soporte para facturas A, B, C, notas de crédito y más.</p>
-  </a>
-  <a href="/services/facturacion_electronica_exportacion" class="service-card">
-    <div class="card-icon">🌍</div>
-    <h3>Facturación de Exportación</h3>
-    <p>Comprobantes WSFEX: autorización, parámetros y consultas de exportación.</p>
-  </a>
-  <a href="/services/factura_credito_electronica" class="service-card">
-    <div class="card-icon">🏭</div>
-    <h3>Factura de Crédito MiPyMEs</h3>
-    <p>WSFECred: aceptación, rechazo, cuentas corrientes y parámetros FCE.</p>
-  </a>
-  <a href="/services/consulta_padron_alcance_4" class="service-card">
-    <div class="card-icon">🔍</div>
-    <h3>Consulta de Padrón</h3>
-    <p>Accede a la base de datos de contribuyentes más actualizada. Valida CUITs y obtén datos fiscales en tiempo real.</p>
-  </a>
-  <a href="/services/consulta_padron_constancia_inscripcion" class="service-card">
-    <div class="card-icon">📄</div>
-    <h3>Constancia de Inscripción</h3>
-    <p>Obtén y verifica las constancias de inscripción de forma programática y segura.</p>
-  </a>
-  <a href="/referencia-api" class="service-card">
-    <div class="card-icon">📘</div>
-    <h3>Referencia API</h3>
-    <p>Servicios de Arca, ArcaServiceNames, storages, DTOs y composición avanzada.</p>
-  </a>
-  <a href="/services/generic-service" class="service-card">
-    <div class="card-icon">🔧</div>
-    <h3>Servicio Genérico</h3>
-    <p>Llamadas SOAP a cualquier WSDL de ARCA, con o sin wrapper dedicado en el SDK.</p>
-  </a>
+  <div class="home-steps">
+    <div class="home-step">
+      <div class="home-step-num">1</div>
+      <h3>Instalá el SDK</h3>
+      <p>Agregá <code>@arcasdk/core</code> a tu proyecto Node.js con npm, yarn o pnpm.</p>
+    </div>
+    <div class="home-step">
+      <div class="home-step-num">2</div>
+      <h3>Configurá credenciales</h3>
+      <p>Certificado y clave privada de ARCA. El SDK maneja WSAA y el ticket de acceso.</p>
+    </div>
+    <div class="home-step">
+      <div class="home-step-num">3</div>
+      <h3>Emití comprobantes</h3>
+      <p>Llamá al servicio de facturación y obtené el CAE directamente desde tu app.</p>
+    </div>
+  </div>
 </div>
 
-<div class="cta-section">
-  <h2>📚 Explora la Documentación Completa</h2>
-  <p>Accede a guías detalladas, tutoriales paso a paso y referencias de API</p>
-  <a href="/introduction" class="VPButton brand cta-button">
-    Ir a Documentación →
-  </a>
+<div class="home-section">
+  <div class="home-section-header">
+    <span class="home-eyebrow">Servicios</span>
+    <h2 class="home-section-title">Todo el ecosistema ARCA</h2>
+    <p class="home-section-desc">Wrappers tipados para los web services más usados, con documentación y ejemplos para cada uno.</p>
+  </div>
+
+  <div class="home-services">
+    <a href="/services/facturacion_electronica" class="home-service">
+      <span class="home-service-tag">Facturación</span>
+      <div class="home-service-icon">💸</div>
+      <h3>Facturación Electrónica</h3>
+      <p>Emisión y autorización de comprobantes (CAE). Facturas A, B, C, notas de crédito y más.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
+    <a href="/services/facturacion_electronica_exportacion" class="home-service">
+      <span class="home-service-tag export">Exportación</span>
+      <div class="home-service-icon">🌍</div>
+      <h3>Facturación de Exportación</h3>
+      <p>Comprobantes WSFEX: autorización, parámetros y consultas de exportación.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
+    <a href="/services/factura_credito_electronica" class="home-service">
+      <span class="home-service-tag">MiPyMEs</span>
+      <div class="home-service-icon">🏭</div>
+      <h3>Factura de Crédito</h3>
+      <p>WSFECred: aceptación, rechazo, cuentas corrientes y parámetros FCE.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
+    <a href="/services/consulta_padron_alcance_4" class="home-service">
+      <span class="home-service-tag padron">Padrón</span>
+      <div class="home-service-icon">🔍</div>
+      <h3>Consulta de Padrón</h3>
+      <p>Validá CUITs y obtené datos fiscales actualizados en tiempo real.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
+    <a href="/services/consulta_padron_constancia_inscripcion" class="home-service">
+      <span class="home-service-tag padron">Padrón</span>
+      <div class="home-service-icon">📄</div>
+      <h3>Constancia de Inscripción</h3>
+      <p>Obtén y verifica constancias de inscripción de forma programática.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
+    <a href="/services/generic-service" class="home-service">
+      <span class="home-service-tag tools">Avanzado</span>
+      <div class="home-service-icon">🔧</div>
+      <h3>Servicio Genérico</h3>
+      <p>Llamadas SOAP a cualquier WSDL de ARCA, con o sin wrapper dedicado.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
+    <a href="/referencia-api" class="home-service">
+      <span class="home-service-tag tools">Referencia</span>
+      <div class="home-service-icon">📘</div>
+      <h3>Referencia API</h3>
+      <p>ArcaServiceNames, storages, DTOs y composición avanzada de servicios.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
+  </div>
+</div>
+
+<div class="home-section">
+  <div class="home-section-header">
+    <span class="home-eyebrow">Guías</span>
+    <h2 class="home-section-title">Empezá por acá</h2>
+    <p class="home-section-desc">Rutas recomendadas según lo que necesites hacer primero.</p>
+  </div>
+
+  <div class="home-links">
+    <a href="/tutorial/obtain-testing-certificate" class="home-link">
+      <span class="home-link-icon">📜</span>
+      <div>
+        <strong>Certificado de testing</strong>
+        <span>Paso a paso para obtener tu primer certificado en homologación.</span>
+      </div>
+    </a>
+    <a href="/services/facturacion_electronica" class="home-link">
+      <span class="home-link-icon">💸</span>
+      <div>
+        <strong>Emitir una factura</strong>
+        <span>Guía completa de facturación electrónica con ejemplos de código.</span>
+      </div>
+    </a>
+    <a href="/packages/pdf" class="home-link">
+      <span class="home-link-icon">🧾</span>
+      <div>
+        <strong>Generar PDF</strong>
+        <span>Paquete <code>@arcasdk/pdf</code> para comprobantes listos para imprimir.</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="home-cta">
+  <h2>¿Listo para integrar ARCA?</h2>
+  <p>Documentación completa con tutoriales, referencia de API y solución de errores frecuentes.</p>
+  <div class="home-cta-actions">
+    <a href="/introduction" class="VPButton brand">Ir a la documentación</a>
+    <a href="/referencia-api" class="VPButton alt">Referencia API</a>
+  </div>
 </div>
 
 </div>
-
-<style>
-/* Hero Title Gradient */
-:root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
-}
-
-/* Animated Background */
-.VPHome {
-  background: radial-gradient(circle at 50% 0%, rgba(189, 52, 254, 0.1) 0%, transparent 60%),
-              radial-gradient(circle at 80% 10%, rgba(65, 209, 255, 0.1) 0%, transparent 50%);
-  animation: bg-pulse 10s ease-in-out infinite alternate;
-}
-
-@keyframes bg-pulse {
-  0% { background-size: 100% 100%; }
-  100% { background-size: 120% 120%; }
-}
-
-.home-content {
-  margin-top: 0;
-}
-
-/* IDE Window Styling */
-.ide-window {
-  background: #1e1e1e;
-  border-radius: 8px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  overflow: hidden;
-  margin: 0 auto 4rem auto;
-  border: 1px solid #333;
-  max-width: 900px;
-  animation: slide-up 0.8s ease-out;
-}
-
-@keyframes slide-up {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.window-header {
-  background: #2d2d2d;
-  padding: 0.8rem 1rem;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #333;
-  position: relative;
-}
-
-.dots {
-  display: flex;
-  gap: 8px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.dot.red { background: #ff5f56; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #27c93f; }
-
-.window-header .title {
-  position: absolute;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: #999;
-  font-family: monospace;
-  font-size: 0.9rem;
-  pointer-events: none;
-}
-
-.window-content {
-  padding: 0;
-}
-
-.window-content div[class*='language-'] {
-  margin: 0 !important;
-  border-radius: 0 !important;
-}
-
-/* Features Grid */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 4rem 0;
-}
-
-.feature-item {
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 1.5rem;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  animation: fade-in-up 0.5s ease-out forwards;
-  opacity: 0;
-}
-
-.feature-item:nth-child(1) { animation-delay: 0.1s; }
-.feature-item:nth-child(2) { animation-delay: 0.2s; }
-.feature-item:nth-child(3) { animation-delay: 0.3s; }
-.feature-item:nth-child(4) { animation-delay: 0.4s; }
-.feature-item:nth-child(5) { animation-delay: 0.5s; }
-.feature-item:nth-child(6) { animation-delay: 0.6s; }
-.feature-item:nth-child(7) { animation-delay: 0.7s; }
-.feature-item:nth-child(8) { animation-delay: 0.8s; }
-
-.feature-item:hover {
-  transform: translateY(-5px);
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 20px rgba(189, 52, 254, 0.2);
-}
-
-.feature-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-}
-
-.feature-item h3 {
-  margin: 0 0 0.5rem 0;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.feature-item p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--vp-c-text-2);
-  line-height: 1.5;
-}
-
-/* Services Grid */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
-}
-
-.service-card {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-  text-decoration: none !important;
-  height: 100%;
-}
-
-.service-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 0 30px rgba(65, 209, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.card-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.service-card h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-}
-
-.service-card p {
-  margin: 0;
-  color: var(--vp-c-text-2);
-  line-height: 1.6;
-}
-
-/* Resources Grid */
-.resources-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.resource-card {
-  padding: 1.5rem;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
-  text-decoration: none !important;
-}
-
-.resource-card:hover {
-  border-color: var(--vp-c-brand-2);
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 15px rgba(189, 52, 254, 0.15);
-}
-
-.resource-card h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-}
-
-.resource-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--vp-c-text-2);
-}
-
-.home-content h2 {
-  border-top: none !important;
-  text-align: center;
-  margin-top: 4rem !important;
-  margin-bottom: 2rem !important;
-  font-size: 2rem;
-  font-weight: 700;
-  background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* CTA Section */
-.cta-section {
-  text-align: center;
-  padding: 4rem 2rem;
-  margin: 4rem 0 2rem 0;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(189, 52, 254, 0.1) 0%, rgba(65, 209, 255, 0.1) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-}
-
-.cta-section h2 {
-  background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0 0 0.5rem 0 !important;
-  border-top: none !important;
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-}
-
-.cta-section p {
-  color: var(--vp-c-text-2);
-  margin: 0.5rem 0 1.5rem 0;
-  font-size: 1rem;
-}
-
-.cta-button {
-  display: inline-flex;
-  font-weight: 600;
-  padding: 0.75rem 2rem !important;
-  font-size: 1rem !important;
-  border-radius: 8px;
-}
-</style>
