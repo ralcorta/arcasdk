@@ -1,4 +1,4 @@
-# 🚀 Arca SDK
+# Arca SDK
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
@@ -11,10 +11,8 @@
 <br />
 <p align="center">
   <a href="https://github.com/ralcorta/arcasdk">
-    <img src="docs/public/logo.png" alt="arcasdk" width="230">
+    <img src="docs/public/logo.png" alt="arca sdk" width="360">
   </a>
-
-  <h3 align="center">Arca SDK</h3>
 
   <p align="center">
     SDK para consumir y usar los Web Services de ARCA (ex AFIP)

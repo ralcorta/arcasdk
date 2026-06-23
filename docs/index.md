@@ -2,8 +2,8 @@
 layout: home
 
 hero:
-  name: "Arca SDK"
-  text: "Tu conexión directa con ARCA"
+  name: "Tu conexión directa con ARCA"
+  text: ""
   tagline: Biblioteca TypeScript moderna para integrar facturación electrónica, padrón y demás servicios de ARCA (ex AFIP) en Node.js — sin intermediarios, con tipos completos.
   image:
     src: /logo.png

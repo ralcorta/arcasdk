@@ -4,6 +4,18 @@
   --vp-c-brand-2: #41d1ff;
 }
 
+/* Brand logo (navy wordmark → visible on dark UI) */
+.VPNavBarTitle .logo {
+  height: 28px;
+}
+
+.VPNavBarTitle .logo img {
+  height: 28px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
 .custom-block.tip,
 .custom-block.info,
 .custom-block.warning,

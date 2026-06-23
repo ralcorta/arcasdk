@@ -15,9 +15,9 @@
 
 /* ── Hero overrides ───────────────────────────────────────── */
 :root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: var(--arca-gradient-text);
-  --vp-home-hero-image-filter: drop-shadow(0 20px 40px rgba(189, 52, 254, 0.25));
+  --vp-home-hero-name-color: var(--vp-c-text-1);
+  --vp-home-hero-name-background: none;
+  --vp-home-hero-image-filter: none;
 }
 
 .VPHome {
@@ -57,7 +57,12 @@
 }
 
 .VPHero .VPImage.image-src {
+  max-width: min(440px, 88vw);
+  width: 100%;
+  height: auto;
   animation: home-float 6s ease-in-out infinite;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
 }
 
 @keyframes home-float {
