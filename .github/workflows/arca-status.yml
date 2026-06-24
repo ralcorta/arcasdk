@@ -1,0 +1,65 @@
+name: ARCA Service Status
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build core package
+        run: npm run build:core
+
+      - name: Check ARCA services
+        env:
+          NODE_USE_SYSTEM_CA: "1"
+          ARCA_STATUS_OUTPUT: scripts/arca-status/arca-status.json
+        run: node scripts/arca-status/check-arca-status.mjs
+
+      - name: Publish status to Gist
+        uses: actions/github-script@v7
+        env:
+          GIST_ID: ${{ secrets.ARCA_STATUS_GIST_ID }}
+        with:
+          github-token: ${{ secrets.GIST_TOKEN }}
+          script: |
+            const fs = require("fs");
+            const gistId = process.env.GIST_ID;
+
+            if (!gistId) {
+              core.setFailed(
+                "Missing secret ARCA_STATUS_GIST_ID. Create a Gist and add its ID to repository secrets.",
+              );
+              return;
+            }
+
+            const content = fs.readFileSync(
+              "scripts/arca-status/arca-status.json",
+              "utf8",
+            );
+
+            await github.rest.gists.update({
+              gist_id: gistId,
+              files: {
+                "arca-status.json": { content },
+              },
+            });
+
+            core.info("Gist updated successfully.");
