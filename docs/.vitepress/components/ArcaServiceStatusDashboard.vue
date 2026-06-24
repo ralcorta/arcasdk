@@ -9,7 +9,7 @@ import {
   statusLabel,
   type ServiceStatus,
   type StatusPayload,
-} from "../lib/arca-status";
+} from "../utils/arca-status";
 
 const loading = ref(true);
 const isEmpty = ref(false);
