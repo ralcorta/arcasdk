@@ -39,6 +39,9 @@ packages/core/coverage/
 # Generated sample PDFs
 packages/pdf/scripts/*.pdf
 
+# ARCA status monitor (generado por CI / script local)
+scripts/arca-status/arca-status.json
+
 # Consumer smoke (instala tarball; no commitear artefactos)
 packages/core/tests/integration/consumer-app/node_modules
 packages/core/tests/integration/consumer-app/vendor

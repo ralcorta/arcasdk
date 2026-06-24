@@ -47,6 +47,10 @@ export default withMermaid(
           text: "💸 Facturar",
           link: "/services/facturacion_electronica#crear-y-asignar-cae-a-un-comprobante",
         },
+        {
+          text: "Estado ARCA",
+          link: "/status",
+        },
       ],
       sidebar: [
         {
