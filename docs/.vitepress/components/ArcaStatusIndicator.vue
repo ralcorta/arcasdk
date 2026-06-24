@@ -6,7 +6,7 @@ import {
   fetchStatusPayload,
   statusLabel,
   type ServiceStatus,
-} from "../lib/arca-status";
+} from "../utils/arca-status";
 
 const visible = ref(false);
 const loading = ref(true);
