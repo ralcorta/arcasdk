@@ -30,8 +30,8 @@ jobs:
       - name: Check ARCA services
         env:
           NODE_USE_SYSTEM_CA: "1"
-          ARCA_STATUS_OUTPUT: scripts/arca-status/arca-status.json
-        run: node scripts/arca-status/check-arca-status.mjs
+          ARCA_STATUS_OUTPUT: .github/scripts/arca-status/arca-status.json
+        run: node .github/scripts/arca-status/check-arca-status.mjs
 
       - name: Publish status to Gist
         uses: actions/github-script@v7
@@ -51,7 +51,7 @@ jobs:
             }
 
             const content = fs.readFileSync(
-              "scripts/arca-status/arca-status.json",
+              ".github/scripts/arca-status/arca-status.json",
               "utf8",
             );
 
