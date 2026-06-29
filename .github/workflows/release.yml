@@ -34,7 +34,7 @@ jobs:
         uses: nrwl/nx-set-shas@v4
 
       - name: Cache NX
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .nx/cache
           key: nx-${{ runner.os }}-node22-${{ github.ref }}-${{ hashFiles('**/nx.json', '**/package-lock.json') }}
