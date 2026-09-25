@@ -6,7 +6,14 @@ Debes habilitar el punto de venta para que sea accesible desde los servicios web
 
 ## 💥 Error Fatal: Uncaught Exception: SOAP Fault: ns1:coe.alreadyAuthenticated El CEE ya posee un TA válido para el acceso al WSN solicitado
 
-Este error ocurre cuando ya se ha creado un Token de Acceso (TA) para el certificado que estás utilizando. Esto puede suceder si borras el archivo del Token y debes esperar un tiempo para obtener uno nuevo o si estás utilizando el mismo certificado en otro servidor o computadora. En este último caso, debes crear un certificado nuevo para el servidor que estás utilizando, ya que no se debe usar el mismo certificado en servidores diferentes.
+Este error ocurre cuando ya se ha creado un Token de Acceso (TA) para el certificado que estás utilizando. WSAA entrega un solo TA por certificado y servicio hasta que vence (12 horas), y rechaza cualquier otro pedido mientras tanto. Esto puede suceder si borras el archivo del Token y debes esperar un tiempo para obtener uno nuevo o si estás utilizando el mismo certificado en otro servidor o computadora. En este último caso, debes crear un certificado nuevo para el servidor que estás utilizando, ya que no se debe usar el mismo certificado en servidores diferentes.
+
+La SDK lo evita en dos casos:
+
+- **Llamadas simultáneas en la misma instancia de `Arca`:** comparten un único login a WSAA por servicio, en lugar de pedir un TA cada una.
+- **Varias instancias o procesos con el mismo `ticketStorage`:** si WSAA responde `coe.alreadyAuthenticated`, la SDK vuelve a leer el storage y usa el TA que guardó la otra instancia.
+
+Si el TA no está en el storage (por ejemplo, instancias con storages distintos o un `MemoryTicketStorage` que se perdió al reiniciar), el error se propaga: compartí el storage entre instancias (ver [Almacenamiento personalizado](/credential_management#opcion-3-almacenamiento-personalizado-ticketstorage)) o esperá a que venza el TA.
 
 ## (10048) El campo ImpTotal no coincide con la suma de los importes
 

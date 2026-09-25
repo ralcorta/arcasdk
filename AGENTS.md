@@ -75,7 +75,7 @@ Consultar [docs/faq/errors.md](docs/faq/errors.md) antes de inventar workarounds
 - **10048**: `ImpTotal` no cierra → incluir `ImpOpEx` e `ImpTotConc` en la suma. Un Recibo A exento es válido con `ImpOpEx = ImpTotal`. El SDK no pre-valida esto.
 - **10197**: NC/ND sin asociación → enviar `CbtesAsoc` o `PeriodoAsoc`.
 - **11002**: punto de venta no habilitado en ARCA.
-- **alreadyAuthenticated**: reutilizar ticket WSAA (`FileSystemTicketStorage` o `MemoryTicketStorage`).
+- **alreadyAuthenticated**: WSAA ya emitió un TA vigente que no está en el storage. La SDK comparte el login entre llamadas simultáneas y relee el storage ante este error; si otra instancia usa otro storage, compartir el `ticketStorage` (`FileSystemTicketStorage` o uno propio).
 - **coe.notAuthorized**: autorizar el web service para el certificado en el portal ARCA.
 
 ## Desarrollo en este repo

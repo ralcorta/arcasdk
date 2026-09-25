@@ -96,6 +96,8 @@ interface ITicketStoragePort {
 
 Para Redis o una base de datos, creá una clase que implemente estos métodos y pasala en `ticketStorage`. La SDK seguirá renovando tickets automáticamente cuando expiren.
 
+Si varias instancias comparten el mismo storage y dos piden el TA a la vez, WSAA rechaza la segunda con `coe.alreadyAuthenticated`. La SDK relee el storage ante ese error y usa el TA que guardó la otra instancia. Dentro de una misma instancia de `Arca`, las llamadas simultáneas ya comparten un único login.
+
 ::: tip Diferencia con modo manual
 Con `ticketStorage` no necesitás `handleTicket: true` ni pasar `credentials` en cada `new Arca()`. La SDK lee y escribe tickets a través de tu adapter.
 :::

@@ -319,6 +319,159 @@ describe("AuthRepository", () => {
     });
   });
 
+  describe("concurrent logins", () => {
+    const loginResponse = [
+      { loginCmsReturn: "<xml>response</xml>" },
+      "",
+      {},
+      "",
+    ];
+
+    function delayedLoginResponse() {
+      return new Promise((resolve) => setTimeout(() => resolve(loginResponse), 10));
+    }
+
+    beforeEach(() => {
+      mockSoapClientInstance.createClient.mockResolvedValue({} as Client);
+      mockTicketStorage.get.mockResolvedValue(null);
+    });
+
+    it("should share a single WSAA login between concurrent calls", async () => {
+      mockSoapClientInstance.call.mockImplementation(
+        delayedLoginResponse as never,
+      );
+      adapter = new AuthRepository({
+        ...config,
+        ticketStorage: mockTicketStorage,
+      });
+
+      const tickets = await Promise.all([
+        adapter.login(ArcaServiceNames.WSFE),
+        adapter.login(ArcaServiceNames.WSFE),
+        adapter.requestLogin(ArcaServiceNames.WSFE),
+      ]);
+
+      expect(mockSoapClientInstance.call).toHaveBeenCalledTimes(1);
+      expect(tickets[1]).toBe(tickets[0]);
+      expect(tickets[2]).toBe(tickets[0]);
+      expect(mockTicketStorage.save).toHaveBeenCalledTimes(1);
+    });
+
+    it("should log in separately for different services", async () => {
+      mockSoapClientInstance.call.mockImplementation(
+        delayedLoginResponse as never,
+      );
+      adapter = new AuthRepository({
+        ...config,
+        ticketStorage: mockTicketStorage,
+      });
+
+      await Promise.all([
+        adapter.login(ArcaServiceNames.WSFE),
+        adapter.login(ArcaServiceNames.WSFEX),
+      ]);
+
+      expect(mockSoapClientInstance.call).toHaveBeenCalledTimes(2);
+    });
+
+    it("should request a new login once the previous one finished", async () => {
+      mockSoapClientInstance.call.mockResolvedValue(loginResponse as never);
+      adapter = new AuthRepository({ ...config });
+
+      await adapter.requestLogin(ArcaServiceNames.WSFE);
+      await adapter.requestLogin(ArcaServiceNames.WSFE);
+
+      expect(mockSoapClientInstance.call).toHaveBeenCalledTimes(2);
+    });
+
+    it("should let a new login run after a failed one", async () => {
+      mockSoapClientInstance.call
+        .mockRejectedValueOnce(new Error("network down"))
+        .mockResolvedValueOnce(loginResponse as never);
+      adapter = new AuthRepository({ ...config });
+
+      await expect(
+        adapter.requestLogin(ArcaServiceNames.WSFE),
+      ).rejects.toThrow("network down");
+      await expect(
+        adapter.requestLogin(ArcaServiceNames.WSFE),
+      ).resolves.toBeInstanceOf(AccessTicket);
+    });
+  });
+
+  describe("coe.alreadyAuthenticated", () => {
+    const alreadyAuthenticated = Object.assign(
+      new Error(
+        "ns1:coe.alreadyAuthenticated: El CEE ya posee un TA valido para el acceso al WSN solicitado",
+      ),
+      {
+        root: {
+          Envelope: {
+            Body: { Fault: { faultcode: "ns1:coe.alreadyAuthenticated" } },
+          },
+        },
+      },
+    );
+
+    beforeEach(() => {
+      mockSoapClientInstance.createClient.mockResolvedValue({} as Client);
+      mockSoapClientInstance.call.mockRejectedValue(alreadyAuthenticated);
+    });
+
+    it("should return the ticket another instance stored meanwhile", async () => {
+      const storedTicket = AccessTicket.create(mockLoginCredentials);
+      mockTicketStorage.get
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce(null)
+        .mockResolvedValueOnce(storedTicket);
+      adapter = new AuthRepository({
+        ...config,
+        ticketStorage: mockTicketStorage,
+      });
+
+      const result = await adapter.login(ArcaServiceNames.WSFE);
+
+      expect(result).toBe(storedTicket);
+      expect(mockTicketStorage.get).toHaveBeenCalledTimes(3);
+      expect(mockTicketStorage.save).not.toHaveBeenCalled();
+    });
+
+    it("should rethrow the fault when the storage has no valid ticket", async () => {
+      mockTicketStorage.get.mockResolvedValue(null);
+      adapter = new AuthRepository({
+        ...config,
+        ticketStorage: mockTicketStorage,
+      });
+
+      await expect(adapter.login(ArcaServiceNames.WSFE)).rejects.toBe(
+        alreadyAuthenticated,
+      );
+    });
+
+    it("should rethrow the fault when there is no storage", async () => {
+      adapter = new AuthRepository({ ...config });
+
+      await expect(adapter.requestLogin(ArcaServiceNames.WSFE)).rejects.toBe(
+        alreadyAuthenticated,
+      );
+    });
+
+    it("should not read the storage again for other errors", async () => {
+      const otherError = new Error("ns1:cms.cert.expired");
+      mockSoapClientInstance.call.mockRejectedValue(otherError);
+      mockTicketStorage.get.mockResolvedValue(null);
+      adapter = new AuthRepository({
+        ...config,
+        ticketStorage: mockTicketStorage,
+      });
+
+      await expect(adapter.requestLogin(ArcaServiceNames.WSFE)).rejects.toBe(
+        otherError,
+      );
+      expect(mockTicketStorage.get).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("getAuthParams", () => {
     it("should return formatted auth params", () => {
       const ticket = AccessTicket.create(mockLoginCredentials);

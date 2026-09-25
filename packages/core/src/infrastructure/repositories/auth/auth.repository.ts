@@ -20,6 +20,7 @@ import { ISoapClientPort } from "@infrastructure/soap/soap-client.port";
 import { ITicketStoragePort } from "@application/ports/storage";
 import { SoapClient } from "../../soap/soap-client";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
+import { isAlreadyAuthenticatedError } from "@infrastructure/utils/afip-errors";
 
 export class AuthRepository implements IAuthenticationRepositoryPort {
   private cert: string;
@@ -30,6 +31,10 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
   private manualCredentials?: ILoginCredentials;
 
   private readonly soapClient: ISoapClientPort;
+  private readonly pendingLogins = new Map<
+    ArcaServiceName,
+    Promise<AccessTicket>
+  >();
 
   constructor(config: AuthRepositoryConfig) {
     this.soapClient =
@@ -83,6 +88,21 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
 
   
   async requestLogin(serviceName: ArcaServiceName): Promise<AccessTicket> {
+    // Concurrent calls share the same WSAA login: a second loginCms for the
+    // same service would be rejected with coe.alreadyAuthenticated.
+    const pendingLogin = this.pendingLogins.get(serviceName);
+    if (pendingLogin) return pendingLogin;
+
+    const loginPromise = this.performLogin(serviceName).finally(() => {
+      this.pendingLogins.delete(serviceName);
+    });
+    this.pendingLogins.set(serviceName, loginPromise);
+    return loginPromise;
+  }
+
+  private async performLogin(
+    serviceName: ArcaServiceName,
+  ): Promise<AccessTicket> {
     const existingTicket = await this.getValidTicketFromStorage(serviceName);
     if (existingTicket) return existingTicket;
 
@@ -92,9 +112,20 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
 
     const client = await this.createAuthClient();
 
-    const [{ loginCmsReturn }] = await this.soapClient.call<
-      [IloginCmsOutput, string, Record<string, unknown>, string]
-    >(client, "loginCmsAsync", { in0: signedTRA });
+    let loginCmsReturn: string;
+    try {
+      [{ loginCmsReturn }] = await this.soapClient.call<
+        [IloginCmsOutput, string, Record<string, unknown>, string]
+      >(client, "loginCmsAsync", { in0: signedTRA });
+    } catch (error) {
+      // Another process or instance sharing the storage may have obtained
+      // the ticket after the check above.
+      if (isAlreadyAuthenticatedError(error)) {
+        const storedTicket = await this.getValidTicketFromStorage(serviceName);
+        if (storedTicket) return storedTicket;
+      }
+      throw error;
+    }
 
     const loginPayload = await this.parseLoginTicketResponse(loginCmsReturn);
     const ticket = AccessTicket.create(loginPayload);
