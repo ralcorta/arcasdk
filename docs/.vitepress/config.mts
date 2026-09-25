@@ -114,6 +114,10 @@ export default withMermaid(
                   link: "/consulta_padron_alcance_13",
                 },
                 {
+                  text: "💯 Alcance 100 (parámetros)",
+                  link: "/consulta_padron_alcance_100",
+                },
+                {
                   text: "📃 Constancia inscripción",
                   link: "/consulta_padron_constancia_inscripcion",
                 },

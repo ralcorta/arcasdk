@@ -62,6 +62,7 @@ Estos servicios tienen WSDL, endpoint y mapeo de autenticación configurados en 
 | `WSSR_PADRON_FIVE` | `ws_sr_padron_a5` | Padrón alcance 5 |
 | `WSSR_PADRON_TEN` | `ws_sr_padron_a10` | Padrón alcance 10 |
 | `WSSR_PADRON_THIRTEEN` | `ws_sr_padron_a13` | Padrón alcance 13 |
+| `WSSR_PADRON_HUNDRED` | `ws_sr_padron_a100` | Padrón alcance 100 (parámetros) |
 | `WSSR_INSCRIPTION_PROOF` | `ws_sr_constancia_inscripcion` | Constancia de inscripción |
 
 ### Ejemplos por servicio

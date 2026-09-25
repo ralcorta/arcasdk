@@ -92,6 +92,7 @@ const points = await arca.electronicBillingService.getSalesPoints();
 - `registerScopeFiveService` — padrón A5
 - `registerScopeTenService` — padrón A10
 - `registerScopeThirteenService` — padrón A13
+- `registerScopeHundredService` — padrón A100 (tablas de parámetros)
 - `registerInscriptionProofService` — constancia de inscripción
 - `genericService` — cualquier WSDL/SOAP de ARCA
 

@@ -39,6 +39,12 @@ export const Endpoints = {
     "https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA13",
 
   
+  WSSR_PADRON_HUNDRED:
+    "https://aws.afip.gov.ar/sr-parametros/webservices/parameterServiceA100",
+  WSSR_PADRON_HUNDRED_TEST:
+    "https://awshomo.afip.gov.ar/sr-parametros/webservices/parameterServiceA100",
+
+  
   WSFEX: "https://servicios1.afip.gov.ar/wsfexv1/service.asmx",
   WSFEX_TEST: "https://wswhomo.afip.gov.ar/wsfexv1/service.asmx",
 

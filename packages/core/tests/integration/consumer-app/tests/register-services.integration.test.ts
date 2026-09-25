@@ -83,6 +83,29 @@ describeOrSkip("Register services integration (consumidor npm)", () => {
     ).toBe(true);
   });
 
+  it("scope hundred responde server status y colección de parámetros", async () => {
+    const status = await arca.registerScopeHundredService.getServerStatus();
+    expectServerStatus(status);
+
+    const collection =
+      await arca.registerScopeHundredService.getParameterCollection(
+        "SUPA.E_PROVINCIA",
+      );
+
+    expect(collection?.name).toBe("SUPA.E_PROVINCIA");
+    expect(collection?.parameters.length).toBeGreaterThan(0);
+    const caba = collection?.parameters.find((p) => p.id === "0");
+    expect(caba?.attributes.COD_PROVINCIA).toBe("0");
+  });
+
+  it("scope hundred rechaza una colección inexistente", async () => {
+    await expect(
+      arca.registerScopeHundredService.getParameterCollection(
+        "SUPA.COLECCION_INEXISTENTE",
+      ),
+    ).rejects.toThrow();
+  });
+
   it("inscription proof responde server status y taxpayer details (singular)", async () => {
     const status = await arca.registerInscriptionProofService.getServerStatus();
     expectServerStatus(status);

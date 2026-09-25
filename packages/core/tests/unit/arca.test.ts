@@ -8,6 +8,7 @@ import { RegisterScopeFourRepository } from "@infrastructure/repositories/regist
 import { RegisterScopeFiveRepository } from "@infrastructure/repositories/register/register-scope-five.repository";
 import { RegisterScopeTenRepository } from "@infrastructure/repositories/register/register-scope-ten.repository";
 import { RegisterScopeThirteenRepository } from "@infrastructure/repositories/register/register-scope-thirteen.repository";
+import { RegisterScopeHundredRepository } from "@infrastructure/repositories/register/register-scope-hundred.repository";
 import { RegisterInscriptionProofRepository } from "@infrastructure/repositories/register/register-inscription-proof.repository";
 import { ElectronicBillingService } from "@application/services/electronic-billing.service";
 import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
@@ -15,6 +16,7 @@ import { RegisterScopeFourService } from "@application/services/register-scope-f
 import { RegisterScopeFiveService } from "@application/services/register-scope-five.service";
 import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
 import { RegisterScopeThirteenService } from "@application/services/register-scope-thirteen.service";
+import { RegisterScopeHundredService } from "@application/services/register-scope-hundred.service";
 import { GenericService } from "@application/services/generic.service";
 import { WsfecredService } from "@application/services/wsfecred.service";
 import { WsfexService } from "@application/services/wsfex.service";
@@ -54,6 +56,9 @@ jest.mock(
   "@infrastructure/repositories/register/register-scope-thirteen.repository",
 );
 jest.mock(
+  "@infrastructure/repositories/register/register-scope-hundred.repository",
+);
+jest.mock(
   "@infrastructure/repositories/register/register-inscription-proof.repository",
 );
 jest.mock("@application/services/electronic-billing.service");
@@ -66,6 +71,7 @@ jest.mock("@application/services/register-scope-ten.service");
 jest.mock(
   "@application/services/register-scope-thirteen.service",
 );
+jest.mock("@application/services/register-scope-hundred.service");
 jest.mock("@application/services/generic.service");
 jest.mock("@application/services/wsfecred.service");
 jest.mock("@application/services/wsfex.service");
@@ -104,6 +110,10 @@ const MockedRegisterScopeThirteenRepository =
   RegisterScopeThirteenRepository as jest.MockedClass<
     typeof RegisterScopeThirteenRepository
   >;
+const MockedRegisterScopeHundredRepository =
+  RegisterScopeHundredRepository as jest.MockedClass<
+    typeof RegisterScopeHundredRepository
+  >;
 const MockedRegisterInscriptionProofRepository =
   RegisterInscriptionProofRepository as jest.MockedClass<
     typeof RegisterInscriptionProofRepository
@@ -123,6 +133,10 @@ const MockedRegisterScopeTenService =
 const MockedRegisterScopeThirteenService =
   RegisterScopeThirteenService as jest.MockedClass<
     typeof RegisterScopeThirteenService
+  >;
+const MockedRegisterScopeHundredService =
+  RegisterScopeHundredService as jest.MockedClass<
+    typeof RegisterScopeHundredService
   >;
 const MockedGenericService = GenericService as jest.MockedClass<
   typeof GenericService
@@ -174,6 +188,9 @@ describe("Arca", () => {
     MockedRegisterScopeThirteenRepository.mockImplementation(
       () => ({}) as RegisterScopeThirteenRepository,
     );
+    MockedRegisterScopeHundredRepository.mockImplementation(
+      () => ({}) as RegisterScopeHundredRepository,
+    );
     MockedRegisterInscriptionProofRepository.mockImplementation(
       () => ({}) as RegisterInscriptionProofRepository,
     );
@@ -195,6 +212,9 @@ describe("Arca", () => {
     );
     MockedRegisterScopeThirteenService.mockImplementation(
       () => ({}) as RegisterScopeThirteenService,
+    );
+    MockedRegisterScopeHundredService.mockImplementation(
+      () => ({}) as RegisterScopeHundredService,
     );
     MockedGenericRepository.mockImplementation(
       () => ({}) as GenericRepository,
@@ -219,6 +239,7 @@ describe("Arca", () => {
       expect(MockedRegisterScopeFiveRepository).toHaveBeenCalled();
       expect(MockedRegisterScopeTenRepository).toHaveBeenCalled();
       expect(MockedRegisterScopeThirteenRepository).toHaveBeenCalled();
+      expect(MockedRegisterScopeHundredRepository).toHaveBeenCalled();
       expect(MockedRegisterInscriptionProofRepository).toHaveBeenCalled();
       expect(MockedElectronicBillingService).toHaveBeenCalled();
       expect(MockedRegisterInscriptionProofService).toHaveBeenCalled();
@@ -226,6 +247,7 @@ describe("Arca", () => {
       expect(MockedRegisterScopeFiveService).toHaveBeenCalled();
       expect(MockedRegisterScopeTenService).toHaveBeenCalled();
       expect(MockedRegisterScopeThirteenService).toHaveBeenCalled();
+      expect(MockedRegisterScopeHundredService).toHaveBeenCalled();
       expect(MockedGenericRepository).toHaveBeenCalled();
       expect(MockedFecredRepository).toHaveBeenCalled();
       expect(MockedFexRepository).toHaveBeenCalled();
@@ -324,6 +346,9 @@ describe("Arca", () => {
       expect(MockedRegisterScopeThirteenRepository).toHaveBeenCalledWith(
         expectedRepoConfig,
       );
+      expect(MockedRegisterScopeHundredRepository).toHaveBeenCalledWith(
+        expectedRepoConfig,
+      );
       expect(MockedRegisterInscriptionProofRepository).toHaveBeenCalledWith(
         expectedRepoConfig,
       );
@@ -369,6 +394,7 @@ describe("Arca", () => {
       scopeFive: {} as RegisterScopeFiveService,
       scopeTen: {} as RegisterScopeTenService,
       scopeThirteen: {} as RegisterScopeThirteenService,
+      scopeHundred: {} as RegisterScopeHundredService,
       generic: {} as GenericService,
       wsfecred: {} as WsfecredService,
       wsfex: {} as WsfexService,
@@ -387,6 +413,9 @@ describe("Arca", () => {
       MockedRegisterScopeTenService.mockReturnValue(mockServices.scopeTen);
       MockedRegisterScopeThirteenService.mockReturnValue(
         mockServices.scopeThirteen,
+      );
+      MockedRegisterScopeHundredService.mockReturnValue(
+        mockServices.scopeHundred,
       );
       MockedGenericService.mockReturnValue(mockServices.generic);
       MockedWsfecredService.mockReturnValue(mockServices.wsfecred);
@@ -423,6 +452,12 @@ describe("Arca", () => {
     it("should return registerScopeThirteenService", () => {
       expect(arca.registerScopeThirteenService).toBe(
         mockServices.scopeThirteen,
+      );
+    });
+
+    it("should return registerScopeHundredService", () => {
+      expect(arca.registerScopeHundredService).toBe(
+        mockServices.scopeHundred,
       );
     });
 

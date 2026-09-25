@@ -56,6 +56,7 @@ const taxpayer = await arca.registerScopeFourService.getTaxpayerDetails(20111111
 | `registerScopeFiveService`        | Padrón alcance 5                      |
 | `registerScopeTenService`         | Padrón alcance 10                     |
 | `registerScopeThirteenService`    | Padrón alcance 13                     |
+| `registerScopeHundredService`     | Padrón alcance 100 (parámetros)       |
 | `registerInscriptionProofService` | Constancia de inscripción             |
 | `genericService`                  | Cualquier WSDL/SOAP de ARCA           |
 

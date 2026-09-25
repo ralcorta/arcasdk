@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="ParameterServiceA100" targetNamespace="http://a100.soap.ws.server.pucParam.sr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://a100.soap.ws.server.pucParam.sr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://a100.soap.ws.server.pucParam.sr/" version="1.0" xmlns:tns="http://a100.soap.ws.server.pucParam.sr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="dummy" type="tns:dummy"/>
+<xs:element name="dummyResponse" type="tns:dummyResponse"/>
+<xs:element name="getParameterCollectionByName" type="tns:getParameterCollectionByName"/>
+<xs:element name="getParameterCollectionByNameResponse" type="tns:getParameterCollectionByNameResponse"/>
+<xs:complexType name="dummy">
+    <xs:sequence/>
+  </xs:complexType>
+<xs:complexType name="dummyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dummyReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="dummyReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="appserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="authserver" type="xs:string"/>
+      <xs:element minOccurs="0" name="dbserver" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getParameterCollectionByName">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string"/>
+      <xs:element name="sign" type="xs:string"/>
+      <xs:element name="cuitRepresentada" type="xs:long"/>
+      <xs:element name="collectionName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getParameterCollectionByNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="parameterCollectionReturn" type="tns:parameterCollectionReturn"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="parameterCollectionReturn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      <xs:element minOccurs="0" name="parameterCollection" type="tns:parameterCollection"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="metadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaHora" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="servidor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="parameterCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parameterList" nillable="true" type="tns:parameter"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="parameter">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attributeList" nillable="true" type="tns:parameterAttribute"/>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="parameterAttribute">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element minOccurs="0" name="value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getParameterCollectionByName">
+    <wsdl:part element="tns:getParameterCollectionByName" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummy">
+    <wsdl:part element="tns:dummy" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getParameterCollectionByNameResponse">
+    <wsdl:part element="tns:getParameterCollectionByNameResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="dummyResponse">
+    <wsdl:part element="tns:dummyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ParameterServiceA100">
+    <wsdl:operation name="dummy">
+      <wsdl:input message="tns:dummy" name="dummy">
+    </wsdl:input>
+      <wsdl:output message="tns:dummyResponse" name="dummyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getParameterCollectionByName">
+      <wsdl:input message="tns:getParameterCollectionByName" name="getParameterCollectionByName">
+    </wsdl:input>
+      <wsdl:output message="tns:getParameterCollectionByNameResponse" name="getParameterCollectionByNameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ParameterServiceA100SoapBinding" type="tns:ParameterServiceA100">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="dummy">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="dummy">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="dummyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getParameterCollectionByName">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getParameterCollectionByName">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getParameterCollectionByNameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ParameterServiceA100">
+    <wsdl:port binding="tns:ParameterServiceA100SoapBinding" name="ParameterServiceA100Port">
+      <soap:address location="https://aws.afip.gov.ar/sr-parametros/webservices/parameterServiceA100"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

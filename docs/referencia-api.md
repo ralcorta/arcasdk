@@ -33,6 +33,7 @@ const arca = new Arca({
 | `registerScopeFiveService` | Padrón A5 | [Padrón alcance 5](/services/consulta_padron_alcance_5) |
 | `registerScopeTenService` | Padrón A10 | [Padrón alcance 10](/services/consulta_padron_alcance_10) |
 | `registerScopeThirteenService` | Padrón A13 | [Padrón alcance 13](/services/consulta_padron_alcance_13) |
+| `registerScopeHundredService` | Padrón A100 (parámetros) | [Padrón alcance 100](/services/consulta_padron_alcance_100) |
 | `registerInscriptionProofService` | Constancia inscripción | [Constancia de inscripción](/services/consulta_padron_constancia_inscripcion) |
 | `genericService` | Cualquier WSDL / SOAP genérico | [Servicio genérico](/services/generic-service) |
 
@@ -77,6 +78,7 @@ await arca.genericService.call(
 | `WSSR_PADRON_FIVE` | `ws_sr_padron_a5` |
 | `WSSR_PADRON_TEN` | `ws_sr_padron_a10` |
 | `WSSR_PADRON_THIRTEEN` | `ws_sr_padron_a13` |
+| `WSSR_PADRON_HUNDRED` | `ws_sr_padron_a100` |
 | `WSSR_INSCRIPTION_PROOF` | `ws_sr_constancia_inscripcion` |
 | `FE_DUMMY` | `FEDummy` |
 
@@ -359,6 +361,17 @@ Guía detallada: [Comprobantes T de turismo](/services/comprobantes_turismo)
 | `getTaxIDByDocument(documentNumber)` | CUIT a partir de documento |
 
 [Guía alcance 13](/services/consulta_padron_alcance_13)
+
+---
+
+### `registerScopeHundredService` (Padrón A100)
+
+| Método | Descripción |
+| ------ | ----------- |
+| `getServerStatus()` | `dummy` del servicio |
+| `getParameterCollection(collectionName)` | Tabla de parámetros del Padrón (`SUPA.E_PROVINCIA`, `SUPA.TIPO_DOMICILIO`, …) |
+
+[Guía alcance 100](/services/consulta_padron_alcance_100)
 
 ---
 

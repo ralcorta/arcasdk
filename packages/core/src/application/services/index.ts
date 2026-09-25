@@ -4,6 +4,7 @@ export * from "./register-scope-five.service";
 export * from "./register-scope-ten.service";
 export * from "./register-scope-thirteen.service";
 export * from "./register-inscription-proof.service";
+export * from "./register-scope-hundred.service";
 export * from "./wsfecred.service";
 export * from "./wsfex.service";
 export * from "./wsct.service";

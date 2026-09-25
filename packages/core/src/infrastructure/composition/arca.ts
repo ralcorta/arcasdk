@@ -10,12 +10,14 @@ import { RegisterScopeFiveService } from "@application/services/register-scope-f
 import { RegisterScopeTenService } from "@application/services/register-scope-ten.service";
 import { RegisterScopeThirteenService } from "@application/services/register-scope-thirteen.service";
 import { RegisterInscriptionProofService } from "@application/services/register-inscription-proof.service";
+import { RegisterScopeHundredService } from "@application/services/register-scope-hundred.service";
 import { ElectronicBillingRepository } from "@infrastructure/repositories/electronic-billing/electronic-billing-repository";
 import { RegisterScopeFourRepository } from "@infrastructure/repositories/register/register-scope-four.repository";
 import { RegisterScopeFiveRepository } from "@infrastructure/repositories/register/register-scope-five.repository";
 import { RegisterScopeTenRepository } from "@infrastructure/repositories/register/register-scope-ten.repository";
 import { RegisterScopeThirteenRepository } from "@infrastructure/repositories/register/register-scope-thirteen.repository";
 import { RegisterInscriptionProofRepository } from "@infrastructure/repositories/register/register-inscription-proof.repository";
+import { RegisterScopeHundredRepository } from "@infrastructure/repositories/register/register-scope-hundred.repository";
 import { GenericService } from "@application/services/generic.service";
 import { GenericRepository } from "@infrastructure/repositories/generic/generic-repository";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
@@ -34,6 +36,7 @@ export class Arca {
   private readonly _registerScopeFiveService: RegisterScopeFiveService;
   private readonly _registerScopeTenService: RegisterScopeTenService;
   private readonly _registerScopeThirteenService: RegisterScopeThirteenService;
+  private readonly _registerScopeHundredService: RegisterScopeHundredService;
   private readonly _genericService: GenericService;
   private readonly _wsfecredService: WsfecredService;
   private readonly _wsfexService: WsfexService;
@@ -110,6 +113,9 @@ export class Arca {
     this._registerScopeThirteenService = new RegisterScopeThirteenService(
       new RegisterScopeThirteenRepository(baseRepositoryConfig),
     );
+    this._registerScopeHundredService = new RegisterScopeHundredService(
+      new RegisterScopeHundredRepository(baseRepositoryConfig),
+    );
     this._genericService = new GenericService(
       new GenericRepository(soapConfig),
     );
@@ -142,6 +148,10 @@ export class Arca {
 
   get registerScopeThirteenService(): RegisterScopeThirteenService {
     return this._registerScopeThirteenService;
+  }
+
+  get registerScopeHundredService(): RegisterScopeHundredService {
+    return this._registerScopeHundredService;
   }
 
   get genericService(): GenericService {

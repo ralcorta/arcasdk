@@ -95,6 +95,13 @@ export const ArcaServiceConfigs: Partial<
     endpointTesting: Endpoints.WSSR_PADRON_THIRTEEN_TEST,
     ...padronServiceConfig,
   },
+  [ArcaServiceNames.WSSR_PADRON_HUNDRED]: {
+    wsdlProduction: WsdlPaths.WSSR_PADRON_HUNDRED,
+    wsdlTesting: WsdlPaths.WSSR_PADRON_HUNDRED_TEST,
+    endpointProduction: Endpoints.WSSR_PADRON_HUNDRED,
+    endpointTesting: Endpoints.WSSR_PADRON_HUNDRED_TEST,
+    ...padronServiceConfig,
+  },
 };
 
 export function getArcaServiceConfig(

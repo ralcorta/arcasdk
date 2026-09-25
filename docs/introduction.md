@@ -64,6 +64,13 @@ La SDK ofrece soporte de primera clase para los servicios más críticos:
       <span>Actividades económicas</span>
     </div>
   </a>
+  <a href="/services/consulta_padron_alcance_100" class="service-link-card">
+    <div class="service-link-icon">💯</div>
+    <div class="service-link-content">
+      <strong>Padrón Alcance 100</strong>
+      <span>Tablas de parámetros</span>
+    </div>
+  </a>
   <a href="/services/consulta_padron_constancia_inscripcion" class="service-link-card">
     <div class="service-link-icon">📃</div>
     <div class="service-link-content">

@@ -142,6 +142,17 @@ const WSDL_CONFIGS = [
       },
     },
   },
+  {
+    wsdl: "ws_sr_padron_a100.wsdl",
+    dtoPackage: "register",
+    sections: {
+      "ParameterServiceA100/ParameterServiceA100Port": {
+        folder: "ParameterServiceA100",
+        file: "ParameterServiceA100Port.ts",
+        dtoFile: "parameter-service-a100.types.ts",
+      },
+    },
+  },
 ];
 
 function parseSections(raw) {
