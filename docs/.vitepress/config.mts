@@ -128,6 +128,10 @@ export default withMermaid(
               text: "🧾 PDF de comprobantes",
               link: "/packages/pdf",
             },
+            {
+              text: "🗄️ Tickets en Redis",
+              link: "/packages/redis-storage",
+            },
           ],
         },
         {
