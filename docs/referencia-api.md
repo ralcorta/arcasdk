@@ -115,6 +115,7 @@ const credentials = ticket.toLoginCredentials();
 | `ITicketStoragePort` | Interfaz para persistir `AccessTicket` por servicio |
 | `FileSystemTicketStorage` | Implementación en disco |
 | `MemoryTicketStorage` | Implementación en memoria (tests, procesos cortos) |
+| `EncryptedTicketStorage` | Envuelve otro storage y cifra el token y el sign con AES-256-GCM |
 
 Inyectá un storage custom en el `Context`:
 

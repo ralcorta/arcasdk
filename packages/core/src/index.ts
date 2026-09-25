@@ -5,6 +5,8 @@ export { Arca } from "./infrastructure/composition/arca";
 export { SoapClient } from "./infrastructure/soap/soap-client";
 export { FileSystemTicketStorage } from "./infrastructure/storage/file-system-ticket-storage";
 export { MemoryTicketStorage } from "./infrastructure/storage/memory-ticket-storage";
+export { EncryptedTicketStorage } from "./infrastructure/storage/encrypted-ticket-storage";
+export type { EncryptedTicketStorageConfig } from "./infrastructure/types/ticket-storage.types";
 export { AuthRepository } from "./infrastructure/repositories/auth/auth.repository";
 export { SoapRuntime } from "./infrastructure/utils/soap-runtime";
 export { DateTimeRef } from "./infrastructure/utils/datetime-ref";

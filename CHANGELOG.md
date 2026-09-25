@@ -2,6 +2,7 @@
 
 ### 🚀 Features
 
+- add `EncryptedTicketStorage`: wraps any ticket storage and encrypts the WSAA token and sign with AES-256-GCM — see [Cifrar los tickets](https://ralcorta.github.io/arcasdk/credential_management#cifrar-los-tickets)
 - add `wsctService` for class T tourism vouchers (WSCT): authorization, queries and catalogs via `arca.wsctService` — see [Comprobantes T de turismo](https://ralcorta.github.io/arcasdk/services/comprobantes_turismo)
 - add `PeriodoAsoc` on WSFE vouchers so credit/debit notes can satisfy ARCA error 10197 without a specific `CbtesAsoc`
 
