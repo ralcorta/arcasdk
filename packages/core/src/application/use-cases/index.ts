@@ -5,3 +5,4 @@ export * from "./register";
 export * from "./wsfex";
 export * from "./wsfecred";
 export * from "./wsct";
+export * from "./wscdc";

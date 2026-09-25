@@ -21,6 +21,7 @@ export class SoapClient implements ISoapClientPort {
   ): Promise<T> {
     const {
       wsdlContent,
+      keepAlive,
       request: adapterRequestOptions,
       ...soapOptions
     } = options;
@@ -36,6 +37,7 @@ export class SoapClient implements ISoapClientPort {
       finalOptions.httpClient = await createSoapEngine({
         runtime: options.runtime ?? detectSoapRuntime(isNode),
         useHttpsAgent: this.useHttpsAgent,
+        keepAlive,
         requestOptions:
           adapterRequestOptions == null
             ? undefined

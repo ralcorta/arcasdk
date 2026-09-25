@@ -1,7 +1,7 @@
 {
   "name": "@arcasdk/core",
   "version": "1.2.0",
-  "description": "TypeScript SDK for ARCA/AFIP electronic invoicing (WSFE), padron, FCE, WSCT — Node.js, direct SOAP, no intermediaries",
+  "description": "TypeScript SDK for ARCA/AFIP electronic invoicing (WSFE), padron, FCE, WSCT, WSCDC — Node.js, direct SOAP, no intermediaries",
   "source": "src/index.ts",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -75,6 +75,7 @@
     "wsfe",
     "wsfex",
     "wsct",
+    "wscdc",
     "cae",
     "invoice",
     "rest",

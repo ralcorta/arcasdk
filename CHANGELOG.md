@@ -3,6 +3,8 @@
 ### 🚀 Features
 
 - add `wsctService` for class T tourism vouchers (WSCT): authorization, queries and catalogs via `arca.wsctService` — see [Comprobantes T de turismo](https://ralcorta.github.io/arcasdk/services/comprobantes_turismo)
+- add `wscdcService` for voucher verification (WSCDC): `constatarComprobante` checks a CAE, CAEA or CAI voucher against ARCA, plus the modality, voucher type, document type and optional-data catalogs — see [Constatación de comprobantes](https://ralcorta.github.io/arcasdk/services/constatacion_comprobantes)
+- add `keepAlive` SOAP client option; WSCDC uses `keepAlive: false` because ARCA rejects WSCDC calls sent over a keep-alive connection opened by WSFE on the same host
 - add `PeriodoAsoc` on WSFE vouchers so credit/debit notes can satisfy ARCA error 10197 without a specific `CbtesAsoc`
 
 ### 🩹 Fixes

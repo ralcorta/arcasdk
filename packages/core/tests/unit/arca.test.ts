@@ -19,10 +19,12 @@ import { GenericService } from "@application/services/generic.service";
 import { WsfecredService } from "@application/services/wsfecred.service";
 import { WsfexService } from "@application/services/wsfex.service";
 import { WsctService } from "@application/services/wsct.service";
+import { WscdcService } from "@application/services/wscdc.service";
 import { GenericRepository } from "@infrastructure/repositories/generic/generic-repository";
 import { FecredRepository } from "@infrastructure/repositories/fecred/fecred.repository";
 import { FexRepository } from "@infrastructure/repositories/fex/fex.repository";
 import { CtRepository } from "@infrastructure/repositories/ct/ct.repository";
+import { CdcRepository } from "@infrastructure/repositories/cdc/cdc.repository";
 import { ITicketStoragePort } from "@application/ports/storage";
 
 jest.mock("std-env", () => ({
@@ -70,10 +72,12 @@ jest.mock("@application/services/generic.service");
 jest.mock("@application/services/wsfecred.service");
 jest.mock("@application/services/wsfex.service");
 jest.mock("@application/services/wsct.service");
+jest.mock("@application/services/wscdc.service");
 jest.mock("@infrastructure/repositories/generic/generic-repository");
 jest.mock("@infrastructure/repositories/fecred/fecred.repository");
 jest.mock("@infrastructure/repositories/fex/fex.repository");
 jest.mock("@infrastructure/repositories/ct/ct.repository");
+jest.mock("@infrastructure/repositories/cdc/cdc.repository");
 
 // Cast mocks to their mocked versions for type-safe access
 const MockedFileSystemTicketStorage =
@@ -132,6 +136,9 @@ const MockedWsfecredService = WsfecredService as jest.MockedClass<
 >;
 const MockedWsfexService = WsfexService as jest.MockedClass<typeof WsfexService>;
 const MockedWsctService = WsctService as jest.MockedClass<typeof WsctService>;
+const MockedWscdcService = WscdcService as jest.MockedClass<
+  typeof WscdcService
+>;
 const MockedGenericRepository = GenericRepository as jest.MockedClass<
   typeof GenericRepository
 >;
@@ -140,6 +147,9 @@ const MockedFecredRepository = FecredRepository as jest.MockedClass<
 >;
 const MockedFexRepository = FexRepository as jest.MockedClass<typeof FexRepository>;
 const MockedCtRepository = CtRepository as jest.MockedClass<typeof CtRepository>;
+const MockedCdcRepository = CdcRepository as jest.MockedClass<
+  typeof CdcRepository
+>;
 
 describe("Arca", () => {
   const mockContext: Context = {
@@ -202,10 +212,12 @@ describe("Arca", () => {
     MockedFecredRepository.mockImplementation(() => ({}) as FecredRepository);
     MockedFexRepository.mockImplementation(() => ({}) as FexRepository);
     MockedCtRepository.mockImplementation(() => ({}) as CtRepository);
+    MockedCdcRepository.mockImplementation(() => ({}) as CdcRepository);
     MockedGenericService.mockImplementation(() => ({}) as GenericService);
     MockedWsfecredService.mockImplementation(() => ({}) as WsfecredService);
     MockedWsfexService.mockImplementation(() => ({}) as WsfexService);
     MockedWsctService.mockImplementation(() => ({}) as WsctService);
+    MockedWscdcService.mockImplementation(() => ({}) as WscdcService);
   });
 
   describe("constructor", () => {
@@ -230,10 +242,12 @@ describe("Arca", () => {
       expect(MockedFecredRepository).toHaveBeenCalled();
       expect(MockedFexRepository).toHaveBeenCalled();
       expect(MockedCtRepository).toHaveBeenCalled();
+      expect(MockedCdcRepository).toHaveBeenCalled();
       expect(MockedGenericService).toHaveBeenCalled();
       expect(MockedWsfecredService).toHaveBeenCalled();
       expect(MockedWsfexService).toHaveBeenCalled();
       expect(MockedWsctService).toHaveBeenCalled();
+      expect(MockedWscdcService).toHaveBeenCalled();
     });
 
     it("should create FileSystemTicketStorage with correct parameters", () => {
@@ -342,6 +356,7 @@ describe("Arca", () => {
       expect(MockedGenericRepository).toHaveBeenCalledWith(expectedSoapConfig);
       expect(MockedFecredRepository).toHaveBeenCalledWith(expectedSoapConfig);
       expect(MockedFexRepository).toHaveBeenCalledWith(expectedSoapConfig);
+      expect(MockedCdcRepository).toHaveBeenCalledWith(expectedSoapConfig);
     });
 
     it("should create Arca instance with production true", () => {
@@ -373,6 +388,7 @@ describe("Arca", () => {
       wsfecred: {} as WsfecredService,
       wsfex: {} as WsfexService,
       wsct: {} as WsctService,
+      wscdc: {} as WscdcService,
     };
 
     beforeEach(() => {
@@ -392,6 +408,7 @@ describe("Arca", () => {
       MockedWsfecredService.mockReturnValue(mockServices.wsfecred);
       MockedWsfexService.mockReturnValue(mockServices.wsfex);
       MockedWsctService.mockReturnValue(mockServices.wsct);
+      MockedWscdcService.mockReturnValue(mockServices.wscdc);
 
       arca = new Arca(mockContext);
     });
@@ -440,6 +457,10 @@ describe("Arca", () => {
 
     it("should return wsctService", () => {
       expect(arca.wsctService).toBe(mockServices.wsct);
+    });
+
+    it("should return wscdcService", () => {
+      expect(arca.wscdcService).toBe(mockServices.wscdc);
     });
   });
 

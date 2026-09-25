@@ -1,4 +1,7 @@
-import { createLegacyHttpsAgent } from "@infrastructure/soap/engines/node-security.engine";
+import {
+  createIsolatedHttpsAgent,
+  createLegacyHttpsAgent,
+} from "@infrastructure/soap/engines/node-security.engine";
 import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants";
 
 // Mock the dynamic imports
@@ -136,5 +139,18 @@ describe("createLegacyHttpsAgent", () => {
     expect(agent.options.secureProtocol).toBe("TLSv1_2_method");
     expect(agent.options.ciphers).toBe("DEFAULT@SECLEVEL=1");
     expect(agent.options.minDHSize).toBeLessThanOrEqual(1024);
+  });
+});
+
+describe("createIsolatedHttpsAgent", () => {
+  it("should return an https.Agent without keep-alive", async () => {
+    const agent = (await createIsolatedHttpsAgent()) as any;
+    expect(agent.options).toEqual({ keepAlive: false });
+  });
+
+  it("should return a new agent on each call", async () => {
+    const agent1 = await createIsolatedHttpsAgent();
+    const agent2 = await createIsolatedHttpsAgent();
+    expect(agent1).not.toBe(agent2);
   });
 });

@@ -7,4 +7,5 @@ export * from "./register-inscription-proof.service";
 export * from "./wsfecred.service";
 export * from "./wsfex.service";
 export * from "./wsct.service";
+export * from "./wscdc.service";
 export * from "./generic.service";

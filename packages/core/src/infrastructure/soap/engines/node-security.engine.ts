@@ -1,5 +1,10 @@
 import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants";
 
+export async function createIsolatedHttpsAgent() {
+  const https = await import("https");
+  return new https.Agent({ keepAlive: false });
+}
+
 export async function createLegacyHttpsAgent() {
   
   const [https, crypto] = await Promise.all([

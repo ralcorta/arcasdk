@@ -90,6 +90,10 @@ export default withMermaid(
               link: "/comprobantes_turismo",
             },
             {
+              text: "✅ Constatación de comprobantes",
+              link: "/constatacion_comprobantes",
+            },
+            {
               text: "🔧 Servicio genérico",
               link: "/generic-service",
             },

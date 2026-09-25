@@ -77,6 +77,22 @@ const WSDL_CONFIGS = [
     },
   },
   {
+    wsdl: "wscdc.wsdl",
+    dtoPackage: "cdc",
+    sections: {
+      "Service/ServiceSoap": {
+        folder: "CDCService",
+        file: "ServiceSoap.ts",
+        dtoFile: "service-soap.types.ts",
+      },
+      "Service/ServiceSoap12": {
+        folder: "CDCService",
+        file: "ServiceSoap12.ts",
+        dtoFile: "service-soap12.types.ts",
+      },
+    },
+  },
+  {
     wsdl: "wsaa.wsdl",
     dtoPackage: "authentication",
     sections: {

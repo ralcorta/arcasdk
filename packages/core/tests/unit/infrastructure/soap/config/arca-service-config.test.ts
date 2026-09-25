@@ -6,6 +6,7 @@ import {
 import { WsdlPaths } from "@infrastructure/soap/config/wsdl-path.types";
 import { Endpoints } from "@infrastructure/soap/config/endpoints.types";
 import {
+  cdcExcludeMethods,
   fexExcludeMethods,
   mapFecredAuth,
   mapPadronAuth,
@@ -52,6 +53,17 @@ describe("arca-service-config", () => {
     expect(config?.excludeMethods).toEqual(["dummy"]);
   });
 
+  it("configures WSCDC with default Auth injection and ComprobanteDummy excluded", () => {
+    const config = getArcaServiceConfig(ArcaServiceNames.WSCDC);
+    expect(config?.wsdlProduction).toBe(WsdlPaths.WSCDC);
+    expect(config?.wsdlTesting).toBe(WsdlPaths.WSCDC_TEST);
+    expect(config?.endpointProduction).toBe(Endpoints.WSCDC);
+    expect(config?.endpointTesting).toBe(Endpoints.WSCDC_TEST);
+    expect(config?.keepAlive).toBe(false);
+    expect(config?.authMapper).toBeUndefined();
+    expect(config?.excludeMethods).toBe(cdcExcludeMethods);
+  });
+
   it("configures padron services with shared auth and dummy exclusion", () => {
     const config = getArcaServiceConfig(ArcaServiceNames.WSSR_PADRON_FOUR);
     expect(config?.wsdlTesting).toBe(WsdlPaths.WSSR_PADRON_FOUR_TEST);
@@ -67,6 +79,7 @@ describe("arca-service-config", () => {
     expect(keys).toContain(ArcaServiceNames.WSFEX);
     expect(keys).toContain(ArcaServiceNames.WSFECRED);
     expect(keys).toContain(ArcaServiceNames.WSCT);
+    expect(keys).toContain(ArcaServiceNames.WSCDC);
     expect(keys).toContain(ArcaServiceNames.WSSR_PADRON_FOUR);
     expect(keys).not.toContain(ArcaServiceNames.FE_DUMMY);
   });

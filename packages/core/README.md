@@ -1,6 +1,6 @@
 # @arcasdk/core
 
-**Arca SDK** — TypeScript SDK para integrar Web Services de ARCA (ex AFIP) en Node.js: facturación electrónica (WSFE), padrones, factura de crédito MiPyMEs, exportación, comprobantes T de turismo. Sin intermediarios, tipos completos, MIT.
+**Arca SDK** — TypeScript SDK para integrar Web Services de ARCA (ex AFIP) en Node.js: facturación electrónica (WSFE), padrones, factura de crédito MiPyMEs, exportación, comprobantes T de turismo, constatación de comprobantes (WSCDC). Sin intermediarios, tipos completos, MIT.
 
 > El paquete npm `afip.ts` es legacy. El desarrollo actual es `@arcasdk/core`.
 
