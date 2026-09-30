@@ -73,7 +73,8 @@ export function mapLastVoucher(soapResult: {
 
 /**
  * Map SOAP voucher info to Domain VoucherInfo
- * Handles special case: Observaciones?.Obs?.[0]?.Msg -> observaciones (flattened)
+ * Handles special case: Observaciones?.Obs?.[0]?.Msg -> observaciones (flattened);
+ * every observation, with its code, goes to observacionesDetalle
  */
 export function mapVoucherInfo(soapResult: {
   ResultGet?: {
@@ -82,10 +83,13 @@ export function mapVoucherInfo(soapResult: {
     FchVto?: string;
     FchProceso?: string;
     Resultado?: string;
-    Observaciones?: { Obs?: Array<{ Msg: string }> };
+    Observaciones?: { Obs?: Array<{ Code: number; Msg: string }> };
+    PtoVta?: number;
+    CbteTipo?: number;
     Concepto?: number;
     DocTipo?: number;
     DocNro?: number;
+    CondicionIVAReceptorId?: number;
     CbteDesde?: number;
     CbteHasta?: number;
     CbteFch?: string;
@@ -95,8 +99,39 @@ export function mapVoucherInfo(soapResult: {
     ImpOpEx?: number;
     ImpIVA?: number;
     ImpTrib?: number;
+    FchServDesde?: string;
+    FchServHasta?: string;
+    FchVtoPago?: string;
     MonId?: string;
     MonCotiz?: number;
+    CanMisMonExt?: string;
+    Iva?: {
+      AlicIva?: Array<{ Id: number; BaseImp: number; Importe: number }>;
+    };
+    Tributos?: {
+      Tributo?: Array<{
+        Id: number;
+        Desc?: string;
+        BaseImp: number;
+        Alic: number;
+        Importe: number;
+      }>;
+    };
+    CbtesAsoc?: {
+      CbteAsoc?: Array<{
+        Tipo: number;
+        PtoVta: number;
+        Nro: number;
+        Cuit?: string;
+        CbteFch?: string;
+      }>;
+    };
+    PeriodoAsoc?: { FchDesde: string; FchHasta: string };
+    Opcionales?: { Opcional?: Array<{ Id: string; Valor: string }> };
+    Compradores?: {
+      Comprador?: Array<{ DocTipo: number; DocNro: number; Porcentaje: number }>;
+    };
+    Actividades?: { Actividad?: Array<{ Id: number }> };
   };
 }): VoucherInfo | null {
   if (!soapResult.ResultGet) {
@@ -111,9 +146,16 @@ export function mapVoucherInfo(soapResult: {
     fchProceso: result.FchProceso,
     resultado: result.Resultado,
     observaciones: result.Observaciones?.Obs?.[0]?.Msg,
+    observacionesDetalle: result.Observaciones?.Obs?.map((o) => ({
+      code: o.Code,
+      msg: o.Msg,
+    })),
+    ptoVta: result.PtoVta,
+    cbteTipo: result.CbteTipo,
     concepto: result.Concepto,
     docTipo: result.DocTipo,
     docNro: result.DocNro,
+    condicionIVAReceptorId: result.CondicionIVAReceptorId,
     cbteDesde: result.CbteDesde,
     cbteHasta: result.CbteHasta,
     cbteFch: result.CbteFch,
@@ -123,8 +165,47 @@ export function mapVoucherInfo(soapResult: {
     impOpEx: result.ImpOpEx,
     impIVA: result.ImpIVA,
     impTrib: result.ImpTrib,
+    fchServDesde: result.FchServDesde,
+    fchServHasta: result.FchServHasta,
+    fchVtoPago: result.FchVtoPago,
     monId: result.MonId,
     monCotiz: result.MonCotiz,
+    canMisMonExt: result.CanMisMonExt,
+    iva: result.Iva?.AlicIva?.map((a) => ({
+      id: a.Id,
+      baseImp: a.BaseImp,
+      importe: a.Importe,
+    })),
+    tributos: result.Tributos?.Tributo?.map((t) => ({
+      id: t.Id,
+      desc: t.Desc,
+      baseImp: t.BaseImp,
+      alic: t.Alic,
+      importe: t.Importe,
+    })),
+    cbtesAsoc: result.CbtesAsoc?.CbteAsoc?.map((c) => ({
+      tipo: c.Tipo,
+      ptoVta: c.PtoVta,
+      nro: c.Nro,
+      cuit: c.Cuit,
+      cbteFch: c.CbteFch,
+    })),
+    periodoAsoc: result.PeriodoAsoc
+      ? {
+          fchDesde: result.PeriodoAsoc.FchDesde,
+          fchHasta: result.PeriodoAsoc.FchHasta,
+        }
+      : undefined,
+    opcionales: result.Opcionales?.Opcional?.map((o) => ({
+      id: o.Id,
+      valor: o.Valor,
+    })),
+    compradores: result.Compradores?.Comprador?.map((c) => ({
+      docTipo: c.DocTipo,
+      docNro: c.DocNro,
+      porcentaje: c.Porcentaje,
+    })),
+    actividades: result.Actividades?.Actividad?.map((a) => ({ id: a.Id })),
   };
 }
 

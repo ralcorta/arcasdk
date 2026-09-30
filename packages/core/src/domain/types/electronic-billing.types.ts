@@ -19,9 +19,13 @@ export interface VoucherInfo {
   fchProceso?: string;
   resultado?: string;
   observaciones?: string; // Flattened from Observaciones?.Obs?.[0]?.Msg
+  observacionesDetalle?: VoucherInfoObservacion[];
+  ptoVta?: number;
+  cbteTipo?: number;
   concepto?: number;
   docTipo?: number;
   docNro?: number;
+  condicionIVAReceptorId?: number;
   cbteDesde?: number;
   cbteHasta?: number;
   cbteFch?: string;
@@ -31,8 +35,66 @@ export interface VoucherInfo {
   impOpEx?: number;
   impIVA?: number;
   impTrib?: number;
+  fchServDesde?: string;
+  fchServHasta?: string;
+  fchVtoPago?: string;
   monId?: string;
   monCotiz?: number;
+  canMisMonExt?: string;
+  iva?: VoucherInfoIva[];
+  tributos?: VoucherInfoTributo[];
+  cbtesAsoc?: VoucherInfoCbteAsoc[];
+  periodoAsoc?: VoucherInfoPeriodoAsoc;
+  opcionales?: VoucherInfoOpcional[];
+  compradores?: VoucherInfoComprador[];
+  actividades?: VoucherInfoActividad[];
+}
+
+export interface VoucherInfoObservacion {
+  code: number;
+  msg: string;
+}
+
+export interface VoucherInfoIva {
+  id: number;
+  baseImp: number;
+  importe: number;
+}
+
+export interface VoucherInfoTributo {
+  id: number;
+  desc?: string;
+  baseImp: number;
+  alic: number;
+  importe: number;
+}
+
+export interface VoucherInfoCbteAsoc {
+  tipo: number;
+  ptoVta: number;
+  nro: number;
+  cuit?: string;
+  cbteFch?: string;
+}
+
+export interface VoucherInfoPeriodoAsoc {
+  fchDesde: string;
+  fchHasta: string;
+}
+
+export interface VoucherInfoOpcional {
+  id: string;
+  valor: string;
+}
+
+export interface VoucherInfoComprador {
+  docTipo: number;
+  docNro: number;
+  porcentaje: number;
+}
+
+export interface VoucherInfoActividad {
+  id: number;
 }
 
 export interface ParameterType {

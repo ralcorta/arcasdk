@@ -100,7 +100,7 @@ describe("soap-to-dto.mapper", () => {
           FchVto: "20241231",
           FchProceso: "20231001100000",
           Resultado: "A",
-          Observaciones: { Obs: [{ Msg: "Obs message" }] },
+          Observaciones: { Obs: [{ Code: 10217, Msg: "Obs message" }] },
           Concepto: 1,
           DocTipo: 80,
           DocNro: 20111111112,
@@ -136,6 +136,109 @@ describe("soap-to-dto.mapper", () => {
 
       expect(result).not.toBeNull();
       expect(result!.observaciones).toBeUndefined();
+      expect(result!.observacionesDetalle).toBeUndefined();
+      expect(result!.iva).toBeUndefined();
+      expect(result!.periodoAsoc).toBeUndefined();
+    });
+
+    it("should map every observation with its code to observacionesDetalle", () => {
+      const result = mapVoucherInfo({
+        ResultGet: {
+          Resultado: "A",
+          Observaciones: {
+            Obs: [
+              { Code: 10217, Msg: "Primera" },
+              { Code: 10063, Msg: "Segunda" },
+            ],
+          },
+        },
+      });
+
+      expect(result!.observaciones).toBe("Primera");
+      expect(result!.observacionesDetalle).toEqual([
+        { code: 10217, msg: "Primera" },
+        { code: 10063, msg: "Segunda" },
+      ]);
+    });
+
+    it("should map the voucher identification, dates and nested arrays", () => {
+      const result = mapVoucherInfo({
+        ResultGet: {
+          PtoVta: 3,
+          CbteTipo: 3,
+          Concepto: 2,
+          DocTipo: 80,
+          DocNro: 20111111112,
+          CondicionIVAReceptorId: 1,
+          CbteDesde: 15,
+          CbteHasta: 15,
+          CbteFch: "20260901",
+          FchServDesde: "20260801",
+          FchServHasta: "20260831",
+          FchVtoPago: "20260915",
+          MonId: "DOL",
+          MonCotiz: 1350.5,
+          CanMisMonExt: "N",
+          Iva: {
+            AlicIva: [
+              { Id: 5, BaseImp: 100, Importe: 21 },
+              { Id: 4, BaseImp: 50, Importe: 5.25 },
+            ],
+          },
+          Tributos: {
+            Tributo: [
+              { Id: 2, Desc: "IIBB", BaseImp: 150, Alic: 3, Importe: 4.5 },
+            ],
+          },
+          CbtesAsoc: {
+            CbteAsoc: [
+              {
+                Tipo: 1,
+                PtoVta: 3,
+                Nro: 10,
+                Cuit: "20111111112",
+                CbteFch: "20260820",
+              },
+            ],
+          },
+          PeriodoAsoc: { FchDesde: "20260801", FchHasta: "20260831" },
+          Opcionales: { Opcional: [{ Id: "27", Valor: "SCA" }] },
+          Compradores: {
+            Comprador: [{ DocTipo: 80, DocNro: 20111111112, Porcentaje: 100 }],
+          },
+          Actividades: { Actividad: [{ Id: 620100 }] },
+        },
+      });
+
+      expect(result).toMatchObject({
+        ptoVta: 3,
+        cbteTipo: 3,
+        condicionIVAReceptorId: 1,
+        fchServDesde: "20260801",
+        fchServHasta: "20260831",
+        fchVtoPago: "20260915",
+        canMisMonExt: "N",
+        iva: [
+          { id: 5, baseImp: 100, importe: 21 },
+          { id: 4, baseImp: 50, importe: 5.25 },
+        ],
+        tributos: [
+          { id: 2, desc: "IIBB", baseImp: 150, alic: 3, importe: 4.5 },
+        ],
+        cbtesAsoc: [
+          {
+            tipo: 1,
+            ptoVta: 3,
+            nro: 10,
+            cuit: "20111111112",
+            cbteFch: "20260820",
+          },
+        ],
+        periodoAsoc: { fchDesde: "20260801", fchHasta: "20260831" },
+        opcionales: [{ id: "27", valor: "SCA" }],
+        compradores: [{ docTipo: 80, docNro: 20111111112, porcentaje: 100 }],
+        actividades: [{ id: 620100 }],
+      });
     });
   });
 

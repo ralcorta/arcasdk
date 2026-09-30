@@ -62,7 +62,8 @@ export class Voucher {
       );
     }
 
-    if (!this.data.DocTipo || this.data.DocTipo <= 0) {
+    // 0 is a valid ARCA document type (CI Policía Federal), so only a missing or negative value is invalid
+    if (this.data.DocTipo == null || this.data.DocTipo < 0) {
       throw new Error("Tipo de documento inválido.");
     }
 

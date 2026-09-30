@@ -225,6 +225,23 @@ if (voucherInfo) {
 }
 ```
 
+Devuelve todo lo que informa `FECompConsultar`, con los nombres de ARCA en camelCase:
+
+| Campo | Contenido |
+| ----- | --------- |
+| `ptoVta`, `cbteTipo`, `cbteDesde`, `cbteHasta`, `cbteFch` | Identificación y fecha del comprobante |
+| `concepto`, `docTipo`, `docNro`, `condicionIVAReceptorId` | Concepto y receptor |
+| `impTotal`, `impTotConc`, `impNeto`, `impOpEx`, `impIVA`, `impTrib` | Importes |
+| `fchServDesde`, `fchServHasta`, `fchVtoPago` | Período del servicio y vencimiento del pago |
+| `monId`, `monCotiz`, `canMisMonExt` | Moneda |
+| `iva`, `tributos` | Alícuotas de IVA (`id`, `baseImp`, `importe`) y tributos (`id`, `desc`, `baseImp`, `alic`, `importe`) |
+| `cbtesAsoc`, `periodoAsoc` | Comprobantes o período asociados (notas de crédito y débito) |
+| `opcionales`, `compradores`, `actividades` | Datos opcionales, compradores y actividades informados |
+| `codAutorizacion`, `emisionTipo`, `fchVto`, `fchProceso`, `resultado` | Autorización (CAE o CAEA) |
+| `observaciones`, `observacionesDetalle` | Primera observación como texto, y todas con su código (`code`, `msg`) |
+
+Los campos que ARCA no informa para ese comprobante quedan en `undefined`.
+
 ---
 
 ## Tablas de Referencia

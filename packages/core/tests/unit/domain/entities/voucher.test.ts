@@ -157,14 +157,28 @@ describe("Voucher Entity", () => {
       );
     });
 
-    it("should throw error if DocTipo is invalid", () => {
+    it("should throw error if DocTipo is negative", () => {
       const invalidData: IVoucher = {
         ...data,
-        DocTipo: 0,
+        DocTipo: -1,
       };
       expect(() => Voucher.create(invalidData)).toThrow(
         "Tipo de documento inválido.",
       );
+    });
+
+    it("should throw error if DocTipo is missing", () => {
+      const invalidData = {
+        ...data,
+        DocTipo: undefined,
+      } as unknown as IVoucher;
+      expect(() => Voucher.create(invalidData)).toThrow(
+        "Tipo de documento inválido.",
+      );
+    });
+
+    it("should accept DocTipo 0 (CI Policía Federal)", () => {
+      expect(Voucher.create({ ...data, DocTipo: 0 })).toBeInstanceOf(Voucher);
     });
 
     it("should throw error if MonId is missing", () => {
