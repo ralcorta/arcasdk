@@ -15,7 +15,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "handlebars": "^4.7.9",
+    "handlebars": "^4.7.10",
     "html2pdf.js": "^0.14.0",
     "jsdom": "^29.1.1",
     "pdf-lib": "^1.17.1",
