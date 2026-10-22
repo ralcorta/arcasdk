@@ -11,6 +11,7 @@ import {
   CURRENCY_CODE,
 } from "@src/constants/voucher.constants";
 import { numberToWords } from "@src/utils/number-to-words.utils";
+import { withLegends } from "@src/utils/legends.utils";
 
 function registerHelpers(hbs: typeof Handlebars): void {
   hbs.registerHelper("formatDate", (date: string) => formatDate(date));
@@ -109,8 +110,7 @@ function registerHelpers(hbs: typeof Handlebars): void {
     "tributoImporte",
     (
       tributosArray:
-        | Array<{ descripcion: string; importe: number }>
-        | undefined,
+        Array<{ descripcion: string; importe: number }> | undefined,
       descripcion: string,
     ) => {
       if (!tributosArray || !Array.isArray(tributosArray)) return 0;
@@ -155,7 +155,7 @@ export function compileTemplate(
 ): (props: InvoiceTemplateProps) => string {
   ensureHelpers();
   const compiled = Handlebars.compile(source, { noEscape: true });
-  return (props: InvoiceTemplateProps) => compiled(props);
+  return (props: InvoiceTemplateProps) => compiled(withLegends(props));
 }
 
 export { Handlebars, ensureHelpers };

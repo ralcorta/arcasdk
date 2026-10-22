@@ -9,6 +9,7 @@ import {
   ResolvedPdfOptions,
 } from "@src/types/invoice-data.types";
 import { buildArcaQrUrl } from "@src/utils/qr.utils";
+import { withLegends } from "@src/utils/legends.utils";
 import { InvoiceDocument } from "@src/templates/arca-default";
 import { compileTemplate } from "@src/templates/engine";
 
@@ -83,7 +84,9 @@ export class InvoicePdfGenerator {
 
     const renderTemplate = this.renderTemplate;
     const optsWithCopy = { ...this.opts, copy };
-    const html = renderTemplate({ data, options: optsWithCopy, qrDataUrl });
+    const html = renderTemplate(
+      withLegends({ data, options: optsWithCopy, qrDataUrl }),
+    );
 
     const browser = await puppeteer.launch({ headless: true });
     try {

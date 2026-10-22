@@ -13,7 +13,19 @@ describe("voucher.constants", () => {
       expect(VOUCHER_TYPE_LETTER[6]).toBe("B");
       expect(VOUCHER_TYPE_LETTER[11]).toBe("C");
       expect(VOUCHER_TYPE_LETTER[19]).toBe("E");
-      expect(VOUCHER_TYPE_LETTER[51]).toBe("M");
+    });
+
+    it("should map ex clase M types to A (RG 5762)", () => {
+      expect(VOUCHER_TYPE_LETTER[51]).toBe("A");
+      expect(VOUCHER_TYPE_LETTER[52]).toBe("A");
+      expect(VOUCHER_TYPE_LETTER[53]).toBe("A");
+      expect(VOUCHER_TYPE_LETTER[54]).toBe("A");
+    });
+
+    it("should map recibo types", () => {
+      expect(VOUCHER_TYPE_LETTER[4]).toBe("A");
+      expect(VOUCHER_TYPE_LETTER[9]).toBe("B");
+      expect(VOUCHER_TYPE_LETTER[15]).toBe("C");
     });
 
     it("should map nota de débito types", () => {

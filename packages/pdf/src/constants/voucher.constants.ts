@@ -5,18 +5,23 @@ export const VOUCHER_TYPE_LETTER: Record<number, string> = {
   1: "A", // Factura A
   2: "A", // Nota de Débito A
   3: "A", // Nota de Crédito A
+  4: "A", // Recibo A
   6: "B", // Factura B
   7: "B", // Nota de Débito B
   8: "B", // Nota de Crédito B
+  9: "B", // Recibo B
   11: "C", // Factura C
   12: "C", // Nota de Débito C
   13: "C", // Nota de Crédito C
+  15: "C", // Recibo C
   19: "E", // Factura E (Exportación)
   20: "E", // Nota de Débito E
   21: "E", // Nota de Crédito E
-  51: "M", // Factura M
-  52: "M", // Nota de Débito M
-  53: "M", // Nota de Crédito M
+  // Ex clase M: clase A con leyenda "OPERACIÓN SUJETA A RETENCIÓN" (RG 5762/2025)
+  51: "A", // Factura A con leyenda
+  52: "A", // Nota de Débito A con leyenda
+  53: "A", // Nota de Crédito A con leyenda
+  54: "A", // Recibo A con leyenda
   201: "A", // Factura de Crédito Electrónica MiPyME A
   202: "A", // Nota de Débito Electrónica MiPyME A
   203: "A", // Nota de Crédito Electrónica MiPyME A
@@ -35,18 +40,22 @@ export const VOUCHER_TYPE_DESCRIPTION: Record<number, string> = {
   1: "FACTURA",
   2: "NOTA DE DÉBITO",
   3: "NOTA DE CRÉDITO",
+  4: "RECIBO",
   6: "FACTURA",
   7: "NOTA DE DÉBITO",
   8: "NOTA DE CRÉDITO",
+  9: "RECIBO",
   11: "FACTURA",
   12: "NOTA DE DÉBITO",
   13: "NOTA DE CRÉDITO",
+  15: "RECIBO",
   19: "FACTURA",
   20: "NOTA DE DÉBITO",
   21: "NOTA DE CRÉDITO",
   51: "FACTURA",
   52: "NOTA DE DÉBITO",
   53: "NOTA DE CRÉDITO",
+  54: "RECIBO",
   201: "FACTURA DE CRÉDITO ELECTRÓNICA MiPyME",
   202: "NOTA DE DÉBITO ELECTRÓNICA MiPyME",
   203: "NOTA DE CRÉDITO ELECTRÓNICA MiPyME",

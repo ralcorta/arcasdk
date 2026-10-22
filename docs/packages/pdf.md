@@ -303,44 +303,48 @@ stream.pipe(res);
 
 ### `InvoiceData`
 
-| Campo                     | Tipo                    | Requerido | Descripción                                    |
-| ------------------------- | ----------------------- | --------- | ---------------------------------------------- |
-| `emisor`                  | `EmisorData`            | ✅        | Datos del emisor                               |
-| `receptor`                | `ReceptorData`          | ✅        | Datos del receptor                             |
-| `cbteTipo`                | `number`                | ✅        | Tipo de comprobante (1, 6, 11, 19, etc.)       |
-| `cbteLetra`               | `string`                | ✅        | Letra del comprobante (A, B, C, E, M)          |
-| `puntoVenta`              | `number`                | ✅        | Punto de venta                                 |
-| `cbteDesde`               | `number`                | ✅        | Número de comprobante                          |
-| `cbteHasta`               | `number`                | ✅        | Número de comprobante hasta                    |
-| `cbteFecha`               | `string`                | ✅        | Fecha (YYYYMMDD)                               |
-| `concepto`                | `number`                | ✅        | 1=Productos, 2=Servicios, 3=Ambos              |
-| `items`                   | `InvoiceItem[]`         | ✅        | Items de la factura                            |
-| `importeNetoGravado`      | `number`                | ✅        | Importe neto gravado                           |
-| `importeIva`              | `number`                | ✅        | Importe total de IVA                           |
-| `importeTotal`            | `number`                | ✅        | Importe total                                  |
-| `cae`                     | `string`                | ✅        | CAE                                            |
-| `caeFechaVencimiento`     | `string`                | ✅        | Vencimiento del CAE (YYYYMMDD)                 |
-| `moneda`                  | `string`                | —         | Moneda (`"PES"`, `"DOL"`)                      |
-| `cotizacion`              | `number`                | —         | Cotización de la moneda                        |
-| `condicionVenta`          | `string`                | —         | Condición de venta                             |
-| `fechaServicioDesde`      | `string`                | —         | Período desde (conceptos 2 y 3)                |
-| `fechaServicioHasta`      | `string`                | —         | Período hasta (conceptos 2 y 3)                |
-| `fechaVtoPago`            | `string`                | —         | Vencimiento de pago                            |
-| `importeNetoNoGravado`    | `number`                | —         | Importe no gravado                             |
-| `importeExento`           | `number`                | —         | Importe exento                                 |
-| `iva`                     | `IvaDetail[]`           | —         | Desglose de IVA por alícuota                   |
-| `tributos`                | `TributoDetail[]`       | —         | Otros tributos                                 |
-| `importeTributos`         | `number`                | —         | Importe total de tributos                      |
-| `cbtesAsociados`          | `ComprobanteAsociado[]` | —         | Comprobantes asociados (NC/ND)                 |
-| `observaciones`           | `string`                | —         | Observaciones                                  |
-| `cbteDescripcion`         | `string`                | —         | Descripción personalizada del comprobante      |
-| `importeTotalPesos`       | `number`                | —         | Total en ARS pre-calculado (moneda extranjera) |
-| `divisa`                  | `string`                | —         | Divisa (Factura E)                             |
-| `destinoComprobante`      | `string`                | —         | País destino (Factura E)                       |
-| `formaPago`               | `string`                | —         | Forma de pago (Factura E)                      |
-| `incoterms`               | `string`                | —         | Incoterms (Factura E)                          |
-| `fechaPago`               | `string`                | —         | Fecha de pago YYYYMMDD (Factura E)             |
-| `condicionIvaExportacion` | `string`                | —         | Leyenda IVA exportación (Factura E)            |
+| Campo                     | Tipo                      | Requerido | Descripción                                    |
+| ------------------------- | ------------------------- | --------- | ---------------------------------------------- |
+| `emisor`                  | `EmisorData`              | ✅        | Datos del emisor                               |
+| `receptor`                | `ReceptorData`            | ✅        | Datos del receptor                             |
+| `cbteTipo`                | `number`                  | ✅        | Tipo de comprobante (1, 6, 11, 19, etc.)       |
+| `cbteLetra`               | `string`                  | ✅        | Letra del comprobante (A, B, C, E)             |
+| `puntoVenta`              | `number`                  | ✅        | Punto de venta                                 |
+| `cbteDesde`               | `number`                  | ✅        | Número de comprobante                          |
+| `cbteHasta`               | `number`                  | ✅        | Número de comprobante hasta                    |
+| `cbteFecha`               | `string`                  | ✅        | Fecha (YYYYMMDD)                               |
+| `concepto`                | `number`                  | ✅        | 1=Productos, 2=Servicios, 3=Ambos              |
+| `items`                   | `InvoiceItem[]`           | ✅        | Items de la factura                            |
+| `importeNetoGravado`      | `number`                  | ✅        | Importe neto gravado                           |
+| `importeIva`              | `number`                  | ✅        | Importe total de IVA                           |
+| `importeTotal`            | `number`                  | ✅        | Importe total                                  |
+| `cae`                     | `string`                  | ✅        | CAE                                            |
+| `caeFechaVencimiento`     | `string`                  | ✅        | Vencimiento del CAE (YYYYMMDD)                 |
+| `moneda`                  | `string`                  | —         | Moneda (`"PES"`, `"DOL"`)                      |
+| `cotizacion`              | `number`                  | —         | Cotización de la moneda                        |
+| `condicionVenta`          | `string`                  | —         | Condición de venta                             |
+| `fechaServicioDesde`      | `string`                  | —         | Período desde (conceptos 2 y 3)                |
+| `fechaServicioHasta`      | `string`                  | —         | Período hasta (conceptos 2 y 3)                |
+| `fechaVtoPago`            | `string`                  | —         | Vencimiento de pago                            |
+| `importeNetoNoGravado`    | `number`                  | —         | Importe no gravado                             |
+| `importeExento`           | `number`                  | —         | Importe exento                                 |
+| `iva`                     | `IvaDetail[]`             | —         | Desglose de IVA por alícuota                   |
+| `tributos`                | `TributoDetail[]`         | —         | Otros tributos                                 |
+| `importeTributos`         | `number`                  | —         | Importe total de tributos                      |
+| `cbtesAsociados`          | `ComprobanteAsociado[]`   | —         | Comprobantes asociados (NC/ND)                 |
+| `observaciones`           | `string`                  | —         | Observaciones                                  |
+| `cbteDescripcion`         | `string`                  | —         | Descripción personalizada del comprobante      |
+| `importeTotalPesos`       | `number`                  | —         | Total en ARS pre-calculado (moneda extranjera) |
+| `divisa`                  | `string`                  | —         | Divisa (Factura E)                             |
+| `destinoComprobante`      | `string`                  | —         | País destino (Factura E)                       |
+| `formaPago`               | `string`                  | —         | Forma de pago (Factura E)                      |
+| `incoterms`               | `string`                  | —         | Incoterms (Factura E)                          |
+| `fechaPago`               | `string`                  | —         | Fecha de pago YYYYMMDD (Factura E)             |
+| `condicionIvaExportacion` | `string`                  | —         | Leyenda IVA exportación (Factura E)            |
+| `modoAutorizacion`        | `"CAE" \| "CAEA"`         | —         | Modo de autorización (default `"CAE"`)         |
+| `transparenciaFiscal`     | `TransparenciaFiscalData` | —         | Importes de transparencia fiscal (Ley 27.743)  |
+| `pagoEnCbuInformada`      | `boolean`                 | —         | Leyenda "PAGO EN CBU INFORMADA" (clase A)      |
+| `leyendas`                | `string[]`                | —         | Leyendas libres al pie (admiten `\n`)          |
 
 ### `EmisorData`
 
@@ -356,15 +360,16 @@ stream.pipe(res);
 
 ### `ReceptorData`
 
-| Campo           | Tipo     | Requerido | Descripción                           |
-| --------------- | -------- | --------- | ------------------------------------- |
-| `razonSocial`   | `string` | ✅        | Razón social                          |
-| `condicionIva`  | `string` | ✅        | Condición frente al IVA               |
-| `documentoTipo` | `string` | ✅        | Tipo de documento (`"CUIT"`, `"DNI"`) |
-| `documentoNro`  | `string` | ✅        | Número de documento                   |
-| `domicilio`     | `string` | —         | Domicilio                             |
-| `cuitPais`      | `string` | —         | CUIT país destino (Factura E)         |
-| `idImpositivo`  | `string` | —         | ID impositivo exterior (Factura E)    |
+| Campo            | Tipo     | Requerido | Descripción                                                                   |
+| ---------------- | -------- | --------- | ----------------------------------------------------------------------------- |
+| `razonSocial`    | `string` | ✅        | Razón social                                                                  |
+| `condicionIva`   | `string` | ✅        | Condición frente al IVA                                                       |
+| `documentoTipo`  | `string` | ✅        | Tipo de documento (`"CUIT"`, `"DNI"`)                                         |
+| `documentoNro`   | `string` | ✅        | Número de documento                                                           |
+| `domicilio`      | `string` | —         | Domicilio                                                                     |
+| `condicionIvaId` | `number` | —         | `CondicionIVAReceptorId` de ARCA (RG 5616). Habilita las leyendas automáticas |
+| `cuitPais`       | `string` | —         | CUIT país destino (Factura E)                                                 |
+| `idImpositivo`   | `string` | —         | ID impositivo exterior (Factura E)                                            |
 
 ### `InvoiceItem`
 
@@ -398,6 +403,13 @@ stream.pipe(res);
 | `baseImponible` | `number` | ✅        | Base imponible          |
 | `alicuota`      | `number` | ✅        | Alícuota en porcentaje  |
 | `importe`       | `number` | ✅        | Importe del tributo     |
+
+### `TransparenciaFiscalData`
+
+| Campo                                | Tipo     | Requerido | Descripción                                                            |
+| ------------------------------------ | -------- | --------- | ---------------------------------------------------------------------- |
+| `ivaContenido`                       | `number` | —         | IVA contenido (default: `importeIva`)                                  |
+| `otrosImpuestosNacionalesIndirectos` | `number` | —         | Otros impuestos nacionales indirectos (default: tributos con id 1 y 4) |
 
 ### `ComprobanteAsociado`
 
@@ -442,9 +454,47 @@ stream.pipe(res);
 - Tipo de Cambio + Divisa en el footer
 - Importe Total en moneda extranjera
 
-### Factura M
+### Clase A con leyenda (ex Factura M)
 
-- Mismo layout que Factura B (6 columnas, sin desglose IVA)
+Desde la RG (ARCA) 5762/2025 la clase M no existe: los tipos 51 a 54 son comprobantes clase A con la leyenda "OPERACIÓN SUJETA A RETENCIÓN". Se dibujan con letra **A**, el layout de la Factura A (IVA discriminado) y la leyenda en la cabecera, aunque `cbteLetra` venga como `"M"`.
+
+---
+
+## Leyendas
+
+El paquete agrega las leyendas que exige la normativa a partir de `cbteTipo`, `receptor.condicionIvaId` y algunos campos opcionales. Sin esos campos, el comprobante se dibuja igual que antes.
+
+| Leyenda                                                    | Cuándo se imprime                                                                                                                     | Dónde                                                 |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Régimen de Transparencia Fiscal al Consumidor (Ley 27.743) | `condicionIvaId` = 5 (Consumidor Final) con IVA contenido u otros impuestos nacionales indirectos, o si se pasa `transparenciaFiscal` | Espacio inferior izquierdo                            |
+| Ley 27.618 (RG 5003, art. 20)                              | Clase A (incluye 51 a 54) con `condicionIvaId` 6, 13 o 16 (monotributistas)                                                           | Espacio inferior izquierdo                            |
+| OPERACIÓN SUJETA A RETENCIÓN (RG 5762)                     | Tipos 51 a 54                                                                                                                         | Cabecera                                              |
+| PAGO EN CBU INFORMADA (RG 5762)                            | Clase A con `pagoEnCbuInformada: true`                                                                                                | Cabecera                                              |
+| Leyendas libres                                            | `leyendas` (p. ej. transparencia de Ingresos Brutos provincial)                                                                       | Espacio inferior izquierdo, después de las nacionales |
+
+En la transparencia fiscal, el IVA contenido es `importeIva` y los otros impuestos nacionales indirectos son la suma de los `tributos` con id 1 (Impuestos nacionales) y 4 (Impuestos internos). Ambos se pueden reemplazar con `transparenciaFiscal`, que además fuerza la leyenda para receptores con otra condición (p. ej. exentos).
+
+```ts
+const data: InvoiceData = {
+  // ...
+  cbteTipo: 6,
+  cbteLetra: "B",
+  receptor: {
+    razonSocial: "CONSUMIDOR FINAL",
+    condicionIva: "Consumidor Final",
+    condicionIvaId: 5,
+    documentoTipo: "DNI",
+    documentoNro: "30111222",
+  },
+  leyendas: ["Alícuota IBMza 3,00% – Ley N.º 9655"],
+};
+```
+
+### CAEA
+
+Para comprobantes autorizados con CAEA, `modoAutorizacion: "CAEA"` imprime "CAEA N°" y genera el QR con `tipoCodAut` = `"A"`. El código va en `cae`.
+
+Los templates personalizados reciben las leyendas resueltas en `legends` (`InvoiceLegends`); también se pueden calcular con `resolveLegends(data)`.
 
 ---
 

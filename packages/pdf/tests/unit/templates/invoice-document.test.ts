@@ -1123,4 +1123,268 @@ describe("InvoiceDocument", () => {
       expect(html).toContain("$ 120.000,00");
     });
   });
+
+  // ── Leyendas obligatorias ──
+
+  describe("leyendas", () => {
+    const consumidorFinal = {
+      ...baseReceptor,
+      razonSocial: "CONSUMIDOR FINAL",
+      condicionIva: "Consumidor Final",
+      condicionIvaId: 5,
+      documentoTipo: "DNI",
+      documentoNro: "30111222",
+    };
+
+    function facturaB(overrides: Partial<InvoiceData> = {}): InvoiceData {
+      return makeInvoice({
+        cbteTipo: 6,
+        cbteLetra: "B",
+        receptor: consumidorFinal,
+        importeNetoGravado: 60500,
+        importeIva: 10500,
+        ...overrides,
+      });
+    }
+
+    it("should not render any legend for an invoice without the new fields", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice(),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("Transparencia Fiscal");
+      expect(html).not.toContain("Ley Nº 27.618");
+      expect(html).not.toContain('class="voucher-legend"');
+      expect(html).not.toContain('class="legends"');
+    });
+
+    it("should render the transparency regime for consumidor final", () => {
+      const html = InvoiceDocument({ data: facturaB(), options: baseOptions });
+      expect(html).toContain(
+        "Régimen de Transparencia Fiscal al Consumidor (Ley 27.743)",
+      );
+      expect(html).toContain(
+        "<span>IVA Contenido:</span><span>$\u00a010.500,00</span>",
+      );
+      expect(html).toContain(
+        "<span>Otros Impuestos Nacionales Indirectos:</span><span>$\u00a00,00</span>",
+      );
+    });
+
+    it("should sum tributos 1 and 4 as otros impuestos nacionales indirectos", () => {
+      const html = InvoiceDocument({
+        data: facturaB({
+          tributos: [
+            {
+              id: 1,
+              descripcion: "Impuestos nacionales",
+              baseImponible: 1000,
+              alicuota: 1,
+              importe: 10,
+            },
+            {
+              id: 4,
+              descripcion: "Impuestos Internos",
+              baseImponible: 1000,
+              alicuota: 2,
+              importe: 20,
+            },
+            {
+              id: 2,
+              descripcion: "Impuestos provinciales",
+              baseImponible: 1000,
+              alicuota: 3,
+              importe: 30,
+            },
+          ],
+        }),
+        options: baseOptions,
+      });
+      expect(html).toContain(
+        "<span>Otros Impuestos Nacionales Indirectos:</span><span>$\u00a030,00</span>",
+      );
+    });
+
+    it("should not render the transparency regime for responsable inscripto", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice({
+          receptor: { ...baseReceptor, condicionIvaId: 1 },
+        }),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("Transparencia Fiscal");
+    });
+
+    it("should not render the transparency regime when there is nothing to report", () => {
+      const html = InvoiceDocument({
+        data: facturaB({ cbteTipo: 11, cbteLetra: "C", importeIva: 0 }),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("Transparencia Fiscal");
+    });
+
+    it("should use explicit transparency amounts for any receptor", () => {
+      const html = InvoiceDocument({
+        data: facturaB({
+          receptor: { ...consumidorFinal, condicionIvaId: 4 },
+          transparenciaFiscal: {
+            ivaContenido: 1234.5,
+            otrosImpuestosNacionalesIndirectos: 99,
+          },
+        }),
+        options: baseOptions,
+      });
+      expect(html).toContain("Régimen de Transparencia Fiscal al Consumidor");
+      expect(html).toContain("$\u00a01.234,50");
+      expect(html).toContain("$\u00a099,00");
+    });
+
+    it("should render the transparency regime in factura C layout", () => {
+      const html = InvoiceDocument({
+        data: facturaB({
+          cbteTipo: 11,
+          cbteLetra: "C",
+          transparenciaFiscal: { ivaContenido: 0 },
+        }),
+        options: baseOptions,
+      });
+      expect(html).toContain(
+        '<div class="bottom-col-left"><div class="legends">',
+      );
+    });
+
+    it.each([6, 13, 16])(
+      "should render the Ley 27.618 legend on clase A to condicionIvaId %i",
+      (condicionIvaId) => {
+        const html = InvoiceDocument({
+          data: makeInvoice({
+            receptor: { ...baseReceptor, condicionIvaId },
+          }),
+          options: baseOptions,
+        });
+        expect(html).toContain(
+          "Régimen de Sostenimiento e Inclusión Fiscal para Pequeños Contribuyentes de la Ley Nº 27.618",
+        );
+      },
+    );
+
+    it("should not render the Ley 27.618 legend on clase B", () => {
+      const html = InvoiceDocument({
+        data: facturaB({
+          receptor: { ...consumidorFinal, condicionIvaId: 6 },
+        }),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("Ley Nº 27.618");
+    });
+
+    it.each([
+      [51, "FACTURA"],
+      [52, "NOTA DE DÉBITO"],
+      [53, "NOTA DE CRÉDITO"],
+      [54, "RECIBO"],
+    ])(
+      "should render type %i as clase A with OPERACIÓN SUJETA A RETENCIÓN",
+      (cbteTipo, descripcion) => {
+        const html = InvoiceDocument({
+          data: makeInvoice({ cbteTipo, cbteLetra: "M" }),
+          options: baseOptions,
+        });
+        expect(html).toContain('<div class="letter-box">A</div>');
+        expect(html).toContain(`COD.${cbteTipo}`);
+        expect(html).toContain(`${descripcion} A</div>`);
+        expect(html).toContain(
+          '<div class="voucher-legend">OPERACIÓN SUJETA A RETENCIÓN</div>',
+        );
+        expect(html).toContain("%IVA");
+        expect(html).toContain("IVA 21%:");
+        expect(html).not.toContain(">M<");
+      },
+    );
+
+    it("should render the Ley 27.618 legend on type 51 to a monotributista", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice({
+          cbteTipo: 51,
+          cbteLetra: "M",
+          receptor: { ...baseReceptor, condicionIvaId: 6 },
+        }),
+        options: baseOptions,
+      });
+      expect(html).toContain("Ley Nº 27.618");
+    });
+
+    it("should render PAGO EN CBU INFORMADA on clase A", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice({ pagoEnCbuInformada: true }),
+        options: baseOptions,
+      });
+      expect(html).toContain(
+        '<div class="voucher-legend">PAGO EN CBU INFORMADA</div>',
+      );
+    });
+
+    it("should ignore PAGO EN CBU INFORMADA outside clase A", () => {
+      const html = InvoiceDocument({
+        data: facturaB({ pagoEnCbuInformada: true }),
+        options: baseOptions,
+      });
+      expect(html).not.toContain("PAGO EN CBU INFORMADA");
+    });
+
+    it("should render free legends after the transparency regime", () => {
+      const html = InvoiceDocument({
+        data: facturaB({
+          leyendas: ["Alícuota IBMza 3,00% – Ley N.º 9655", "Línea 1\nLínea 2"],
+        }),
+        options: baseOptions,
+      });
+      const transparencia = html.indexOf("Transparencia Fiscal al Consumidor");
+      const mendoza = html.indexOf("Alícuota IBMza 3,00% – Ley N.º 9655");
+      expect(transparencia).toBeGreaterThan(-1);
+      expect(mendoza).toBeGreaterThan(transparencia);
+      expect(html).toContain('<div class="legend-text">Línea 1\nLínea 2</div>');
+    });
+
+    it("should render free legends without condicionIvaId", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice({ leyendas: ["Leyenda provincial"] }),
+        options: baseOptions,
+      });
+      expect(html).toContain(
+        '<div class="legend-text">Leyenda provincial</div>',
+      );
+    });
+
+    it("should render free legends on factura E", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice({
+          cbteTipo: 19,
+          cbteLetra: "E",
+          leyendas: ["Leyenda de exportación"],
+        }),
+        options: baseOptions,
+      });
+      expect(html).toContain(
+        '<div class="legend-text">Leyenda de exportación</div>',
+      );
+    });
+
+    it("should keep the factura E layout without legends", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice({ cbteTipo: 19, cbteLetra: "E" }),
+        options: baseOptions,
+      });
+      expect(html).not.toContain('<div class="bottom-columns">');
+    });
+
+    it("should label CAEA vouchers", () => {
+      const html = InvoiceDocument({
+        data: makeInvoice({ modoAutorizacion: "CAEA" }),
+        options: baseOptions,
+      });
+      expect(html).toContain("CAEA N°: 72643218900001");
+      expect(html).toContain("Fecha de Vto. de CAEA:");
+    });
+  });
 });

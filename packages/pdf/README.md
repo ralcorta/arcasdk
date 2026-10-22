@@ -12,6 +12,8 @@ Generador de comprobantes electrónicos en formato PDF con diseño oficial de AR
 - Soporte para múltiples copias (Original, Duplicado, Triplicado, Cuadruplicado)
 - Soporte para servicios (período facturado, vencimiento de pago)
 - Soporte para tributos adicionales y comprobantes asociados
+- Leyendas obligatorias: transparencia fiscal (Ley 27.743), Ley 27.618, clase A con leyenda (RG 5762) y leyendas libres
+- QR para comprobantes autorizados con CAE o CAEA
 - Monedas: Pesos Argentinos (ARS) y Dólares Estadounidenses (USD)
 - Templates personalizables
 - Independiente de `@arcasdk/core` — se puede usar de forma standalone

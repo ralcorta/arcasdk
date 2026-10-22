@@ -25,7 +25,7 @@ export function buildArcaQrUrl(data: InvoiceData): string {
     ctz: data.cotizacion || 1,
     tipoDocRec: getDocTipoNumber(data.receptor.documentoTipo),
     nroDocRec: Number(cuitReceptor) || 0,
-    tipoCodAut: "E",
+    tipoCodAut: data.modoAutorizacion === "CAEA" ? "A" : "E",
     codAut: Number(data.cae),
   };
 

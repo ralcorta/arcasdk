@@ -55,6 +55,20 @@ describe("qr.utils", () => {
       expect(decoded.tipoCodAut).toBe("E");
     });
 
+    it("should use tipoCodAut A for CAEA vouchers", () => {
+      const url = buildArcaQrUrl({ ...baseData, modoAutorizacion: "CAEA" });
+      const base64 = url.split("?p=")[1];
+      const decoded = JSON.parse(Buffer.from(base64, "base64").toString());
+      expect(decoded.tipoCodAut).toBe("A");
+    });
+
+    it("should use tipoCodAut E for explicit CAE vouchers", () => {
+      const url = buildArcaQrUrl({ ...baseData, modoAutorizacion: "CAE" });
+      const base64 = url.split("?p=")[1];
+      const decoded = JSON.parse(Buffer.from(base64, "base64").toString());
+      expect(decoded.tipoCodAut).toBe("E");
+    });
+
     it("should normalize date format", () => {
       const url = buildArcaQrUrl(baseData);
       const base64 = url.split("?p=")[1];

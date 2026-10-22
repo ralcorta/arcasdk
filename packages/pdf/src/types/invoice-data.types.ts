@@ -22,6 +22,15 @@ export interface ReceptorData {
   documentoTipo: string;
   documentoNro: string;
 
+  /**
+   * Condición frente al IVA del receptor como código de ARCA (`CondicionIVAReceptorId`,
+   * RG 5616): 1 = Responsable Inscripto, 4 = Exento, 5 = Consumidor Final,
+   * 6 = Monotributo, 13 = Monotributista Social, 16 = Monotributo Trabajador
+   * Independiente Promovido, etc. Habilita las leyendas automáticas. Si no se
+   * provee, no se agrega ninguna leyenda que dependa del receptor.
+   */
+  condicionIvaId?: number;
+
   // ── Campos de exportación (Factura E) ──
 
   /** CUIT del país destino con descripción (ej: "55000002126 (ESTADOS UNIDOS - Persona Jurídica)") */
@@ -66,6 +75,16 @@ export interface TributoDetail {
   baseImponible: number;
   alicuota: number;
   importe: number;
+}
+
+/**
+ * Importes del Régimen de Transparencia Fiscal al Consumidor (Ley 27.743, RG 5614)
+ */
+export interface TransparenciaFiscalData {
+  /** IVA contenido. Default: `importeIva` */
+  ivaContenido?: number;
+  /** Otros impuestos nacionales indirectos. Default: suma de los `tributos` con id 1 (Impuestos nacionales) y 4 (Impuestos internos) */
+  otrosImpuestosNacionalesIndirectos?: number;
 }
 
 /**
@@ -172,6 +191,25 @@ export interface InvoiceData {
   /** Observaciones */
   observaciones?: string;
 
+  // ── Autorización y leyendas ──
+
+  /** Modo de autorización del comprobante (default: "CAE"). Con "CAEA" el QR usa `tipoCodAut` = "A" */
+  modoAutorizacion?: "CAE" | "CAEA";
+
+  /**
+   * Importes del Régimen de Transparencia Fiscal al Consumidor (Ley 27.743).
+   * La leyenda se agrega sola cuando `receptor.condicionIvaId` es 5 (Consumidor Final).
+   * Si se provee este campo, se imprime aunque el receptor tenga otra condición,
+   * y sus importes reemplazan a los calculados.
+   */
+  transparenciaFiscal?: TransparenciaFiscalData;
+
+  /** Imprime la leyenda "PAGO EN CBU INFORMADA" en la cabecera de un comprobante clase A (RG 5762) */
+  pagoEnCbuInformada?: boolean;
+
+  /** Leyendas adicionales al pie (p. ej. transparencia de Ingresos Brutos provincial). Admiten "\n" */
+  leyendas?: string[];
+
   // ── Campos de exportación (Factura E) ──
 
   /** Divisa con descripción completa (ej: "USD - Dólar Estadounidense") */
@@ -198,6 +236,24 @@ export interface InvoiceData {
 }
 
 /**
+ * Leyendas del comprobante resueltas a partir de `InvoiceData`.
+ */
+export interface InvoiceLegends {
+  /** Letra con la que se dibuja el comprobante ("A" para los tipos 51 a 54) */
+  letra: string;
+  /** Leyenda de la cabecera, junto a la letra (RG 5762) */
+  cabecera?: string;
+  /** Bloque del Régimen de Transparencia Fiscal al Consumidor (Ley 27.743) */
+  transparenciaFiscal?: {
+    titulo: string;
+    ivaContenido: number;
+    otrosImpuestosNacionalesIndirectos: number;
+  };
+  /** Leyendas del pie: Ley 27.618 y `leyendas` libres, en ese orden */
+  pie: string[];
+}
+
+/**
  * Props recibidas por cualquier template de factura.
  * Implementar este contrato para crear templates personalizados.
  */
@@ -206,16 +262,15 @@ export interface InvoiceTemplateProps {
   options: ResolvedPdfOptions;
   /** Data URL del QR code ya generado (undefined si includeQr=false) */
   qrDataUrl?: string;
+  /** Leyendas resueltas. Si no se proveen, se calculan a partir de `data` */
+  legends?: InvoiceLegends;
 }
 
 /**
  * Opciones resueltas (con defaults aplicados) que recibe el template.
  */
 export type CopyType =
-  | "ORIGINAL"
-  | "DUPLICADO"
-  | "TRIPLICADO"
-  | "CUADRUPLICADO";
+  "ORIGINAL" | "DUPLICADO" | "TRIPLICADO" | "CUADRUPLICADO";
 
 export interface ResolvedPdfOptions {
   pageSize: "A4" | "LETTER" | "LEGAL";
