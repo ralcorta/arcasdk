@@ -5,6 +5,7 @@ import { IAuthenticationRepositoryPort } from "@application/ports/authentication
 import { ISoapClientPort } from "@infrastructure/soap/soap-client.port";
 import { ArcaServiceName } from "@application/types/service-name.types";
 import { type SoapServiceVersion } from "@infrastructure/soap/config/soap-service-version.types";
+import type { ArcaEventListener } from "@application/types/events.types";
 
 export interface SoapClientResult<T extends Client> {
   client: T;
@@ -20,6 +21,8 @@ export interface BaseSoapRepositoryConstructorConfig {
   useSoap12?: boolean;
   
   useHttpsAgent?: boolean;
+  /** Receives the events of every call made through this repository */
+  onEvent?: ArcaEventListener;
 }
 
 export interface AuthenticatedProxyOptions {

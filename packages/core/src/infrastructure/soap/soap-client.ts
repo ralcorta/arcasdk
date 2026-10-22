@@ -66,12 +66,15 @@ export class SoapClient implements ISoapClientPort {
     client: Client,
     methodName: string,
     params: unknown,
+    options?: Record<string, unknown>,
   ): Promise<T> {
     const method = client[methodName];
     if (typeof method !== "function") {
       throw new Error(`Method ${methodName} not found on SOAP client`);
     }
 
-    return method(params) as Promise<T>;
+    return (
+      options === undefined ? method(params) : method(params, options)
+    ) as Promise<T>;
   }
 }

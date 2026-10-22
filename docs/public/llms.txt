@@ -106,6 +106,7 @@ const points = await arca.electronicBillingService.getSalesPoints();
 | `ticketPath` | Carpeta para cachear tickets WSAA (Node.js) |
 | `ticketStorage` | Storage custom (Redis, DB) para serverless |
 | `handleTicket` | `true` = vos pasás credenciales WSAA ya obtenidas |
+| `onEvent` | Callback con `request` / `response` / `error` de cada llamada (parámetros, respuesta y XML, con token y sign ocultos) para logs o métricas |
 
 Requisito previo: certificados emitidos en el portal ARCA y web service autorizado para ese certificado.
 

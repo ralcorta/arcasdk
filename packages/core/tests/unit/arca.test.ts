@@ -358,6 +358,25 @@ describe("Arca", () => {
         expect.objectContaining({ production: true }),
       );
     });
+
+    it("should pass onEvent to WSAA and to every service repository", () => {
+      const onEvent = jest.fn();
+
+      new Arca({ ...mockContext, onEvent });
+
+      expect(MockedAuthRepository).toHaveBeenCalledWith(
+        expect.objectContaining({ onEvent }),
+      );
+      expect(MockedElectronicBillingRepository).toHaveBeenCalledWith(
+        expect.objectContaining({ onEvent }),
+      );
+      expect(MockedRegisterScopeFiveRepository).toHaveBeenCalledWith(
+        expect.objectContaining({ onEvent }),
+      );
+      expect(MockedGenericRepository).toHaveBeenCalledWith(
+        expect.objectContaining({ onEvent }),
+      );
+    });
   });
 
   describe("getters", () => {

@@ -10,6 +10,8 @@ import {
   SoapClientResult,
 } from "@infrastructure/types/soap-repository.types";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
+import type { ArcaEventListener } from "@application/types/events.types";
+import { SoapEventTracker } from "./soap-event-tracker";
 
 export abstract class BaseSoapRepository {
   protected readonly cuit: number;
@@ -17,6 +19,7 @@ export abstract class BaseSoapRepository {
   protected readonly soapClient: ISoapClientPort;
   protected readonly authRepository: IAuthenticationRepositoryPort;
   protected readonly useSoap12: boolean;
+  protected readonly onEvent?: ArcaEventListener;
 
   constructor(config: BaseSoapRepositoryConstructorConfig) {
     this.soapClient =
@@ -26,6 +29,7 @@ export abstract class BaseSoapRepository {
     this.cuit = config.cuit;
     this.production = config.production ?? false;
     this.useSoap12 = config.useSoap12 ?? true; // Default to SOAP 1.2
+    this.onEvent = config.onEvent;
   }
 
   
@@ -57,6 +61,9 @@ export abstract class BaseSoapRepository {
       soapVersion = SoapServiceVersions.ServiceSoap12,
     } = options;
     const soapServices = client.describe();
+    const tracker = this.onEvent
+      ? new SoapEventTracker(client, this.onEvent)
+      : undefined;
 
     return new Proxy(client, {
       get: (target: T, prop: string) => {
@@ -69,8 +76,17 @@ export abstract class BaseSoapRepository {
               soapServices?.Service?.[soapVersion]?.[func]?.input?.["Auth"] !==
                 undefined);
 
-          if (methodRequiresAuth) {
-            return async (params: Record<string, unknown>) => {
+          if (!methodRequiresAuth && !tracker) {
+            return original;
+          }
+
+          return async (
+            params: Record<string, unknown>,
+            callOptions?: Record<string, unknown>,
+            extraHeaders?: Record<string, unknown>,
+          ) => {
+            let callParams = params;
+            if (methodRequiresAuth) {
               const ticket = await this.authRepository.login(serviceName);
               const auth = this.authRepository.getAuthParams(ticket, this.cuit);
 
@@ -80,10 +96,21 @@ export abstract class BaseSoapRepository {
                   ? auth.Auth
                   : auth;
 
-              const paramsWithAuth = { ...authParams, ...params };
-              return original.call(target, paramsWithAuth);
-            };
-          }
+              callParams = { ...authParams, ...params };
+            }
+
+            if (!tracker) {
+              return original.call(target, callParams);
+            }
+            return tracker.track(serviceName, func, callParams, (trackOptions) =>
+              original.call(
+                target,
+                callParams,
+                { ...callOptions, ...trackOptions },
+                extraHeaders,
+              ),
+            );
+          };
         }
         return original;
       },

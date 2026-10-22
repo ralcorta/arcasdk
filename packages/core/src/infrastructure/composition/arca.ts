@@ -78,6 +78,7 @@ export class Arca {
       ticketStorage,
       credentials: this.context.credentials,
       useHttpsAgent,
+      onEvent: this.context.onEvent,
     });
 
     const baseRepositoryConfig = {
@@ -85,6 +86,7 @@ export class Arca {
       cuit: this.context.cuit,
       production: this.context.production ?? false,
       useHttpsAgent,
+      onEvent: this.context.onEvent,
     };
 
     const soapConfig = {

@@ -16,5 +16,6 @@ export interface ISoapClientPort {
     client: Client,
     methodName: string,
     params: unknown,
+    options?: Record<string, unknown>,
   ): Promise<T>;
 }

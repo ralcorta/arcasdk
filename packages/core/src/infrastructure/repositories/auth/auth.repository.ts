@@ -19,6 +19,8 @@ import { AuthRepositoryConfig } from "@infrastructure/types/auth-repository.type
 import { ISoapClientPort } from "@infrastructure/soap/soap-client.port";
 import { ITicketStoragePort } from "@application/ports/storage";
 import { SoapClient } from "../../soap/soap-client";
+import { SoapEventTracker } from "../../soap/soap-event-tracker";
+import type { ArcaEventListener } from "@application/types/events.types";
 import { DEFAULT_USE_HTTPS_AGENT } from "@infrastructure/constants";
 
 export class AuthRepository implements IAuthenticationRepositoryPort {
@@ -30,6 +32,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
   private manualCredentials?: ILoginCredentials;
 
   private readonly soapClient: ISoapClientPort;
+  private readonly onEvent?: ArcaEventListener;
 
   constructor(config: AuthRepositoryConfig) {
     this.soapClient =
@@ -41,6 +44,7 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
     this.handleTicket = config.handleTicket ?? false;
     this.ticketStorage = config.ticketStorage;
     this.manualCredentials = config.credentials;
+    this.onEvent = config.onEvent;
   }
 
   
@@ -92,9 +96,31 @@ export class AuthRepository implements IAuthenticationRepositoryPort {
 
     const client = await this.createAuthClient();
 
-    const [{ loginCmsReturn }] = await this.soapClient.call<
-      [IloginCmsOutput, string, Record<string, unknown>, string]
-    >(client, "loginCmsAsync", { in0: signedTRA });
+    type LoginCmsResult = [
+      IloginCmsOutput,
+      string,
+      Record<string, unknown>,
+      string,
+    ];
+    const params = { in0: signedTRA };
+    const [{ loginCmsReturn }] = this.onEvent
+      ? await new SoapEventTracker(client, this.onEvent).track(
+          "wsaa",
+          "loginCms",
+          params,
+          (options) =>
+            this.soapClient.call<LoginCmsResult>(
+              client,
+              "loginCmsAsync",
+              params,
+              options,
+            ),
+        )
+      : await this.soapClient.call<LoginCmsResult>(
+          client,
+          "loginCmsAsync",
+          params,
+        );
 
     const loginPayload = await this.parseLoginTicketResponse(loginCmsReturn);
     const ticket = AccessTicket.create(loginPayload);

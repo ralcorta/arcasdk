@@ -9,6 +9,8 @@ import { Parser } from "@infrastructure/utils/parser";
 import { Cryptography } from "@infrastructure/utils/crypt-data";
 import { SoapClient } from "@infrastructure/soap/soap-client";
 import { Client } from "soap";
+import { EventEmitter } from "events";
+import type { ArcaEvent } from "@application/types/events.types";
 
 jest.mock("@infrastructure/utils/parser");
 jest.mock("@infrastructure/utils/crypt-data");
@@ -170,6 +172,71 @@ describe("AuthRepository", () => {
 
       expect(result).toBeInstanceOf(AccessTicket);
       expect(mockSoapClientInstance.createClient).toHaveBeenCalled();
+    });
+
+    it("should call loginCms without options when there is no listener", async () => {
+      mockSoapClientInstance.createClient.mockResolvedValue({} as Client);
+      mockSoapClientInstance.call.mockResolvedValue([
+        { loginCmsReturn: "<xml>response</xml>" },
+        "",
+        {},
+        "",
+      ]);
+
+      adapter = new AuthRepository({ ...config });
+      await adapter.login(ArcaServiceNames.WSFE);
+
+      expect(mockSoapClientInstance.call).toHaveBeenCalledWith(
+        {},
+        "loginCmsAsync",
+        { in0: "signed-tra" },
+      );
+    });
+
+    it("should emit WSAA events with the ticket redacted", async () => {
+      const client = Object.assign(new EventEmitter(), {
+        lastEndpoint: "https://wsaahomo.afip.gov.ar/ws/services/LoginCms",
+      });
+      mockSoapClientInstance.createClient.mockResolvedValue(
+        client as unknown as Client,
+      );
+      mockSoapClientInstance.call.mockImplementation(
+        async (_client, _method, _params, options) => {
+          client.emit(
+            "request",
+            "<loginCms><in0>signed-tra</in0></loginCms>",
+            (options as { exchangeId: string }).exchangeId,
+          );
+          return [
+            { loginCmsReturn: "<xml>response</xml>" },
+            "<loginCmsReturn>&lt;token&gt;T&lt;/token&gt;&lt;sign&gt;S&lt;/sign&gt;</loginCmsReturn>",
+            {},
+            "",
+          ] as never;
+        },
+      );
+      const events: ArcaEvent[] = [];
+
+      adapter = new AuthRepository({
+        ...config,
+        onEvent: (event) => events.push(event),
+      });
+      await adapter.login(ArcaServiceNames.WSFE);
+
+      expect(events.map((e) => [e.type, e.service, e.method])).toEqual([
+        ["request", "wsaa", "loginCms"],
+        ["response", "wsaa", "loginCms"],
+      ]);
+      expect(events[0]).toMatchObject({
+        params: { in0: "[REDACTED]" },
+        xml: "<loginCms><in0>[REDACTED]</in0></loginCms>",
+      });
+      expect(events[1]).toMatchObject({
+        result: { loginCmsReturn: "<xml>response</xml>" },
+      });
+      expect(events[1].xml).toBe(
+        "<loginCmsReturn>&lt;token&gt;[REDACTED]&lt;/token&gt;&lt;sign&gt;[REDACTED]&lt;/sign&gt;</loginCmsReturn>",
+      );
     });
   });
 
