@@ -100,6 +100,34 @@ Para Redis o una base de datos, creá una clase que implemente estos métodos y 
 Con `ticketStorage` no necesitás `handleTicket: true` ni pasar `credentials` en cada `new Arca()`. La SDK lee y escribe tickets a través de tu adapter.
 :::
 
+### Cifrar los tickets
+
+El token y el sign del ticket permiten operar los web services del contribuyente hasta que vence. Los storages los guardan en texto plano; para cifrarlos, envolvé cualquier storage (incluido uno propio) en `EncryptedTicketStorage`:
+
+```ts
+import {
+  Arca,
+  EncryptedTicketStorage,
+  FileSystemTicketStorage,
+} from "@arcasdk/core";
+
+const ticketStorage = new EncryptedTicketStorage({
+  storage: new FileSystemTicketStorage({
+    ticketPath: "/var/lib/arca-tickets",
+    cuit: 20111111112,
+  }),
+  // 32 bytes en base64, p. ej. `openssl rand -base64 32`
+  key: process.env.ARCA_TICKET_KEY!,
+});
+
+const arca = new Arca({ cuit: 20111111112, cert: "...", key: "...", ticketStorage });
+```
+
+- Cifra el token y el sign con **AES-256-GCM**, cada uno con un IV nuevo y ligado al servicio y al campo: un valor copiado a otro servicio no se descifra. La cabecera (fechas, servicio) queda legible, porque la SDK la usa para saber si el ticket venció.
+- La clave tiene que medir 32 bytes: un `Buffer`/`Uint8Array` o un texto en base64. Guardala fuera del storage (variable de entorno o gestor de secretos).
+- Con una clave incorrecta o un valor alterado, `get` falla con `wrong key or tampered data`.
+- Los tickets guardados antes sin cifrar se leen igual, así que podés activarlo sin cortar el servicio: se guardan cifrados en la próxima renovación.
+
 ---
 
 ## Opción 2: Manual (Para Serverless)
