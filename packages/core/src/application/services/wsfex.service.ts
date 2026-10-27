@@ -4,7 +4,7 @@ import {
   IFEXAuthorizeOutput,
   IFEXGetCMPInput,
   IFEXGetCMPOutput,
-  IFEXGetLast_CMPInput,
+  IFexLastCmpInput,
   IFEXGetLast_CMPOutput,
   IFEXGetLast_IDInput,
   IFEXGetLast_IDOutput,
@@ -37,8 +37,11 @@ import {
   IFEXGetPARAM_ActividadesInput,
   IFEXGetPARAM_ActividadesOutput,
   IFEXDummyOutput,
+  IFexNextVoucher,
+  FexCreateVoucherResultDto,
 } from "@application/dto/fex";
 import { AuthorizeUseCase } from "@application/use-cases/wsfex/authorize.use-case";
+import { FexCreateNextVoucherUseCase } from "@application/use-cases/wsfex/create-next-voucher.use-case";
 import { GetCmpUseCase } from "@application/use-cases/wsfex/get-cmp.use-case";
 import { GetLastCmpUseCase } from "@application/use-cases/wsfex/get-last-cmp.use-case";
 import { GetLastIdUseCase } from "@application/use-cases/wsfex/get-last-id.use-case";
@@ -60,6 +63,7 @@ import { FexDummyUseCase } from "@application/use-cases/wsfex/dummy.use-case";
 
 export class WsfexService {
   private readonly authorizeUseCase: AuthorizeUseCase;
+  private readonly createNextVoucherUseCase: FexCreateNextVoucherUseCase;
   private readonly getCmpUseCase: GetCmpUseCase;
   private readonly getLastCmpUseCase: GetLastCmpUseCase;
   private readonly getLastIdUseCase: GetLastIdUseCase;
@@ -81,6 +85,9 @@ export class WsfexService {
 
   constructor(private readonly repository: IFexRepositoryPort) {
     this.authorizeUseCase = new AuthorizeUseCase(this.repository);
+    this.createNextVoucherUseCase = new FexCreateNextVoucherUseCase(
+      this.repository,
+    );
     this.getCmpUseCase = new GetCmpUseCase(this.repository);
     this.getLastCmpUseCase = new GetLastCmpUseCase(this.repository);
     this.getLastIdUseCase = new GetLastIdUseCase(this.repository);
@@ -113,12 +120,18 @@ export class WsfexService {
     return this.authorizeUseCase.execute(input);
   }
 
+  async createNextVoucher(
+    voucher: IFexNextVoucher,
+  ): Promise<FexCreateVoucherResultDto> {
+    return this.createNextVoucherUseCase.execute(voucher);
+  }
+
   async getCmp(input: IFEXGetCMPInput): Promise<IFEXGetCMPOutput> {
     return this.getCmpUseCase.execute(input);
   }
 
   async getLastCmp(
-    input: IFEXGetLast_CMPInput,
+    input: IFexLastCmpInput,
   ): Promise<IFEXGetLast_CMPOutput> {
     return this.getLastCmpUseCase.execute(input);
   }

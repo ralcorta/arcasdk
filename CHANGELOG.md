@@ -4,9 +4,13 @@
 
 - add `wsctService` for class T tourism vouchers (WSCT): authorization, queries and catalogs via `arca.wsctService` — see [Comprobantes T de turismo](https://ralcorta.github.io/arcasdk/services/comprobantes_turismo)
 - add `PeriodoAsoc` on WSFE vouchers so credit/debit notes can satisfy ARCA error 10197 without a specific `CbtesAsoc`
+- add `wsfexService.createNextVoucher()` to issue Factura E (WSFEX) with the next `Id` and `Cbte_nro`; it throws when `FEXGetLast_ID` or `FEXGetLast_CMP` answer with `FEXErr` — see [Facturación de exportación](https://ralcorta.github.io/arcasdk/services/facturacion_electronica_exportacion)
+- add `ExportVoucherTypes` (Factura, ND and NC E) and `CurrencyIds` (`PES`, `DOL`, `060`) constants; `@arcasdk/pdf` renders EUR (`060`)
+- add `Actividades` on WSFE vouchers (`createVoucher`, `createNextVoucher`, `informCaeaUsage`); `getActivities()` lists the issuer's activities
 
 ### 🩹 Fixes
 
+- `wsfexService.getLastCmp` sends `Pto_venta` and `Cbte_Tipo` inside `Auth`, as `FEXGetLast_CMP` requires; before, ARCA received only the credentials. **Migration:** `getLastCmp({})` no longer compiles; pass `{ Pto_venta, Cbte_Tipo }`
 - `getVoucherInfo` returns the ARCA errors (`{ errors }`) instead of `null` when `FECompConsultar` answers without `ResultGet`, so a voucher that does not exist (602) can be told from an invalid request (10202, 10204); it still returns `null` when ARCA answers nothing at all. **Migration:** callers that treated any falsy/`null` result as “voucher not found” must now check `errors.err` for code `602` (see [Información de Comprobante](https://ralcorta.github.io/arcasdk/services/facturacion_electronica.html#informacion-de-comprobante))
 - stop pre-validating WSFE `ImpTotal` in the SDK (ARCA error 10048), so fiscally valid exempt vouchers such as Recibo A (`ImpOpEx = ImpTotal`) are no longer rejected before the SOAP call
 - expand `isTypeA/B/C/M()` to Recibos, NC and ND of that class, so type-C IVA rules apply to Recibo/NC/ND C and not only Factura C (`CbteTipo` 11)

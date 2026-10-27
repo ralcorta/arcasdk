@@ -19,6 +19,20 @@ export const VoucherTypes = {
   RECIBO_M: 54,
 } as const;
 
+/** Códigos `Cbte_Tipo` de WSFEX (exportación). Catálogo completo: `wsfexService.getParamCbteTipo()`. */
+export const ExportVoucherTypes = {
+  FACTURA_E: 19,
+  NOTA_DEBITO_E: 20,
+  NOTA_CREDITO_E: 21,
+} as const;
+
+/** Códigos de moneda de ARCA (`MonId` en WSFE, `Moneda_Id` en WSFEX). Catálogo completo: `getCurrencyTypes()`. */
+export const CurrencyIds = {
+  PESOS: "PES",
+  USD: "DOL",
+  EUR: "060",
+} as const;
+
 /** Clase fiscal A/B/C/M: factura, ND, NC y recibo de esa letra. */
 export const VoucherTypesByClass: Record<"A" | "B" | "C" | "M", number[]> = {
   A: [
@@ -77,6 +91,8 @@ export interface IVoucher {
   Iva?: IIva[];
   Opcionales?: IOpcional[];
   Compradores?: IComprador[];
+  /** Actividades del emisor vinculadas al comprobante. Listado habilitado: `getActivities()`. */
+  Actividades?: IActividad[];
 }
 
 export interface INextVoucher extends Omit<
@@ -116,6 +132,11 @@ export interface IIva {
 export interface IOpcional {
   Id: string;
   Valor: string;
+}
+
+/** Código de actividad (nomenclador CLAE / F.883), como lo devuelve `getActivities()`. */
+export interface IActividad {
+  Id: number;
 }
 
 export interface ITributo {

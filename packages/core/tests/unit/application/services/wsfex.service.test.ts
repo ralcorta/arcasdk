@@ -41,6 +41,32 @@ describe("WsfexService", () => {
     expect(result).toEqual(expected);
   });
 
+  it("createNextVoucher authorizes with the next id and number", async () => {
+    const ok = { ErrCode: 0, ErrMsg: "OK" };
+    mockRepository.getLastId.mockResolvedValue({
+      FEXGetLast_IDResult: { FEXResultGet: { Id: 7 }, FEXErr: ok },
+    } as never);
+    mockRepository.getLastCmp.mockResolvedValue({
+      FEXGetLast_CMPResult: { FEXResult_LastCMP: { Cbte_nro: 3 }, FEXErr: ok },
+    } as never);
+    mockRepository.authorize.mockResolvedValue({
+      FEXAuthorizeResult: {
+        FEXResultAuth: { Resultado: "A", Cae: "123", Fch_venc_Cae: "20261106" },
+        FEXErr: ok,
+      },
+    } as never);
+
+    const result = await service.createNextVoucher({
+      Cbte_Tipo: 19,
+      Punto_vta: 2,
+    } as never);
+
+    expect(mockRepository.authorize).toHaveBeenCalledWith({
+      Cmp: { Cbte_Tipo: 19, Punto_vta: 2, Id: 8, Cbte_nro: 4 },
+    });
+    expect(result.cae).toBe("123");
+  });
+
   it("getCmp delegates to repository", async () => {
     const input = {} as never;
     const expected = { FEXGetCMPResult: {} };

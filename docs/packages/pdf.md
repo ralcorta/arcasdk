@@ -320,7 +320,7 @@ stream.pipe(res);
 | `importeTotal`            | `number`                | ✅        | Importe total                                  |
 | `cae`                     | `string`                | ✅        | CAE                                            |
 | `caeFechaVencimiento`     | `string`                | ✅        | Vencimiento del CAE (YYYYMMDD)                 |
-| `moneda`                  | `string`                | —         | Moneda (`"PES"`, `"DOL"`)                      |
+| `moneda`                  | `string`                | —         | Moneda (`"PES"`, `"DOL"`, `"060"` EUR)         |
 | `cotizacion`              | `number`                | —         | Cotización de la moneda                        |
 | `condicionVenta`          | `string`                | —         | Condición de venta                             |
 | `fechaServicioDesde`      | `string`                | —         | Período desde (conceptos 2 y 3)                |

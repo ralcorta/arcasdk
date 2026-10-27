@@ -9,12 +9,12 @@ import {
   IServiceSoapSoap,
 } from "@infrastructure/soap/contracts/FEXService/ServiceSoap";
 import { IServiceSoap12Soap } from "@infrastructure/soap/contracts/FEXService/ServiceSoap12";
+import { IFexLastCmpInput } from "@application/dto/fex";
 import {
   IFEXAuthorizeInput,
   IFEXAuthorizeOutput,
   IFEXGetCMPInput,
   IFEXGetCMPOutput,
-  IFEXGetLast_CMPInput,
   IFEXGetLast_CMPOutput,
   IFEXGetLast_IDInput,
   IFEXGetLast_IDOutput,
@@ -99,9 +99,12 @@ export class FexRepository
     return output;
   }
 
-  async getLastCmp(input: IFEXGetLast_CMPInput): Promise<IFEXGetLast_CMPOutput> {
+  async getLastCmp(input: IFexLastCmpInput): Promise<IFEXGetLast_CMPOutput> {
     const client = await this.getClient();
-    const [output] = await client.FEXGetLast_CMPAsync(input);
+    // FEXGetLast_CMP takes Pto_venta and Cbte_Tipo inside Auth; the auth proxy adds the credentials
+    const [output] = await client.FEXGetLast_CMPAsync({
+      Auth: { Pto_venta: input.Pto_venta, Cbte_Tipo: input.Cbte_Tipo },
+    });
     return output;
   }
 

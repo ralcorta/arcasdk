@@ -1,4 +1,5 @@
 export * from "./authorize.use-case";
+export * from "./create-next-voucher.use-case";
 export * from "./get-cmp.use-case";
 export * from "./get-last-cmp.use-case";
 export * from "./get-last-id.use-case";

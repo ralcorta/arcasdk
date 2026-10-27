@@ -80,7 +80,23 @@ export abstract class BaseSoapRepository {
                   ? auth.Auth
                   : auth;
 
-              const paramsWithAuth = { ...authParams, ...params };
+              const paramsWithAuth: Record<string, unknown> = {
+                ...authParams,
+                ...params,
+              };
+              // Some operations carry request fields inside Auth (WSFEX FEXGetLast_CMP:
+              // Pto_venta, Cbte_Tipo). auth.Auth is spread twice on purpose:
+              // - the first spread fixes key order: credentials first, as in the WSDL
+              //   sequence (soap serializes keys in insertion order)
+              // - the last spread restores the credential values if the request fields
+              //   reused a credential key; reassigning an existing key keeps its position
+              if (authParams === auth && params?.Auth) {
+                paramsWithAuth.Auth = {
+                  ...auth.Auth,
+                  ...(params.Auth as Record<string, unknown>),
+                  ...auth.Auth,
+                };
+              }
               return original.call(target, paramsWithAuth);
             };
           }

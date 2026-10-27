@@ -75,6 +75,7 @@ export const VOUCHER_TYPE_CODE: Record<string, string> = {
 export const CURRENCY_SYMBOL: Record<string, string> = {
   PES: "$",
   DOL: "US$",
+  "060": "€",
   "002": "US$",
   "000": "$",
 };
@@ -85,6 +86,7 @@ export const CURRENCY_SYMBOL: Record<string, string> = {
 export const CURRENCY_NAME: Record<string, string> = {
   PES: "PESOS ARGENTINOS (ARS)",
   DOL: "DÓLARES ESTADOUNIDENSES (USD)",
+  "060": "EUROS (EUR)",
   "002": "DÓLARES ESTADOUNIDENSES (USD)",
   "000": "PESOS ARGENTINOS (ARS)",
 };
@@ -95,6 +97,7 @@ export const CURRENCY_NAME: Record<string, string> = {
 export const CURRENCY_CODE: Record<string, string> = {
   PES: "ARS",
   DOL: "USD",
+  "060": "EUR",
   "002": "USD",
   "000": "ARS",
 };

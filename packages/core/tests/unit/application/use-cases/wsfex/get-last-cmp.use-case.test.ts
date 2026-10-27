@@ -9,7 +9,7 @@ describe("GetLastCmpUseCase", () => {
     } as unknown as jest.Mocked<IFexRepositoryPort>;
 
     const useCase = new GetLastCmpUseCase(repository);
-    const input = {} as never;
+    const input = { Pto_venta: 1, Cbte_Tipo: 19 };
     const result = await useCase.execute(input);
 
     expect(repository.getLastCmp).toHaveBeenCalledWith(input);

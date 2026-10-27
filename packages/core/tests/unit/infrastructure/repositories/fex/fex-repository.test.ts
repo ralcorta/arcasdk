@@ -126,7 +126,7 @@ describe("FexRepository", () => {
   });
 
   describe("getLastCmp", () => {
-    it("should return last invoice number", async () => {
+    it("should send sales point and voucher type inside Auth", async () => {
       const mockResponse = {
         FEXGetLast_CMPResult: { FEXResult_LastCMP: { Cbte_nro: 42 } },
       };
@@ -134,14 +134,48 @@ describe("FexRepository", () => {
         mockResponse,
       ] as never);
 
-      const input = { Cbte_Tipo: 19, Pto_venta: 1 };
-      const result = await repository.getLastCmp(input as never);
+      const result = await repository.getLastCmp({
+        Cbte_Tipo: 19,
+        Pto_venta: 1,
+      });
 
       expect(result).toEqual(mockResponse);
       expect(mockSoapClient.FEXGetLast_CMPAsync).toHaveBeenCalledWith({
-        ...input,
-        ...expectedAuth,
+        Auth: { ...expectedAuth.Auth, Pto_venta: 1, Cbte_Tipo: 19 },
       });
+      // soap serializes keys as inserted: credentials first, as in the WSDL
+      const [{ Auth }] = mockSoapClient.FEXGetLast_CMPAsync.mock
+        .calls[0] as unknown as [{ Auth: object }];
+      expect(Object.keys(Auth)).toEqual([
+        "Token",
+        "Sign",
+        "Cuit",
+        "Pto_venta",
+        "Cbte_Tipo",
+      ]);
+    });
+
+    it("should not let request fields override the credentials", async () => {
+      mockSoapClient.FEXGetLast_CMPAsync.mockResolvedValue([{}] as never);
+
+      // Call the authenticated proxy directly: getLastCmp only forwards Pto_venta/Cbte_Tipo
+      const client = await repository["getClient"]();
+      await client.FEXGetLast_CMPAsync({
+        Auth: { Token: "other", Pto_venta: 1, Cbte_Tipo: 19 },
+      } as never);
+
+      expect(mockSoapClient.FEXGetLast_CMPAsync).toHaveBeenCalledWith({
+        Auth: { ...expectedAuth.Auth, Pto_venta: 1, Cbte_Tipo: 19 },
+      });
+      const [{ Auth }] = mockSoapClient.FEXGetLast_CMPAsync.mock
+        .calls[0] as unknown as [{ Auth: object }];
+      expect(Object.keys(Auth)).toEqual([
+        "Token",
+        "Sign",
+        "Cuit",
+        "Pto_venta",
+        "Cbte_Tipo",
+      ]);
     });
   });
 

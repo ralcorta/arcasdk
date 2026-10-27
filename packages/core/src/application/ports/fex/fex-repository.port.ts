@@ -3,7 +3,7 @@ import {
   IFEXAuthorizeOutput,
   IFEXGetCMPInput,
   IFEXGetCMPOutput,
-  IFEXGetLast_CMPInput,
+  IFexLastCmpInput,
   IFEXGetLast_CMPOutput,
   IFEXGetLast_IDInput,
   IFEXGetLast_IDOutput,
@@ -46,7 +46,7 @@ export interface IFexRepositoryPort {
   getCmp(input: IFEXGetCMPInput): Promise<IFEXGetCMPOutput>;
 
   
-  getLastCmp(input: IFEXGetLast_CMPInput): Promise<IFEXGetLast_CMPOutput>;
+  getLastCmp(input: IFexLastCmpInput): Promise<IFEXGetLast_CMPOutput>;
 
   
   getLastId(input: IFEXGetLast_IDInput): Promise<IFEXGetLast_IDOutput>;

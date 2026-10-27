@@ -235,6 +235,7 @@ Guía detallada: [Facturación de exportación](/services/facturacion_electronic
 | Método | Descripción |
 | ------ | ----------- |
 | `dummy()` | Estado del servicio |
+| `createNextVoucher(voucher)` | Asigna `Id` y número, y autoriza comprobante de exportación |
 | `authorize(input)` | Autoriza comprobante de exportación |
 | `getCmp(input)` | Consulta comprobante por ID |
 | `getLastCmp(input)` | Último comprobante autorizado |

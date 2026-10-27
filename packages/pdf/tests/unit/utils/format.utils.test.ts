@@ -54,6 +54,10 @@ describe("format.utils", () => {
       expect(formatCurrency(100, "DOL")).toBe("US$ 100,00");
     });
 
+    it("should use € for 060 (EUR)", () => {
+      expect(formatCurrency(100, "060")).toBe("€ 100,00");
+    });
+
     it("should use $ for PES", () => {
       expect(formatCurrency(200, "PES")).toBe("$ 200,00");
     });

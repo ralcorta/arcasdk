@@ -39,6 +39,7 @@ El método principal para generar una factura y obtener el CAE.
 | `Tributos`   | Tributo[]  | _(opcional)_ Tributos adicionales            |
 | `CbtesAsoc`  | CbteAsoc[] | _(opcional)_ Comprobantes asociados (NC/ND)  |
 | `PeriodoAsoc` | `{ FchDesde, FchHasta }` | _(opcional/nulo)_ Periodo asociado (NC/ND). Alternativa a `CbtesAsoc` |
+| `Actividades` | `{ Id }[]` | _(opcional)_ Actividades del emisor vinculadas al comprobante (ver [Actividades](#actividades-del-comprobante)) |
 
 ### Tipos de Comprobante (`CbteTipo`)
 
@@ -192,6 +193,26 @@ const invoice = await arca.electronicBillingService.createNextVoucher({
   Iva: [{ Id: 5, BaseImp: 100, Importe: 21 }],
 });
 ```
+
+---
+
+## Actividades del Comprobante
+
+`getActivities()` devuelve las actividades vigentes del emisor, es decir, del CUIT con el que se autentica el SDK. Usá esos códigos en `Actividades` para vincular el comprobante a una o más actividades.
+
+```ts
+const { resultGet } = await arca.electronicBillingService.getActivities();
+// resultGet?.actividadesTipo: [{ id: 620100, orden: 1, desc: "..." }, ...]
+
+const invoice = await arca.electronicBillingService.createNextVoucher({
+  // ...mismos campos que en el ejemplo anterior
+  Actividades: [{ Id: 620100 }], // id de getActivities() que corresponde a este comprobante
+});
+```
+
+- El SDK envía `Actividades` como `<Actividades><Actividad><Id>…</Id></Actividad></Actividades>`, que es lo que espera ARCA.
+- El campo es opcional, pero ARCA lo valida (códigos 10218 a 10231). Para algunas actividades, como la cárnica o la harinera, rechaza el comprobante si falta.
+- Solo se aceptan actividades del emisor. Para ver las actividades de otro CUIT, por ejemplo del receptor, usá el padrón: [alcance 5](./consulta_padron_alcance_5.md) o [constancia de inscripción](./consulta_padron_constancia_inscripcion.md).
 
 ---
 

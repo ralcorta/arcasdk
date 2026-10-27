@@ -76,6 +76,10 @@ describe("voucher.constants", () => {
     it("should map DOL to US$", () => {
       expect(CURRENCY_SYMBOL["DOL"]).toBe("US$");
     });
+
+    it("should map 060 (EUR) to €", () => {
+      expect(CURRENCY_SYMBOL["060"]).toBe("€");
+    });
   });
 
   describe("CURRENCY_NAME", () => {
@@ -85,6 +89,10 @@ describe("voucher.constants", () => {
 
     it("should map DOL to full name", () => {
       expect(CURRENCY_NAME["DOL"]).toBe("DÓLARES ESTADOUNIDENSES (USD)");
+    });
+
+    it("should map 060 (EUR) to full name", () => {
+      expect(CURRENCY_NAME["060"]).toBe("EUROS (EUR)");
     });
   });
 });

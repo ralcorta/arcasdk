@@ -137,7 +137,10 @@ describeOrSkip(
 
     describe("FEXGetLast_CMP", () => {
       it("getLastCmp devuelve resultado definido", async () => {
-        const result = await arca.wsfexService.getLastCmp({});
+        const result = await arca.wsfexService.getLastCmp({
+          Pto_venta: 1,
+          Cbte_Tipo: 19,
+        });
         expect(result).toBeDefined();
         expect(result.FEXGetLast_CMPResult).toBeDefined();
       });

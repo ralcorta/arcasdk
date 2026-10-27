@@ -340,6 +340,7 @@ describe("ElectronicBillingRepository", () => {
                 CbtesAsoc: undefined,
                 Compradores: undefined,
                 Opcionales: undefined,
+                Actividades: undefined,
                 CAEA: "12345678901234",
                 PeriodoAsoc: undefined,
               },
@@ -656,6 +657,45 @@ describe("ElectronicBillingRepository", () => {
               FECAEDetRequest: [
                 expect.objectContaining({
                   PeriodoAsoc: undefined,
+                }),
+              ],
+            },
+          }),
+        }),
+      );
+    });
+
+    it("should wrap Actividades in Actividad when provided", async () => {
+      const mockVoucher = {
+        toDTO: jest.fn().mockReturnValue({
+          ...data,
+          PtoVta: 1,
+          CbteTipo: 1,
+          CbteDesde: 1,
+          CbteHasta: 1,
+          Actividades: [{ Id: 620100 }, { Id: 471100 }],
+        }),
+      } as never;
+
+      mockSoapClient.FECAESolicitarAsync.mockResolvedValue([
+        {
+          FECAESolicitarResult: {
+            FeDetResp: { FECAEDetResponse: [{ Resultado: "A" }] },
+          },
+        },
+      ] as never);
+
+      await repository.createVoucher(mockVoucher);
+
+      expect(mockSoapClient.FECAESolicitarAsync).toHaveBeenCalledWith(
+        expect.objectContaining({
+          FeCAEReq: expect.objectContaining({
+            FeDetReq: {
+              FECAEDetRequest: [
+                expect.objectContaining({
+                  Actividades: {
+                    Actividad: [{ Id: 620100 }, { Id: 471100 }],
+                  },
                 }),
               ],
             },

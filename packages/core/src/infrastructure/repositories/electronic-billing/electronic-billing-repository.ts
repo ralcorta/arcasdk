@@ -156,6 +156,9 @@ export class ElectronicBillingRepository
       Opcionales: voucherData.Opcionales
         ? { Opcional: voucherData.Opcionales }
         : undefined,
+      Actividades: voucherData.Actividades
+        ? { Actividad: voucherData.Actividades }
+        : undefined,
     };
   }
 
