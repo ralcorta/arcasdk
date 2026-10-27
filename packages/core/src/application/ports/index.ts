@@ -2,6 +2,7 @@ export * from "./authentication";
 export * from "./electronic-billing";
 export * from "./register";
 export * from "./ct";
+export * from "./cdc";
 export * from "./fecred";
 export * from "./fex";
 export * from "./generic/generic-repository.port";

@@ -16,6 +16,8 @@ interface MockSoapClient extends Client {
   consultarTiposComprobantesAsync: jest.Mock;
   FEXGetPARAM_Cbte_TipoAsync: jest.Mock;
   FEXDummyAsync: jest.Mock;
+  ComprobanteDummyAsync: jest.Mock;
+  ComprobantesTipoConsultarAsync: jest.Mock;
 }
 
 describe("GenericRepository", () => {
@@ -32,6 +34,8 @@ describe("GenericRepository", () => {
       consultarTiposComprobantesAsync: jest.fn(),
       FEXGetPARAM_Cbte_TipoAsync: jest.fn(),
       FEXDummyAsync: jest.fn(),
+      ComprobanteDummyAsync: jest.fn(),
+      ComprobantesTipoConsultarAsync: jest.fn(),
       setEndpoint: jest.fn(),
       describe: jest.fn().mockReturnValue({
         Service: {
@@ -42,6 +46,7 @@ describe("GenericRepository", () => {
           ServiceSoap12: {
             testMethod: { input: { Auth: {} } },
             FEXGetPARAM_Cbte_Tipo: { input: { Auth: {} } },
+            ComprobantesTipoConsultar: { input: { Auth: {} } },
           },
         },
       }),
@@ -247,6 +252,42 @@ describe("GenericRepository", () => {
 
       expect(result).toEqual(mockParamResponse);
       expect(mockSoapClient.FEXGetPARAM_Cbte_TipoAsync).toHaveBeenCalledWith({
+        Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
+      });
+    });
+
+    it("should exclude ComprobanteDummy from auth and inject Auth for other WSCDC methods", async () => {
+      const mockDummyResponse = { ComprobanteDummyResult: {} };
+      mockSoapClient.ComprobanteDummyAsync.mockResolvedValue([
+        mockDummyResponse,
+      ]);
+
+      await repository.call(ArcaServiceNames.WSCDC, "ComprobanteDummy", {});
+      expect(SoapClient.prototype.createClient).toHaveBeenCalledWith(
+        WsdlPaths.WSCDC_TEST,
+        expect.objectContaining({ keepAlive: false }),
+      );
+      expect(SoapClient.prototype.setEndpoint).toHaveBeenCalledWith(
+        mockSoapClient,
+        Endpoints.WSCDC_TEST,
+      );
+      expect(mockSoapClient.ComprobanteDummyAsync).toHaveBeenCalledWith({});
+
+      const mockTiposResponse = { ComprobantesTipoConsultarResult: {} };
+      mockSoapClient.ComprobantesTipoConsultarAsync.mockResolvedValue([
+        mockTiposResponse,
+      ]);
+
+      const result = await repository.call(
+        ArcaServiceNames.WSCDC,
+        "ComprobantesTipoConsultar",
+        {},
+      );
+
+      expect(result).toEqual(mockTiposResponse);
+      expect(
+        mockSoapClient.ComprobantesTipoConsultarAsync,
+      ).toHaveBeenCalledWith({
         Auth: { Token: "token", Sign: "sign", Cuit: 12345678901 },
       });
     });

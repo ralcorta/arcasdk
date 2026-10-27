@@ -43,6 +43,10 @@ export class GenericRepository
       createOptions.forceSoap12Headers = serviceConfig.forceSoap12Headers;
     }
 
+    if (serviceConfig?.keepAlive !== undefined) {
+      createOptions.keepAlive = serviceConfig.keepAlive;
+    }
+
     const { client, soapVersion } = await this.createSoapClient(
       wsdlName,
       createOptions,

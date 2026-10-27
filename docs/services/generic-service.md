@@ -58,6 +58,7 @@ Estos servicios tienen WSDL, endpoint y mapeo de autenticación configurados en 
 | `WSFEX` | `wsfex` | Facturación de exportación |
 | `WSFECRED` | `wsfecred` | Factura de crédito MiPyMEs |
 | `WSCT` | `wsct` | Comprobantes T de turismo |
+| `WSCDC` | `wscdc` | Constatación de comprobantes |
 | `WSSR_PADRON_FOUR` | `ws_sr_padron_a4` | Padrón alcance 4 |
 | `WSSR_PADRON_FIVE` | `ws_sr_padron_a5` | Padrón alcance 5 |
 | `WSSR_PADRON_TEN` | `ws_sr_padron_a10` | Padrón alcance 10 |

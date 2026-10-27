@@ -3,6 +3,8 @@ import type { SoapRuntimeValue } from "@infrastructure/utils/soap-runtime";
 
 export interface EngineConfig {
   useHttpsAgent?: boolean;
+  // false: en Node usa un https.Agent propio sin keep-alive en lugar del agente global.
+  keepAlive?: boolean;
   runtime: SoapRuntimeValue;
   
   requestOptions?: IOptions;

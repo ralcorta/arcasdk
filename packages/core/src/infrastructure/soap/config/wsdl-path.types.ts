@@ -27,6 +27,9 @@ export const WsdlPaths = {
 
   WSCT: "wsct-production.wsdl",
   WSCT_TEST: "wsct.wsdl",
+
+  WSCDC: "wscdc-production.wsdl",
+  WSCDC_TEST: "wscdc.wsdl",
 } as const;
 
 export type WsdlPath = (typeof WsdlPaths)[keyof typeof WsdlPaths];

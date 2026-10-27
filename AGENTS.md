@@ -4,10 +4,10 @@ Monorepo TypeScript para integrar Web Services de **ARCA** (ex AFIP) en Node.js.
 
 ## Paquetes publicados
 
-| Paquete         | Uso                                                                                      |
-| --------------- | ---------------------------------------------------------------------------------------- |
-| `@arcasdk/core` | WSAA, facturación electrónica (WSFE), padrones, FCE, WSFEX, WSCT, servicio genérico SOAP |
-| `@arcasdk/pdf`  | PDF de comprobantes (A, B, C, E, M)                                                      |
+| Paquete         | Uso                                                                                             |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| `@arcasdk/core` | WSAA, facturación electrónica (WSFE), padrones, FCE, WSFEX, WSCT, WSCDC, servicio genérico SOAP |
+| `@arcasdk/pdf`  | PDF de comprobantes (A, B, C, E, M)                                                             |
 
 **Importante:** el paquete legacy `afip.ts` en npm es la versión anterior. El desarrollo actual es `@arcasdk/core`.
 
@@ -52,6 +52,7 @@ const taxpayer = await arca.registerScopeFourService.getTaxpayerDetails(20111111
 | `wsfexService`                    | WSFEX — exportación                   |
 | `wsfecredService`                 | WSFECRED — factura de crédito MiPyMEs |
 | `wsctService`                     | WSCT — comprobantes T de turismo      |
+| `wscdcService`                    | WSCDC — constatación de comprobantes  |
 | `registerScopeFourService`        | Padrón alcance 4                      |
 | `registerScopeFiveService`        | Padrón alcance 5                      |
 | `registerScopeTenService`         | Padrón alcance 10                     |

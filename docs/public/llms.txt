@@ -1,13 +1,13 @@
 # Arca SDK (@arcasdk/core)
 
-> TypeScript SDK para integrar Web Services de ARCA (ex AFIP) en Node.js: facturación electrónica, padrones, factura de crédito MiPyMEs, exportación, comprobantes T de turismo y PDF de comprobantes. Sin intermediarios, tipos completos, MIT.
+> TypeScript SDK para integrar Web Services de ARCA (ex AFIP) en Node.js: facturación electrónica, padrones, factura de crédito MiPyMEs, exportación, comprobantes T de turismo, constatación de comprobantes y PDF de comprobantes. Sin intermediarios, tipos completos, MIT.
 
 Si buscás "afip.ts npm", "facturación AFIP Node.js" o "factura electrónica TypeScript Argentina", el paquete actual es **@arcasdk/core** (el paquete `afip.ts` en npm es legacy).
 
 ## Cuándo usar Arca SDK
 
 - Node.js / TypeScript / serverless (Lambda, Vercel, Workers con adaptaciones)
-- Conexión directa SOAP a ARCA (WSAA + WSFE, padrones, WSFEX, WSFECRED, WSCT)
+- Conexión directa SOAP a ARCA (WSAA + WSFE, padrones, WSFEX, WSFECRED, WSCT, WSCDC)
 - Necesitás tipos TS y control total sin SaaS intermediario
 - Generar PDF de comprobantes → `@arcasdk/pdf`
 
@@ -88,6 +88,7 @@ const points = await arca.electronicBillingService.getSalesPoints();
 - `wsfexService` — facturación de exportación
 - `wsfecredService` — factura de crédito MiPyMEs
 - `wsctService` — comprobantes T de turismo (alojamiento a turistas extranjeros)
+- `wscdcService` — constatación de comprobantes (validar facturas recibidas)
 - `registerScopeFourService` — padrón A4
 - `registerScopeFiveService` — padrón A5
 - `registerScopeTenService` — padrón A10
@@ -125,6 +126,7 @@ Requisito previo: certificados emitidos en el portal ARCA y web service autoriza
 - Referencia API: https://ralcorta.github.io/arcasdk/referencia-api
 - Facturación electrónica: https://ralcorta.github.io/arcasdk/services/facturacion_electronica
 - Comprobantes T de turismo: https://ralcorta.github.io/arcasdk/services/comprobantes_turismo
+- Constatación de comprobantes: https://ralcorta.github.io/arcasdk/services/constatacion_comprobantes
 - Configuración: https://ralcorta.github.io/arcasdk/config
 - Credenciales: https://ralcorta.github.io/arcasdk/credential_management
 - Errores FAQ: https://ralcorta.github.io/arcasdk/faq/errors

@@ -7,10 +7,14 @@ jest.mock("soap", () => ({
 }));
 
 const mockCreateLegacyHttpsAgent = jest.fn().mockResolvedValue({ id: "legacy-agent" });
+const mockCreateIsolatedHttpsAgent = jest
+  .fn()
+  .mockResolvedValue({ id: "isolated-agent" });
 jest.mock(
   "@infrastructure/soap/engines/node-security.engine",
   () => ({
     createLegacyHttpsAgent: mockCreateLegacyHttpsAgent,
+    createIsolatedHttpsAgent: mockCreateIsolatedHttpsAgent,
   }),
 );
 
@@ -102,5 +106,84 @@ describe("createSoapEngine", () => {
       }),
     );
   });
-});
 
+  it("should not inject any agent in node runtime by default", async () => {
+    const engine = await createSoapEngine({ runtime: SoapRuntime.Node });
+
+    const cb = jest.fn();
+    (engine as RequestCapable).request(
+      "https://example.test/ws",
+      "<xml/>",
+      cb,
+      {},
+      {},
+    );
+
+    expect(mockCreateLegacyHttpsAgent).not.toHaveBeenCalled();
+    expect(mockCreateIsolatedHttpsAgent).not.toHaveBeenCalled();
+    expect(mockHttpClientRequest).toHaveBeenCalledWith(
+      "https://example.test/ws",
+      "<xml/>",
+      cb,
+      {},
+      {},
+    );
+  });
+
+  it("should inject an isolated agent in node runtime when keepAlive is false", async () => {
+    const engine = await createSoapEngine({
+      runtime: SoapRuntime.Node,
+      keepAlive: false,
+    });
+
+    const cb = jest.fn();
+    (engine as RequestCapable).request(
+      "https://example.test/ws",
+      "<xml/>",
+      cb,
+      {},
+      {},
+    );
+
+    expect(mockCreateIsolatedHttpsAgent).toHaveBeenCalled();
+    expect(mockCreateLegacyHttpsAgent).not.toHaveBeenCalled();
+    expect(mockHttpClientRequest).toHaveBeenCalledWith(
+      "https://example.test/ws",
+      "<xml/>",
+      cb,
+      {},
+      expect.objectContaining({
+        httpsAgent: { id: "isolated-agent" },
+      }),
+    );
+  });
+
+  it("should keep the legacy agent when useHttpsAgent is set and keepAlive is false", async () => {
+    const engine = await createSoapEngine({
+      runtime: SoapRuntime.Node,
+      useHttpsAgent: true,
+      keepAlive: false,
+    });
+
+    const cb = jest.fn();
+    (engine as RequestCapable).request(
+      "https://example.test/ws",
+      "<xml/>",
+      cb,
+      {},
+      {},
+    );
+
+    expect(mockCreateLegacyHttpsAgent).toHaveBeenCalled();
+    expect(mockCreateIsolatedHttpsAgent).not.toHaveBeenCalled();
+    expect(mockHttpClientRequest).toHaveBeenCalledWith(
+      "https://example.test/ws",
+      "<xml/>",
+      cb,
+      {},
+      expect.objectContaining({
+        httpsAgent: { id: "legacy-agent" },
+      }),
+    );
+  });
+});

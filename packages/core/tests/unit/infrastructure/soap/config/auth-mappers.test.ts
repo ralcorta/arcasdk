@@ -1,4 +1,5 @@
 import {
+  cdcExcludeMethods,
   fexExcludeMethods,
   mapAuthRequest,
   mapFecredAuth,
@@ -48,5 +49,9 @@ describe("auth-mappers", () => {
 
   it("wsctExcludeMethods excludes dummy", () => {
     expect(wsctExcludeMethods).toEqual(["dummy"]);
+  });
+
+  it("cdcExcludeMethods excludes ComprobanteDummy", () => {
+    expect(cdcExcludeMethods).toEqual(["ComprobanteDummy"]);
   });
 });

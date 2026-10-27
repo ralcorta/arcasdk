@@ -30,6 +30,14 @@ type WsfexDummyResponse = {
   };
 };
 
+type WscdcDummyResponse = {
+  ComprobanteDummyResult?: {
+    AppServer?: string;
+    DbServer?: string;
+    AuthServer?: string;
+  };
+};
+
 type WsctDummyResponse = {
   dummyReturn?: {
     appserver?: string;
@@ -158,6 +166,20 @@ describeOrSkip(
       const dedicatedResult = await arca.wsfexService.dummy();
 
       expect(genericResult.FEXDummyResult).toEqual(dedicatedResult.FEXDummyResult);
+    });
+
+    it("wscdc ComprobanteDummy vía genérico coincide con wscdcService.dummy", async () => {
+      const genericResult = (await arca.genericService.call(
+        ArcaServiceNames.WSCDC,
+        "ComprobanteDummy",
+        {},
+      )) as WscdcDummyResponse;
+
+      const dedicatedResult = await arca.wscdcService.dummy();
+
+      expect(genericResult.ComprobanteDummyResult).toEqual(
+        dedicatedResult.ComprobanteDummyResult,
+      );
     });
 
     // WSCT dummy endpoint returns [common_001] Acceso Denegado in homologación

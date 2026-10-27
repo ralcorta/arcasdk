@@ -32,4 +32,5 @@ export const createArcaForRegisterHomologation = createArcaForHomologation;
 export const createArcaForWsfexHomologation = createArcaForHomologation;
 export const createArcaForWsfecredHomologation = createArcaForHomologation;
 export const createArcaForWsctHomologation = createArcaForHomologation;
+export const createArcaForWscdcHomologation = createArcaForHomologation;
 export const createArcaForGenericHomologation = createArcaForHomologation;

@@ -43,6 +43,17 @@ const SERVICE_CHECKS = [
     }),
   },
   {
+    id: "wscdc",
+    name: "Constatación de comprobantes",
+    serviceName: ArcaServiceNames.WSCDC,
+    method: "ComprobanteDummy",
+    parseServers: (result) => ({
+      app: result?.ComprobanteDummyResult?.AppServer,
+      db: result?.ComprobanteDummyResult?.DbServer,
+      auth: result?.ComprobanteDummyResult?.AuthServer,
+    }),
+  },
+  {
     id: "padron_a4",
     name: "Padrón alcance 4",
     serviceName: ArcaServiceNames.WSSR_PADRON_FOUR,

@@ -3,6 +3,7 @@ import { WSAuthParam } from "@application/types/auth.types";
 import { WsdlPath, WsdlPaths } from "./wsdl-path.types";
 import { Endpoint, Endpoints } from "./endpoints.types";
 import {
+  cdcExcludeMethods,
   fexExcludeMethods,
   mapFecredAuth,
   mapPadronAuth,
@@ -17,6 +18,7 @@ export interface ArcaServiceConfig {
   endpointProduction: Endpoint;
   endpointTesting: Endpoint;
   forceSoap12Headers?: boolean;
+  keepAlive?: boolean;
   authMapper?: (auth: WSAuthParam) => Record<string, unknown>;
   excludeMethods?: string[];
 }
@@ -59,6 +61,14 @@ export const ArcaServiceConfigs: Partial<
     forceSoap12Headers: false,
     authMapper: mapWsctAuth,
     excludeMethods: wsctExcludeMethods,
+  },
+  [ArcaServiceNames.WSCDC]: {
+    wsdlProduction: WsdlPaths.WSCDC,
+    wsdlTesting: WsdlPaths.WSCDC_TEST,
+    endpointProduction: Endpoints.WSCDC,
+    endpointTesting: Endpoints.WSCDC_TEST,
+    keepAlive: false,
+    excludeMethods: cdcExcludeMethods,
   },
   [ArcaServiceNames.WSSR_INSCRIPTION_PROOF]: {
     wsdlProduction: WsdlPaths.WSSR_INSCRIPTION_PROOF,

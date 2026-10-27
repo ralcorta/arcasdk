@@ -8,6 +8,7 @@ export interface ISoapOptions {
   forceSoap12Headers?: boolean;
   wsdlContent?: string;
   disableCache?: boolean;
+  keepAlive?: boolean;
   
   runtime?: SoapRuntimeValue;
   

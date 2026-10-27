@@ -29,6 +29,7 @@ const arca = new Arca({
 | `wsfexService` | WSFEX | [Facturación de exportación](/services/facturacion_electronica_exportacion) |
 | `wsfecredService` | WSFECRED | [Factura de crédito MiPyMEs](/services/factura_credito_electronica) |
 | `wsctService` | WSCT | [Comprobantes T de turismo](/services/comprobantes_turismo) |
+| `wscdcService` | WSCDC | [Constatación de comprobantes](/services/constatacion_comprobantes) |
 | `registerScopeFourService` | Padrón A4 | [Padrón alcance 4](/services/consulta_padron_alcance_4) |
 | `registerScopeFiveService` | Padrón A5 | [Padrón alcance 5](/services/consulta_padron_alcance_5) |
 | `registerScopeTenService` | Padrón A10 | [Padrón alcance 10](/services/consulta_padron_alcance_10) |
@@ -45,6 +46,7 @@ await arca.electronicBillingService.getServerStatus();
 await arca.wsfexService.dummy();
 await arca.wsfecredService.consultarTiposRetenciones();
 await arca.wsctService.consultarTiposComprobantes();
+await arca.wscdcService.getComprobantesTipo();
 await arca.registerScopeFourService.getTaxpayerDetails(20111111111);
 await arca.genericService.call(ArcaServiceNames.WSFE, "FEDummy", {});
 ```
@@ -73,6 +75,7 @@ await arca.genericService.call(
 | `WSFEX` | `wsfex` |
 | `WSFECRED` | `wsfecred` |
 | `WSCT` | `wsct` |
+| `WSCDC` | `wscdc` |
 | `WSSR_PADRON_FOUR` | `ws_sr_padron_a4` |
 | `WSSR_PADRON_FIVE` | `ws_sr_padron_a5` |
 | `WSSR_PADRON_TEN` | `ws_sr_padron_a10` |
@@ -154,7 +157,7 @@ Detalle de engines y TLS: [Engines SOAP](/soap-engines) y [`useHttpsAgent`](/con
 El paquete reexporta tipos de la capa de aplicación para armar requests y tipar responses:
 
 - **Facturación:** `IVoucher`, `INextVoucher`, `CreateVoucherResultDto`, DTOs de parámetros y consultas WSFE.
-- **WSFEX / WSFECRED / WSCT:** tipos bajo los namespaces exportados desde `@arcasdk/core` (p. ej. inputs/outputs de `wsfexService`, `wsfecredService` y `wsctService`).
+- **WSFEX / WSFECRED / WSCT / WSCDC:** tipos bajo los namespaces exportados desde `@arcasdk/core` (p. ej. inputs/outputs de `wsfexService`, `wsfecredService`, `wsctService` y `wscdcService`).
 - **Padrón:** DTOs en el módulo de register exportado.
 - **Auth:** `ILoginCredentials`, entidades de dominio como `AccessTicket` y `Voucher` cuando se exportan.
 
@@ -313,6 +316,21 @@ Guía detallada: [Comprobantes T de turismo](/services/comprobantes_turismo)
 | `consultarTiposCuenta()` | Tipos de cuenta |
 | `consultarTiposDatosAdicionales()` | Datos adicionales |
 | `consultarNovedades()` | Novedades del servicio |
+
+---
+
+### `wscdcService` (WSCDC)
+
+Guía detallada: [Constatación de comprobantes](/services/constatacion_comprobantes)
+
+| Método | Descripción |
+| ------ | ----------- |
+| `dummy()` | Estado del servicio (sin `Auth`) |
+| `constatarComprobante(input)` | Verifica un comprobante (CAE, CAEA o CAI) contra ARCA |
+| `getComprobantesModalidad()` | Modalidades de autorización |
+| `getComprobantesTipo()` | Tipos de comprobante |
+| `getDocumentosTipo()` | Tipos de documento del receptor |
+| `getOpcionalesTipo()` | Tipos de datos opcionales |
 
 ---
 

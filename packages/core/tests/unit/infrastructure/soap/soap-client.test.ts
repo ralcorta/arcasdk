@@ -195,6 +195,20 @@ describe("SoapClient", () => {
       );
     });
 
+    it("should pass keepAlive to the engine factory and not to node-soap", async () => {
+      const wsdlName = "wscdc.wsdl";
+
+      await soapClient.createClient<Client>(wsdlName, { keepAlive: false });
+
+      expect(mockCreateSoapEngine).toHaveBeenCalledWith(
+        expect.objectContaining({ keepAlive: false }),
+      );
+      expect(MockedCreateClientAsync).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.not.objectContaining({ keepAlive: expect.anything() }),
+      );
+    });
+
     it("should throw error if WSDL not found", async () => {
       const wsdlName = "non-existent.wsdl";
       MockedGetWsdlString.mockReturnValue(undefined);

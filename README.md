@@ -50,7 +50,7 @@
 
 | Paquete                          | Descripción                                                           |                                                                                                                     |
 | :------------------------------- | :-------------------------------------------------------------------- | :-----------------------------------------------------------------------------------------------------------------: |
-| [`@arcasdk/core`](packages/core) | SDK para Web Services de ARCA: facturación electrónica, padrones, FCE, WSCT | [![npm](https://img.shields.io/npm/v/@arcasdk/core.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/core) |
+| [`@arcasdk/core`](packages/core) | SDK para Web Services de ARCA: facturación electrónica, padrones, FCE, WSCT, WSCDC | [![npm](https://img.shields.io/npm/v/@arcasdk/core.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/core) |
 | [`@arcasdk/pdf`](packages/pdf)   | Generador de PDFs para comprobantes electrónicos (A, B, C, E, M)      |  [![npm](https://img.shields.io/npm/v/@arcasdk/pdf.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/pdf)  |
 
 ---

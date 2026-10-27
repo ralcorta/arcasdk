@@ -49,6 +49,10 @@ export const Endpoints = {
   
   WSCT: "https://serviciosjava.afip.gob.ar/wsct/CTService",
   WSCT_TEST: "https://fwshomo.afip.gov.ar/wsct/CTService",
+
+  
+  WSCDC: "https://servicios1.afip.gov.ar/WSCDC/service.asmx",
+  WSCDC_TEST: "https://wswhomo.afip.gov.ar/WSCDC/service.asmx",
 } as const;
 
 export type Endpoint = (typeof Endpoints)[keyof typeof Endpoints];

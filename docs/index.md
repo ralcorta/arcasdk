@@ -187,6 +187,13 @@ const invoice = await arca.electronicBillingService.createVoucher({
       <p>WSCT: autorización de comprobantes clase T para alojamiento a turistas extranjeros.</p>
       <span class="home-service-arrow">Ver documentación →</span>
     </a>
+    <a href="/services/constatacion_comprobantes" class="home-service">
+      <span class="home-service-tag">Constatación</span>
+      <div class="home-service-icon">✅</div>
+      <h3>Constatación de Comprobantes</h3>
+      <p>WSCDC: verificá contra ARCA que una factura recibida exista y coincida con su CAE, CAEA o CAI.</p>
+      <span class="home-service-arrow">Ver documentación →</span>
+    </a>
     <a href="/services/consulta_padron_alcance_4" class="home-service">
       <span class="home-service-tag padron">Padrón</span>
       <div class="home-service-icon">🔍</div>

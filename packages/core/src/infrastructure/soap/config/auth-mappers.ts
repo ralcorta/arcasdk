@@ -26,3 +26,5 @@ export const padronExcludeMethods = ["dummy"];
 export const fexExcludeMethods = ["FEXDummy"];
 
 export const wsctExcludeMethods = ["dummy"];
+
+export const cdcExcludeMethods = ["ComprobanteDummy"];
