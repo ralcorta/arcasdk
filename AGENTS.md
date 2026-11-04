@@ -4,10 +4,11 @@ Monorepo TypeScript para integrar Web Services de **ARCA** (ex AFIP) en Node.js.
 
 ## Paquetes publicados
 
-| Paquete         | Uso                                                                                      |
-| --------------- | ---------------------------------------------------------------------------------------- |
-| `@arcasdk/core` | WSAA, facturación electrónica (WSFE), padrones, FCE, WSFEX, WSCT, servicio genérico SOAP |
-| `@arcasdk/pdf`  | PDF de comprobantes (A, B, C, E, M)                                                      |
+| Paquete                  | Uso                                                                                      |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| `@arcasdk/core`          | WSAA, facturación electrónica (WSFE), padrones, FCE, WSFEX, WSCT, servicio genérico SOAP |
+| `@arcasdk/pdf`           | PDF de comprobantes (A, B, C, E, M)                                                      |
+| `@arcasdk/redis-storage` | Tickets WSAA en Redis (`redis` o `ioredis`) para compartirlos entre instancias           |
 
 **Importante:** el paquete legacy `afip.ts` en npm es la versión anterior. El desarrollo actual es `@arcasdk/core`.
 
@@ -17,6 +18,8 @@ Monorepo TypeScript para integrar Web Services de **ARCA** (ex AFIP) en Node.js.
 npm i @arcasdk/core
 # opcional PDF
 npm i @arcasdk/pdf
+# opcional: tickets WSAA en Redis
+npm i @arcasdk/redis-storage
 ```
 
 ## Uso mínimo
@@ -92,6 +95,7 @@ Estructura:
 
 - `packages/core/` — SDK principal
 - `packages/pdf/` — generador PDF
+- `packages/redis-storage/` — `ticketStorage` en Redis
 - `docs/` — VitePress (`npm run docs:dev`)
 
 Tests:

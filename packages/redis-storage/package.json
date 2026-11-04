@@ -1,0 +1,52 @@
+{
+  "name": "@arcasdk/redis-storage",
+  "version": "0.1.0",
+  "description": "Arca TypeScript SDK - Redis ticket storage for WSAA access tickets",
+  "source": "src/index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rimraf lib tsconfig.build.tsbuildinfo && npx tsc -p tsconfig.build.json",
+    "test": "jest --config jest.config.js",
+    "test:unit": "jest --config jest.config.js",
+    "test:coverage": "jest --config jest.config.js --coverage",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@arcasdk/core": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.8.0",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.0.0",
+    "typescript": "^6.0.3"
+  },
+  "author": "valiuLab",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ralcorta/arcasdk.git",
+    "directory": "packages/redis-storage"
+  },
+  "bugs": {
+    "url": "https://github.com/ralcorta/arcasdk/issues"
+  },
+  "homepage": "https://github.com/ralcorta/arcasdk#readme",
+  "files": [
+    "lib/**/*"
+  ],
+  "keywords": [
+    "arca",
+    "afip",
+    "wsaa",
+    "redis",
+    "ioredis",
+    "ticket-storage",
+    "serverless"
+  ]
+}

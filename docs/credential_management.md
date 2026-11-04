@@ -94,7 +94,7 @@ interface ITicketStoragePort {
 }
 ```
 
-Para Redis o una base de datos, creá una clase que implemente estos métodos y pasala en `ticketStorage`. La SDK seguirá renovando tickets automáticamente cuando expiren.
+Para Redis está el paquete [`@arcasdk/redis-storage`](/packages/redis-storage). Para una base de datos u otro almacenamiento, creá una clase que implemente estos métodos y pasala en `ticketStorage`. La SDK seguirá renovando tickets automáticamente cuando expiren.
 
 ::: tip Diferencia con modo manual
 Con `ticketStorage` no necesitás `handleTicket: true` ni pasar `credentials` en cada `new Arca()`. La SDK lee y escribe tickets a través de tu adapter.

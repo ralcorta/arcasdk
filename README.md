@@ -52,6 +52,7 @@
 | :------------------------------- | :-------------------------------------------------------------------- | :-----------------------------------------------------------------------------------------------------------------: |
 | [`@arcasdk/core`](packages/core) | SDK para Web Services de ARCA: facturación electrónica, padrones, FCE, WSCT | [![npm](https://img.shields.io/npm/v/@arcasdk/core.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/core) |
 | [`@arcasdk/pdf`](packages/pdf)   | Generador de PDFs para comprobantes electrónicos (A, B, C, E, M)      |  [![npm](https://img.shields.io/npm/v/@arcasdk/pdf.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/pdf)  |
+| [`@arcasdk/redis-storage`](packages/redis-storage) | Almacenamiento de tickets WSAA en Redis para compartirlos entre instancias | [![npm](https://img.shields.io/npm/v/@arcasdk/redis-storage.svg?style=flat-square)](https://npmjs.org/package/@arcasdk/redis-storage) |
 
 ---
 

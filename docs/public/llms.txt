@@ -104,7 +104,7 @@ const points = await arca.electronicBillingService.getSalesPoints();
 | `key` | Clave privada PEM (contenido o ruta) |
 | `production` | `true` = producción, `false`/omitido = homologación |
 | `ticketPath` | Carpeta para cachear tickets WSAA (Node.js) |
-| `ticketStorage` | Storage custom (Redis, DB) para serverless |
+| `ticketStorage` | Storage custom (DB) o `RedisTicketStorage` de `@arcasdk/redis-storage` para serverless o varias instancias |
 | `handleTicket` | `true` = vos pasás credenciales WSAA ya obtenidas |
 
 Requisito previo: certificados emitidos en el portal ARCA y web service autorizado para ese certificado.

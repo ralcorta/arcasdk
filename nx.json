@@ -68,7 +68,8 @@
     "projectsRelationship": "independent",
     "projects": [
       "core",
-      "pdf"
+      "pdf",
+      "redis-storage"
     ],
     "version": {
       "conventionalCommits": true,
