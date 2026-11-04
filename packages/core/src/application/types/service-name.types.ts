@@ -7,6 +7,7 @@ export const ArcaServiceNames = {
   WSSR_PADRON_FIVE: "ws_sr_padron_a5",
   WSSR_PADRON_TEN: "ws_sr_padron_a10",
   WSSR_PADRON_THIRTEEN: "ws_sr_padron_a13",
+  WSSR_PADRON_HUNDRED: "ws_sr_padron_a100",
   WSFEX: "wsfex",
   WSFECRED: "wsfecred",
   WSCT: "wsct",

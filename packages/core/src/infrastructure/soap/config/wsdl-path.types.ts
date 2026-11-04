@@ -19,6 +19,9 @@ export const WsdlPaths = {
   WSSR_PADRON_THIRTEEN: "ws_sr_padron_a13-production.wsdl",
   WSSR_PADRON_THIRTEEN_TEST: "ws_sr_padron_a13.wsdl",
 
+  WSSR_PADRON_HUNDRED: "ws_sr_padron_a100-production.wsdl",
+  WSSR_PADRON_HUNDRED_TEST: "ws_sr_padron_a100.wsdl",
+
   WSFEX: "wsfex-production.wsdl",
   WSFEX_TEST: "wsfex.wsdl",
 

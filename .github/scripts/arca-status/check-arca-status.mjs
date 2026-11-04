@@ -87,6 +87,17 @@ const SERVICE_CHECKS = [
     }),
   },
   {
+    id: "padron_a100",
+    name: "Padrón alcance 100",
+    serviceName: ArcaServiceNames.WSSR_PADRON_HUNDRED,
+    method: "dummy",
+    parseServers: (result) => ({
+      app: result?.return?.appserver,
+      db: result?.return?.dbserver,
+      auth: result?.return?.authserver,
+    }),
+  },
+  {
     id: "constancia_inscripcion",
     name: "Constancia de inscripción",
     serviceName: ArcaServiceNames.WSSR_INSCRIPTION_PROOF,

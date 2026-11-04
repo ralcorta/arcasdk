@@ -3,10 +3,14 @@ import {
   TaxpayerDetailsDto,
   TaxpayersDetailsDto,
   TaxIDByDocumentResultDto,
+  ParameterCollectionDto,
 } from "@application/dto/register";
 
-export interface IRegisterBaseRepositoryPort {
+export interface IRegisterServerStatusRepositoryPort {
   getServerStatus(): Promise<ServerStatus>;
+}
+
+export interface IRegisterBaseRepositoryPort extends IRegisterServerStatusRepositoryPort {
   getTaxpayerDetails(identifier: number): Promise<TaxpayerDetailsDto | null>;
 }
 
@@ -25,3 +29,9 @@ export interface IRegisterScopeThirteenRepositoryPort extends IRegisterBaseRepos
 }
 
 export interface IRegisterInscriptionProofRepositoryPort extends IRegisterBatchRepositoryPort {}
+
+export interface IRegisterScopeHundredRepositoryPort extends IRegisterServerStatusRepositoryPort {
+  getParameterCollection(
+    collectionName: string,
+  ): Promise<ParameterCollectionDto | null>;
+}

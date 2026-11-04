@@ -61,6 +61,17 @@ describe("arca-service-config", () => {
     expect(config?.excludeMethods).toBe(padronExcludeMethods);
   });
 
+  it("configures padron A100 with shared padron auth and dummy exclusion", () => {
+    const config = getArcaServiceConfig(ArcaServiceNames.WSSR_PADRON_HUNDRED);
+    expect(config?.wsdlProduction).toBe(WsdlPaths.WSSR_PADRON_HUNDRED);
+    expect(config?.wsdlTesting).toBe(WsdlPaths.WSSR_PADRON_HUNDRED_TEST);
+    expect(config?.endpointProduction).toBe(Endpoints.WSSR_PADRON_HUNDRED);
+    expect(config?.endpointTesting).toBe(Endpoints.WSSR_PADRON_HUNDRED_TEST);
+    expect(config?.forceSoap12Headers).toBe(false);
+    expect(config?.authMapper).toBe(mapPadronAuth);
+    expect(config?.excludeMethods).toBe(padronExcludeMethods);
+  });
+
   it("includes all bundled services except FE_DUMMY", () => {
     const keys = Object.keys(ArcaServiceConfigs);
     expect(keys).toContain(ArcaServiceNames.WSFE);

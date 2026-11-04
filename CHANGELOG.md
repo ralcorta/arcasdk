@@ -3,6 +3,7 @@
 ### 🚀 Features
 
 - add `wsctService` for class T tourism vouchers (WSCT): authorization, queries and catalogs via `arca.wsctService` — see [Comprobantes T de turismo](https://ralcorta.github.io/arcasdk/services/comprobantes_turismo)
+- add `registerScopeHundredService` for padrón A100 parameter tables (`ws_sr_padron_a100`): `getParameterCollection(collectionName)` returns provinces, address types, legal forms and the rest of the padrón catalogs — see [Padrón alcance 100](https://ralcorta.github.io/arcasdk/services/consulta_padron_alcance_100)
 - add `PeriodoAsoc` on WSFE vouchers so credit/debit notes can satisfy ARCA error 10197 without a specific `CbtesAsoc`
 
 ### 🩹 Fixes

@@ -1,8 +1,8 @@
-import { IRegisterBaseRepositoryPort } from "@application/ports/register/register-repository.ports";
+import { IRegisterServerStatusRepositoryPort } from "@application/ports/register/register-repository.ports";
 import { ServerStatus } from "@application/dto/register";
 
 export class GetRegisterServerStatusUseCase {
-  constructor(private readonly repository: IRegisterBaseRepositoryPort) {}
+  constructor(private readonly repository: IRegisterServerStatusRepositoryPort) {}
 
   
   async execute(): Promise<ServerStatus> {
