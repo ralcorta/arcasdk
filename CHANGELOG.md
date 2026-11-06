@@ -7,6 +7,7 @@
 
 ### 🩹 Fixes
 
+- `useHttpsAgent: true` resolves `dh key too small` by excluding DHE (`DEFAULT:!DHE`) instead of lowering TLS security: it no longer sets `SECLEVEL=1`, a 512-bit DH minimum, TLS 1.2 only or unsafe legacy renegotiation
 - `getVoucherInfo` returns the ARCA errors (`{ errors }`) instead of `null` when `FECompConsultar` answers without `ResultGet`, so a voucher that does not exist (602) can be told from an invalid request (10202, 10204); it still returns `null` when ARCA answers nothing at all. **Migration:** callers that treated any falsy/`null` result as “voucher not found” must now check `errors.err` for code `602` (see [Información de Comprobante](https://ralcorta.github.io/arcasdk/services/facturacion_electronica.html#informacion-de-comprobante))
 - stop pre-validating WSFE `ImpTotal` in the SDK (ARCA error 10048), so fiscally valid exempt vouchers such as Recibo A (`ImpOpEx = ImpTotal`) are no longer rejected before the SOAP call
 - expand `isTypeA/B/C/M()` to Recibos, NC and ND of that class, so type-C IVA rules apply to Recibo/NC/ND C and not only Factura C (`CbteTipo` 11)
