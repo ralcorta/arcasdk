@@ -15,10 +15,10 @@ La detección se realiza con `detectSoapRuntime` y el engine se crea con `create
 
 ## Compatibilidad con ARCA/AFIP
 
-- En **Node.js** se puede habilitar compatibilidad TLS legacy (`useHttpsAgent`) para servidores que lo requieran.
+- En **Node.js** se puede habilitar compatibilidad TLS (`useHttpsAgent`) para servidores con una clave Diffie-Hellman débil: excluye las suites DHE.
 - En **Universal** (Workers, edge, etc.) no existe `https.Agent`; dependen de la pila TLS del runtime.
 
-Si un endpoint requiere renegociación o parámetros TLS legacy específicos, el entorno recomendado es Node.js.
+Si un endpoint requiere parámetros TLS específicos, el entorno recomendado es Node.js.
 
 ## Inyectar un engine personalizado
 

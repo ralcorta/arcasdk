@@ -117,6 +117,10 @@ Debes habilitar este parámetro (`true`) solo si:
 - ⚠️ Experimentas errores de conexión SSL relacionados con parámetros Diffie-Hellman débiles
 - ⚠️ Te conectas a **servidores ARCA/AFIP legacy** que requieren configuración SSL legacy
 
+#### Qué cambia
+
+`useHttpsAgent: true` usa un agente HTTPS que excluye las suites DHE (`ciphers: "DEFAULT:!DHE"`). WSFE y WSFEX de producción (`servicios1.afip.gov.ar`) prefieren DHE con una clave de 1024 bits, que OpenSSL rechaza con `SECLEVEL=2`, el nivel de Debian 13 y otras distribuciones. Sin DHE negocian otra suite y el resto de la validación TLS queda como está. En ese host la conexión pierde forward secrecy, porque ARCA no ofrece ECDHE ahí.
+
 #### Errores TLS en Producción
 
 Para errores como `EPROTO`, `dh key too small` o fallas de handshake TLS en producción, consulta la sección especial de errores frecuentes:

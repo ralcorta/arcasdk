@@ -1,21 +1,14 @@
-import { MIN_DH_SIZE_LEGACY } from "@infrastructure/constants";
+/**
+ * `servicios1.afip.gov.ar` (production WSFE and WSFEX) prefers DHE with a 1024-bit key, which OpenSSL rejects with
+ * `dh key too small` at `SECLEVEL=2`. Without DHE it negotiates another suite and the rest of TLS validation stays as is.
+ */
+export const LEGACY_HTTPS_CIPHERS = "DEFAULT:!DHE";
 
 export async function createLegacyHttpsAgent() {
-  
-  const [https, crypto] = await Promise.all([
-    import("https"),
-    import("crypto"),
-  ]);
-
-  const secureOptions =
-    crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT |
-    crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION;
+  const https = await import("https");
 
   return new https.Agent({
     rejectUnauthorized: true,
-    minDHSize: MIN_DH_SIZE_LEGACY,
-    ciphers: "DEFAULT@SECLEVEL=1",
-    secureProtocol: "TLSv1_2_method",
-    secureOptions,
+    ciphers: LEGACY_HTTPS_CIPHERS,
   });
 }

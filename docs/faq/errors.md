@@ -113,6 +113,7 @@ const arca = new Arca({
 
 ### Importante
 
+- `useHttpsAgent: true` usa un agente HTTPS que excluye las suites DHE (`ciphers: "DEFAULT:!DHE"`). WSFE y WSFEX de producción (`servicios1.afip.gov.ar`) prefieren DHE con una clave de 1024 bits, que OpenSSL rechaza con `SECLEVEL=2`, el nivel de Debian 13 y otras distribuciones. Sin DHE negocian otra suite y el resto de la validación TLS queda como está. En ese host la conexión pierde forward secrecy, porque ARCA no ofrece ECDHE ahí.
 - `useHttpsAgent: true` solo ajusta la capa TLS
 - El entorno (producción/homologación) lo define únicamente `production`
 - Si omitís `production: true`, el SDK sigue apuntando a homologación
