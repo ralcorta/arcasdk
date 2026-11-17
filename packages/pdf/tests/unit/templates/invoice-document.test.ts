@@ -626,24 +626,61 @@ describe("InvoiceDocument", () => {
     });
 
     describe("Factura C totals", () => {
-      it("should show Importe Neto Gravado", () => {
+      it("should show Subtotal instead of Importe Neto Gravado", () => {
         const data = makeInvoice({
           cbteLetra: "C",
           cbteTipo: 11,
           importeIva: 0,
         });
         const html = InvoiceDocument({ data, options: baseOptions });
-        expect(html).toContain("Importe Neto Gravado:");
+        expect(html).toContain(
+          '<span class="totals-label">Subtotal:</span><span class="totals-value">$\u00a050.000,00</span>',
+        );
+        expect(html).not.toContain("Importe Neto Gravado");
       });
 
-      it("should NOT show Otros Tributos table", () => {
+      it("should show Importe Otros Tributos and Importe Total", () => {
+        const data = makeInvoice({
+          cbteLetra: "C",
+          cbteTipo: 11,
+          importeIva: 0,
+          importeTributos: 1500,
+        });
+        const html = InvoiceDocument({ data, options: baseOptions });
+        expect(html).toContain(
+          '<span class="totals-label">Importe Otros Tributos:</span><span class="totals-value">$\u00a01.500,00</span>',
+        );
+        expect(html).toContain("Importe Total:");
+      });
+
+      it("should use the same totals for Nota de Crédito C", () => {
+        const data = makeInvoice({
+          cbteLetra: "C",
+          cbteTipo: 13,
+          importeIva: 0,
+        });
+        const html = InvoiceDocument({ data, options: baseOptions });
+        expect(html).toContain('<span class="totals-label">Subtotal:</span>');
+        expect(html).not.toContain("Importe Neto Gravado");
+      });
+
+      it("should NOT show Otros Tributos table or IVA breakdown", () => {
         const data = makeInvoice({
           cbteLetra: "C",
           cbteTipo: 11,
           importeIva: 0,
         });
         const html = InvoiceDocument({ data, options: baseOptions });
-        expect(html).not.toContain("Otros Tributos");
+        expect(html).not.toContain('class="tributos-table"');
+        expect(html).not.toContain("IVA 21%");
+      });
+    });
+
+    describe("Factura M totals", () => {
+      it("should keep Importe Neto Gravado", () => {
+        const data = makeInvoice({ cbteLetra: "M", cbteTipo: 51 });
+        const html = InvoiceDocument({ data, options: baseOptions });
+        expect(html).toContain("Importe Neto Gravado:");
       });
     });
 

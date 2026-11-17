@@ -11,6 +11,7 @@
 - stop pre-validating WSFE `ImpTotal` in the SDK (ARCA error 10048), so fiscally valid exempt vouchers such as Recibo A (`ImpOpEx = ImpTotal`) are no longer rejected before the SOAP call
 - expand `isTypeA/B/C/M()` to Recibos, NC and ND of that class, so type-C IVA rules apply to Recibo/NC/ND C and not only Factura C (`CbteTipo` 11)
 - map XSD restricted numeric simpleTypes to `number` in generated SOAP DTOs (WSCT, WSFECRED)
+- **pdf:** class C vouchers (Factura, NC and ND C, FCE C) show `Subtotal` and `Importe Otros Tributos` in the totals instead of `Importe Neto Gravado`, as in the PDF from ARCA (Comprobantes en línea)
 
 ## 1.2.0 (2026-05-11)
 
