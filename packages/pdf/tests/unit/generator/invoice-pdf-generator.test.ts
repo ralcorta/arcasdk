@@ -696,7 +696,7 @@ describe("InvoicePdfGenerator", () => {
       expect(html).not.toContain("Subtotal s/IVA");
     });
 
-    it("should show Importe Neto Gravado in totals (not Subtotal)", () => {
+    it("should show Subtotal in totals (not Importe Neto Gravado)", () => {
       const html = InvoiceDocument({
         data: facturaC,
         options: {
@@ -706,7 +706,8 @@ describe("InvoicePdfGenerator", () => {
           copy: "ORIGINAL",
         },
       });
-      expect(html).toContain("Importe Neto Gravado:");
+      expect(html).toContain('<span class="totals-label">Subtotal:</span>');
+      expect(html).not.toContain("Importe Neto Gravado");
     });
 
     it("should NOT show Otros Tributos table", () => {
@@ -719,7 +720,7 @@ describe("InvoicePdfGenerator", () => {
           copy: "ORIGINAL",
         },
       });
-      expect(html).not.toContain("Otros Tributos");
+      expect(html).not.toContain('class="tributos-table"');
     });
 
     it("should NOT show IVA breakdown", () => {

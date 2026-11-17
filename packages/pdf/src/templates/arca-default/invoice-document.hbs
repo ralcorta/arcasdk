@@ -312,6 +312,16 @@
         <span class="total-box-value">{{formatCurrency data.importeTotal data.moneda}}</span>
       </div>
     </div>
+    {{else if (eq data.cbteLetra "C")}}
+    <div class="bottom-col-right">
+      <div class="totals-row"><span class="totals-label">Subtotal:</span><span class="totals-value">{{formatCurrency data.importeNetoGravado data.moneda}}</span></div>
+      <div class="totals-row"><span class="totals-label">Importe Otros Tributos:</span><span class="totals-value">{{formatCurrency (default data.importeTributos 0) data.moneda}}</span></div>
+      <div class="total-box">
+        <span class="total-box-label">Importe Total:</span>
+        <span class="total-box-value">{{formatCurrency data.importeTotal data.moneda}}</span>
+      </div>
+      <div class="son-text">Son {{currencyName data.moneda}} {{numberToWords data.importeTotal}}</div>
+    </div>
     {{else}}
     <div class="bottom-col-right">
       <div class="totals-row"><span class="totals-label">Importe Neto Gravado:</span><span class="totals-value">{{formatCurrency data.importeNetoGravado data.moneda}}</span></div>

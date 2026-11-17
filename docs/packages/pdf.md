@@ -431,7 +431,7 @@ stream.pipe(res);
 
 - 6 columnas (sin %IVA)
 - Sin tabla de tributos
-- Importe Neto Gravado + Importe Total
+- Subtotal + Importe Otros Tributos + Importe Total (no se discrimina IVA)
 - Leyenda "Son PESOS ARGENTINOS..."
 
 ### Factura E (Exportación)
